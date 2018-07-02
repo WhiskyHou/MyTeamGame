@@ -1,0 +1,234 @@
+{
+	"mission": [
+		{
+			"id": "1",
+			"name": "捡起屠龙宝刀",
+			"needLevel": "1",
+			"fromNpcId": "1",
+			"toNpcId": "2",
+			"canAcceptConfig": [
+				"欢迎来到王者大陆",
+				"你的等级还很低",
+				"攻击力也相当低",
+				"所以我不能给你任务",
+				"你先找到屠龙刀",
+				"然后去找嬴政"
+			],
+			"canSubmitConfig": [
+				"恭喜你找到了屠龙刀",
+				"给你升一级作为奖励",
+				"你回去找高渐离领下一个任务"
+			],
+			"going": "pickEquipment",
+			"goingFunc": "屠龙刀",
+			"reward": "levelUp"
+		},
+		{
+			"id": "2",
+			"name": "寻找大师",
+			"needLevel": "2",
+			"fromNpcId": "1",
+			"toNpcId": "3",
+			"canAcceptConfig": [
+				"你怎么回来了？",
+				"屠龙刀找到了？",
+				"谁？嬴政让你回来的？",
+				"哇我想锤他",
+				"算了这次去找诸葛亮大师吧",
+				"记住了这次别回来找我"
+			],
+			"canSubmitConfig": [
+				"怎么又有菜鸡来了",
+				"你就是想升级吧",
+				"唉给你升一级好了",
+				"什么？你还要？",
+				"要点碧莲行不……",
+				"从哪来的回哪去"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "诸葛亮",
+			"reward": "levelUp"
+		},
+		{
+			"id": "3",
+			"name": "打败美队",
+			"needLevel": "3",
+			"fromNpcId": "1",
+			"toNpcId": "1",
+			"canAcceptConfig": [
+				"大师没告诉你去干什么？",
+				"唉其它npc是真的懒",
+				"什么事都要找我",
+				"你帮我个帮吧，去打败一个美队",
+				"就一个啊"
+			],
+			"canSubmitConfig": [
+				"嗯不错",
+				"小伙子有前途",
+				"你是不是以为我会奖励你升级",
+				"怎么可能呢，我要给你降一级",
+				"2333333……"
+			],
+			"going": "fightWithMonster",
+			"goingFunc": "队长",
+			"reward": "levelDown"
+		},
+		{
+			"id": "4",
+			"name": "寻找扁鹊的药瓶",
+			"needLevel": "2",
+			"fromNpcId": "5",
+			"toNpcId": "5",
+			"canAcceptConfig": [
+				"生存还是死亡这是个问题",
+				"年轻人我看出你很失落",
+				"别放弃治疗",
+				"你帮我找到药瓶我会帮你的"
+			],
+			"canSubmitConfig": [
+				"你可真棒",
+				"这个药就送你了",
+				"有了他你可以起死回生"
+			],
+			"going": "pickEquipment",
+			"goingFunc": "扁鹊的药瓶",
+			"reward": "levelUp"
+		},
+		{
+			"id": "5",
+			"name": "成为诸葛亮弟子",
+			"needLevel": "3",
+			"fromNpcId": "4",
+			"toNpcId": "3",
+			"canAcceptConfig": [
+				"你怎么到我这来了",
+				"你能帮我做什么呢",
+				"你好像什么也不会",
+				"你还是学习学习吧"
+			],
+			"canSubmitConfig": [
+				"哦我可爱的小菜鸡",
+				"你是来学习技能的是吧"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "诸葛亮",
+			"reward": "levelUp"
+		},
+		{
+			"id": "6",
+			"name": "肃清地图",
+			"needLevel": "4",
+			"fromNpcId": "3",
+			"toNpcId": "3",
+			"canAcceptConfig": [
+				"让我看看你现在的实力",
+				"去把所有的美队干掉"
+			],
+			"canSubmitConfig": [
+				"嗯还不错",
+				"那我就勉为其难的收下你了"
+			],
+			"going": "fightWithMonster",
+			"goingFunc": "队长",
+			"reward": "levelUp"
+		},
+		{
+			"id": "7",
+			"name": "和扁鹊聊天",
+			"needLevel": "5",
+			"fromNpcId": "3",
+			"toNpcId": "5",
+			"canAcceptConfig": [
+				"我还有点事先走了",
+				"你找扁鹊聊聊"
+			],
+			"canSubmitConfig": [
+				"你觉得这地图大么",
+				"我感觉很宽敞",
+				"你走走看"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "扁鹊",
+			"reward": "levelUp"
+		},
+		{
+			"id": "8",
+			"name": "和嬴政聊天",
+			"needLevel": "6",
+			"fromNpcId": "5",
+			"toNpcId": "2",
+			"canAcceptConfig": [
+				"可是不知道别人怎么想的",
+				"你找嬴政聊聊"
+			],
+			"canSubmitConfig": [
+				"你觉得这地图大么",
+				"我感觉很太小了",
+				"你走走看"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "嬴政",
+			"reward": "levelUp"
+		},
+		{
+			"id": "9",
+			"name": "和王昭君聊天",
+			"needLevel": "7",
+			"fromNpcId": "2",
+			"toNpcId": "4",
+			"canAcceptConfig": [
+				"是吧是不是特别小",
+				"开大招直接就飞出去了",
+				"你问问王昭君她肯定也这么想"
+			],
+			"canSubmitConfig": [
+				"刚才那俩傻子……",
+				"真的是无聊",
+				"不想说话"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "王昭君",
+			"reward": "levelUp"
+		},
+		{
+			"id": "10",
+			"name": "找诸葛亮谈话",
+			"needLevel": "8",
+			"fromNpcId": "4",
+			"toNpcId": "3",
+			"canAcceptConfig": [
+				"别天天这么无聊",
+				"诸葛亮最近有个项目",
+				"你去找他问问吧"
+			],
+			"canSubmitConfig": [
+				"高渐离这个版本太强了",
+				"你要是帮我去削了他",
+				"我就把项目交给你"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "诸葛亮",
+			"reward": "levelUp"
+		},
+		{
+			"id": "11",
+			"name": "砍高渐离的大招",
+			"needLevel": "9",
+			"fromNpcId": "3",
+			"toNpcId": "1",
+			"canAcceptConfig": [
+				"我把扇子借给你",
+				"去吧加油"
+			],
+			"canSubmitConfig": [
+				"都这么皮的么",
+				"我好不容易强一个版本还削我",
+				"你听我的",
+				"关游戏跑路吧"
+			],
+			"going": "talkWithNpc",
+			"goingFunc": "高渐离",
+			"reward": "levelUp"
+		}
+	]
+}

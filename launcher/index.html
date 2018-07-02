@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title id="title">Engine Launcher</title>
+</head>
+
+<body>
+    <div style="display: flex">
+        <div id="historyTab">
+            <p id="historyTabTitle">历史项目</p>
+        </div>
+        <div id="openTab">
+            <p id="openTabTitle">打开项目</p>
+            <button id="openTabButton">open</button>
+        </div>
+        <div id="newTab">
+            <p id="newTabTitle">新建项目</p>
+            <input type="text" id="projName">
+            <br>
+            <input type="text" id="projPath">
+            <button id="createProj" type="button">create</button>
+        </div>
+    </div>
+
+
+    <script>
+        require('./out/launcher.js')
+    </script>
+</body>
+
+</html>

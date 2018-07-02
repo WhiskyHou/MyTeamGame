@@ -1,0 +1,39 @@
+/* 
+input[type="text"],#btn1,#btn2{
+    box-sizing: border-box;
+    text-align:left;
+    font-size:1.4em;
+    height:2.7em;
+    width:20em;
+    border-radius:4px;
+    border:2px solid #0e7ee7;
+    color:#474a4e;
+    display:block;
+    outline:0;
+    padding:0 1em;
+    text-decoration:none;
+    
+    float: left;
+}
+input[type="text"]:focus{
+    border:2px solid #ff7496;
+}
+button{
+    -webkit-appearance: none;
+    height: 2.7em;
+    width: 4em;
+    padding-left: 20px;
+}
+p{
+    padding-top: 40px;
+    padding-bottom: 40px;
+} */
+
+#newTab,#openTab{
+    margin-left: 40px;
+}
+
+#projPath{
+    margin-top: 10px;
+    margin-right: 5px;
+}
