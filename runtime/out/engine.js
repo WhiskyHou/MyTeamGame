@@ -281,6 +281,11 @@ var Bitmap = /** @class */ (function (_super) {
     return Bitmap;
 }(DisplayObject));
 /**
+ * 按钮
+ *
+ */
+// TODO
+/**
  * 文本
  *
  * 继承 DisplayObject
