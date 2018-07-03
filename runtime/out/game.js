@@ -94,7 +94,7 @@ var MenuState = /** @class */ (function (_super) {
             // npcManager.init();
             fsm.replaceState(new PlayingState());
         };
-        _this.title = new TextField('点击开始', 100, 300, 20);
+        _this.title = new TextField('点击这里开始', 100, 300, 20);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
