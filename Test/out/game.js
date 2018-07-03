@@ -23,6 +23,13 @@ lv5Set.addEquipID(5.3);
 let m = new Monster();
 m.makeDrop();
 */
-// let equipManager = new EquipmentManager();
-// equipManager.init();
-// console.log(equipManager.equipList.length)
+/* 装备配置文件载入测试
+let equipManager = new EquipmentManager();
+equipManager.init();
+*/
+var equipManager = new EquipmentManager();
+equipManager.init(function () {
+    equipSetInit(equipManager);
+    var m = new Monster();
+    m.makeDrop();
+});

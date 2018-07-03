@@ -17,6 +17,11 @@ var EquipmentSet = /** @class */ (function () {
         var count = this.idSet.length - 1;
         var ran = this.getRandom(0, count);
         var equipID = this.idSet[ran];
+        for (var i = 0; i < equipManager.equipList.length; i++) {
+            if (equipManager.equipList[i].id == equipID) {
+                console.log(equipManager.equipList[i].name);
+            }
+        }
         return equipID;
     };
     EquipmentSet.prototype.getRandom = function (n, m) {
@@ -67,3 +72,24 @@ var lv2Set = new lv2EquipSet();
 var lv3Set = new lv3EquipSet();
 var lv4Set = new lv4EquipSet();
 var lv5Set = new lv5EquipSet();
+function equipSetInit(equipManager) {
+    for (var i = 0; i < equipManager.equipList.length; i++) {
+        switch (equipManager.equipList[i].quality) {
+            case 1:
+                lv1Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 2:
+                lv2Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 3:
+                lv3Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 4:
+                lv4Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 5:
+                lv5Set.addEquipID(equipManager.equipList[i].id);
+                break;
+        }
+    }
+}
