@@ -6,7 +6,7 @@ class User{
 
     private equipments:Equipment[];
     private _attack=0;
-    private _health=0;
+    private hp=0;
     private _criticalPer=0;
 
     private _suitDefensePer=0;
@@ -17,7 +17,7 @@ class User{
        this.initProperty();
         for(var i=0;i<this.equipments.length;i++){
             this._attack+= this.equipments[i].attack;
-            this._health+=this.equipments[i].health;
+            this.hp+=this.equipments[i].health;
             this._criticalPer+=this.equipments[i].criticalPer;
         }
         this.checkSuit();
@@ -38,7 +38,7 @@ class User{
 
     private initProperty(){
         this._attack=this._originDamage;
-        this._health=this._originHealth;
+        this.hp=this._originHealth;
         this._criticalPer=0;
 
         this._suitDefensePer=0;
@@ -68,8 +68,8 @@ class User{
     }
 
     public beDamaged(dmg:number){
-        this._health-= dmg*(1-this._suitDefensePer);
-        if(this._health<=0){
+        this.hp-= dmg*(1-this._suitDefensePer);
+        if(this.hp<=0){
             this.die();
         }
     }
