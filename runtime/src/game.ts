@@ -95,6 +95,7 @@ class MenuState extends State {
 
     onEnter(): void {
         stage.addChild(this.title);
+        stage.addChild(this.title2);
         stage.addEventListener("onClick", this.onClick);
     }
     onUpdate(): void {

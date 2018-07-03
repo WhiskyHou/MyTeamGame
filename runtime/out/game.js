@@ -100,6 +100,7 @@ var MenuState = /** @class */ (function (_super) {
     }
     MenuState.prototype.onEnter = function () {
         stage.addChild(this.title);
+        stage.addChild(this.title2);
         stage.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
