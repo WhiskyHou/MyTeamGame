@@ -10,7 +10,7 @@ class User {
     private _criticalPer = 0;
 
     private _suitDefensePer = 0;
-    private _suitDamagePer = 0;
+    private suitAttackPer = 0;
     private _suitCriticalPer = 0;
 
     public changeEquipments() {
@@ -24,43 +24,44 @@ class User {
     }
 
     //TODO:套装属性检测
-    private checkSuit(){
+    private checkSuit() {
         let suitIDSearchArray: Array<Array<any>> = new Array<Array<any>>();
         //检索是否有套装属性加成
         //遍历装备整理成一个二维数组
         let nowSuitIDNum = 1;//当前存了几个suitID,上来先把武器给存了
-        suitIDSearchArray[0][nowSuitIDNum-1] = 0;
-        suitIDSearchArray[1][nowSuitIDNum-1] = 1;
-        for(var i=1;i<this.equipments.length;i++){
-            let isStored : boolean = false;
-            for(var j=0;j<nowSuitIDNum;j++){
-                if(this.equipments[i].suitID == suitIDSearchArray[0][j]){
+        suitIDSearchArray[0][nowSuitIDNum - 1] = 0;
+        suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+        for (var i = 1; i < this.equipments.length; i++) {
+            let isStored: boolean = false;
+            for (var j = 0; j < nowSuitIDNum; j++) {
+                if (this.equipments[i].suitID == suitIDSearchArray[0][j]) {
                     suitIDSearchArray[1][j]++;
                     isStored = true;
                 }
             }
-            if(!isStored){
+            if (!isStored) {
                 nowSuitIDNum++;
-                suitIDSearchArray[0][nowSuitIDNum-1] = this.equipments[i].suitID;
-                suitIDSearchArray[1][nowSuitIDNum-1] = 1; 
+                suitIDSearchArray[0][nowSuitIDNum - 1] = this.equipments[i].suitID;
+                suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
             }
         }
         //判断是否有叠加属性
-        for(var i=0;i<nowSuitIDNum;i++){
-            if(suitIDSearchArray[1][i] > 2){
+        for (var i = 0; i < nowSuitIDNum; i++) {
+            if (suitIDSearchArray[1][i] > 2) {
                 this.addSuitProperty(i);
-            }   
+            }
         }
     }
-    private addSuitProperty(suitIDNum : number){
-        for(var i=0;i<this.equipments.length;i++){
-            if(this.equipments[i].suitID == suitIDNum){
+
+    private addSuitProperty(suitIDNum: number) {
+        for (var i = 0; i < this.equipments.length; i++) {
+            if (this.equipments[i].suitID == suitIDNum) {
                 this._suitDefensePer += this.equipments[i].suitDefensePer;
-                this._suitDamagePer += this.equipments[i].suitAttackPer;
+                this.suitAttackPer += this.equipments[i].suitAttackPer;
                 this._suitCriticalPer += this.equipments[i].suitCriticalPer;
             }
         }
-        
+
     }
 
     public dressEquip(equip: Equipment) {
@@ -74,7 +75,7 @@ class User {
         this._criticalPer = 0;
 
         this._suitDefensePer = 0;
-        this._suitDamagePer = 0;
+        this.suitAttackPer = 0;
         this._suitCriticalPer = 0;
     }
 
@@ -87,7 +88,7 @@ class User {
     }
 
     private normalDamage(): number {
-        return this._attack * (1 + this._suitDamagePer) * this.damageFlow();
+        return this._attack * (1 + this.suitAttackPer) * this.damageFlow();
     }
 
     private damageFlow(): number {

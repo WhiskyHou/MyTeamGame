@@ -31,7 +31,7 @@ equipManager.init();
 let equipManager = new EquipmentManager();
 equipManager.init(() => {
     equipSetInit(equipManager);
-    let m = new Monster();
+    let m = new Monster(1, "2", 3, 4);
     m.makeDrop();
 });
 

@@ -8,6 +8,11 @@ var Equipment = /** @class */ (function () {
         this.health = health;
         this.attack = attack;
         this.criticalPer = criticalPer;
+        //, suitID: number, suitDefensePer: number, suitAttackPer: number, suitCriticalPer: number
+        // this.suitID = suitID;
+        // this.suitDefensePer = suitDefensePer;
+        // this.suitAttackPer = suitAttackPer;
+        // this.suitCriticalPer = suitCriticalPer;
     }
     return Equipment;
 }());

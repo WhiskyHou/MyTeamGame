@@ -130,6 +130,25 @@ var GameMap = /** @class */ (function (_super) {
                     }
                 }
             }
+            var mapMonster = obj.map[0].monster;
+            for (var i = 0; i < mapMonster.length; i++) {
+                var row = mapMonster[i];
+                for (var j = 0; j < row.length; j++) {
+                    var id = row[j];
+                    if (id) {
+                        var monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
+                        var monsterItem = new Monster();
+                        monsterItem.name = '队长';
+                        monsterItem.view = monsterView;
+                        monsterItem.hp = 120;
+                        monsterItem.x = i;
+                        monsterItem.y = j;
+                        var key = i + '_' + j;
+                        _this.monsterConfig[key] = monsterItem;
+                        _this.roleContainer.addChild(monsterView);
+                    }
+                }
+            }
         };
         // for (let item of this.config) {
         //     const img = item.id == GRASS_L ? grassLight : grassDark;

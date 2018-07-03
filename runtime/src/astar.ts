@@ -102,6 +102,7 @@ namespace astar {
             var endX = Math.min(this.numCols - 1, node.x + 1);
             var startY = Math.max(0, node.y - 1);
             var endY = Math.min(this.numRows - 1, node.y + 1);
+            // TODO: 去除斜向走路
             for (var i = startX; i <= endX; i++) {
                 for (var j = startY; j <= endY; j++) {
                     result.push(this.getNode(i, j));
