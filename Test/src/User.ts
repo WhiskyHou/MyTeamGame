@@ -1,10 +1,10 @@
 class User{
 
-    public name;
+    public name:string;
     private _originDamage=20;
     private _originHealth=100;
 
-    private equipments:Equipment[];
+    private equipments:Equipment[]=[];
     private _attack=0;
     private hp=0;
     private _criticalPer=0;
@@ -64,7 +64,7 @@ class User{
         if(ran<=50){
             val=-1;
         }
-        return (1+ 2 * val * Math.random()/1000 ); //伤害浮动幅度为0.8~1.2
+        return (1+ 2 * val * Math.random()/10 ); //伤害浮动幅度为0.8~1.2
     }
 
     public beDamaged(dmg:number){
