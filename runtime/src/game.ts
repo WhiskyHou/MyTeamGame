@@ -89,7 +89,7 @@ class MenuState extends State {
 
     constructor() {
         super();
-        this.title = new TextField('点击开始游戏', 200, 300, 60);
+        this.title = new TextField('点击开始', 100, 300, 20);
     }
 
     onEnter(): void {
