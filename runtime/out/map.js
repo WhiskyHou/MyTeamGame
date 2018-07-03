@@ -74,6 +74,81 @@ var GameMap = /** @class */ (function (_super) {
                     }
                 }
             }
+            var mapNpc = obj.map[0].npc;
+            for (var i = 0; i < mapNpc.length; i++) {
+                var row = mapNpc[i];
+                for (var j = 0; j < row.length; j++) {
+                    var item = row[j];
+                    if (item != 0) {
+                        var id = item;
+                        for (var _i = 0, _a = npcManager.npcList; _i < _a.length; _i++) {
+                            var npc = _a[_i];
+                            if (npc.id == id) {
+                                var npcView = npc.view;
+                                var npcHead = npc.head;
+                                npcView.x = TILE_SIZE * i;
+                                npcView.y = TILE_SIZE * j;
+                                npc.x = i;
+                                npc.y = j;
+                                var key = i + '_' + j;
+                                _this.npcConfig[key] = npc;
+                                _this.roleContainer.addChild(npcView);
+                            }
+                        }
+                    }
+                }
+            }
+            var mapEquip = obj.map[0].equipment;
+            for (var i = 0; i < mapEquip.length; i++) {
+                var row = mapEquip[i];
+                for (var j = 0; j < row.length; j++) {
+                    var id = row[j];
+                    if (id == KILL_DARGON_KNIFE) {
+                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
+                        var equipmentTiem = new Equipment();
+                        equipmentTiem.view = equipmentView;
+                        equipmentTiem.name = '屠龙刀';
+                        equipmentTiem.attack = 35;
+                        equipmentTiem.x = i;
+                        equipmentTiem.y = j;
+                        var key = i + '_' + j;
+                        _this.equipmentConfig[key] = equipmentTiem;
+                        _this.itemContainer.addChild(equipmentView);
+                    }
+                    else if (id == HP_BOTTLE) {
+                        // TODO
+                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, hp_bottle);
+                        var equipmentTiem = new Equipment();
+                        equipmentTiem.view = equipmentView;
+                        equipmentTiem.name = '扁鹊的药瓶';
+                        equipmentTiem.attack = 0;
+                        equipmentTiem.x = i;
+                        equipmentTiem.y = j;
+                        var key = i + '_' + j;
+                        _this.equipmentConfig[key] = equipmentTiem;
+                        _this.itemContainer.addChild(equipmentView);
+                    }
+                }
+            }
+            var mapMonster = obj.map[0].monster;
+            for (var i = 0; i < mapMonster.length; i++) {
+                var row = mapMonster[i];
+                for (var j = 0; j < row.length; j++) {
+                    var id = row[j];
+                    if (id) {
+                        var monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
+                        var monsterItem = new Monster();
+                        monsterItem.name = '队长';
+                        monsterItem.view = monsterView;
+                        monsterItem.hp = 120;
+                        monsterItem.x = i;
+                        monsterItem.y = j;
+                        var key = i + '_' + j;
+                        _this.monsterConfig[key] = monsterItem;
+                        _this.roleContainer.addChild(monsterView);
+                    }
+                }
+            }
         };
         // for (let item of this.config) {
         //     const img = item.id == GRASS_L ? grassLight : grassDark;
