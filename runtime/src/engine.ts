@@ -119,6 +119,22 @@ class CommandPool {
     }
 }
 
+abstract class Behaviour {
+
+    abstract onStart(): void;
+
+    abstract onUpdate(): void;
+
+    abstract onDestory(): void;
+
+}
+
+interface ComponentSystem {
+
+    addComponent(instance: Behaviour): Behaviour;
+    removeComponent(): void;
+}
+
 
 /**
  * 显示对象
@@ -136,7 +152,7 @@ class CommandPool {
  * 
  * 
  */
-abstract class DisplayObject extends EventDispatcher {
+abstract class DisplayObject extends EventDispatcher implements ComponentSystem {
     x: number;
     y: number;
     scaleX: number;
@@ -160,6 +176,15 @@ abstract class DisplayObject extends EventDispatcher {
         this.globalMatrix = new math.Matrix();
         this.parent = null;
         this.visible = true;
+    }
+
+    addComponent(instance: Behaviour) {
+
+        return instance;
+    }
+
+    removeComponent() {
+
     }
 
     draw(context: CanvasRenderingContext2D) {

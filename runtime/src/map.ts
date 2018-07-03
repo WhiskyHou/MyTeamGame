@@ -72,6 +72,63 @@ class GameMap extends DisplayObjectContainer {
                     }
                 }
             }
+
+            const mapNpc = obj.map[0].npc as number[][];
+            for (let i = 0; i < mapNpc.length; i++) {
+                const row = mapNpc[i];
+                for (let j = 0; j < row.length; j++) {
+                    const item = row[j]
+                    if (item != 0) {
+                        const id = item
+                        for (let npc of npcManager.npcList) {
+                            if (npc.id == id) {
+                                const npcView = npc.view;
+                                const npcHead = npc.head;
+                                npcView.x = TILE_SIZE * i;
+                                npcView.y = TILE_SIZE * j;
+                                npc.x = i
+                                npc.y = j
+                                const key = i + '_' + j;
+                                this.npcConfig[key] = npc;
+                                this.roleContainer.addChild(npcView);
+                            }
+                        }
+                    }
+                }
+            }
+
+            const mapEquip = obj.map[0].equipment as number[][];
+            for (let i = 0; i < mapEquip.length; i++) {
+                const row = mapEquip[i];
+                for (let j = 0; j < row.length; j++) {
+                    const id = row[j]
+                    if (id == KILL_DARGON_KNIFE) {
+                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
+                        const equipmentTiem = new Equipment();
+                        equipmentTiem.view = equipmentView;
+                        equipmentTiem.name = '屠龙刀'
+                        equipmentTiem.attack = 35;
+                        equipmentTiem.x = i;
+                        equipmentTiem.y = j;
+                        const key = i + '_' + j;
+                        this.equipmentConfig[key] = equipmentTiem;
+                        this.itemContainer.addChild(equipmentView);
+                    } else if (id == HP_BOTTLE) {
+                        // TODO
+                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, hp_bottle);
+                        const equipmentTiem = new Equipment();
+                        equipmentTiem.view = equipmentView;
+                        equipmentTiem.name = '扁鹊的药瓶'
+                        equipmentTiem.attack = 0;
+                        equipmentTiem.x = i;
+                        equipmentTiem.y = j;
+                        const key = i + '_' + j;
+                        this.equipmentConfig[key] = equipmentTiem;
+                        this.itemContainer.addChild(equipmentView);
+                    }
+                }
+            }
+
         }
 
 

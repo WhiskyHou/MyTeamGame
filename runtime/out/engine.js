@@ -119,6 +119,11 @@ var CommandPool = /** @class */ (function () {
     };
     return CommandPool;
 }());
+var Behaviour = /** @class */ (function () {
+    function Behaviour() {
+    }
+    return Behaviour;
+}());
 /**
  * 显示对象
  * —— 所有可以渲染的对象的基类
@@ -149,6 +154,11 @@ var DisplayObject = /** @class */ (function (_super) {
         _this.visible = true;
         return _this;
     }
+    DisplayObject.prototype.addComponent = function (instance) {
+        return instance;
+    };
+    DisplayObject.prototype.removeComponent = function () {
+    };
     DisplayObject.prototype.draw = function (context) {
         if (!this.visible)
             return;
