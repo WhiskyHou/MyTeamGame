@@ -24,7 +24,6 @@ class User {
     }
 
     //TODO:套装属性检测
-<<<<<<< HEAD
     private checkSuit(){
         let suitIDSearchArray: Array<Array<any>> = new Array<Array<any>>();
         //检索是否有套装属性加成
@@ -60,23 +59,12 @@ class User {
                 this._suitDamagePer += this.equipments[i].suitAttackPer;
                 this._suitCriticalPer += this.equipments[i].suitCriticalPer;
             }
-=======
-    private checkSuit() {
-        let suitNum: number[];
-        for (var i = 0; i < this.equipments.length; i++) {
-
->>>>>>> dd998617d0b2b74aca0a206f9ed66cfbff796f13
         }
         
     }
-<<<<<<< HEAD
-    public dressEquip(equip:Equipment){
-        this.equipments[equip.posID]=equip;
-=======
 
     public dressEquip(equip: Equipment) {
         this.equipments[equip.posID] = equip;
->>>>>>> dd998617d0b2b74aca0a206f9ed66cfbff796f13
         this.changeEquipments();
     }
 
