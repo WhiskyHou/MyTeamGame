@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/WhiskyHou/Engine#readme",
   "devDependencies": {
-    "electron": "^1.8.4"
+    "electron": "^1.8.7"
   }
 }
