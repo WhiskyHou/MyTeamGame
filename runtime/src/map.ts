@@ -72,6 +72,32 @@ class GameMap extends DisplayObjectContainer {
                     }
                 }
             }
+
+            const mapNpc = obj.map[0].npc as number[][];
+            console.log(mapNpc);
+            for (let i = 0; i < mapNpc.length; i++) {
+                const row = mapNpc[i];
+                for (let j = 0; j < row.length; j++) {
+                    const item = row[j]
+                    if (item != 0) {
+                        console.log(111111111)
+                        const id = item
+                        for (let npc of npcManager.npcList) {
+                            if (npc.id == id) {
+                                const npcView = npc.view;
+                                const npcHead = npc.head;
+                                npcView.x = TILE_SIZE * i;
+                                npcView.y = TILE_SIZE * j;
+                                npc.x = i
+                                npc.y = j
+                                const key = i + '_' + j;
+                                this.npcConfig[key] = npc;
+                                this.roleContainer.addChild(npcView);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
