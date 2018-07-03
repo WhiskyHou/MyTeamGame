@@ -134,6 +134,15 @@
 			"health": "0",
 			"attack": "1000",
 			"criticalPer": "20"
+		},
+		{
+			"id": "15",
+			"name": "五级头",
+			"quality": "5",
+			"posID": "1",
+			"health": "1000",
+			"attack": "0",
+			"criticalPer": "0"
 		}
 	]
 }

@@ -3,7 +3,7 @@ class Equipment {
     public id:number;
     public name:string;
     public quality:number;//品质ID：12345
-    public posID:number;//部位ID：武器、头、肩膀、衣服、腰带、护腿
+    public posID:number;//部位ID：0武器、1头、2肩膀、3衣服、4腰带、5护腿
     public health:number;
     public attack:number;
     public criticalPer:number;
