@@ -1,0 +1,49 @@
+{
+	"equip": [
+		{
+			"id": "1",
+			"name": "啊啊之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "2",
+			"name": "你马之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "3",
+			"name": "xx之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "4",
+			"name": "few之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "5",
+			"name": "fewf之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		}
+	]
+}

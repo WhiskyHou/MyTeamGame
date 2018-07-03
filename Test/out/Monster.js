@@ -23,23 +23,23 @@ var Monster = /** @class */ (function () {
     };
     Monster.prototype.equipDrop = function () {
         var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率25% lv1掉率40%
+        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
         if (ran >= 98) {
             // this.curEquipSet.idSet=lv5Set.idSet;
             // return this.curEquipSet.buildEquip();
             return lv5Set.buildEquip();
         }
-        else if (ran < 98 && ran >= 85) {
+        else if (ran < 98 && ran >= 88) {
             // this.curEquipSet.idSet=lv4Set.idSet;
             // return this.curEquipSet.buildEquip();
             return lv4Set.buildEquip();
         }
-        else if (ran < 85 && ran >= 65) {
+        else if (ran < 88 && ran >= 68) {
             // this.curEquipSet.idSet=lv3Set.idSet;
             // return this.curEquipSet.buildEquip();
             return lv3Set.buildEquip();
         }
-        else if (ran < 65 && ran >= 40) {
+        else if (ran < 68 && ran >= 40) {
             // this.curEquipSet.idSet=lv2Set.idSet;
             // return this.curEquipSet.buildEquip();
             return lv2Set.buildEquip();

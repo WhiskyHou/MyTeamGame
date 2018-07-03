@@ -1,4 +1,4 @@
-
+/* 装备掉落测试 
 lv1Set.addEquipID(1.1);
 lv1Set.addEquipID(1.2);
 lv1Set.addEquipID(1.3);
@@ -19,5 +19,13 @@ lv5Set.addEquipID(5.1);
 lv5Set.addEquipID(5.2);
 lv5Set.addEquipID(5.3);
 
-let m =new Monster();
+let m = new Monster();
 m.makeDrop();
+*/
+
+// let equipManager = new EquipmentManager();
+// equipManager.init();
+// console.log(equipManager.equipList.length)
+
+
+
