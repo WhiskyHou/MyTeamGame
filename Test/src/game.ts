@@ -23,9 +23,29 @@ let m = new Monster();
 m.makeDrop();
 */
 
-// let equipManager = new EquipmentManager();
-// equipManager.init();
-// console.log(equipManager.equipList.length)
+/* 装备配置文件载入测试
+let equipManager = new EquipmentManager();
+equipManager.init();
+*/
+
+let equipManager = new EquipmentManager();
+equipManager.init(() => {
+    equipSetInit(equipManager);
+    let m = new Monster();
+    m.makeDrop();
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

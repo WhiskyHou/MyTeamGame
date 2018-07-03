@@ -6,7 +6,7 @@ var EquipmentManager = /** @class */ (function () {
     function EquipmentManager() {
         this.equipList = [];
     }
-    EquipmentManager.prototype.init = function () {
+    EquipmentManager.prototype.init = function (callback) {
         var _this = this;
         var xhr = new XMLHttpRequest();
         xhr.open('get', 'config/equip.json');
@@ -14,6 +14,7 @@ var EquipmentManager = /** @class */ (function () {
         xhr.onload = function () {
             var obj = JSON.parse(xhr.response);
             _this.parseFromConfig(obj);
+            callback();
         };
     };
     EquipmentManager.prototype.parseFromConfig = function (config) {

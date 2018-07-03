@@ -8,15 +8,18 @@ class EquipmentManager {
 
     }
 
-    init() {
+    init(callback: Function) {
         const xhr = new XMLHttpRequest();
         xhr.open('get', 'config/equip.json');
         xhr.send();
         xhr.onload = () => {
             const obj = JSON.parse(xhr.response)
             this.parseFromConfig(obj);
+            callback();
         }
     }
+
+
 
     parseFromConfig(config: any) {
         for (let item of config.equip) {
