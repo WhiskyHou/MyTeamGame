@@ -1,6 +1,10 @@
 "use strict";
 var Monster = /** @class */ (function () {
-    function Monster() {
+    function Monster(id, name, hp, damage) {
+        this.id = id;
+        this.name = name;
+        this.hp = hp;
+        this.damage = damage;
     }
     Monster.prototype.damageFlow = function () {
         var ran = Math.random();

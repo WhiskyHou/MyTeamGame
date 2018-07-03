@@ -143,6 +143,51 @@
 			"health": "1000",
 			"attack": "0",
 			"criticalPer": "0"
+		},
+		{
+			"id": "16",
+			"name": "橙色·【灭世绝魂】头盔",
+			"quality": "5",
+			"posID": "1",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "17",
+			"name": "橙色·【灭世绝魂】护肩",
+			"quality": "5",
+			"posID": "2",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "18",
+			"name": "橙色·【灭世绝魂】战甲",
+			"quality": "5",
+			"posID": "3",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "19",
+			"name": "橙色·【灭世绝魂】护腕",
+			"quality": "5",
+			"posID": "4",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "20",
+			"name": "橙色·【灭世绝魂】腿甲",
+			"quality": "5",
+			"posID": "5",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
 		}
 	]
 }
