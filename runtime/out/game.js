@@ -95,6 +95,7 @@ var MenuState = /** @class */ (function (_super) {
             fsm.replaceState(new PlayingState());
         };
         _this.title = new TextField('点击这里开始', 100, 300, 20);
+        _this.title2 = new TextField('点哪儿都能开始', 1000, 300, 50);
         return _this;
     }
     MenuState.prototype.onEnter = function () {

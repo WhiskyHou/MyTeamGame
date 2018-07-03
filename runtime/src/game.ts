@@ -86,10 +86,11 @@ npcManager.init();
  */
 class MenuState extends State {
     title: TextField;
-
+    title2: TextField;
     constructor() {
         super();
         this.title = new TextField('点击这里开始', 100, 300, 20);
+        this.title2 = new TextField('点哪儿都能开始', 1000, 300, 50);
     }
 
     onEnter(): void {
