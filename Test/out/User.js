@@ -8,7 +8,7 @@ var User = /** @class */ (function () {
         this.hp = 0;
         this._criticalPer = 0;
         this._suitDefensePer = 0;
-        this._suitDamagePer = 0;
+        this.suitAttackPer = 0;
         this._suitCriticalPer = 0;
     }
     User.prototype.changeEquipments = function () {
@@ -22,8 +22,40 @@ var User = /** @class */ (function () {
     };
     //TODO:套装属性检测
     User.prototype.checkSuit = function () {
-        var suitNum;
+        var suitIDSearchArray = new Array();
+        //检索是否有套装属性加成
+        //遍历装备整理成一个二维数组
+        var nowSuitIDNum = 1; //当前存了几个suitID,上来先把武器给存了
+        suitIDSearchArray[0][nowSuitIDNum - 1] = 0;
+        suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+        for (var i = 1; i < this.equipments.length; i++) {
+            var isStored = false;
+            for (var j = 0; j < nowSuitIDNum; j++) {
+                if (this.equipments[i].suitID == suitIDSearchArray[0][j]) {
+                    suitIDSearchArray[1][j]++;
+                    isStored = true;
+                }
+            }
+            if (!isStored) {
+                nowSuitIDNum++;
+                suitIDSearchArray[0][nowSuitIDNum - 1] = this.equipments[i].suitID;
+                suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+            }
+        }
+        //判断是否有叠加属性
+        for (var i = 0; i < nowSuitIDNum; i++) {
+            if (suitIDSearchArray[1][i] > 2) {
+                this.addSuitProperty(i);
+            }
+        }
+    };
+    User.prototype.addSuitProperty = function (suitIDNum) {
         for (var i = 0; i < this.equipments.length; i++) {
+            if (this.equipments[i].suitID == suitIDNum) {
+                this._suitDefensePer += this.equipments[i].suitDefensePer;
+                this.suitAttackPer += this.equipments[i].suitAttackPer;
+                this._suitCriticalPer += this.equipments[i].suitCriticalPer;
+            }
         }
     };
     User.prototype.dressEquip = function (equip) {
@@ -35,7 +67,7 @@ var User = /** @class */ (function () {
         this.hp = this._originHealth;
         this._criticalPer = 0;
         this._suitDefensePer = 0;
-        this._suitDamagePer = 0;
+        this.suitAttackPer = 0;
         this._suitCriticalPer = 0;
     };
     User.prototype.dealDamage = function () {
@@ -46,7 +78,7 @@ var User = /** @class */ (function () {
         return this.normalDamage();
     };
     User.prototype.normalDamage = function () {
-        return this._attack * (1 + this._suitDamagePer) * this.damageFlow();
+        return this._attack * (1 + this.suitAttackPer) * this.damageFlow();
     };
     User.prototype.damageFlow = function () {
         var ran = Math.random();

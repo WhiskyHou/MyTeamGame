@@ -12,8 +12,6 @@ class EquipmentSet {
             }
         }
         return equipID;
-
-
     }
 
     getRandom(n: number, m: number) {
