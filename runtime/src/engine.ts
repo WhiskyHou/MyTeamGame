@@ -321,6 +321,12 @@ class Bitmap extends DisplayObject {
     }
 }
 
+/**
+ * 按钮
+ * 
+ */
+// TODO
+
 
 /**
  * 文本
