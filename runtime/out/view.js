@@ -20,10 +20,18 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
         _this.userAttack = new TextField('Attck:' + player.attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        _this.addChild(_this.userName);
-        _this.addChild(_this.userLevel);
-        _this.addChild(_this.userAttack);
-        _this.addChild(_this.userEquipment);
+        _this.bagButton = new Bitmap(750, 465, bagButton);
+        _this.EscButton = new Bitmap(820, 465, EscButton);
+        _this.SkillButton = new Bitmap(680, 465, SkillButton);
+        _this.bloodUI = new Bitmap(0, 0, bloodUI);
+        // this.addChild(this.userName);
+        // this.addChild(this.userLevel);
+        // this.addChild(this.userAttack);
+        // this.addChild(this.userEquipment);
+        _this.addChild(_this.bagButton);
+        _this.addChild(_this.SkillButton);
+        _this.addChild(_this.EscButton);
+        _this.addChild(_this.bloodUI);
         player.addEventListener('updateUserInfo', function (eventData) {
             _this.userLevel.text = 'Lv:' + player.level;
             _this.userAttack.text = 'Attck:' + player.attack;
