@@ -144,6 +144,7 @@ var MenuState = /** @class */ (function (_super) {
     return MenuState;
 }(State));
 var talkUIContainer;
+var batteUIContainer;
 /**
  * 游戏状态
  */
@@ -159,7 +160,7 @@ var PlayingState = /** @class */ (function (_super) {
         _this.bg = new Bitmap(0, 0, bg);
         _this.userInfoUI = new UserInfoUI(0, 0);
         _this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
-        _this.batteUIContainer = new DisplayObjectContainer(16, 16);
+        batteUIContainer = new DisplayObjectContainer(16, 16);
         _this.battleUI = new battleUI(0, 0); //居中显示
         return _this;
     }
@@ -173,10 +174,8 @@ var PlayingState = /** @class */ (function (_super) {
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
-        var m = new Monster(1, '秦伟泽', 100, 10);
-        batManager.fightOneTime(player, m);
+        stage.addChild(batteUIContainer);
+        // batteUIContainer.addChild(this.battleUI);
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {
@@ -236,6 +235,7 @@ canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
     var hitResult = stage.hitTest(new math.Point(globalX, globalY));
+    console.log(hitResult);
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {

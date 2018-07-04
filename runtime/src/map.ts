@@ -136,7 +136,7 @@ class GameMap extends DisplayObjectContainer {
                     const id = row[j]
                     if (id) {
                         const monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
-                        const monsterItem = new Monster();
+                        const monsterItem = new Monster(1, '队长', 120, 10);
                         monsterItem.name = '队长';
                         monsterItem.view = monsterView;
                         monsterItem.hp = 120;

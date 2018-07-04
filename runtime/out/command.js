@@ -138,12 +138,17 @@ var FightCommand = /** @class */ (function (_super) {
     }
     FightCommand.prototype.execute = function (callback) {
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
-        this.monster.hp -= player.attack;
-        player.hp -= this.monster.attack;
-        if (this.monster.hp <= 0) {
-            player.fight(this.monster);
-            map.deleteMonster(this.monster);
-        }
+        var batUI = new battleUI(0, 0);
+        batteUIContainer.addChild(batUI);
+        batManager.fightOneTime(player, this.monster);
+        // stage.addChild(this.batteUIContainer);
+        // this.batteUIContainer.addChild(this.battleUI);
+        // this.monster.hp -= player.attack;
+        // player.hp -= this.monster.attack;
+        // if (this.monster.hp <= 0) {
+        //     player.fight(this.monster);
+        //     map.deleteMonster(this.monster);
+        // }
         callback();
     };
     return FightCommand;
