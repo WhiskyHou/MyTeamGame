@@ -89,15 +89,18 @@ class MissionInfoUI extends DisplayObjectContainer {
  */
 class battleUI extends DisplayObjectContainer {
 
-    player: User;
+    player: User = player;
+
     enemy: Monster;
 
     infoPanel: Bitmap;
     blackMask: Bitmap;
     backGround: Bitmap;
-
-    textField: TextField = new TextField("", 590, 115, 15);
+    attackButton: Bitmap;
     textGroup: DisplayObjectContainer = new DisplayObjectContainer(590, 115);
+
+    playerNameText = new TextField(this.player.name, 170, 80, 15);
+    enemyNameText = new TextField('this.enemy.name', 300, 80, 15);
 
     index = 0;
 
@@ -108,24 +111,34 @@ class battleUI extends DisplayObjectContainer {
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+        this.attackButton = new Bitmap(400, 400, battleAttackButton1);
 
         this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.backGround);
         this.addChild(this.textGroup);
+        this.addChild(this.attackButton);
+        this.addChild(this.playerNameText);
+        this.addChild(this.enemyNameText);
+
+        this.attackButton.addEventListener("onClick", (eventData: any) => {
+
+            batManager.fightOneTime(player, this.enemy);
+        })
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
             this.player = player;
+
         })
 
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
+            this.enemyNameText.text = enemy.name;
         })
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
             console.log(this.enemy.hp);
-
             this.textGroup.addChild(textField);
             this.index++;
 
@@ -136,18 +149,66 @@ class battleUI extends DisplayObjectContainer {
 
             this.textGroup.addChild(textField);
             this.index++;
-
+            this.indexJudge();
         })
         batManager.addEventListener('criticalHit', (eventData: any) => {
             let textField = new TextField(this.player.name + " 暴击辣！", 0, this.index * 20, 15);
             this.textGroup.addChild(textField);
             this.index++;
         })
+
+        batManager.addEventListener('enemyDie', (eventData: any) => {
+            this.attackButton.deleteAllEventListener();
+        })
+    }
+
+    indexJudge() {
+        if (this.index >= 17) {
+            this.textGroup.deleteAll();
+            this.index = 0;
+        }
+    }
+
+}
+
+/**
+ * 战斗结算UI
+ */
+class battleEndUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    blackMask: Bitmap;
+    backButton: Bitmap;
+
+    expText: TextField;
+
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(285, 255);
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.backGround = new Bitmap(254, 104, battleEndBGImg);
+        this.backButton = new Bitmap(500, 353, backButtonImg);
+        this.expText = new TextField('2333', 400, 207, 20);
+
+        // this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
+        this.addChild(this.expText);
+        this.addChild(this.dropTextGroup);
+
+        let textField = new TextField("【上元节】衣服", 15, 15, 15);
+        this.dropTextGroup.addChild(textField);
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            batManager.dispatchEvent("backScene", null);
+        })
     }
 
 
-
 }
+
 
 /**
  * 对话窗口UI

@@ -53,6 +53,12 @@ var battlePanelBlackMask = new Image();
 battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 var battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
+var battleAttackButton1 = new Image();
+battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
+var battleEndBGImg = new Image();
+battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
+var backButtonImg = new Image();
+backButtonImg.src = './assets/battlePanel/ui button返回.png';
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -235,7 +241,6 @@ canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
     var hitResult = stage.hitTest(new math.Point(globalX, globalY));
-    console.log(hitResult);
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {

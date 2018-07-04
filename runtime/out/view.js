@@ -90,22 +90,32 @@ var battleUI = /** @class */ (function (_super) {
     __extends(battleUI, _super);
     function battleUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.textField = new TextField("", 590, 115, 15);
+        _this.player = player;
         _this.textGroup = new DisplayObjectContainer(590, 115);
+        _this.playerNameText = new TextField(_this.player.name, 170, 80, 15);
+        _this.enemyNameText = new TextField('this.enemy.name', 300, 80, 15);
         _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+        _this.attackButton = new Bitmap(400, 400, battleAttackButton1);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.backGround);
         _this.addChild(_this.textGroup);
+        _this.addChild(_this.attackButton);
+        _this.addChild(_this.playerNameText);
+        _this.addChild(_this.enemyNameText);
+        _this.attackButton.addEventListener("onClick", function (eventData) {
+            batManager.fightOneTime(player, _this.enemy);
+        });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
         });
         batManager.addEventListener('enemyBattleStart', function (enemy) {
             _this.enemy = enemy;
+            _this.enemyNameText.text = enemy.name;
         });
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
@@ -118,15 +128,51 @@ var battleUI = /** @class */ (function (_super) {
             console.log(_this.player.hp);
             _this.textGroup.addChild(textField);
             _this.index++;
+            _this.indexJudge();
         });
         batManager.addEventListener('criticalHit', function (eventData) {
             var textField = new TextField(_this.player.name + " 暴击辣！", 0, _this.index * 20, 15);
             _this.textGroup.addChild(textField);
             _this.index++;
         });
+        batManager.addEventListener('enemyDie', function (eventData) {
+            _this.attackButton.deleteAllEventListener();
+        });
         return _this;
     }
+    battleUI.prototype.indexJudge = function () {
+        if (this.index >= 17) {
+            this.textGroup.deleteAll();
+            this.index = 0;
+        }
+    };
     return battleUI;
+}(DisplayObjectContainer));
+/**
+ * 战斗结算UI
+ */
+var battleEndUI = /** @class */ (function (_super) {
+    __extends(battleEndUI, _super);
+    function battleEndUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.dropTextGroup = new DisplayObjectContainer(285, 255);
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.backGround = new Bitmap(254, 104, battleEndBGImg);
+        _this.backButton = new Bitmap(500, 353, backButtonImg);
+        _this.expText = new TextField('2333', 400, 207, 20);
+        // this.addChild(this.blackMask);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.backButton);
+        _this.addChild(_this.expText);
+        _this.addChild(_this.dropTextGroup);
+        var textField = new TextField("【上元节】衣服", 15, 15, 15);
+        _this.dropTextGroup.addChild(textField);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            batManager.dispatchEvent("backScene", null);
+        });
+        return _this;
+    }
+    return battleEndUI;
 }(DisplayObjectContainer));
 /**
  * 对话窗口UI

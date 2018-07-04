@@ -1,5 +1,7 @@
 class battleManager extends EventDispatcher {
 
+    originHp: number;
+
     constructor() {
         super();
 
@@ -18,12 +20,15 @@ class battleManager extends EventDispatcher {
     fightOneTime(player: User, enemy: Monster) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
+        this.originHp = player.hp;
 
         let damage = this.playerDealDamage();
         enemy.hp -= damage;
         this.dispatchEvent('playerDealDamage', damage);
         if (enemy.hp <= 0) {
             this.dispatchEvent('enemyDie', null);
+            enemy.makeDrop();
+            player.hp = this.originHp;
         }
 
         damage = this.damageFlow(enemy.attack);
@@ -31,6 +36,7 @@ class battleManager extends EventDispatcher {
         this.dispatchEvent('enemyDealDamage', damage);
         if (player.hp <= 0) {
             this.dispatchEvent('playerDie', null);
+            player.hp = this.originHp;
         }
 
     }
