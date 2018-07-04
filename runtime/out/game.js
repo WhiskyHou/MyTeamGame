@@ -175,6 +175,8 @@ var PlayingState = /** @class */ (function (_super) {
         this.missionUIContainer.addChild(this.missionInfoUI);
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
+        var m = new Npc(1, '秦伟泽', 100, 10);
+        batManager.fightOneTime(player, m);
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {

@@ -90,6 +90,9 @@ var battleUI = /** @class */ (function (_super) {
     __extends(battleUI, _super);
     function battleUI(x, y) {
         var _this = _super.call(this, x, y) || this;
+        _this.textField = new TextField("", 590, 115, 15);
+        _this.textGroup = new DisplayObjectContainer(590, 115);
+        _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
@@ -97,17 +100,33 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.backGround);
-        batManager.addEventListener('playerDealDamage', function (eventDate) {
-            _this.update();
+        _this.addChild(_this.textGroup);
+        // this.addChild(this.textField);
+        batManager.addEventListener('playerBattleStart', function (player) {
+            _this.player = player;
+        });
+        batManager.addEventListener('enemyBattleStart', function (enemy) {
+            _this.enemy = enemy;
+        });
+        batManager.addEventListener('playerDealDamage', function (damage) {
+            var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            console.log(_this.enemy.hp);
+            _this.textGroup.addChild(textField);
+            _this.index++;
         });
         batManager.addEventListener('enemyDealDamage', function (damage) {
-            _this.update();
+            var textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            console.log(_this.player.hp);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+        });
+        batManager.addEventListener('criticalHit', function (eventData) {
+            var textField = new TextField(_this.player.name + " 暴击辣！", 0, _this.index * 20, 15);
+            _this.textGroup.addChild(textField);
+            _this.index++;
         });
         return _this;
     }
-    battleUI.prototype.battleInfoUpdate = function () {
-        batManager;
-    };
     battleUI.prototype.update = function () {
         this.deleteAll();
         var index = 0;

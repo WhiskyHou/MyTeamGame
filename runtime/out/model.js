@@ -21,7 +21,7 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
-        _this._originDamage = 20;
+        _this._originAttack = 20;
         _this._originHealth = 100;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
@@ -188,7 +188,7 @@ var User = /** @class */ (function (_super) {
         this.changeEquipments();
     };
     User.prototype.initProperty = function () {
-        this._attack = this._originDamage;
+        this._attack = this._originAttack;
         this.hp = this._originHealth;
         this._criticalPer = 0;
         this._suitDefensePer = 0;
