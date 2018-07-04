@@ -7,6 +7,11 @@ class UserInfoUI extends DisplayObjectContainer {
     userAttack: TextField;
     userEquipment: TextField;
 
+    bagButton: Bitmap;
+    EscButton: Bitmap;
+    SkillButton: Bitmap;
+    bloodUI: Bitmap;
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -14,11 +19,20 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
         this.userAttack = new TextField('Attck:' + player.attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
+        this.bagButton = new Bitmap(750, 465, bagButton);
+        this.EscButton = new Bitmap(820, 465, EscButton);
+        this.SkillButton = new Bitmap(680, 465, SkillButton);
+        this.bloodUI = new Bitmap(0, 0, bloodUI);
 
-        this.addChild(this.userName);
-        this.addChild(this.userLevel);
-        this.addChild(this.userAttack);
-        this.addChild(this.userEquipment);
+        // this.addChild(this.userName);
+        // this.addChild(this.userLevel);
+        // this.addChild(this.userAttack);
+        // this.addChild(this.userEquipment);
+        this.addChild(this.bagButton);
+        this.addChild(this.SkillButton);
+        this.addChild(this.EscButton);
+        this.addChild(this.bloodUI);
+
 
         player.addEventListener('updateUserInfo', (eventData: any) => {
             this.userLevel.text = 'Lv:' + player.level;
@@ -70,6 +84,90 @@ class MissionInfoUI extends DisplayObjectContainer {
 }
 
 
+/**
+ * 战斗UI
+ */
+class battleUI extends DisplayObjectContainer {
+
+    player: User;
+    enemy: Npc;
+
+    infoPanel: Bitmap;
+    blackMask: Bitmap;
+    backGround: Bitmap;
+
+    textField: TextField = new TextField("", 590, 115, 15);
+    textGroup: DisplayObjectContainer = new DisplayObjectContainer(590, 115);
+
+    index = 0;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+        // super(58, 64);
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
+        this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+
+        this.addChild(this.blackMask);
+        this.addChild(this.infoPanel);
+        this.addChild(this.backGround);
+        this.addChild(this.textGroup);
+        // this.addChild(this.textField);
+
+        batManager.addEventListener('playerBattleStart', (player: User) => {
+            this.player = player;
+        })
+
+        batManager.addEventListener('enemyBattleStart', (enemy: Npc) => {
+            this.enemy = enemy;
+        })
+
+        batManager.addEventListener('playerDealDamage', (damage: number) => {
+            let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            console.log(this.enemy.hp);
+
+            this.textGroup.addChild(textField);
+            this.index++;
+
+        })
+        batManager.addEventListener('enemyDealDamage', (damage: number) => {
+            let textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            console.log(this.player.hp);
+
+            this.textGroup.addChild(textField);
+            this.index++;
+
+        })
+        batManager.addEventListener('criticalHit', (eventData: any) => {
+            let textField = new TextField(this.player.name + " 暴击辣！", 0, this.index * 20, 15);
+            this.textGroup.addChild(textField);
+            this.index++;
+        })
+    }
+
+
+    update() {
+        this.deleteAll();
+        let index = 0;
+        for (let mission of missionManager.missions) {
+            if (mission.status == MissionStatus.DURRING) {
+                const missionLabel = new TextField("", 0, 0, 24);
+                this.addChild(missionLabel);
+                missionLabel.text = mission.name;
+                missionLabel.y = index * 24;
+                index++;
+            } else if (mission.status == MissionStatus.CAN_SUBMIT) {
+                const missionLabel = new TextField("", 0, 0, 24);
+                this.addChild(missionLabel);
+                missionLabel.text = "请提交任务！";
+                missionLabel.y = index * 24;
+                index++;
+            }
+        }
+    }
+
+}
 
 /**
  * 对话窗口UI

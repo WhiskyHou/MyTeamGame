@@ -20,10 +20,18 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
         _this.userAttack = new TextField('Attck:' + player.attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        _this.addChild(_this.userName);
-        _this.addChild(_this.userLevel);
-        _this.addChild(_this.userAttack);
-        _this.addChild(_this.userEquipment);
+        _this.bagButton = new Bitmap(750, 465, bagButton);
+        _this.EscButton = new Bitmap(820, 465, EscButton);
+        _this.SkillButton = new Bitmap(680, 465, SkillButton);
+        _this.bloodUI = new Bitmap(0, 0, bloodUI);
+        // this.addChild(this.userName);
+        // this.addChild(this.userLevel);
+        // this.addChild(this.userAttack);
+        // this.addChild(this.userEquipment);
+        _this.addChild(_this.bagButton);
+        _this.addChild(_this.SkillButton);
+        _this.addChild(_this.EscButton);
+        _this.addChild(_this.bloodUI);
         player.addEventListener('updateUserInfo', function (eventData) {
             _this.userLevel.text = 'Lv:' + player.level;
             _this.userAttack.text = 'Attck:' + player.attack;
@@ -74,6 +82,73 @@ var MissionInfoUI = /** @class */ (function (_super) {
         }
     };
     return MissionInfoUI;
+}(DisplayObjectContainer));
+/**
+ * 战斗UI
+ */
+var battleUI = /** @class */ (function (_super) {
+    __extends(battleUI, _super);
+    function battleUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.textField = new TextField("", 590, 115, 15);
+        _this.textGroup = new DisplayObjectContainer(590, 115);
+        _this.index = 0;
+        // super(58, 64);
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
+        _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+        _this.addChild(_this.blackMask);
+        _this.addChild(_this.infoPanel);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.textGroup);
+        // this.addChild(this.textField);
+        batManager.addEventListener('playerBattleStart', function (player) {
+            _this.player = player;
+        });
+        batManager.addEventListener('enemyBattleStart', function (enemy) {
+            _this.enemy = enemy;
+        });
+        batManager.addEventListener('playerDealDamage', function (damage) {
+            var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            console.log(_this.enemy.hp);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+        });
+        batManager.addEventListener('enemyDealDamage', function (damage) {
+            var textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            console.log(_this.player.hp);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+        });
+        batManager.addEventListener('criticalHit', function (eventData) {
+            var textField = new TextField(_this.player.name + " 暴击辣！", 0, _this.index * 20, 15);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+        });
+        return _this;
+    }
+    battleUI.prototype.update = function () {
+        this.deleteAll();
+        var index = 0;
+        for (var _i = 0, _a = missionManager.missions; _i < _a.length; _i++) {
+            var mission = _a[_i];
+            if (mission.status == MissionStatus.DURRING) {
+                var missionLabel = new TextField("", 0, 0, 24);
+                this.addChild(missionLabel);
+                missionLabel.text = mission.name;
+                missionLabel.y = index * 24;
+                index++;
+            }
+            else if (mission.status == MissionStatus.CAN_SUBMIT) {
+                var missionLabel = new TextField("", 0, 0, 24);
+                this.addChild(missionLabel);
+                missionLabel.text = "请提交任务！";
+                missionLabel.y = index * 24;
+                index++;
+            }
+        }
+    };
+    return battleUI;
 }(DisplayObjectContainer));
 /**
  * 对话窗口UI

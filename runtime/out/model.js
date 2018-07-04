@@ -21,7 +21,7 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
-        _this._originDamage = 20;
+        _this._originAttack = 20;
         _this._originHealth = 100;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
@@ -188,36 +188,12 @@ var User = /** @class */ (function (_super) {
         this.changeEquipments();
     };
     User.prototype.initProperty = function () {
-        this._attack = this._originDamage;
+        this._attack = this._originAttack;
         this.hp = this._originHealth;
         this._criticalPer = 0;
         this._suitDefensePer = 0;
         this.suitAttackPer = 0;
         this._suitCriticalPer = 0;
-    };
-    User.prototype.dealDamage = function () {
-        var ran = Math.random() * 100;
-        if (ran <= this._criticalPer) {
-            return this.normalDamage() * 2;
-        }
-        return this.normalDamage();
-    };
-    User.prototype.normalDamage = function () {
-        return this._attack * (1 + this.suitAttackPer) * this.damageFlow();
-    };
-    User.prototype.damageFlow = function () {
-        var ran = Math.random();
-        var val = 1;
-        if (ran <= 50) {
-            val = -1;
-        }
-        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
-    };
-    User.prototype.beDamaged = function (dmg) {
-        this.hp -= dmg * (1 - this._suitDefensePer);
-        if (this.hp <= 0) {
-            this.die();
-        }
     };
     User.prototype.die = function () {
     };
@@ -350,23 +326,6 @@ var Npc = /** @class */ (function () {
     };
     Npc.prototype.toString = function () {
         return "[NPC ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
-    };
-    Npc.prototype.damageFlow = function () {
-        var ran = Math.random();
-        var val = 1;
-        if (ran <= 50) {
-            val = -1;
-        }
-        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
-    };
-    Npc.prototype.dealDamage = function () {
-        return this.attack * this.damageFlow();
-    };
-    Npc.prototype.beDamaged = function (dmg) {
-        this.hp -= dmg;
-        if (this.hp <= 0) {
-            this.die();
-        }
     };
     Npc.prototype.die = function () {
     };

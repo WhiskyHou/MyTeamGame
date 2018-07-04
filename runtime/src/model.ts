@@ -14,20 +14,20 @@ class User extends EventDispatcher {
     moveStatus: boolean = true;
 
     public name: string;
-    private _originDamage = 20;
+    private _originAttack = 20;
     private _originHealth = 100;
 
     mounthedEquipment: Equipment[] = [];
     packageEquipment: Equipment[] = [];
 
     // private equipments: Equipment[] = [];
-    private _attack = 0;
+    _attack = 0;
     hp = 0;
-    private _criticalPer = 0;
+    _criticalPer = 0;
 
-    private _suitDefensePer = 0;
-    private suitAttackPer = 0;
-    private _suitCriticalPer = 0;
+    _suitDefensePer = 0;
+    suitAttackPer = 0;
+    _suitCriticalPer = 0;
 
     constructor() {
         super();
@@ -200,7 +200,7 @@ class User extends EventDispatcher {
     }
 
     private initProperty() {
-        this._attack = this._originDamage;
+        this._attack = this._originAttack;
         this.hp = this._originHealth;
         this._criticalPer = 0;
 
@@ -209,33 +209,6 @@ class User extends EventDispatcher {
         this._suitCriticalPer = 0;
     }
 
-    public dealDamage(): number {
-        let ran = Math.random() * 100;
-        if (ran <= this._criticalPer) {
-            return this.normalDamage() * 2;
-        }
-        return this.normalDamage();
-    }
-
-    private normalDamage(): number {
-        return this._attack * (1 + this.suitAttackPer) * this.damageFlow();
-    }
-
-    private damageFlow(): number {
-        let ran = Math.random();
-        let val = 1;
-        if (ran <= 50) {
-            val = -1;
-        }
-        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
-    }
-
-    public beDamaged(dmg: number) {
-        this.hp -= dmg * (1 - this._suitDefensePer);
-        if (this.hp <= 0) {
-            this.die();
-        }
-    }
 
     private die() {
 
@@ -401,26 +374,6 @@ class Npc {
 
     toString() {
         return `[NPC ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
-    }
-
-    private damageFlow(): number {
-        let ran = Math.random();
-        let val = 1;
-        if (ran <= 50) {
-            val = -1;
-        }
-        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
-    }
-
-    public dealDamage(): number {
-        return this.attack * this.damageFlow();
-    }
-
-    public beDamaged(dmg: number) {
-        this.hp -= dmg;
-        if (this.hp <= 0) {
-            this.die();
-        }
     }
 
     private die() {
