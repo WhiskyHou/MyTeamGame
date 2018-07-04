@@ -36,12 +36,16 @@ var captain = new Image();
 captain.src = './assets/monster.png';
 var talk_window = new Image();
 talk_window.src = './assets/talkWindow.png';
+
 let battlePanelBgImg = new Image();
 battlePanelBgImg.src = './assets/battlePanel/战斗界面模版1.png';
 let battlePanelBlackMask = new Image();
 battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 let battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
+let battleAttackButton1 = new Image();
+battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
+
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -281,7 +285,6 @@ canvas.onclick = function (event) {
     const globalY = event.offsetY;
 
     let hitResult = stage.hitTest(new math.Point(globalX, globalY));
-    console.log(hitResult);
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {

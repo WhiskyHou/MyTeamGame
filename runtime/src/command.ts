@@ -143,9 +143,11 @@ class FightCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
         const batUI = new battleUI(0, 0);
+        batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
 
-        batManager.fightOneTime(player, this.monster);
+
+
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
         // this.monster.hp -= player.attack;
