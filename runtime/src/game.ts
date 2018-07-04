@@ -86,14 +86,16 @@ npcManager.init();
  */
 class MenuState extends State {
     title: TextField;
-
+    title2: TextField;
     constructor() {
         super();
-        this.title = new TextField('点击开始游戏', 200, 300, 60);
+        this.title = new TextField('点击这里开始', 100, 300, 20);
+        this.title2 = new TextField('点哪儿都能开始', 1000, 300, 50);
     }
 
     onEnter(): void {
         stage.addChild(this.title);
+        stage.addChild(this.title2);
         stage.addEventListener("onClick", this.onClick);
     }
     onUpdate(): void {

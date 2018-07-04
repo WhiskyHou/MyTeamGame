@@ -94,11 +94,13 @@ var MenuState = /** @class */ (function (_super) {
             // npcManager.init();
             fsm.replaceState(new PlayingState());
         };
-        _this.title = new TextField('点击开始游戏', 200, 300, 60);
+        _this.title = new TextField('点击这里开始', 100, 300, 20);
+        _this.title2 = new TextField('点哪儿都能开始', 1000, 300, 50);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
         stage.addChild(this.title);
+        stage.addChild(this.title2);
         stage.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
