@@ -39,7 +39,7 @@ class NpcManager extends EventDispatcher {
             const view = new Bitmap(0, 0, viewImg);
             const head = new Bitmap(0, 0, headImg);
 
-            let npc = new Npc(id, name, hp, attack);
+            let npc = new Npc(id, name);
             npc.view = view;
             npc.head = head;
 
