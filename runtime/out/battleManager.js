@@ -20,18 +20,20 @@ var battleManager = /** @class */ (function (_super) {
         if (ran <= 50) {
             val = -1;
         }
-        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
+        return Math.floor(damage * (1 + 2 * val * Math.random() / 10)); //伤害浮动幅度为0.8~1.2，向下取整
     };
     battleManager.prototype.fightOneTime = function (player, enemy) {
+        this.dispatchEvent('playerBattleStart', player);
+        this.dispatchEvent('enemyBattleStart', enemy);
         var damage = this.playerDealDamage();
-        this.dispatchEvent('playerDealDamage', damage);
         enemy.hp -= damage;
+        this.dispatchEvent('playerDealDamage', damage);
         if (enemy.hp <= 0) {
             this.dispatchEvent('enemyDie', null);
         }
         damage = this.damageFlow(enemy.attack);
-        this.dispatchEvent('enemyDealDamage', damage);
         player.hp -= damage;
+        this.dispatchEvent('enemyDealDamage', damage);
         if (player.hp <= 0) {
             this.dispatchEvent('playerDie', null);
         }
@@ -39,12 +41,13 @@ var battleManager = /** @class */ (function (_super) {
     battleManager.prototype.playerDealDamage = function () {
         var ran = Math.random() * 100;
         if (ran <= player._criticalPer) {
+            this.dispatchEvent('criticalHit', null);
             return this.playerNormalDamage() * 2;
         }
         return this.playerNormalDamage();
     };
     battleManager.prototype.playerNormalDamage = function () {
-        return this.damageFlow(player.attack * (1 + player.suitAttackPer));
+        return this.damageFlow(player._attack * (1 + player.suitAttackPer));
     };
     return battleManager;
 }(EventDispatcher));

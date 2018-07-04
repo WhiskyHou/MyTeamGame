@@ -75,13 +75,17 @@ class MissionInfoUI extends DisplayObjectContainer {
  */
 class battleUI extends DisplayObjectContainer {
 
+    player: User;
+    enemy: Npc;
+
     infoPanel: Bitmap;
     blackMask: Bitmap;
     backGround: Bitmap;
 
-    name: TextField;
+    textField: TextField = new TextField("", 590, 115, 15);
+    textGroup: DisplayObjectContainer = new DisplayObjectContainer(590, 115);
 
-    text: TextField;
+    index = 0;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -94,18 +98,40 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.backGround);
+        this.addChild(this.textGroup);
+        // this.addChild(this.textField);
 
-        batManager.addEventListener('playerDealDamage', (eventDate: any) => {
-            this.update();
+        batManager.addEventListener('playerBattleStart', (player: User) => {
+            this.player = player;
+        })
+
+        batManager.addEventListener('enemyBattleStart', (enemy: Npc) => {
+            this.enemy = enemy;
+        })
+
+        batManager.addEventListener('playerDealDamage', (damage: number) => {
+            let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            console.log(this.enemy.hp);
+
+            this.textGroup.addChild(textField);
+            this.index++;
+
         })
         batManager.addEventListener('enemyDealDamage', (damage: number) => {
-            this.update();
+            let textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            console.log(this.player.hp);
+
+            this.textGroup.addChild(textField);
+            this.index++;
+
+        })
+        batManager.addEventListener('criticalHit', (eventData: any) => {
+            let textField = new TextField(this.player.name + " 暴击辣！", 0, this.index * 20, 15);
+            this.textGroup.addChild(textField);
+            this.index++;
         })
     }
 
-    battleInfoUpdate() {
-        batManager
-    }
 
     update() {
         this.deleteAll();

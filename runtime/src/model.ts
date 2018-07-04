@@ -14,7 +14,7 @@ class User extends EventDispatcher {
     moveStatus: boolean = true;
 
     public name: string;
-    private _originDamage = 20;
+    private _originAttack = 20;
     private _originHealth = 100;
 
     mounthedEquipment: Equipment[] = [];
@@ -200,7 +200,7 @@ class User extends EventDispatcher {
     }
 
     private initProperty() {
-        this._attack = this._originDamage;
+        this._attack = this._originAttack;
         this.hp = this._originHealth;
         this._criticalPer = 0;
 
