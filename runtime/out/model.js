@@ -293,20 +293,16 @@ var Mission = /** @class */ (function () {
  * NPC（含怪物）
  */
 var Npc = /** @class */ (function () {
-    function Npc(id, name, hp, attack) {
+    function Npc(id, name) {
         var _this = this;
         this.x = 0;
         this.y = 0;
         this.id = 0;
         this.name = '';
-        this.hp = 0;
-        this.attack = 0;
         this.canAcceptMissions = [];
         this.canSubmitMissions = [];
         this.id = id;
         this.name = name;
-        this.hp = hp;
-        this.attack = attack;
         missionManager.addEventListener('missionUpdate', function (eventData) {
             _this.update();
         });
@@ -325,11 +321,33 @@ var Npc = /** @class */ (function () {
         }
     };
     Npc.prototype.toString = function () {
-        return "[NPC ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
+        return "[NPC ~ id:" + this.id + ", name:" + this.name + "]";
     };
-    Npc.prototype.die = function () {
+    return Npc;
+}());
+/**
+ * 怪物
+ */
+var Monster = /** @class */ (function (_super) {
+    __extends(Monster, _super);
+    function Monster(id, name, hp, attack) {
+        var _this = _super.call(this) || this;
+        _this.x = 0;
+        _this.y = 0;
+        _this.id = 0;
+        _this.name = '';
+        _this.hp = 100;
+        _this.attack = 10;
+        _this.id = id;
+        _this.name = name;
+        return _this;
+    }
+    Monster.prototype.toString = function () {
+        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
     };
-    Npc.prototype.equipDrop = function () {
+    Monster.prototype.die = function () {
+    };
+    Monster.prototype.equipDrop = function () {
         var ran = Math.random() * 100;
         // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
         if (ran >= 98) {
@@ -348,30 +366,10 @@ var Npc = /** @class */ (function () {
             return lv1Set.buildEquip();
         }
     };
-    Npc.prototype.makeDrop = function () {
+    Monster.prototype.makeDrop = function () {
         console.log(this.equipDrop());
         console.log(this.equipDrop());
         console.log(this.equipDrop());
-    };
-    return Npc;
-}());
-/**
- * 怪物
- */
-var Monster = /** @class */ (function (_super) {
-    __extends(Monster, _super);
-    function Monster() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.x = 0;
-        _this.y = 0;
-        _this.id = 0;
-        _this.name = '';
-        _this.hp = 100;
-        _this.attack = 100;
-        return _this;
-    }
-    Monster.prototype.toString = function () {
-        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
     };
     return Monster;
 }(EventDispatcher));
