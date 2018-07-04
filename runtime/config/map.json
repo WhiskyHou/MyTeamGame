@@ -7,14 +7,34 @@
             "col": 8,
             "tile": [
                 [
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg"
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/school11.png",
+                    "assets/scene/school12.png",
+                    "assets/scene/school13.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png"
+                ],
+                [
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/school21.png",
+                    "assets/scene/school22.png",
+                    "assets/scene/school23.png",
+                    "assets/scene/flower.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png"
+                ],
+                [
+                    "assets/scene/tree.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png",
+                    "assets/scene/128x128白色地面.png"
                 ],
                 [
                     "assets/grass_dark.jpg",
@@ -41,27 +61,7 @@
                     "assets/grass_light.jpg",
                     "assets/grass_dark.jpg",
                     "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg"
-                ],
-                [
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg"
-                ],
-                [
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
-                    "assets/grass_light.jpg",
-                    "assets/grass_dark.jpg",
+                    "assets/scene/flower.png",
                     "assets/grass_light.jpg",
                     "assets/grass_dark.jpg",
                     "assets/grass_light.jpg"

@@ -56,7 +56,7 @@ bloodUI.src = './assets/ui血条.png';
  * 
  * 全局变量
  */
-const TILE_SIZE = 64;
+const TILE_SIZE = 128;
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
