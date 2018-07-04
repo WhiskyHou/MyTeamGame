@@ -64,6 +64,18 @@ class User {
 
     }
 
+
+
+    // private _httpaaa: number
+    // public get aaa(){
+    //     return this._aaa;
+    // }
+    // public set aaa(v: number){
+    //     this._aaa = v
+
+    //     ..
+    // }
+
     public dressEquip(equip: Equipment) {
         this.equipments[equip.posID] = equip;
         this.changeEquipments();
