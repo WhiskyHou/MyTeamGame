@@ -156,9 +156,12 @@ class battleUI extends DisplayObjectContainer {
             this.textGroup.addChild(textField);
             this.index++;
         })
+
+        batManager.addEventListener('enemyDie', (eventData: any) => {
+            this.attackButton.deleteAllEventListener();
+        })
     }
 
-    // TODO:语句无法完整清零
     indexJudge() {
         if (this.index >= 17) {
             this.textGroup.deleteAll();
@@ -167,6 +170,45 @@ class battleUI extends DisplayObjectContainer {
     }
 
 }
+
+/**
+ * 战斗结算UI
+ */
+class battleEndUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    blackMask: Bitmap;
+    backButton: Bitmap;
+
+    expText: TextField;
+
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(285, 255);
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.backGround = new Bitmap(254, 104, battleEndBGImg);
+        this.backButton = new Bitmap(500, 353, backButtonImg);
+        this.expText = new TextField('2333', 400, 207, 20);
+
+        // this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
+        this.addChild(this.expText);
+        this.addChild(this.dropTextGroup);
+
+        let textField = new TextField("【上元节】衣服", 15, 15, 15);
+        this.dropTextGroup.addChild(textField);
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            batManager.dispatchEvent("backScene", null);
+        })
+    }
+
+
+}
+
 
 /**
  * 对话窗口UI

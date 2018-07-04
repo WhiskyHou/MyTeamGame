@@ -45,6 +45,10 @@ let battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
 let battleAttackButton1 = new Image();
 battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
+let battleEndBGImg = new Image();
+battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
+let backButtonImg = new Image();
+backButtonImg.src = './assets/battlePanel/ui button返回.png';
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';

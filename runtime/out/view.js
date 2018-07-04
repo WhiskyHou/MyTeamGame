@@ -135,9 +135,11 @@ var battleUI = /** @class */ (function (_super) {
             _this.textGroup.addChild(textField);
             _this.index++;
         });
+        batManager.addEventListener('enemyDie', function (eventData) {
+            _this.attackButton.deleteAllEventListener();
+        });
         return _this;
     }
-    // TODO:语句无法完整清零
     battleUI.prototype.indexJudge = function () {
         if (this.index >= 17) {
             this.textGroup.deleteAll();
@@ -145,6 +147,32 @@ var battleUI = /** @class */ (function (_super) {
         }
     };
     return battleUI;
+}(DisplayObjectContainer));
+/**
+ * 战斗结算UI
+ */
+var battleEndUI = /** @class */ (function (_super) {
+    __extends(battleEndUI, _super);
+    function battleEndUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.dropTextGroup = new DisplayObjectContainer(285, 255);
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.backGround = new Bitmap(254, 104, battleEndBGImg);
+        _this.backButton = new Bitmap(500, 353, backButtonImg);
+        _this.expText = new TextField('2333', 400, 207, 20);
+        // this.addChild(this.blackMask);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.backButton);
+        _this.addChild(_this.expText);
+        _this.addChild(_this.dropTextGroup);
+        var textField = new TextField("【上元节】衣服", 15, 15, 15);
+        _this.dropTextGroup.addChild(textField);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            batManager.dispatchEvent("backScene", null);
+        });
+        return _this;
+    }
+    return battleEndUI;
 }(DisplayObjectContainer));
 /**
  * 对话窗口UI

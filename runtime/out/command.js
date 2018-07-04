@@ -137,10 +137,19 @@ var FightCommand = /** @class */ (function (_super) {
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
+        var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
         var batUI = new battleUI(0, 0);
+        var batEndUI = new battleEndUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
+        batManager.addEventListener('enemyDie', function (eventData) {
+            batteUIContainer.addChild(batEndUI);
+        });
+        batManager.addEventListener('backScene', function (eventData) {
+            batteUIContainer.deleteAll();
+            map.deleteMonster(_this.monster);
+        });
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
         // this.monster.hp -= player.attack;

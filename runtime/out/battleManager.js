@@ -25,17 +25,21 @@ var battleManager = /** @class */ (function (_super) {
     battleManager.prototype.fightOneTime = function (player, enemy) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
+        this.originHp = player.hp;
         var damage = this.playerDealDamage();
         enemy.hp -= damage;
         this.dispatchEvent('playerDealDamage', damage);
         if (enemy.hp <= 0) {
             this.dispatchEvent('enemyDie', null);
+            enemy.makeDrop();
+            player.hp = this.originHp;
         }
         damage = this.damageFlow(enemy.attack);
         player.hp -= damage;
         this.dispatchEvent('enemyDealDamage', damage);
         if (player.hp <= 0) {
             this.dispatchEvent('playerDie', null);
+            player.hp = this.originHp;
         }
     };
     battleManager.prototype.playerDealDamage = function () {
