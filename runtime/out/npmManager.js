@@ -45,7 +45,7 @@ var NpcManager = /** @class */ (function (_super) {
             headImg.src = headPath;
             var view = new Bitmap(0, 0, viewImg);
             var head = new Bitmap(0, 0, headImg);
-            var npc = new Npc(id, name_1, hp, attack);
+            var npc = new Npc(id, name_1);
             npc.view = view;
             npc.head = head;
             this.npcList.push(npc);

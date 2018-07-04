@@ -142,12 +142,18 @@ class FightCommand extends Command {
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
-        this.monster.hp -= player.attack;
-        player.hp -= this.monster.attack;
-        if (this.monster.hp <= 0) {
-            player.fight(this.monster);
-            map.deleteMonster(this.monster);
-        }
+        const batUI = new battleUI(0, 0);
+        batteUIContainer.addChild(batUI);
+
+        batManager.fightOneTime(player, this.monster);
+        // stage.addChild(this.batteUIContainer);
+        // this.batteUIContainer.addChild(this.battleUI);
+        // this.monster.hp -= player.attack;
+        // player.hp -= this.monster.attack;
+        // if (this.monster.hp <= 0) {
+        //     player.fight(this.monster);
+        //     map.deleteMonster(this.monster);
+        // }
         callback();
     }
 }

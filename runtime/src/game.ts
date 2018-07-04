@@ -94,7 +94,7 @@ let batManager = new battleManager();
 npcManager.init(noThing);
 equipManager.init(() => {
     equipSetInit(equipManager);
-    let m = new Npc(1, "2", 3, 4);
+    let m = new Monster(1, "2", 3, 4);
     m.makeDrop();
 });
 
@@ -157,6 +157,7 @@ class MenuState extends State {
 
 
 var talkUIContainer: DisplayObjectContainer;
+let batteUIContainer: DisplayObjectContainer;
 
 /**
  * 游戏状态
@@ -171,7 +172,7 @@ class PlayingState extends State {
     missionUIContainer: DisplayObjectContainer;
 
     battleUI: battleUI;
-    batteUIContainer: DisplayObjectContainer;
+
 
 
     constructor() {
@@ -188,7 +189,7 @@ class PlayingState extends State {
         this.userInfoUI = new UserInfoUI(0, 0);
         this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
 
-        this.batteUIContainer = new DisplayObjectContainer(16, 16);
+        batteUIContainer = new DisplayObjectContainer(16, 16);
         this.battleUI = new battleUI(0, 0);//居中显示
     }
 
@@ -204,11 +205,10 @@ class PlayingState extends State {
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
 
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
+        stage.addChild(batteUIContainer);
+        // batteUIContainer.addChild(this.battleUI);
 
-        let m = new Npc(1, '秦伟泽', 100, 10);
-        batManager.fightOneTime(player, m);
+
 
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
@@ -275,15 +275,13 @@ class PlayingState extends State {
 
 }
 
-
-
-
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
     const globalX = event.offsetX;
     const globalY = event.offsetY;
 
     let hitResult = stage.hitTest(new math.Point(globalX, globalY));
+    console.log(hitResult);
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
