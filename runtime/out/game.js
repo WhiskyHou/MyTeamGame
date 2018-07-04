@@ -77,7 +77,16 @@ var player;
 var map;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
-npcManager.init();
+var equipManager = new EquipmentManager();
+npcManager.init(noThing);
+equipManager.init(function () {
+    equipSetInit(equipManager);
+    var m = new Npc(1, "2", 3, 4);
+    m.makeDrop();
+});
+function noThing() {
+    return;
+}
 /**
  * 开始状态
  */
@@ -95,12 +104,10 @@ var MenuState = /** @class */ (function (_super) {
             fsm.replaceState(new PlayingState());
         };
         _this.title = new TextField('点击这里开始', 100, 300, 20);
-        _this.title2 = new TextField('点哪儿都能开始', 1000, 300, 50);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
         stage.addChild(this.title);
-        stage.addChild(this.title2);
         stage.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {

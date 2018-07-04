@@ -229,7 +229,7 @@ class PropertyEditor {
             }
 
             this.data.push(newObject);
-            this.updata();
+            this.update();
             // this.saveAndReload();
         }
 
@@ -237,7 +237,7 @@ class PropertyEditor {
             const index = this.data.indexOf(this.currentEditObject);
             if (index >= 0) {
                 this.data.splice(index, 1)
-                this.updata();
+                this.update();
             }
             // this.saveAndReload();
         }
@@ -249,7 +249,7 @@ class PropertyEditor {
      * 
      * 重新加载编辑器
      */
-    updata() {
+    update() {
 
 
         // 重新加载选择栏

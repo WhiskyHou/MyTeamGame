@@ -19,15 +19,15 @@ var NpcManager = /** @class */ (function (_super) {
         _this.npcList = [];
         return _this;
     }
-    NpcManager.prototype.init = function () {
+    NpcManager.prototype.init = function (callback) {
         var _this = this;
         var xhr = new XMLHttpRequest();
         xhr.open('get', 'config/npc.json');
         xhr.send();
         xhr.onload = function () {
             var obj = JSON.parse(xhr.response);
-            // console.log(xhr.response)
             _this.parseFromConfig(obj);
+            callback();
         };
     };
     NpcManager.prototype.parseFromConfig = function (config) {
@@ -35,6 +35,8 @@ var NpcManager = /** @class */ (function (_super) {
             var item = _a[_i];
             var id = parseInt(item.id);
             var name_1 = item.name;
+            var hp = parseInt(item.hp);
+            var attack = parseInt(item.attack);
             var viewPath = item.view;
             var headPath = item.head;
             var viewImg = new Image();
@@ -43,7 +45,7 @@ var NpcManager = /** @class */ (function (_super) {
             headImg.src = headPath;
             var view = new Bitmap(0, 0, viewImg);
             var head = new Bitmap(0, 0, headImg);
-            var npc = new Npc(id, name_1);
+            var npc = new Npc(id, name_1, hp, attack);
             npc.view = view;
             npc.head = head;
             this.npcList.push(npc);

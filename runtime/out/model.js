@@ -21,10 +21,17 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.moveStatus = true;
-        _this.name = '';
-        _this.hp = 10;
+        _this._originDamage = 20;
+        _this._originHealth = 100;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
+        // private equipments: Equipment[] = [];
+        _this._attack = 0;
+        _this.hp = 0;
+        _this._criticalPer = 0;
+        _this._suitDefensePer = 0;
+        _this.suitAttackPer = 0;
+        _this._suitCriticalPer = 0;
         return _this;
     }
     Object.defineProperty(User.prototype, "level", {
@@ -105,17 +112,121 @@ var User = /** @class */ (function (_super) {
     User.prototype.toString = function () {
         return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this.hp + ", attack:" + this.attack + "]";
     };
+    //---------------------------------------------------------------
+    User.prototype.changeEquipments = function () {
+        this.initProperty();
+        for (var i = 0; i < this.mounthedEquipment.length; i++) {
+            this._attack += this.mounthedEquipment[i].attack;
+            this.hp += this.mounthedEquipment[i].health;
+            this._criticalPer += this.mounthedEquipment[i].criticalPer;
+        }
+        this.checkSuit();
+    };
+    //TODO:套装属性检测
+    User.prototype.checkSuit = function () {
+        var suitIDSearchArray = new Array();
+        //检索是否有套装属性加成
+        //遍历装备整理成一个二维数组
+        var nowSuitIDNum = 1; //当前存了几个suitID,上来先把武器给存了
+        suitIDSearchArray[0][nowSuitIDNum - 1] = 0;
+        suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+        for (var i = 1; i < this.mounthedEquipment.length; i++) {
+            var isStored = false;
+            for (var j = 0; j < nowSuitIDNum; j++) {
+                if (this.mounthedEquipment[i].suitID == suitIDSearchArray[0][j]) {
+                    suitIDSearchArray[1][j]++;
+                    isStored = true;
+                }
+            }
+            if (!isStored) {
+                nowSuitIDNum++;
+                suitIDSearchArray[0][nowSuitIDNum - 1] = this.mounthedEquipment[i].suitID;
+                suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+            }
+        }
+        //判断是否有叠加属性
+        for (var i = 0; i < nowSuitIDNum; i++) {
+            if (suitIDSearchArray[1][i] > 2) {
+                this.addSuitProperty(i);
+            }
+        }
+    };
+    User.prototype.addSuitProperty = function (suitIDNum) {
+        for (var i = 0; i < this.mounthedEquipment.length; i++) {
+            if (this.mounthedEquipment[i].suitID == suitIDNum) {
+                this._suitDefensePer += this.mounthedEquipment[i].suitDefensePer;
+                this.suitAttackPer += this.mounthedEquipment[i].suitAttackPer;
+                this._suitCriticalPer += this.mounthedEquipment[i].suitCriticalPer;
+            }
+        }
+    };
+    // private _httpaaa: number
+    // public get aaa(){
+    //     return this._aaa;
+    // }
+    // public set aaa(v: number){
+    //     this._aaa = v
+    //     ..
+    // }
+    User.prototype.dressEquip = function (equip) {
+        this.mounthedEquipment[equip.posID] = equip;
+        this.changeEquipments();
+    };
+    User.prototype.initProperty = function () {
+        this._attack = this._originDamage;
+        this.hp = this._originHealth;
+        this._criticalPer = 0;
+        this._suitDefensePer = 0;
+        this.suitAttackPer = 0;
+        this._suitCriticalPer = 0;
+    };
+    User.prototype.dealDamage = function () {
+        var ran = Math.random() * 100;
+        if (ran <= this._criticalPer) {
+            return this.normalDamage() * 2;
+        }
+        return this.normalDamage();
+    };
+    User.prototype.normalDamage = function () {
+        return this._attack * (1 + this.suitAttackPer) * this.damageFlow();
+    };
+    User.prototype.damageFlow = function () {
+        var ran = Math.random();
+        var val = 1;
+        if (ran <= 50) {
+            val = -1;
+        }
+        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
+    };
+    User.prototype.beDamaged = function (dmg) {
+        this.hp -= dmg * (1 - this._suitDefensePer);
+        if (this.hp <= 0) {
+            this.die();
+        }
+    };
+    User.prototype.die = function () {
+    };
     return User;
 }(EventDispatcher));
 /**
  * 装备
  */
 var Equipment = /** @class */ (function () {
-    function Equipment() {
+    function Equipment(id, name, quality, posID, health, attack, criticalPer) {
         this.x = 0;
         this.y = 0;
-        this.name = '';
-        this.attack = 10;
+        this.id = id;
+        this.name = name;
+        this.quality = quality;
+        this.posID = posID;
+        this.health = health;
+        this.attack = attack;
+        this.criticalPer = criticalPer;
+        //, suitID: number, suitDefensePer: number, suitAttackPer: number, suitCriticalPer: number
+        // this.suitID = suitID;
+        // this.suitDefensePer = suitDefensePer;
+        // this.suitAttackPer = suitAttackPer;
+        // this.suitCriticalPer = suitCriticalPer;
     }
     Equipment.prototype.toString = function () {
         return "[Equipment ~ name:" + this.name + ", attack:" + this.attack + "]";
@@ -188,19 +299,23 @@ var Mission = /** @class */ (function () {
     return Mission;
 }());
 /**
- * NPC
+ * NPC（含怪物）
  */
 var Npc = /** @class */ (function () {
-    function Npc(id, name) {
+    function Npc(id, name, hp, attack) {
         var _this = this;
         this.x = 0;
         this.y = 0;
-        this.name = '';
         this.id = 0;
+        this.name = '';
+        this.hp = 0;
+        this.attack = 0;
         this.canAcceptMissions = [];
         this.canSubmitMissions = [];
         this.id = id;
         this.name = name;
+        this.hp = hp;
+        this.attack = attack;
         missionManager.addEventListener('missionUpdate', function (eventData) {
             _this.update();
         });
@@ -219,7 +334,50 @@ var Npc = /** @class */ (function () {
         }
     };
     Npc.prototype.toString = function () {
-        return "[NPC ~ id:" + this.id + "]";
+        return "[NPC ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
+    };
+    Npc.prototype.damageFlow = function () {
+        var ran = Math.random();
+        var val = 1;
+        if (ran <= 50) {
+            val = -1;
+        }
+        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
+    };
+    Npc.prototype.dealDamage = function () {
+        return this.attack * this.damageFlow();
+    };
+    Npc.prototype.beDamaged = function (dmg) {
+        this.hp -= dmg;
+        if (this.hp <= 0) {
+            this.die();
+        }
+    };
+    Npc.prototype.die = function () {
+    };
+    Npc.prototype.equipDrop = function () {
+        var ran = Math.random() * 100;
+        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
+        if (ran >= 98) {
+            return lv5Set.buildEquip();
+        }
+        else if (ran < 98 && ran >= 88) {
+            return lv4Set.buildEquip();
+        }
+        else if (ran < 88 && ran >= 68) {
+            return lv3Set.buildEquip();
+        }
+        else if (ran < 68 && ran >= 40) {
+            return lv2Set.buildEquip();
+        }
+        else {
+            return lv1Set.buildEquip();
+        }
+    };
+    Npc.prototype.makeDrop = function () {
+        console.log(this.equipDrop());
+        console.log(this.equipDrop());
+        console.log(this.equipDrop());
     };
     return Npc;
 }());
@@ -243,3 +401,90 @@ var Monster = /** @class */ (function (_super) {
     };
     return Monster;
 }(EventDispatcher));
+/**
+ * 装备集（用于掉落）
+ */
+var EquipmentSet = /** @class */ (function () {
+    function EquipmentSet() {
+        this.idSet = [];
+    }
+    EquipmentSet.prototype.buildEquip = function () {
+        var count = this.idSet.length - 1;
+        var ran = this.getRandom(0, count);
+        var equipID = this.idSet[ran];
+        for (var i = 0; i < equipManager.equipList.length; i++) {
+            if (equipManager.equipList[i].id == equipID) {
+                console.log(equipManager.equipList[i].name);
+            }
+        }
+        return equipID;
+    };
+    EquipmentSet.prototype.getRandom = function (n, m) {
+        return Math.round(Math.random() * (m - n) + n);
+    };
+    EquipmentSet.prototype.addEquipID = function (id) {
+        this.idSet.push(id);
+    };
+    return EquipmentSet;
+}());
+var lv1EquipSet = /** @class */ (function (_super) {
+    __extends(lv1EquipSet, _super);
+    function lv1EquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv1EquipSet;
+}(EquipmentSet));
+var lv2EquipSet = /** @class */ (function (_super) {
+    __extends(lv2EquipSet, _super);
+    function lv2EquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv2EquipSet;
+}(EquipmentSet));
+var lv3EquipSet = /** @class */ (function (_super) {
+    __extends(lv3EquipSet, _super);
+    function lv3EquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv3EquipSet;
+}(EquipmentSet));
+var lv4EquipSet = /** @class */ (function (_super) {
+    __extends(lv4EquipSet, _super);
+    function lv4EquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv4EquipSet;
+}(EquipmentSet));
+var lv5EquipSet = /** @class */ (function (_super) {
+    __extends(lv5EquipSet, _super);
+    function lv5EquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv5EquipSet;
+}(EquipmentSet));
+var lv1Set = new lv1EquipSet();
+var lv2Set = new lv2EquipSet();
+var lv3Set = new lv3EquipSet();
+var lv4Set = new lv4EquipSet();
+var lv5Set = new lv5EquipSet();
+function equipSetInit(equipManager) {
+    for (var i = 0; i < equipManager.equipList.length; i++) {
+        switch (equipManager.equipList[i].quality) {
+            case 1:
+                lv1Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 2:
+                lv2Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 3:
+                lv3Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 4:
+                lv4Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 5:
+                lv5Set.addEquipID(equipManager.equipList[i].id);
+                break;
+        }
+    }
+}

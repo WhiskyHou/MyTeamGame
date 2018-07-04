@@ -1,0 +1,193 @@
+{
+	"equip": [
+		{
+			"id": "0",
+			"name": "橙色·啊啊之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "1",
+			"name": "橙色·你马之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "2",
+			"name": "橙色·xx之剑",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "3",
+			"name": "紫色·few之剑",
+			"quality": "4",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "4",
+			"name": "紫色·fexwf之剑",
+			"quality": "4",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "5",
+			"name": "紫色·啊dqd啊之剑",
+			"quality": "4",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "6",
+			"name": "蓝色·feffqw之剑",
+			"quality": "3",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "7",
+			"name": "蓝色·fe1231xwf之剑",
+			"quality": "3",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "8",
+			"name": "蓝色·啊dqd啊之剑",
+			"quality": "3",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "9",
+			"name": "绿色·feffqw之剑",
+			"quality": "2",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "10",
+			"name": "绿色·fe1231xwf之剑",
+			"quality": "2",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "11",
+			"name": "绿色·啊dqd啊之剑",
+			"quality": "2",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "12",
+			"name": "白色·feffqw之剑",
+			"quality": "1",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "13",
+			"name": "白色·fe1231xwf之剑",
+			"quality": "1",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "14",
+			"name": "白色·啊dqd啊之剑",
+			"quality": "1",
+			"posID": "0",
+			"health": "0",
+			"attack": "1000",
+			"criticalPer": "20"
+		},
+		{
+			"id": "15",
+			"name": "五级头",
+			"quality": "5",
+			"posID": "1",
+			"health": "1000",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "16",
+			"name": "橙色·【灭世绝魂】头盔",
+			"quality": "5",
+			"posID": "1",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "17",
+			"name": "橙色·【灭世绝魂】护肩",
+			"quality": "5",
+			"posID": "2",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "18",
+			"name": "橙色·【灭世绝魂】战甲",
+			"quality": "5",
+			"posID": "3",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "19",
+			"name": "橙色·【灭世绝魂】护腕",
+			"quality": "5",
+			"posID": "4",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		},
+		{
+			"id": "20",
+			"name": "橙色·【灭世绝魂】腿甲",
+			"quality": "5",
+			"posID": "5",
+			"health": "800",
+			"attack": "0",
+			"criticalPer": "0"
+		}
+	]
+}

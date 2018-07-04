@@ -77,7 +77,17 @@ var player: User;
 var map: GameMap;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
-npcManager.init();
+let equipManager = new EquipmentManager();
+npcManager.init(noThing);
+equipManager.init(() => {
+    equipSetInit(equipManager);
+    let m = new Npc(1, "2", 3, 4);
+    m.makeDrop();
+});
+
+function noThing() {
+    return;
+}
 
 
 
@@ -90,13 +100,13 @@ class MenuState extends State {
     constructor() {
         super();
         this.title = new TextField('点击这里开始', 100, 300, 20);
-        this.title2 = new TextField('点哪儿都能开始', 1000, 300, 50);
     }
 
     onEnter(): void {
         stage.addChild(this.title);
-        stage.addChild(this.title2);
         stage.addEventListener("onClick", this.onClick);
+
+
     }
     onUpdate(): void {
 
@@ -106,6 +116,8 @@ class MenuState extends State {
         stage.deleteAllEventListener();
         stage.deleteAll();
         // this.onCreatePlayer();
+
+
     }
 
     onCreatePlayer() {
