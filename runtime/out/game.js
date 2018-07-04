@@ -68,7 +68,7 @@ bloodUI.src = './assets/ui血条.png';
  *
  * 全局变量
  */
-var TILE_SIZE = 64;
+var TILE_SIZE = 128;
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
 var COL_NUM = 8;
