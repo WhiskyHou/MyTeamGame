@@ -101,7 +101,6 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.backGround);
         _this.addChild(_this.textGroup);
-        // this.addChild(this.textField);
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
         });
@@ -127,27 +126,6 @@ var battleUI = /** @class */ (function (_super) {
         });
         return _this;
     }
-    battleUI.prototype.update = function () {
-        this.deleteAll();
-        var index = 0;
-        for (var _i = 0, _a = missionManager.missions; _i < _a.length; _i++) {
-            var mission = _a[_i];
-            if (mission.status == MissionStatus.DURRING) {
-                var missionLabel = new TextField("", 0, 0, 24);
-                this.addChild(missionLabel);
-                missionLabel.text = mission.name;
-                missionLabel.y = index * 24;
-                index++;
-            }
-            else if (mission.status == MissionStatus.CAN_SUBMIT) {
-                var missionLabel = new TextField("", 0, 0, 24);
-                this.addChild(missionLabel);
-                missionLabel.text = "请提交任务！";
-                missionLabel.y = index * 24;
-                index++;
-            }
-        }
-    };
     return battleUI;
 }(DisplayObjectContainer));
 /**

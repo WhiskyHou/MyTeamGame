@@ -94,7 +94,7 @@ let batManager = new battleManager();
 npcManager.init(noThing);
 equipManager.init(() => {
     equipSetInit(equipManager);
-    let m = new Npc(1, "2", 3, 4);
+    let m = new Monster(1, "2", 3, 4);
     m.makeDrop();
 });
 
@@ -207,7 +207,7 @@ class PlayingState extends State {
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
 
-        let m = new Npc(1, '秦伟泽', 100, 10);
+        let m = new Monster(1, '秦伟泽', 100, 10);
         batManager.fightOneTime(player, m);
 
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
@@ -274,9 +274,6 @@ class PlayingState extends State {
     }
 
 }
-
-
-
 
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {

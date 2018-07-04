@@ -342,18 +342,15 @@ class Npc {
 
     id = 0;
     name: string = ''
-    hp: number = 0;
-    attack: number = 0;
-    curEquipSet: EquipmentSet;
+
 
     canAcceptMissions: Mission[] = []
     canSubmitMissions: Mission[] = []
 
-    constructor(id: number, name: string, hp: number, attack: number) {
+    constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
-        this.hp = hp;
-        this.attack = attack;
+
         missionManager.addEventListener('missionUpdate', (eventData: any) => {
             this.update();
         })
@@ -373,7 +370,36 @@ class Npc {
     }
 
     toString() {
-        return `[NPC ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
+        return `[NPC ~ id:${this.id}, name:${this.name}]`
+    }
+
+}
+
+
+
+
+/**
+ * 怪物
+ */
+class Monster extends EventDispatcher {
+    x: number = 0;
+    y: number = 0;
+    view: Bitmap;
+    id: number = 0;
+    name: string = '';
+    hp: number = 100;
+    attack: number = 10;
+    curEquipSet: EquipmentSet;
+
+    constructor(id: number, name: string, hp: number, attack: number) {
+        super();
+        this.id = id;
+        this.name = name;
+
+    }
+
+    toString() {
+        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
     }
 
     private die() {
@@ -401,27 +427,6 @@ class Npc {
         console.log(this.equipDrop());
         console.log(this.equipDrop());
         console.log(this.equipDrop());
-    }
-}
-
-
-
-
-/**
- * 怪物
- */
-class Monster extends EventDispatcher {
-    x: number = 0;
-    y: number = 0;
-    view: Bitmap;
-    id: number = 0;
-    name: string = '';
-    hp: number = 100;
-    attack: number = 100;
-
-
-    toString() {
-        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
     }
 }
 

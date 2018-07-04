@@ -15,7 +15,7 @@ class battleManager extends EventDispatcher {
         return Math.floor(damage * (1 + 2 * val * Math.random() / 10)); //伤害浮动幅度为0.8~1.2，向下取整
     }
 
-    fightOneTime(player: User, enemy: Npc) {
+    fightOneTime(player: User, enemy: Monster) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
 
