@@ -19,7 +19,7 @@ var USER_ATTACK_PRE = 100;
 var User = /** @class */ (function (_super) {
     __extends(User, _super);
     function User() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
         _this.moveStatus = true;
         _this._originDamage = 20;
         _this._originHealth = 100;
@@ -32,6 +32,21 @@ var User = /** @class */ (function (_super) {
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
+        // 以下测试用
+        _this.name = "菜鸡";
+        var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 100, 20);
+        var eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 0, 0, 0);
+        var eq2 = new Equipment(3, '【毁天灭地】肩甲', 3, 2, 0, 0, 0);
+        var eq3 = new Equipment(4, '【毁天灭地】衣服', 3, 3, 0, 0, 0);
+        var eq4 = new Equipment(5, '【毁天灭地】腰带', 3, 4, 0, 0, 0);
+        var eq5 = new Equipment(6, '【毁天灭地】护腿', 3, 5, 0, 0, 0);
+        _this.mounthedEquipment.push(eq0);
+        _this.mounthedEquipment.push(eq1);
+        _this.mounthedEquipment.push(eq2);
+        _this.mounthedEquipment.push(eq3);
+        _this.mounthedEquipment.push(eq4);
+        _this.mounthedEquipment.push(eq5);
+        _this.changeEquipments();
         return _this;
     }
     Object.defineProperty(User.prototype, "level", {
@@ -120,7 +135,7 @@ var User = /** @class */ (function (_super) {
             this.hp += this.mounthedEquipment[i].health;
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
-        this.checkSuit();
+        // this.checkSuit();
     };
     //TODO:套装属性检测
     User.prototype.checkSuit = function () {

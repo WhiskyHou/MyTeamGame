@@ -73,7 +73,7 @@ var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 200;
-var player;
+var player = new User();
 var map;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
@@ -128,6 +128,29 @@ var MenuState = /** @class */ (function (_super) {
     };
     return MenuState;
 }(State));
+// 战斗界面-----------------------------------------
+var battlePanelContainer = new DisplayObjectContainer(58, 64);
+var battlePanelBgImg = new Image();
+battlePanelBgImg.src = './assets/battlePanel/battlePanelBgImg.png';
+var battlePanelBG = new Bitmap(0, 0, battlePanelBgImg);
+battlePanelContainer.addChild(battlePanelBG);
+readUserEquipment(battlePanelContainer);
+var ene = new Npc(0, '秦伟泽', 100, 10);
+battleCal(battlePanelContainer, player, ene);
+function readUserEquipment(container) {
+    var equipShow = new TextField("武器", 70, 400, 15);
+    container.addChild(equipShow);
+    for (var i = 0; i < player.mounthedEquipment.length; i++) {
+        console.log(i);
+        var equipInfo = new TextField(player.mounthedEquipment[i].name, 60, 300 + i * 20, 13);
+        container.addChild(equipInfo);
+    }
+}
+function battleCal(container, player, enemy) {
+    var battleText = new TextField(player.name + " 对 " + enemy.name + " 造成 " + player.dealDamage() + " 点伤害", 70, 100, 15);
+    container.addChild(battleText);
+}
+// 战斗界面-----------------------------------------
 var talkUIContainer;
 /**
  * 游戏状态
@@ -152,6 +175,7 @@ var PlayingState = /** @class */ (function (_super) {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
+        stage.addChild(battlePanelContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
