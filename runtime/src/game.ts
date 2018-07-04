@@ -196,8 +196,8 @@ class PlayingState extends State {
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
 
-        stage.addChild(this.batteUIContainer);
-        this.batteUIContainer.addChild(this.battleUI);
+        // stage.addChild(this.batteUIContainer);
+        // this.batteUIContainer.addChild(this.battleUI);
 
         let m = new Npc(1, '秦伟泽', 100, 10);
         batManager.fightOneTime(player, m);
