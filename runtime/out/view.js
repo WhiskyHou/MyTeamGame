@@ -90,22 +90,32 @@ var battleUI = /** @class */ (function (_super) {
     __extends(battleUI, _super);
     function battleUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.textField = new TextField("", 590, 115, 15);
+        _this.player = player;
         _this.textGroup = new DisplayObjectContainer(590, 115);
+        _this.playerNameText = new TextField(_this.player.name, 170, 80, 15);
+        _this.enemyNameText = new TextField('this.enemy.name', 300, 80, 15);
         _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+        _this.attackButton = new Bitmap(400, 400, battleAttackButton1);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.backGround);
         _this.addChild(_this.textGroup);
+        _this.addChild(_this.attackButton);
+        _this.addChild(_this.playerNameText);
+        _this.addChild(_this.enemyNameText);
+        _this.attackButton.addEventListener("onClick", function (eventData) {
+            batManager.fightOneTime(player, _this.enemy);
+        });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
         });
         batManager.addEventListener('enemyBattleStart', function (enemy) {
             _this.enemy = enemy;
+            _this.enemyNameText.text = enemy.name;
         });
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
@@ -118,6 +128,7 @@ var battleUI = /** @class */ (function (_super) {
             console.log(_this.player.hp);
             _this.textGroup.addChild(textField);
             _this.index++;
+            _this.indexJudge();
         });
         batManager.addEventListener('criticalHit', function (eventData) {
             var textField = new TextField(_this.player.name + " 暴击辣！", 0, _this.index * 20, 15);
@@ -126,6 +137,13 @@ var battleUI = /** @class */ (function (_super) {
         });
         return _this;
     }
+    // TODO:语句无法完整清零
+    battleUI.prototype.indexJudge = function () {
+        if (this.index >= 17) {
+            this.textGroup.deleteAll();
+            this.index = 0;
+        }
+    };
     return battleUI;
 }(DisplayObjectContainer));
 /**
