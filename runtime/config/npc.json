@@ -3,30 +3,40 @@
 		{
 			"id": "1",
 			"name": "高渐离",
+			"hp": "5",
+			"attack": "0",
 			"view": "assets/gaojianli.png",
 			"head": "assets/gaojianli_head.png"
 		},
 		{
 			"id": "2",
 			"name": "嬴政",
+			"hp": "5",
+			"attack": "0",
 			"view": "assets/yingzheng.png",
 			"head": "assets/yingzheng_head.png"
 		},
 		{
 			"id": "3",
 			"name": "诸葛亮",
+			"hp": "5",
+			"attack": "0",
 			"view": "assets/zhugeliang.png",
 			"head": "assets/zhugeliang_head.png"
 		},
 		{
 			"id": "4",
 			"name": "王昭君",
+			"hp": "5",
+			"attack": "0",
 			"view": "assets/wangzhaojun.png",
 			"head": "assets/wangzhaojun_head.png"
 		},
 		{
 			"id": "5",
 			"name": "扁鹊",
+			"hp": "5",
+			"attack": "0",
 			"view": "assets/bianque.png",
 			"head": "assets/bianque_head.png"
 		}

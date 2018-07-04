@@ -77,7 +77,17 @@ var player: User;
 var map: GameMap;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
-npcManager.init();
+let equipManager = new EquipmentManager();
+npcManager.init(noThing);
+equipManager.init(() => {
+    equipSetInit(equipManager);
+    let m = new Npc(1, "2", 3, 4);
+    m.makeDrop();
+});
+
+function noThing() {
+    return;
+}
 
 
 
@@ -86,15 +96,17 @@ npcManager.init();
  */
 class MenuState extends State {
     title: TextField;
-
+    title2: TextField;
     constructor() {
         super();
-        this.title = new TextField('点击开始游戏', 200, 300, 60);
+        this.title = new TextField('点击这里开始', 100, 300, 20);
     }
 
     onEnter(): void {
         stage.addChild(this.title);
         stage.addEventListener("onClick", this.onClick);
+
+
     }
     onUpdate(): void {
 
@@ -104,6 +116,8 @@ class MenuState extends State {
         stage.deleteAllEventListener();
         stage.deleteAll();
         // this.onCreatePlayer();
+
+
     }
 
     onCreatePlayer() {

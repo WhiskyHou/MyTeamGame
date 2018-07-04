@@ -12,10 +12,22 @@ class User extends EventDispatcher {
     y: number;
     view: Bitmap;
     moveStatus: boolean = true;
-    name: string = '';
-    hp: number = 10;
+
+    public name: string;
+    private _originDamage = 20;
+    private _originHealth = 100;
+
     mounthedEquipment: Equipment[] = [];
     packageEquipment: Equipment[] = [];
+
+    // private equipments: Equipment[] = [];
+    private _attack = 0;
+    hp = 0;
+    private _criticalPer = 0;
+
+    private _suitDefensePer = 0;
+    private suitAttackPer = 0;
+    private _suitCriticalPer = 0;
 
 
     _level: number;
@@ -97,6 +109,119 @@ class User extends EventDispatcher {
     toString() {
         return `[User ~ name:${this.name}, level:${this.level}, hp:${this.hp}, attack:${this.attack}]`;
     }
+
+    //---------------------------------------------------------------
+
+
+    public changeEquipments() {
+        this.initProperty();
+        for (var i = 0; i < this.mounthedEquipment.length; i++) {
+            this._attack += this.mounthedEquipment[i].attack;
+            this.hp += this.mounthedEquipment[i].health;
+            this._criticalPer += this.mounthedEquipment[i].criticalPer;
+        }
+        this.checkSuit();
+    }
+
+    //TODO:套装属性检测
+    private checkSuit() {
+        let suitIDSearchArray: Array<Array<any>> = new Array<Array<any>>();
+        //检索是否有套装属性加成
+        //遍历装备整理成一个二维数组
+        let nowSuitIDNum = 1;//当前存了几个suitID,上来先把武器给存了
+        suitIDSearchArray[0][nowSuitIDNum - 1] = 0;
+        suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+        for (var i = 1; i < this.mounthedEquipment.length; i++) {
+            let isStored: boolean = false;
+            for (var j = 0; j < nowSuitIDNum; j++) {
+                if (this.mounthedEquipment[i].suitID == suitIDSearchArray[0][j]) {
+                    suitIDSearchArray[1][j]++;
+                    isStored = true;
+                }
+            }
+            if (!isStored) {
+                nowSuitIDNum++;
+                suitIDSearchArray[0][nowSuitIDNum - 1] = this.mounthedEquipment[i].suitID;
+                suitIDSearchArray[1][nowSuitIDNum - 1] = 1;
+            }
+        }
+        //判断是否有叠加属性
+        for (var i = 0; i < nowSuitIDNum; i++) {
+            if (suitIDSearchArray[1][i] > 2) {
+                this.addSuitProperty(i);
+            }
+        }
+    }
+
+    private addSuitProperty(suitIDNum: number) {
+        for (var i = 0; i < this.mounthedEquipment.length; i++) {
+            if (this.mounthedEquipment[i].suitID == suitIDNum) {
+                this._suitDefensePer += this.mounthedEquipment[i].suitDefensePer;
+                this.suitAttackPer += this.mounthedEquipment[i].suitAttackPer;
+                this._suitCriticalPer += this.mounthedEquipment[i].suitCriticalPer;
+            }
+        }
+
+    }
+
+
+
+    // private _httpaaa: number
+    // public get aaa(){
+    //     return this._aaa;
+    // }
+    // public set aaa(v: number){
+    //     this._aaa = v
+
+    //     ..
+    // }
+
+    public dressEquip(equip: Equipment) {
+        this.mounthedEquipment[equip.posID] = equip;
+        this.changeEquipments();
+    }
+
+    private initProperty() {
+        this._attack = this._originDamage;
+        this.hp = this._originHealth;
+        this._criticalPer = 0;
+
+        this._suitDefensePer = 0;
+        this.suitAttackPer = 0;
+        this._suitCriticalPer = 0;
+    }
+
+    public dealDamage(): number {
+        let ran = Math.random() * 100;
+        if (ran <= this._criticalPer) {
+            return this.normalDamage() * 2;
+        }
+        return this.normalDamage();
+    }
+
+    private normalDamage(): number {
+        return this._attack * (1 + this.suitAttackPer) * this.damageFlow();
+    }
+
+    private damageFlow(): number {
+        let ran = Math.random();
+        let val = 1;
+        if (ran <= 50) {
+            val = -1;
+        }
+        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
+    }
+
+    public beDamaged(dmg: number) {
+        this.hp -= dmg * (1 - this._suitDefensePer);
+        if (this.hp <= 0) {
+            this.die();
+        }
+    }
+
+    private die() {
+
+    }
 }
 
 
@@ -106,9 +231,35 @@ class User extends EventDispatcher {
 class Equipment {
     x: number = 0;
     y: number = 0;
-    name: string = '';
-    attack: number = 10;
     view: Bitmap
+
+    public id: number;
+    public name: string;
+    public quality: number;//品质ID：12345
+    public posID: number;//部位ID：0武器、1头、2肩膀、3衣服、4腰带、5护腿
+    public health: number;
+    public attack: number;
+    public criticalPer: number;
+
+    public suitID: number;
+    public suitDefensePer: number;
+    public suitAttackPer: number;
+    public suitCriticalPer: number;
+
+    constructor(id: number, name: string, quality: number, posID: number, health: number, attack: number, criticalPer: number) {
+        this.id = id;
+        this.name = name;
+        this.quality = quality;
+        this.posID = posID;
+        this.health = health;
+        this.attack = attack;
+        this.criticalPer = criticalPer;
+        //, suitID: number, suitDefensePer: number, suitAttackPer: number, suitCriticalPer: number
+        // this.suitID = suitID;
+        // this.suitDefensePer = suitDefensePer;
+        // this.suitAttackPer = suitAttackPer;
+        // this.suitCriticalPer = suitCriticalPer;
+    }
 
     toString() {
         return `[Equipment ~ name:${this.name}, attack:${this.attack}]`;
@@ -190,22 +341,28 @@ class Mission {
 
 
 /**
- * NPC
+ * NPC（含怪物）
  */
 class Npc {
     x: number = 0
     y: number = 0
-    name: string = ''
     view: Bitmap
     head: Bitmap
+
     id = 0;
+    name: string = ''
+    hp: number = 0;
+    attack: number = 0;
+    curEquipSet: EquipmentSet;
 
     canAcceptMissions: Mission[] = []
     canSubmitMissions: Mission[] = []
 
-    constructor(id: number, name: string) {
+    constructor(id: number, name: string, hp: number, attack: number) {
         this.id = id;
         this.name = name;
+        this.hp = hp;
+        this.attack = attack;
         missionManager.addEventListener('missionUpdate', (eventData: any) => {
             this.update();
         })
@@ -225,7 +382,54 @@ class Npc {
     }
 
     toString() {
-        return `[NPC ~ id:${this.id}]`
+        return `[NPC ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
+    }
+
+    private damageFlow(): number {
+        let ran = Math.random();
+        let val = 1;
+        if (ran <= 50) {
+            val = -1;
+        }
+        return (1 + 2 * val * Math.random() / 10); //伤害浮动幅度为0.8~1.2
+    }
+
+    public dealDamage(): number {
+        return this.attack * this.damageFlow();
+    }
+
+    public beDamaged(dmg: number) {
+        this.hp -= dmg;
+        if (this.hp <= 0) {
+            this.die();
+        }
+    }
+
+    private die() {
+
+    }
+
+    private equipDrop(): number {
+        let ran = Math.random() * 100;
+
+        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
+        if (ran >= 98) {
+            return lv5Set.buildEquip();
+        } else if (ran < 98 && ran >= 88) {
+            return lv4Set.buildEquip();
+        } else if (ran < 88 && ran >= 68) {
+            return lv3Set.buildEquip();
+        } else if (ran < 68 && ran >= 40) {
+            return lv2Set.buildEquip();
+        } else {
+            return lv1Set.buildEquip();
+        }
+    }
+
+    public makeDrop() {
+        console.log(this.equipDrop());
+        console.log(this.equipDrop());
+        console.log(this.equipDrop());
     }
 }
 
@@ -247,5 +451,94 @@ class Monster extends EventDispatcher {
 
     toString() {
         return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
+    }
+}
+
+
+
+/**
+ * 装备集（用于掉落）
+ */
+class EquipmentSet {
+
+    public idSet: number[] = [];
+
+    buildEquip() {
+        let count = this.idSet.length - 1;
+        let ran = this.getRandom(0, count);
+        let equipID = this.idSet[ran];
+        for (let i = 0; i < equipManager.equipList.length; i++) {
+            if (equipManager.equipList[i].id == equipID) {
+                console.log(equipManager.equipList[i].name);
+            }
+        }
+        return equipID;
+    }
+
+    getRandom(n: number, m: number) {
+        return Math.round(Math.random() * (m - n) + n);
+    }
+
+    addEquipID(id: number) {
+        this.idSet.push(id);
+    }
+
+}
+
+class lv1EquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv2EquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv3EquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv4EquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv5EquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+let lv1Set = new lv1EquipSet();
+let lv2Set = new lv2EquipSet();
+let lv3Set = new lv3EquipSet();
+let lv4Set = new lv4EquipSet();
+let lv5Set = new lv5EquipSet();
+
+function equipSetInit(equipManager: EquipmentManager) {
+    for (var i = 0; i < equipManager.equipList.length; i++) {
+        switch (equipManager.equipList[i].quality) {
+            case 1:
+                lv1Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 2:
+                lv2Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 3:
+                lv3Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 4:
+                lv4Set.addEquipID(equipManager.equipList[i].id);
+                break;
+            case 5:
+                lv5Set.addEquipID(equipManager.equipList[i].id);
+                break;
+        }
     }
 }
