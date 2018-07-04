@@ -70,6 +70,57 @@ class MissionInfoUI extends DisplayObjectContainer {
 }
 
 
+/**
+ * 战斗UI
+ */
+class battleUI extends DisplayObjectContainer {
+
+    infoPanel: Bitmap;
+    blackMask: Bitmap;
+    backGround: Bitmap;
+
+    name: TextField;
+
+    text: TextField;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+        // super(58, 64);
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
+        this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+
+        this.addChild(this.blackMask);
+        this.addChild(this.infoPanel);
+        this.addChild(this.backGround);
+        missionManager.addEventListener('playerDealDamage', (eventDate: any) => {
+            // this.update();
+        })
+    }
+
+
+    update() {
+        this.deleteAll();
+        let index = 0;
+        for (let mission of missionManager.missions) {
+            if (mission.status == MissionStatus.DURRING) {
+                const missionLabel = new TextField("", 0, 0, 24);
+                this.addChild(missionLabel);
+                missionLabel.text = mission.name;
+                missionLabel.y = index * 24;
+                index++;
+            } else if (mission.status == MissionStatus.CAN_SUBMIT) {
+                const missionLabel = new TextField("", 0, 0, 24);
+                this.addChild(missionLabel);
+                missionLabel.text = "请提交任务！";
+                missionLabel.y = index * 24;
+                index++;
+            }
+        }
+    }
+
+}
 
 /**
  * 对话窗口UI

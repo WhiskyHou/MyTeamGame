@@ -36,8 +36,12 @@ var captain = new Image();
 captain.src = './assets/monster.png';
 var talk_window = new Image();
 talk_window.src = './assets/talkWindow.png';
-
-
+let battlePanelBgImg = new Image();
+battlePanelBgImg.src = './assets/battlePanel/战斗界面模版1.png';
+let battlePanelBlackMask = new Image();
+battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
+let battlePanelInfo = new Image();
+battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
 
 /**
  * 常量
@@ -78,6 +82,7 @@ var map: GameMap;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let equipManager = new EquipmentManager();
+let batManager = new battleManager();
 npcManager.init(noThing);
 equipManager.init(() => {
     equipSetInit(equipManager);
@@ -143,39 +148,6 @@ class MenuState extends State {
 }
 
 
-// 战斗界面-----------------------------------------
-
-let battlePanelContainer = new DisplayObjectContainer(58, 64);
-
-let battlePanelBgImg = new Image();
-battlePanelBgImg.src = './assets/battlePanel/battlePanelBgImg.png';
-let battlePanelBG = new Bitmap(0, 0, battlePanelBgImg);
-battlePanelContainer.addChild(battlePanelBG);
-readUserEquipment(battlePanelContainer);
-
-let ene = new Npc(0, '秦伟泽', 100, 10);
-
-battleCal(battlePanelContainer, player, ene);
-
-function readUserEquipment(container: DisplayObjectContainer) {
-    let equipShow = new TextField("武器", 70, 400, 15);
-
-    container.addChild(equipShow);
-    for (let i = 0; i < player.mounthedEquipment.length; i++) {
-        console.log(i);
-        let equipInfo = new TextField(player.mounthedEquipment[i].name, 60, 300 + i * 20, 13);
-        container.addChild(equipInfo);
-    }
-}
-
-function battleCal(container: DisplayObjectContainer, player: User, enemy: Npc) {
-    let battleText = new TextField(player.name + " 对 " + enemy.name + " 造成 " + player.dealDamage() + " 点伤害", 70, 100, 15);
-    container.addChild(battleText);
-}
-// 战斗界面-----------------------------------------
-
-
-
 var talkUIContainer: DisplayObjectContainer;
 
 /**
@@ -189,6 +161,9 @@ class PlayingState extends State {
     mapContainer: DisplayObjectContainer;
     userUIContainer: DisplayObjectContainer;
     missionUIContainer: DisplayObjectContainer;
+
+    battleUI: battleUI;
+    batteUIContainer: DisplayObjectContainer;
 
 
     constructor() {
@@ -204,6 +179,9 @@ class PlayingState extends State {
         this.bg = new Bitmap(0, 0, bg);
         this.userInfoUI = new UserInfoUI(0, TILE_SIZE * ROW_NUM);
         this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
+
+        this.batteUIContainer = new DisplayObjectContainer(16, 16);
+        this.battleUI = new battleUI(0, 0);//居中显示
     }
 
     onEnter(): void {
@@ -212,12 +190,14 @@ class PlayingState extends State {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
-        stage.addChild(battlePanelContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
+
+        stage.addChild(this.batteUIContainer);
+        this.batteUIContainer.addChild(this.battleUI);
 
 
 
