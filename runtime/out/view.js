@@ -32,6 +32,9 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
         _this.addChild(_this.bloodUI);
+        _this.bagButton.addEventListener('onClick', function (eventData) {
+            baManager.openBag();
+        });
         player.addEventListener('updateUserInfo', function (eventData) {
             _this.userLevel.text = 'Lv:' + player.level;
             _this.userAttack.text = 'Attck:' + player.attack;
@@ -82,6 +85,22 @@ var MissionInfoUI = /** @class */ (function (_super) {
         }
     };
     return MissionInfoUI;
+}(DisplayObjectContainer));
+/**
+ * 背包UI
+ */
+var bagUI = /** @class */ (function (_super) {
+    __extends(bagUI, _super);
+    function bagUI(x, y) {
+        var _this = 
+        //super(x, y);
+        _super.call(this, 58, 64) || this;
+        _this.player = player;
+        _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
+        _this.addChild(_this.infoPanel);
+        return _this;
+    }
+    return bagUI;
 }(DisplayObjectContainer));
 /**
  * 战斗UI

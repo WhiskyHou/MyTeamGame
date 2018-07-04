@@ -32,8 +32,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
         this.addChild(this.bloodUI);
-
-
+        this.bagButton.addEventListener('onClick', (eventData: any) => {
+            baManager.openBag();
+        });
         player.addEventListener('updateUserInfo', (eventData: any) => {
             this.userLevel.text = 'Lv:' + player.level;
             this.userAttack.text = 'Attck:' + player.attack;
@@ -83,7 +84,25 @@ class MissionInfoUI extends DisplayObjectContainer {
     }
 }
 
+/**
+ * 背包UI
+ */
+class bagUI extends DisplayObjectContainer {
 
+    player: User = player;
+
+    infoPanel: Bitmap;
+
+    constructor(x: number, y: number) {
+        //super(x, y);
+         super(58, 64);
+
+        this.infoPanel = new Bitmap(42, 48,bagWindowsUI);
+
+        this.addChild(this.infoPanel);
+    }
+
+}
 /**
  * 战斗UI
  */

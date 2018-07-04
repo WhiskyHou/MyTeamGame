@@ -285,6 +285,37 @@ var Bitmap = /** @class */ (function (_super) {
  *
  */
 // TODO
+var Button = /** @class */ (function (_super) {
+    __extends(Button, _super);
+    function Button(x, y) {
+        return _super.call(this, x, y) || this;
+    }
+    Button.prototype.update = function () {
+    };
+    Button.prototype.reset = function () {
+    };
+    return Button;
+}(DisplayObjectContainer));
+/**
+ * 弹窗
+ */
+var MultiWindow = /** @class */ (function (_super) {
+    __extends(MultiWindow, _super);
+    function MultiWindow(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.images = [];
+        _this.buttons = [];
+        _this.titleTexts = [];
+        _this.mainTexts = [];
+        _this.background = new Bitmap(x, y, new HTMLImageElement());
+        return _this;
+    }
+    MultiWindow.prototype.update = function () {
+    };
+    MultiWindow.prototype.reset = function () {
+    };
+    return MultiWindow;
+}(DisplayObjectContainer));
 /**
  * 文本
  *
