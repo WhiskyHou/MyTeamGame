@@ -73,7 +73,7 @@ const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 200;
 
 
-var player: User;
+var player: User = new User();
 var map: GameMap;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
@@ -127,6 +127,7 @@ class MenuState extends State {
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+
     }
 
     onClick = (eventData: any) => {
@@ -140,6 +141,39 @@ class MenuState extends State {
         fsm.replaceState(new PlayingState());
     }
 }
+
+
+// 战斗界面-----------------------------------------
+
+let battlePanelContainer = new DisplayObjectContainer(58, 64);
+
+let battlePanelBgImg = new Image();
+battlePanelBgImg.src = './assets/battlePanel/battlePanelBgImg.png';
+let battlePanelBG = new Bitmap(0, 0, battlePanelBgImg);
+battlePanelContainer.addChild(battlePanelBG);
+readUserEquipment(battlePanelContainer);
+
+let ene = new Npc(0, '秦伟泽', 100, 10);
+
+battleCal(battlePanelContainer, player, ene);
+
+function readUserEquipment(container: DisplayObjectContainer) {
+    let equipShow = new TextField("武器", 70, 400, 15);
+
+    container.addChild(equipShow);
+    for (let i = 0; i < player.mounthedEquipment.length; i++) {
+        console.log(i);
+        let equipInfo = new TextField(player.mounthedEquipment[i].name, 60, 300 + i * 20, 13);
+        container.addChild(equipInfo);
+    }
+}
+
+function battleCal(container: DisplayObjectContainer, player: User, enemy: Npc) {
+    let battleText = new TextField(player.name + " 对 " + enemy.name + " 造成 " + player.dealDamage() + " 点伤害", 70, 100, 15);
+    container.addChild(battleText);
+}
+// 战斗界面-----------------------------------------
+
 
 
 var talkUIContainer: DisplayObjectContainer;
@@ -178,6 +212,7 @@ class PlayingState extends State {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
+        stage.addChild(battlePanelContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
@@ -274,3 +309,4 @@ canvas.onclick = function (event) {
 
 // 初始状态设置
 fsm.replaceState(new MenuState());
+
