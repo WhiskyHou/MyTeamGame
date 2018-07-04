@@ -165,8 +165,8 @@ var PlayingState = /** @class */ (function (_super) {
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
-        stage.addChild(this.batteUIContainer);
-        this.batteUIContainer.addChild(this.battleUI);
+        // stage.addChild(this.batteUIContainer);
+        // this.batteUIContainer.addChild(this.battleUI);
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {

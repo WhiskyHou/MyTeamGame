@@ -89,11 +89,17 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.backGround);
-        missionManager.addEventListener('playerDealDamage', function (eventDate) {
-            // this.update();
+        batManager.addEventListener('playerDealDamage', function (eventDate) {
+            _this.update();
+        });
+        batManager.addEventListener('enemyDealDamage', function (damage) {
+            _this.update();
         });
         return _this;
     }
+    battleUI.prototype.battleInfoUpdate = function () {
+        batManager;
+    };
     battleUI.prototype.update = function () {
         this.deleteAll();
         var index = 0;

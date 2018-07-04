@@ -2,6 +2,7 @@ class battleManager extends EventDispatcher {
 
     constructor() {
         super();
+
     }
 
     damageFlow(damage: number): number {
@@ -14,6 +15,8 @@ class battleManager extends EventDispatcher {
     }
 
     fightOneTime(player: User, enemy: Npc) {
+
+
         let damage = this.playerDealDamage();
         this.dispatchEvent('playerDealDamage', damage);
 

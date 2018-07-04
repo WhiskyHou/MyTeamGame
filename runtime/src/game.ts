@@ -196,8 +196,8 @@ class PlayingState extends State {
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
 
-        stage.addChild(this.batteUIContainer);
-        this.batteUIContainer.addChild(this.battleUI);
+        // stage.addChild(this.batteUIContainer);
+        // this.batteUIContainer.addChild(this.battleUI);
 
 
 

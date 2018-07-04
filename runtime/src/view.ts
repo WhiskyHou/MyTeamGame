@@ -94,11 +94,18 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.backGround);
-        missionManager.addEventListener('playerDealDamage', (eventDate: any) => {
-            // this.update();
+
+        batManager.addEventListener('playerDealDamage', (eventDate: any) => {
+            this.update();
+        })
+        batManager.addEventListener('enemyDealDamage', (damage: number) => {
+            this.update();
         })
     }
 
+    battleInfoUpdate() {
+        batManager
+    }
 
     update() {
         this.deleteAll();
