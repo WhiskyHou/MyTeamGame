@@ -42,6 +42,14 @@ let battlePanelBlackMask = new Image();
 battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 let battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
+var bagButton = new Image();
+bagButton.src = './assets/1 60x80 物品ui.png';
+var EscButton = new Image();
+EscButton.src = './assets/1 60x80 设置ui.png';
+var SkillButton = new Image();
+SkillButton.src = './assets/1 60x80 技能ui.png';
+var bloodUI = new Image();
+bloodUI.src = './assets/ui血条.png';
 
 /**
  * 常量
@@ -177,7 +185,7 @@ class PlayingState extends State {
         this.missionUIContainer = new DisplayObjectContainer(16, 16);
 
         this.bg = new Bitmap(0, 0, bg);
-        this.userInfoUI = new UserInfoUI(0, TILE_SIZE * ROW_NUM);
+        this.userInfoUI = new UserInfoUI(0, 0);
         this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
 
         this.batteUIContainer = new DisplayObjectContainer(16, 16);

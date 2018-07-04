@@ -53,6 +53,14 @@ var battlePanelBlackMask = new Image();
 battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 var battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
+var bagButton = new Image();
+bagButton.src = './assets/1 60x80 物品ui.png';
+var EscButton = new Image();
+EscButton.src = './assets/1 60x80 设置ui.png';
+var SkillButton = new Image();
+SkillButton.src = './assets/1 60x80 技能ui.png';
+var bloodUI = new Image();
+bloodUI.src = './assets/ui血条.png';
 /**
  * 常量
  *
@@ -149,7 +157,7 @@ var PlayingState = /** @class */ (function (_super) {
         _this.userUIContainer = new DisplayObjectContainer(16, 16);
         _this.missionUIContainer = new DisplayObjectContainer(16, 16);
         _this.bg = new Bitmap(0, 0, bg);
-        _this.userInfoUI = new UserInfoUI(0, TILE_SIZE * ROW_NUM);
+        _this.userInfoUI = new UserInfoUI(0, 0);
         _this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
         _this.batteUIContainer = new DisplayObjectContainer(16, 16);
         _this.battleUI = new battleUI(0, 0); //居中显示

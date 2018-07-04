@@ -7,6 +7,11 @@ class UserInfoUI extends DisplayObjectContainer {
     userAttack: TextField;
     userEquipment: TextField;
 
+    bagButton: Bitmap;
+    EscButton: Bitmap;
+    SkillButton: Bitmap;
+    bloodUI: Bitmap;
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -14,11 +19,20 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
         this.userAttack = new TextField('Attck:' + player.attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
+        this.bagButton = new Bitmap(750, 465, bagButton);
+        this.EscButton = new Bitmap(820, 465, EscButton);
+        this.SkillButton = new Bitmap(680, 465, SkillButton);
+        this.bloodUI = new Bitmap(0, 0, bloodUI);
 
-        this.addChild(this.userName);
-        this.addChild(this.userLevel);
-        this.addChild(this.userAttack);
-        this.addChild(this.userEquipment);
+        // this.addChild(this.userName);
+        // this.addChild(this.userLevel);
+        // this.addChild(this.userAttack);
+        // this.addChild(this.userEquipment);
+        this.addChild(this.bagButton);
+        this.addChild(this.SkillButton);
+        this.addChild(this.EscButton);
+        this.addChild(this.bloodUI);
+
 
         player.addEventListener('updateUserInfo', (eventData: any) => {
             this.userLevel.text = 'Lv:' + player.level;
