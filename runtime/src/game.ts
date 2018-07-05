@@ -219,7 +219,8 @@ class MenuState extends State {
  * 角色创建状态
  */
 class CreateState extends State {
-    //60  8  5 
+
+    //TODO: 角色名输入
     backGround: Bitmap;
     startButton: Bitmap;
 
@@ -243,7 +244,7 @@ class CreateState extends State {
         this.onCreatePlayer();
         this.playerNameText = new TextField(player.name, 565, 160, 30);
         this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
-        this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+        this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         this.canAssignPointText = new TextField("" + this.canAssignPoint, 573, 255, 30);
         this.tipsText = new TextField("", 620, 260, 20);
 
@@ -257,7 +258,7 @@ class CreateState extends State {
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player.hp += 1;
+                player.hp += 5;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
@@ -265,7 +266,7 @@ class CreateState extends State {
         });
         this.hpMinusButton.addEventListener("onClick", () => {
             if (this.canAssignPoint < 5 && player.hp >= 60) {
-                player.hp -= 1;
+                player.hp -= 5;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }

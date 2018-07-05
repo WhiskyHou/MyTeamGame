@@ -21,11 +21,11 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
-        _this._originAttack = 20;
-        _this._originHealth = 100;
+        _this._originAttack = 10;
+        _this._originHealth = 60;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
-        _this._attack = 8;
+        _this._attack = 10;
         _this.hp = 60;
         _this._criticalPer = 0;
         _this._suitDefensePer = 0;

@@ -14,13 +14,13 @@ class User extends EventDispatcher {
     moveStatus: boolean = true;
 
     public name: string;
-    private _originAttack = 20;
-    private _originHealth = 100;
+    private _originAttack = 10;
+    private _originHealth = 60;
 
     mounthedEquipment: Equipment[] = [];
     packageEquipment: Equipment[] = [];
 
-    _attack = 8;
+    _attack = 10;
     hp = 60;
     _criticalPer = 0;
 
