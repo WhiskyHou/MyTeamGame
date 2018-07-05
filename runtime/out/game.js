@@ -23,6 +23,10 @@ var createBGImg = new Image();
 createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
 var createOkButtonImg = new Image();
 createOkButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
+var createAddButtonImg = new Image();
+createAddButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/加号.png';
+var createMinusButtonImg = new Image();
+createMinusButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/减号.png';
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -206,6 +210,10 @@ var CreateState = /** @class */ (function (_super) {
         _this.playerNameText = new TextField(player.name, 565, 160, 30);
         _this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+        _this.hpAddButton = new Bitmap(460, 350, createAddButtonImg);
+        _this.hpMinusButton = new Bitmap(630, 350, createMinusButtonImg);
+        _this.attackAddButton = new Bitmap(460, 305, createAddButtonImg);
+        _this.attackMinusButton = new Bitmap(630, 305, createMinusButtonImg);
         return _this;
     }
     CreateState.prototype.onEnter = function () {
@@ -214,6 +222,10 @@ var CreateState = /** @class */ (function (_super) {
         stage.addChild(this.playerHpText);
         stage.addChild(this.playerNameText);
         stage.addChild(this.playerAttackText);
+        stage.addChild(this.hpAddButton);
+        stage.addChild(this.hpMinusButton);
+        stage.addChild(this.attackAddButton);
+        stage.addChild(this.attackMinusButton);
         this.startButton.addEventListener("onClick", this.onClick);
         // stage.addEventListener("onClick", this.onClick);
     };
@@ -255,9 +267,9 @@ var PlayingState = /** @class */ (function (_super) {
         _this.userInfoUI = new UserInfoUI(0, 0);
         _this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
         batteUIContainer = new DisplayObjectContainer(16, 16);
-        _this.battleUI = new battleUI(0, 0); //居中显示
+        _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
-        _this.baggUI = new bagUI(0, 0); //居中显示
+        _this.baggUI = new bagUI(0, 0);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {

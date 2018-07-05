@@ -14,6 +14,10 @@ let createBGImg = new Image();
 createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
 let createOkButtonImg = new Image();
 createOkButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
+let createAddButtonImg = new Image();
+createAddButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/加号.png';
+let createMinusButtonImg = new Image();
+createMinusButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/减号.png';
 
 var bg = new Image();
 bg.src = './assets/bg.png';
@@ -219,6 +223,11 @@ class CreateState extends State {
     backGround: Bitmap;
     startButton: Bitmap;
 
+    hpAddButton: Bitmap;
+    hpMinusButton: Bitmap;
+    attackAddButton: Bitmap;
+    attackMinusButton: Bitmap;
+
     playerNameText: TextField;
     playerAttackText: TextField;
     playerHpText: TextField;
@@ -231,6 +240,12 @@ class CreateState extends State {
         this.playerNameText = new TextField(player.name, 565, 160, 30);
         this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
         this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+
+        this.hpAddButton = new Bitmap(460, 350, createAddButtonImg);
+        this.hpMinusButton = new Bitmap(630, 350, createMinusButtonImg);
+
+        this.attackAddButton = new Bitmap(460, 305, createAddButtonImg);
+        this.attackMinusButton = new Bitmap(630, 305, createMinusButtonImg);
     }
 
     onEnter(): void {
@@ -239,6 +254,11 @@ class CreateState extends State {
         stage.addChild(this.playerHpText);
         stage.addChild(this.playerNameText);
         stage.addChild(this.playerAttackText);
+
+        stage.addChild(this.hpAddButton);
+        stage.addChild(this.hpMinusButton);
+        stage.addChild(this.attackAddButton);
+        stage.addChild(this.attackMinusButton);
 
         this.startButton.addEventListener("onClick", this.onClick);
         // stage.addEventListener("onClick", this.onClick);
@@ -253,8 +273,6 @@ class CreateState extends State {
         stage.deleteAllEventListener();
         stage.deleteAll();
         // this.onCreatePlayer();
-
-
     }
 
     onCreatePlayer() {
@@ -309,9 +327,9 @@ class PlayingState extends State {
         this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
 
         batteUIContainer = new DisplayObjectContainer(16, 16);
-        this.battleUI = new battleUI(0, 0);//居中显示
+        this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
-        this.baggUI = new bagUI(0, 0);//居中显示
+        this.baggUI = new bagUI(0, 0);
     }
 
     onEnter(): void {
