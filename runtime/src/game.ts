@@ -10,6 +10,10 @@ titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面
 let titleStartImg = new Image();
 titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 
+let createBGImg = new Image();
+createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
+let createOkButtonImg = new Image();
+createOkButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 
 var bg = new Image();
 bg.src = './assets/bg.png';
@@ -143,10 +147,6 @@ class LoadingState extends State {
     onEnter(): void {
         stage.addChild(this.loadBG);
         stage.addChild(this.loadPercent);
-        // stage.addEventListener("onClick", this.onClick);
-        // setTimeout(
-        //     this.onExit()
-        //     , 1000);
 
     }
     onUpdate(): void {
@@ -161,37 +161,12 @@ class LoadingState extends State {
         console.log('Loading State onExit');
         stage.deleteAllEventListener();
         stage.deleteAll();
-        // fsm.replaceState(new MenuState());
-        // this.onCreatePlayer();
 
-
-    }
-
-    onCreatePlayer() {
-        player = new User();
-        player.level = 1;
-        player.name = 'Van';
-        player.x = PLAYER_INDEX_X;
-        player.y = PLAYER_INDEX_Y;
-        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
-    }
-
-    onClick = (eventData: any) => {
-        // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
-        // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
-        // this.onExit();
-
-        this.onCreatePlayer();
-        missionManager.init();
-        // npcManager.init();
-        fsm.replaceState(new MenuState());
     }
 }
 
-
 /**
- * 开始状态
+ * 菜单状态
  */
 class MenuState extends State {
     title: TextField;
@@ -211,6 +186,61 @@ class MenuState extends State {
         stage.addChild(this.title);
 
         this.startButton.addEventListener("onClick", this.onClick);
+    }
+    onUpdate(): void {
+
+    }
+    onExit(): void {
+        console.log('Menu State onExit');
+        stage.deleteAllEventListener();
+        stage.deleteAll();
+
+
+    }
+
+
+    onClick = (eventData: any) => {
+        // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
+        // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
+        // this.onExit();
+
+        missionManager.init();
+        // npcManager.init();
+        fsm.replaceState(new CreateState());
+    }
+}
+
+
+/**
+ * 角色创建状态
+ */
+class CreateState extends State {
+    //60  8  5 
+    backGround: Bitmap;
+    startButton: Bitmap;
+
+    playerNameText: TextField;
+    playerAttackText: TextField;
+    playerHpText: TextField;
+
+    constructor() {
+        super();
+        this.backGround = new Bitmap(0, 0, createBGImg);
+        this.startButton = new Bitmap(350, 430, titleStartImg);
+        this.onCreatePlayer();
+        this.playerNameText = new TextField(player.name, 565, 160, 30);
+        this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
+        this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+    }
+
+    onEnter(): void {
+        stage.addChild(this.backGround);
+        stage.addChild(this.startButton);
+        stage.addChild(this.playerHpText);
+        stage.addChild(this.playerNameText);
+        stage.addChild(this.playerAttackText);
+
+        this.startButton.addEventListener("onClick", this.onClick);
         // stage.addEventListener("onClick", this.onClick);
 
 
@@ -219,7 +249,7 @@ class MenuState extends State {
 
     }
     onExit(): void {
-        console.log('Login State onExit');
+        console.log('Create State onExit');
         stage.deleteAllEventListener();
         stage.deleteAll();
         // this.onCreatePlayer();
@@ -228,24 +258,17 @@ class MenuState extends State {
     }
 
     onCreatePlayer() {
-        player = new User();
+        player = new User();//初始hp 60，攻击8，初始于类中。
         player.level = 1;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
-
     }
 
     onClick = (eventData: any) => {
-        // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
-        // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
-        // this.onExit();
-
-        this.onCreatePlayer();
-        missionManager.init();
-        // npcManager.init();
+        // this.onCreatePlayer();
         fsm.replaceState(new PlayingState());
     }
 }

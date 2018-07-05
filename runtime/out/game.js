@@ -19,6 +19,10 @@ var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
 var titleStartImg = new Image();
 titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
+var createBGImg = new Image();
+createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
+var createOkButtonImg = new Image();
+createOkButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -128,15 +132,6 @@ var LoadingState = /** @class */ (function (_super) {
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
-        _this.onClick = function (eventData) {
-            // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
-            // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
-            // this.onExit();
-            _this.onCreatePlayer();
-            missionManager.init();
-            // npcManager.init();
-            fsm.replaceState(new MenuState());
-        };
         _this.loadBG = new Bitmap(0, 0, loadingImg);
         _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
         return _this;
@@ -144,10 +139,6 @@ var LoadingState = /** @class */ (function (_super) {
     LoadingState.prototype.onEnter = function () {
         stage.addChild(this.loadBG);
         stage.addChild(this.loadPercent);
-        // stage.addEventListener("onClick", this.onClick);
-        // setTimeout(
-        //     this.onExit()
-        //     , 1000);
     };
     LoadingState.prototype.onUpdate = function () {
         this.count++;
@@ -160,22 +151,11 @@ var LoadingState = /** @class */ (function (_super) {
         console.log('Loading State onExit');
         stage.deleteAllEventListener();
         stage.deleteAll();
-        // fsm.replaceState(new MenuState());
-        // this.onCreatePlayer();
-    };
-    LoadingState.prototype.onCreatePlayer = function () {
-        player = new User();
-        player.level = 1;
-        player.name = 'Van';
-        player.x = PLAYER_INDEX_X;
-        player.y = PLAYER_INDEX_Y;
-        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     };
     return LoadingState;
 }(State));
 /**
- * 开始状态
+ * 菜单状态
  */
 var MenuState = /** @class */ (function (_super) {
     __extends(MenuState, _super);
@@ -185,10 +165,9 @@ var MenuState = /** @class */ (function (_super) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
             // this.onExit();
-            _this.onCreatePlayer();
             missionManager.init();
             // npcManager.init();
-            fsm.replaceState(new PlayingState());
+            fsm.replaceState(new CreateState());
         };
         _this.backGround = new Bitmap(0, 0, titleBGImg);
         _this.startButton = new Bitmap(87, 430, titleStartImg);
@@ -200,18 +179,54 @@ var MenuState = /** @class */ (function (_super) {
         stage.addChild(this.startButton);
         stage.addChild(this.title);
         this.startButton.addEventListener("onClick", this.onClick);
-        // stage.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
     };
     MenuState.prototype.onExit = function () {
-        console.log('Login State onExit');
+        console.log('Menu State onExit');
+        stage.deleteAllEventListener();
+        stage.deleteAll();
+    };
+    return MenuState;
+}(State));
+/**
+ * 角色创建状态
+ */
+var CreateState = /** @class */ (function (_super) {
+    __extends(CreateState, _super);
+    function CreateState() {
+        var _this = _super.call(this) || this;
+        _this.onClick = function (eventData) {
+            // this.onCreatePlayer();
+            fsm.replaceState(new PlayingState());
+        };
+        _this.backGround = new Bitmap(0, 0, createBGImg);
+        _this.startButton = new Bitmap(350, 430, titleStartImg);
+        _this.onCreatePlayer();
+        _this.playerNameText = new TextField(player.name, 565, 160, 30);
+        _this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
+        _this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+        return _this;
+    }
+    CreateState.prototype.onEnter = function () {
+        stage.addChild(this.backGround);
+        stage.addChild(this.startButton);
+        stage.addChild(this.playerHpText);
+        stage.addChild(this.playerNameText);
+        stage.addChild(this.playerAttackText);
+        this.startButton.addEventListener("onClick", this.onClick);
+        // stage.addEventListener("onClick", this.onClick);
+    };
+    CreateState.prototype.onUpdate = function () {
+    };
+    CreateState.prototype.onExit = function () {
+        console.log('Create State onExit');
         stage.deleteAllEventListener();
         stage.deleteAll();
         // this.onCreatePlayer();
     };
-    MenuState.prototype.onCreatePlayer = function () {
-        player = new User();
+    CreateState.prototype.onCreatePlayer = function () {
+        player = new User(); //初始hp 60，攻击8，初始于类中。
         player.level = 1;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
@@ -219,7 +234,7 @@ var MenuState = /** @class */ (function (_super) {
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     };
-    return MenuState;
+    return CreateState;
 }(State));
 var talkUIContainer;
 var batteUIContainer;

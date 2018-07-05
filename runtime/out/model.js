@@ -25,28 +25,28 @@ var User = /** @class */ (function (_super) {
         _this._originHealth = 100;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
-        _this._attack = 0;
-        _this.hp = 0;
+        _this._attack = 8;
+        _this.hp = 60;
         _this._criticalPer = 0;
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
-        // 以下测试用
-        _this.name = "菜鸡";
-        var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 100, 20);
-        var eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 0, 0, 0);
-        var eq2 = new Equipment(3, '【毁天灭地】肩甲', 3, 2, 0, 0, 0);
-        var eq3 = new Equipment(4, '【毁天灭地】衣服', 3, 3, 0, 0, 0);
-        var eq4 = new Equipment(5, '【毁天灭地】腰带', 3, 4, 0, 0, 0);
-        var eq5 = new Equipment(6, '【毁天灭地】护腿', 3, 5, 0, 0, 0);
-        _this.mounthedEquipment.push(eq0);
-        _this.mounthedEquipment.push(eq1);
-        _this.mounthedEquipment.push(eq2);
-        _this.mounthedEquipment.push(eq3);
-        _this.mounthedEquipment.push(eq4);
-        _this.mounthedEquipment.push(eq5);
-        _this.changeEquipments();
         return _this;
+        // 以下测试用
+        // this.name = "菜鸡";
+        // let eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 100, 20);
+        // let eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 0, 0, 0);
+        // let eq2 = new Equipment(3, '【毁天灭地】肩甲', 3, 2, 0, 0, 0);
+        // let eq3 = new Equipment(4, '【毁天灭地】衣服', 3, 3, 0, 0, 0);
+        // let eq4 = new Equipment(5, '【毁天灭地】腰带', 3, 4, 0, 0, 0);
+        // let eq5 = new Equipment(6, '【毁天灭地】护腿', 3, 5, 0, 0, 0);
+        // this.mounthedEquipment.push(eq0);
+        // this.mounthedEquipment.push(eq1);
+        // this.mounthedEquipment.push(eq2);
+        // this.mounthedEquipment.push(eq3);
+        // this.mounthedEquipment.push(eq4);
+        // this.mounthedEquipment.push(eq5);
+        // this.changeEquipments();
     }
     Object.defineProperty(User.prototype, "level", {
         get: function () {
