@@ -5,6 +5,10 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+var titleBGImg = new Image();
+titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
+let titleStartImg = new Image();
+titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 
 
 var bg = new Image();
@@ -127,15 +131,19 @@ npcManager.init(() => {
  */
 class LoadingState extends State {
     loadBG: Bitmap;
+    loadPercent: TextField;
+    count = 0;
 
     constructor() {
         super();
         this.loadBG = new Bitmap(0, 0, loadingImg);
+        this.loadPercent = new TextField(this.count + " %", 420, 463, 30);
     }
 
     onEnter(): void {
         stage.addChild(this.loadBG);
-        stage.addEventListener("onClick", this.onClick);
+        stage.addChild(this.loadPercent);
+        // stage.addEventListener("onClick", this.onClick);
         // setTimeout(
         //     this.onExit()
         //     , 1000);
@@ -143,6 +151,11 @@ class LoadingState extends State {
     }
     onUpdate(): void {
 
+        this.count++;
+        this.loadPercent.text = this.count + " %";
+        if (this.count > 200) {
+            fsm.replaceState(new MenuState());
+        }
     }
     onExit(): void {
         console.log('Loading State onExit');
@@ -182,15 +195,23 @@ class LoadingState extends State {
  */
 class MenuState extends State {
     title: TextField;
-    title2: TextField;
+    backGround: Bitmap;
+    startButton: Bitmap;
+
     constructor() {
         super();
-        this.title = new TextField('点击这里开始1', 100, 300, 20);
+        this.backGround = new Bitmap(0, 0, titleBGImg);
+        this.startButton = new Bitmap(87, 430, titleStartImg);
+        this.title = new TextField('', 100, 300, 20);
     }
 
     onEnter(): void {
+        stage.addChild(this.backGround);
+        stage.addChild(this.startButton);
         stage.addChild(this.title);
-        stage.addEventListener("onClick", this.onClick);
+
+        this.startButton.addEventListener("onClick", this.onClick);
+        // stage.addEventListener("onClick", this.onClick);
 
 
     }

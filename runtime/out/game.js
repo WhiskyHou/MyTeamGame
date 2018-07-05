@@ -15,6 +15,10 @@ var __extends = (this && this.__extends) || (function () {
 var van_pick_knife = document.getElementById('van_pick_knife');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+var titleBGImg = new Image();
+titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
+var titleStartImg = new Image();
+titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -123,6 +127,7 @@ var LoadingState = /** @class */ (function (_super) {
     __extends(LoadingState, _super);
     function LoadingState() {
         var _this = _super.call(this) || this;
+        _this.count = 0;
         _this.onClick = function (eventData) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
@@ -133,16 +138,23 @@ var LoadingState = /** @class */ (function (_super) {
             fsm.replaceState(new MenuState());
         };
         _this.loadBG = new Bitmap(0, 0, loadingImg);
+        _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
         return _this;
     }
     LoadingState.prototype.onEnter = function () {
         stage.addChild(this.loadBG);
-        stage.addEventListener("onClick", this.onClick);
+        stage.addChild(this.loadPercent);
+        // stage.addEventListener("onClick", this.onClick);
         // setTimeout(
         //     this.onExit()
         //     , 1000);
     };
     LoadingState.prototype.onUpdate = function () {
+        this.count++;
+        this.loadPercent.text = this.count + " %";
+        if (this.count > 200) {
+            fsm.replaceState(new MenuState());
+        }
     };
     LoadingState.prototype.onExit = function () {
         console.log('Loading State onExit');
@@ -178,12 +190,17 @@ var MenuState = /** @class */ (function (_super) {
             // npcManager.init();
             fsm.replaceState(new PlayingState());
         };
-        _this.title = new TextField('点击这里开始1', 100, 300, 20);
+        _this.backGround = new Bitmap(0, 0, titleBGImg);
+        _this.startButton = new Bitmap(87, 430, titleStartImg);
+        _this.title = new TextField('', 100, 300, 20);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
+        stage.addChild(this.backGround);
+        stage.addChild(this.startButton);
         stage.addChild(this.title);
-        stage.addEventListener("onClick", this.onClick);
+        this.startButton.addEventListener("onClick", this.onClick);
+        // stage.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
     };
