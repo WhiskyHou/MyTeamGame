@@ -6,9 +6,9 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 var titleBGImg = new Image();
-titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
+titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 let titleStartImg = new Image();
-titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
+titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 新游戏.png';
 
 let createBGImg = new Image();
 createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
@@ -18,6 +18,8 @@ let createAddButtonImg = new Image();
 createAddButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/加号.png';
 let createMinusButtonImg = new Image();
 createMinusButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/减号.png';
+let createStartButtonImg = new Image();
+createStartButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 
 var bg = new Image();
 bg.src = './assets/bg.png';
@@ -180,7 +182,7 @@ class MenuState extends State {
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, titleBGImg);
-        this.startButton = new Bitmap(87, 430, titleStartImg);
+        this.startButton = new Bitmap(350, 370, titleStartImg);
         this.title = new TextField('', 100, 300, 20);
     }
 
@@ -219,7 +221,8 @@ class MenuState extends State {
  * 角色创建状态
  */
 class CreateState extends State {
-    //60  8  5 
+
+    //TODO: 角色名输入
     backGround: Bitmap;
     startButton: Bitmap;
 
@@ -232,26 +235,62 @@ class CreateState extends State {
     playerAttackText: TextField;
     playerHpText: TextField;
     canAssignPointText: TextField;
+    tipsText: TextField;
 
     canAssignPoint = 5;
+    bigTag = true;
 
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, createBGImg);
-        this.startButton = new Bitmap(350, 430, titleStartImg);
+        this.startButton = new Bitmap(350, 430, createStartButtonImg);
         this.onCreatePlayer();
         this.playerNameText = new TextField(player.name, 565, 160, 30);
         this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
-        this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
-        this.canAssignPointText = new TextField("" + this.canAssignPoint, 565, 260, 30);
+        this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
+        this.canAssignPointText = new TextField("" + this.canAssignPoint, 573, 255, 30);
+        this.tipsText = new TextField("", 620, 260, 20);
 
-        this.hpAddButton = new Bitmap(460, 350, createAddButtonImg);
-        this.hpMinusButton = new Bitmap(630, 350, createMinusButtonImg);
+        this.hpAddButton = new Bitmap(630, 350, createAddButtonImg);
+        this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
 
-        this.attackAddButton = new Bitmap(460, 305, createAddButtonImg);
-        this.attackMinusButton = new Bitmap(630, 305, createMinusButtonImg);
+        this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
+        this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
 
-        this.startButton.addEventListener("onClick", this.onClick);
+        this.startButton.addEventListener("onClick", this.onStartClick);
+
+        this.hpAddButton.addEventListener("onClick", () => {
+            if (this.canAssignPoint > 0) {
+                player.hp += 5;
+                this.canAssignPoint--;
+                this.canAssignPointText.text = "" + this.canAssignPoint;
+            }
+            this.playerHpText.text = "" + player.hp;
+        });
+        this.hpMinusButton.addEventListener("onClick", () => {
+            if (this.canAssignPoint < 5 && player.hp > 60) {
+                player.hp -= 5;
+                this.canAssignPoint++;
+                this.canAssignPointText.text = "" + this.canAssignPoint;
+            }
+            this.playerHpText.text = "" + player.hp;
+        });
+        this.attackAddButton.addEventListener("onClick", () => {
+            if (this.canAssignPoint > 0) {
+                player._attack += 1;
+                this.canAssignPoint--;
+                this.canAssignPointText.text = "" + this.canAssignPoint;
+            }
+            this.playerAttackText.text = "" + player._attack;
+        });
+        this.attackMinusButton.addEventListener("onClick", () => {
+            if (this.canAssignPoint < 5 && player._attack > 10) {
+                player._attack -= 1;
+                this.canAssignPoint++;
+                this.canAssignPointText.text = "" + this.canAssignPoint;
+            }
+            this.playerAttackText.text = "" + player._attack;
+        });
     }
 
     onEnter(): void {
@@ -261,6 +300,7 @@ class CreateState extends State {
         stage.addChild(this.playerNameText);
         stage.addChild(this.playerAttackText);
         stage.addChild(this.canAssignPointText);
+        stage.addChild(this.tipsText);
 
         stage.addChild(this.hpAddButton);
         stage.addChild(this.hpMinusButton);
@@ -273,6 +313,12 @@ class CreateState extends State {
 
     }
     onUpdate(): void {
+        if (this.canAssignPoint == 0) {
+            this.heartBeatEffect(this.startButton);
+        } else {
+            this.startButton.scaleX = 1;
+            this.startButton.scaleY = 1;
+        }
 
     }
     onExit(): void {
@@ -292,9 +338,30 @@ class CreateState extends State {
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     }
 
-    onClick = (eventData: any) => {
-        // this.onCreatePlayer();
-        fsm.replaceState(new PlayingState());
+    onStartClick = (eventData: any) => {
+
+        if (this.canAssignPoint == 0) {
+            fsm.replaceState(new PlayingState());
+        } else {
+            this.tipsText.text = " ← 加完点才能学习！"
+        }
+    }
+
+    heartBeatEffect(bmp: Bitmap) {
+        if (this.bigTag) {
+            bmp.scaleX += 0.1;
+            bmp.scaleY += 0.1;
+        } else {
+            bmp.scaleX -= 0.1;
+            bmp.scaleY -= 0.1;
+        }
+        if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
+            this.bigTag = false;
+        }
+        if (bmp.scaleX < 1 || bmp.scaleY < 1) {
+            this.bigTag = true;
+        }
+
     }
 }
 
