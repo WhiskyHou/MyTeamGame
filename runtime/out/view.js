@@ -115,7 +115,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.playerNameText = new TextField(_this.player.name, 160, 80, 30);
         _this.enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
         //战斗角色表现
-        _this.playerImg = new Bitmap(100, 200, player.view.img);
+        _this.playerImg = new Bitmap(120, 130, player.view.img);
         _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);

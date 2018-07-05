@@ -13,6 +13,8 @@ var __extends = (this && this.__extends) || (function () {
  * 资源载入
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+var loadingImg = new Image();
+loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -61,6 +63,8 @@ var backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 var battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+var playerIdleImg = new Image();
+playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -128,19 +132,23 @@ var LoadingState = /** @class */ (function (_super) {
             // npcManager.init();
             fsm.replaceState(new MenuState());
         };
-        _this.title = new TextField('点击这里loading开始1', 100, 300, 20);
+        _this.loadBG = new Bitmap(0, 0, loadingImg);
         return _this;
     }
     LoadingState.prototype.onEnter = function () {
-        stage.addChild(this.title);
+        stage.addChild(this.loadBG);
         stage.addEventListener("onClick", this.onClick);
+        // setTimeout(
+        //     this.onExit()
+        //     , 1000);
     };
     LoadingState.prototype.onUpdate = function () {
     };
     LoadingState.prototype.onExit = function () {
-        console.log('Login State onExit');
+        console.log('Loading State onExit');
         stage.deleteAllEventListener();
         stage.deleteAll();
+        // fsm.replaceState(new MenuState());
         // this.onCreatePlayer();
     };
     LoadingState.prototype.onCreatePlayer = function () {
@@ -149,7 +157,8 @@ var LoadingState = /** @class */ (function (_super) {
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     };
     return LoadingState;
 }(State));
@@ -190,7 +199,8 @@ var MenuState = /** @class */ (function (_super) {
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     };
     return MenuState;
 }(State));
@@ -284,7 +294,7 @@ var PlayingState = /** @class */ (function (_super) {
     PlayingState.prototype.changePlayerViewPosture = function () {
         var _this = this;
         setTimeout(function () {
-            player.view.img = (player.view.img == van1) ? van2 : van1;
+            // player.view.img = (player.view.img == van1) ? van2 : van1; //TODO 动画
             _this.changePlayerViewPosture();
         }, 600);
     };

@@ -2,6 +2,11 @@
  * 资源载入
  */
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
+
+var loadingImg = new Image();
+loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+
+
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -52,6 +57,8 @@ backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/U
 let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 
+let playerIdleImg = new Image();
+playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
@@ -119,26 +126,29 @@ npcManager.init(() => {
  * 载入状态
  */
 class LoadingState extends State {
-    title: TextField;
-    title2: TextField;
+    loadBG: Bitmap;
+
     constructor() {
         super();
-        this.title = new TextField('点击这里loading开始1', 100, 300, 20);
+        this.loadBG = new Bitmap(0, 0, loadingImg);
     }
 
     onEnter(): void {
-        stage.addChild(this.title);
+        stage.addChild(this.loadBG);
         stage.addEventListener("onClick", this.onClick);
-
+        // setTimeout(
+        //     this.onExit()
+        //     , 1000);
 
     }
     onUpdate(): void {
 
     }
     onExit(): void {
-        console.log('Login State onExit');
+        console.log('Loading State onExit');
         stage.deleteAllEventListener();
         stage.deleteAll();
+        // fsm.replaceState(new MenuState());
         // this.onCreatePlayer();
 
 
@@ -150,8 +160,8 @@ class LoadingState extends State {
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
-
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     }
 
     onClick = (eventData: any) => {
@@ -202,7 +212,8 @@ class MenuState extends State {
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
 
     }
 
@@ -336,7 +347,7 @@ class PlayingState extends State {
     // 角色原地动画
     changePlayerViewPosture() {
         setTimeout(() => {
-            player.view.img = (player.view.img == van1) ? van2 : van1;
+            // player.view.img = (player.view.img == van1) ? van2 : van1; //TODO 动画
             this.changePlayerViewPosture();
         }, 600);
     }
