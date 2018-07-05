@@ -226,7 +226,7 @@ var CreateState = /** @class */ (function (_super) {
         // this.onCreatePlayer();
     };
     CreateState.prototype.onCreatePlayer = function () {
-        player = new User(); //初始hp 60，攻击8，初始于类中。
+        player = new User(); //初始hp 60，攻击8，初始化于类中。
         player.level = 1;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
