@@ -185,7 +185,7 @@ class battleUI extends DisplayObjectContainer {
             this.index++;
         })
 
-        batManager.addEventListener('enemyDie', (eventData: any) => {
+        batManager.addEventListener('thisEnemyDie', (eventData: any) => {
             let textField = new TextField(this.enemy.name + " 被 " + this.player.name + " 打飞辣！", 0, this.index * 20, 15);
             this.textGroup.addChild(textField);
             this.index++;
@@ -193,6 +193,7 @@ class battleUI extends DisplayObjectContainer {
 
             this.attackButton.deleteAllEventListener();
         })
+
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             let textField = new TextField(this.player.name + " 被 " + this.enemy.name + " 打飞辣！", 0, this.index * 20, 15);
@@ -221,7 +222,6 @@ class battleEndWinUI extends DisplayObjectContainer {
     backGround: Bitmap;
     blackMask: Bitmap;
     backButton: Bitmap;
-
 
     expText: TextField;
 
@@ -252,6 +252,7 @@ class battleEndWinUI extends DisplayObjectContainer {
             }
         })
 
+        // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneWin", null);
         })
@@ -295,6 +296,7 @@ class battleEndLoseUI extends DisplayObjectContainer {
         //     }
         // })
 
+        // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneLose", null);
         })

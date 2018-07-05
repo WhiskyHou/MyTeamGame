@@ -160,7 +160,7 @@ var battleUI = /** @class */ (function (_super) {
             _this.textGroup.addChild(textField);
             _this.index++;
         });
-        batManager.addEventListener('enemyDie', function (eventData) {
+        batManager.addEventListener('thisEnemyDie', function (eventData) {
             var textField = new TextField(_this.enemy.name + " 被 " + _this.player.name + " 打飞辣！", 0, _this.index * 20, 15);
             _this.textGroup.addChild(textField);
             _this.index++;
@@ -210,6 +210,7 @@ var battleEndWinUI = /** @class */ (function (_super) {
                 _this.dropTextGroup.addChild(textField);
             }
         });
+        // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
         });
@@ -244,6 +245,7 @@ var battleEndLoseUI = /** @class */ (function (_super) {
         //         this.dropTextGroup.addChild(textField);
         //     }
         // })
+        // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneLose", null);
         });

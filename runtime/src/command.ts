@@ -133,7 +133,7 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-    monster: Monster;
+    monster: Monster = new Monster(0, "1", 3, 4);
     monsterOriginHp: number;
 
     constructor(monster: Monster) {
@@ -149,12 +149,16 @@ class FightCommand extends Command {
         const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
-        batManager.addEventListener('enemyDie', (eventData: any) => {
+        batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
+
             batteUIContainer.addChild(batEndUI);
+            map.deleteMonster(this.monster);
         })
+
         batManager.addEventListener('backSceneWin', (eventData: any) => {
             batteUIContainer.deleteAll();
-            map.deleteMonster(this.monster);
+
+
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
@@ -165,6 +169,7 @@ class FightCommand extends Command {
             batteUIContainer.deleteAll();
             // this.monster.hp = this.monsterOriginHp;
         })
+
 
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);

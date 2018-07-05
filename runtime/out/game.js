@@ -84,7 +84,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  *
  * 全局变量
  */
-var TILE_SIZE = 128; //TODO:还原为128
+var TILE_SIZE = 64; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
 var COL_NUM = 8;
@@ -128,7 +128,6 @@ var LoadingState = /** @class */ (function (_super) {
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
-        _this.wait = 0;
         _this.onClick = function (eventData) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
@@ -151,18 +150,9 @@ var LoadingState = /** @class */ (function (_super) {
         //     , 1000);
     };
     LoadingState.prototype.onUpdate = function () {
-        if (this.count < 100) {
-            this.count++;
-            this.loadPercent.text = this.count + " %";
-        }
-        if (this.count >= 100) {
-            this.wait++;
-        }
-        if (this.wait >= 120 && this.count < 200) {
-            this.count++;
-            this.loadPercent.text = this.count + " %";
-        }
-        if (this.wait >= 280) {
+        this.count++;
+        this.loadPercent.text = this.count + " %";
+        if (this.count > 200) {
             fsm.replaceState(new MenuState());
         }
     };
@@ -346,5 +336,5 @@ canvas.onclick = function (event) {
     }
 };
 // 初始状态设置
-// fsm.replaceState(new MenuState());
-fsm.replaceState(new LoadingState());
+fsm.replaceState(new MenuState());
+// fsm.replaceState(new LoadingState());
