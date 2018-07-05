@@ -185,16 +185,14 @@ class battleUI extends DisplayObjectContainer {
             this.index++;
         })
 
-        if (this.enemy != null) {
-            batManager.addEventListener(this.enemy.name + 'enemyDie', (eventData: any) => {
-                let textField = new TextField(this.enemy.name + " 被 " + this.player.name + " 打飞辣！", 0, this.index * 20, 15);
-                this.textGroup.addChild(textField);
-                this.index++;
-                this.indexJudge();
+        batManager.addEventListener('thisEnemyDie', (eventData: any) => {
+            let textField = new TextField(this.enemy.name + " 被 " + this.player.name + " 打飞辣！", 0, this.index * 20, 15);
+            this.textGroup.addChild(textField);
+            this.index++;
+            this.indexJudge();
 
-                this.attackButton.deleteAllEventListener();
-            })
-        }
+            this.attackButton.deleteAllEventListener();
+        })
 
 
         batManager.addEventListener('playerDie', (eventData: any) => {
