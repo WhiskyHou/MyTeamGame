@@ -200,6 +200,7 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
+        _this.canAssignPoint = 5;
         _this.onClick = function (eventData) {
             // this.onCreatePlayer();
             fsm.replaceState(new PlayingState());
@@ -210,10 +211,12 @@ var CreateState = /** @class */ (function (_super) {
         _this.playerNameText = new TextField(player.name, 565, 160, 30);
         _this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+        _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 565, 260, 30);
         _this.hpAddButton = new Bitmap(460, 350, createAddButtonImg);
         _this.hpMinusButton = new Bitmap(630, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(460, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(630, 305, createMinusButtonImg);
+        _this.startButton.addEventListener("onClick", _this.onClick);
         return _this;
     }
     CreateState.prototype.onEnter = function () {
@@ -222,11 +225,11 @@ var CreateState = /** @class */ (function (_super) {
         stage.addChild(this.playerHpText);
         stage.addChild(this.playerNameText);
         stage.addChild(this.playerAttackText);
+        stage.addChild(this.canAssignPointText);
         stage.addChild(this.hpAddButton);
         stage.addChild(this.hpMinusButton);
         stage.addChild(this.attackAddButton);
         stage.addChild(this.attackMinusButton);
-        this.startButton.addEventListener("onClick", this.onClick);
         // stage.addEventListener("onClick", this.onClick);
     };
     CreateState.prototype.onUpdate = function () {

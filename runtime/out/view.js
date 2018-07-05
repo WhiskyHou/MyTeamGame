@@ -18,7 +18,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.userName = new TextField(player.name, 10, 0, 20);
         _this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
-        _this.userAttack = new TextField('Attck:' + player.attack, 240, 0, 20);
+        _this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
         _this.bagButton = new Bitmap(750, 465, bagButton);
         _this.EscButton = new Bitmap(820, 465, EscButton);
@@ -37,7 +37,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         });
         player.addEventListener('updateUserInfo', function (eventData) {
             _this.userLevel.text = 'Lv:' + player.level;
-            _this.userAttack.text = 'Attck:' + player.attack;
+            _this.userAttack.text = 'Attck:' + player._attack;
             var equipments = '';
             for (var _i = 0, _a = player.mounthedEquipment; _i < _a.length; _i++) {
                 var item = _a[_i];

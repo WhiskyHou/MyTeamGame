@@ -231,6 +231,9 @@ class CreateState extends State {
     playerNameText: TextField;
     playerAttackText: TextField;
     playerHpText: TextField;
+    canAssignPointText: TextField;
+
+    canAssignPoint = 5;
 
     constructor() {
         super();
@@ -240,12 +243,15 @@ class CreateState extends State {
         this.playerNameText = new TextField(player.name, 565, 160, 30);
         this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
         this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
+        this.canAssignPointText = new TextField("" + this.canAssignPoint, 565, 260, 30);
 
         this.hpAddButton = new Bitmap(460, 350, createAddButtonImg);
         this.hpMinusButton = new Bitmap(630, 350, createMinusButtonImg);
 
         this.attackAddButton = new Bitmap(460, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(630, 305, createMinusButtonImg);
+
+        this.startButton.addEventListener("onClick", this.onClick);
     }
 
     onEnter(): void {
@@ -254,13 +260,14 @@ class CreateState extends State {
         stage.addChild(this.playerHpText);
         stage.addChild(this.playerNameText);
         stage.addChild(this.playerAttackText);
+        stage.addChild(this.canAssignPointText);
 
         stage.addChild(this.hpAddButton);
         stage.addChild(this.hpMinusButton);
         stage.addChild(this.attackAddButton);
         stage.addChild(this.attackMinusButton);
 
-        this.startButton.addEventListener("onClick", this.onClick);
+
         // stage.addEventListener("onClick", this.onClick);
 
 

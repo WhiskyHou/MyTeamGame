@@ -72,18 +72,13 @@ var User = /** @class */ (function (_super) {
     User.prototype.talk = function (npc) {
         this.dispatchEvent('talkWithNpc', { name: npc.name });
     };
-    Object.defineProperty(User.prototype, "attack", {
-        get: function () {
-            var equipmentAttack = 0;
-            for (var _i = 0, _a = this.mounthedEquipment; _i < _a.length; _i++) {
-                var equipment = _a[_i];
-                equipmentAttack += equipment.attack;
-            }
-            return this.level * USER_ATTACK_PRE + equipmentAttack;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    // get attack(): number {
+    //     let equipmentAttack = 0;
+    //     for (let equipment of this.mounthedEquipment) {
+    //         equipmentAttack += equipment.attack;
+    //     }
+    //     return this.level * USER_ATTACK_PRE + equipmentAttack;
+    // }
     User.prototype.changeGridPos = function (row, col) {
         this.x = row;
         this.y = col;
@@ -124,7 +119,7 @@ var User = /** @class */ (function (_super) {
         this.moveSmooth();
     };
     User.prototype.toString = function () {
-        return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this.hp + ", attack:" + this.attack + "]";
+        return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this.hp + ", attack:" + this._attack + "]";
     };
     //---------------------------------------------------------------
     User.prototype.changeEquipments = function () {

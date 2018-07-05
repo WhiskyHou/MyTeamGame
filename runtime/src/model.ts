@@ -73,13 +73,13 @@ class User extends EventDispatcher {
         this.dispatchEvent('talkWithNpc', { name: npc.name })
     }
 
-    get attack(): number {
-        let equipmentAttack = 0;
-        for (let equipment of this.mounthedEquipment) {
-            equipmentAttack += equipment.attack;
-        }
-        return this.level * USER_ATTACK_PRE + equipmentAttack;
-    }
+    // get attack(): number {
+    //     let equipmentAttack = 0;
+    //     for (let equipment of this.mounthedEquipment) {
+    //         equipmentAttack += equipment.attack;
+    //     }
+    //     return this.level * USER_ATTACK_PRE + equipmentAttack;
+    // }
 
     changeGridPos(row: number, col: number) {
         this.x = row;
@@ -124,7 +124,7 @@ class User extends EventDispatcher {
     }
 
     toString() {
-        return `[User ~ name:${this.name}, level:${this.level}, hp:${this.hp}, attack:${this.attack}]`;
+        return `[User ~ name:${this.name}, level:${this.level}, hp:${this.hp}, attack:${this._attack}]`;
     }
 
     //---------------------------------------------------------------

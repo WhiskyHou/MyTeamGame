@@ -17,7 +17,7 @@ class UserInfoUI extends DisplayObjectContainer {
 
         this.userName = new TextField(player.name, 10, 0, 20);
         this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
-        this.userAttack = new TextField('Attck:' + player.attack, 240, 0, 20);
+        this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
         this.bagButton = new Bitmap(750, 465, bagButton);
         this.EscButton = new Bitmap(820, 465, EscButton);
@@ -37,7 +37,7 @@ class UserInfoUI extends DisplayObjectContainer {
         });
         player.addEventListener('updateUserInfo', (eventData: any) => {
             this.userLevel.text = 'Lv:' + player.level;
-            this.userAttack.text = 'Attck:' + player.attack;
+            this.userAttack.text = 'Attck:' + player._attack;
             let equipments: string = '';
             for (let item of player.mounthedEquipment) {
                 equipments += item.name.toString();
