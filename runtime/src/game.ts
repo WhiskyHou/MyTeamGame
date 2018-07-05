@@ -9,6 +9,10 @@ var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 let titleStartImg = new Image();
 titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 新游戏.png';
+let titleLoadImg = new Image();
+titleLoadImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 载入游戏.png';
+let titleWorkerImg = new Image();
+titleWorkerImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 制作团队.png';
 
 let createBGImg = new Image();
 createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
@@ -177,19 +181,26 @@ class LoadingState extends State {
 class MenuState extends State {
     title: TextField;
     backGround: Bitmap;
+
     startButton: Bitmap;
+    loadButton: Bitmap;
+    workerButton: Bitmap;
 
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, titleBGImg);
         this.startButton = new Bitmap(350, 370, titleStartImg);
         this.title = new TextField('', 100, 300, 20);
+        this.loadButton = new Bitmap(350, 440, titleLoadImg);
+        this.workerButton = new Bitmap(80, 440, titleWorkerImg);
     }
 
     onEnter(): void {
         stage.addChild(this.backGround);
         stage.addChild(this.startButton);
         stage.addChild(this.title);
+        stage.addChild(this.loadButton);
+        stage.addChild(this.workerButton);
 
         this.startButton.addEventListener("onClick", this.onClick);
     }

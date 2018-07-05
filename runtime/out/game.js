@@ -19,6 +19,10 @@ var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 var titleStartImg = new Image();
 titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 新游戏.png';
+var titleLoadImg = new Image();
+titleLoadImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 载入游戏.png';
+var titleWorkerImg = new Image();
+titleWorkerImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 制作团队.png';
 var createBGImg = new Image();
 createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
 var createOkButtonImg = new Image();
@@ -178,12 +182,16 @@ var MenuState = /** @class */ (function (_super) {
         _this.backGround = new Bitmap(0, 0, titleBGImg);
         _this.startButton = new Bitmap(350, 370, titleStartImg);
         _this.title = new TextField('', 100, 300, 20);
+        _this.loadButton = new Bitmap(350, 440, titleLoadImg);
+        _this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
         stage.addChild(this.backGround);
         stage.addChild(this.startButton);
         stage.addChild(this.title);
+        stage.addChild(this.loadButton);
+        stage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
