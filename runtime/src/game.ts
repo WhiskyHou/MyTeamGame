@@ -69,7 +69,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  * 
  * 全局变量
  */
-const TILE_SIZE = 128;
+const TILE_SIZE = 64;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
@@ -104,6 +104,7 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
+let monsManager = new monsterManager();
 let baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(() => {

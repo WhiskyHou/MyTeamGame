@@ -4,7 +4,7 @@
  */
 var monsterManager = /** @class */ (function () {
     function monsterManager() {
-        this.monsList = [];
+        this.monsterList = [];
     }
     monsterManager.prototype.init = function (callback) {
         var _this = this;
@@ -23,9 +23,14 @@ var monsterManager = /** @class */ (function () {
             var id = parseInt(item.id);
             var name_1 = item.name;
             var hp = parseInt(item.hp);
-            var damage = parseInt(item.damage);
-            var monster = new Monster(id, name_1, hp, damage);
-            this.monsList.push(monster);
+            var attack = parseInt(item.attack);
+            var monster = new Monster(id, name_1, hp, attack);
+            var viewPath = item.view;
+            var viewImg = new Image();
+            viewImg.src = viewPath;
+            var view = new Bitmap(0, 0, viewImg);
+            monster.view = view;
+            this.monsterList.push(monster);
         }
     };
     return monsterManager;

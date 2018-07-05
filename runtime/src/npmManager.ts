@@ -26,8 +26,8 @@ class NpcManager extends EventDispatcher {
         for (let item of config.npc) {
             const id = parseInt(item.id);
             const name = item.name;
-            const hp = parseInt(item.hp);
-            const attack = parseInt(item.attack);
+            // const hp = parseInt(item.hp);
+            // const attack = parseInt(item.attack);
 
             const viewPath = item.view;
             const headPath = item.head;

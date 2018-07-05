@@ -289,7 +289,7 @@ var Mission = /** @class */ (function () {
     return Mission;
 }());
 /**
- * NPC（含怪物）
+ * NPC
  */
 var Npc = /** @class */ (function () {
     function Npc(id, name) {

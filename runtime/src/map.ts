@@ -151,6 +151,31 @@ class GameMap extends DisplayObjectContainer {
                 }
             }
 
+            // const mapMonster = obj.map[0].monster as number[][];
+            // for (let i = 0; i < mapMonster.length; i++) {
+            //     const row = mapMonster[i];
+            //     for (let j = 0; j < row.length; j++) {
+            //         const item = row[j]
+            //         if (item != 0) {
+            //             const id = item
+            //             for (let monster of monsManager.monsterList) {
+            //                 if (monster.id == id) {
+            //                     const monsterView = monster.view;
+            //                     // const npcHead = npc.head;
+            //                     monsterView.x = TILE_SIZE * i;
+            //                     monsterView.y = TILE_SIZE * j;
+            //                     monster.x = i
+            //                     monster.y = j
+            //                     const key = i + '_' + j;
+            //                     this.monsterConfig[key] = monster;
+            //                     this.roleContainer.addChild(monsterView);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+
         }
 
 
