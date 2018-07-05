@@ -137,10 +137,10 @@ var GameMap = /** @class */ (function (_super) {
                     var id = row[j];
                     if (id) {
                         var monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
-                        var monsterItem = new Monster(1, '队长', 120, 10);
+                        var monsterItem = new Monster(1, '队长', 1200, 100);
                         monsterItem.name = '队长';
                         monsterItem.view = monsterView;
-                        monsterItem.hp = 120;
+                        // monsterItem.hp = 120;
                         monsterItem.x = i;
                         monsterItem.y = j;
                         var key = i + '_' + j;

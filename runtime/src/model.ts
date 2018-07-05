@@ -20,7 +20,6 @@ class User extends EventDispatcher {
     mounthedEquipment: Equipment[] = [];
     packageEquipment: Equipment[] = [];
 
-    // private equipments: Equipment[] = [];
     _attack = 0;
     hp = 0;
     _criticalPer = 0;
@@ -387,8 +386,8 @@ class Monster extends EventDispatcher {
     view: Bitmap;
     id: number = 0;
     name: string = '';
-    hp: number = 100;
-    attack: number = 10;
+    hp: number;
+    attack: number;
     curEquipSet: EquipmentSet;
     dropTime = 3;//掉落次数
 
@@ -396,7 +395,8 @@ class Monster extends EventDispatcher {
         super();
         this.id = id;
         this.name = name;
-
+        this.hp = hp;
+        this.attack = attack;
     }
 
     toString() {

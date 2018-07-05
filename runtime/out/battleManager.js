@@ -26,6 +26,7 @@ var battleManager = /** @class */ (function (_super) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
         this.originHp = player.hp;
+        console.log(enemy.hp + "  " + enemy.attack);
         var damage = this.playerDealDamage();
         enemy.hp -= damage;
         this.dispatchEvent('playerDealDamage', damage);

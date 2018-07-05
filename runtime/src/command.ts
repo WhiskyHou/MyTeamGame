@@ -134,6 +134,7 @@ class TalkCommand extends Command {
  */
 class FightCommand extends Command {
     monster: Monster;
+    // monsterOriginHp = this.monster.hp;
 
     constructor(monster: Monster) {
         super();
@@ -143,15 +144,24 @@ class FightCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
         const batUI = new battleUI(0, 0);
-        const batEndUI = new battleEndUI(0, 0);
+        const batEndUI = new battleEndWinUI(0, 0);
+        const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
         batManager.addEventListener('enemyDie', (eventData: any) => {
             batteUIContainer.addChild(batEndUI);
         })
-        batManager.addEventListener('backScene', (eventData: any) => {
+        batManager.addEventListener('backSceneWin', (eventData: any) => {
             batteUIContainer.deleteAll();
             map.deleteMonster(this.monster);
+        })
+
+        batManager.addEventListener('playerDie', (eventData: any) => {
+            batteUIContainer.addChild(batEndLoseUI);
+        })
+        batManager.addEventListener('backSceneLose', (eventData: any) => {
+            batteUIContainer.deleteAll();
+            // this.monster.hp = this.monsterOriginHp;
         })
 
         // stage.addChild(this.batteUIContainer);

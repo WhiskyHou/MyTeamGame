@@ -49,6 +49,9 @@ let battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 let backButtonImg = new Image();
 backButtonImg.src = './assets/battlePanel/ui button返回.png';
+let battleEndLoseBGImg = new Image();
+battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui.png';// TODO：修改图片
+
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
@@ -105,8 +108,8 @@ let baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(() => {
     equipSetInit(equipManager);
-    let m = new Monster(1, "2", 3, 4);
-    m.makeDrop();
+    // let m = new Monster(1, "2", 3, 4);
+    // m.makeDrop();
 });
 
 function noThing() {
@@ -223,7 +226,7 @@ class PlayingState extends State {
         // batteUIContainer.addChild(this.battleUI);
         stage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
-        baManager.addEventListener('openBag',(eventData:any) => {
+        baManager.addEventListener('openBag', (eventData: any) => {
             bagUIContainer.addChild(this.baggUI);
         });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
