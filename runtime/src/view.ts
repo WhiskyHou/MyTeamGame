@@ -32,8 +32,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
         this.addChild(this.bloodUI);
-
-
+        this.bagButton.addEventListener('onClick', (eventData: any) => {
+            baManager.openBag();
+        });
         player.addEventListener('updateUserInfo', (eventData: any) => {
             this.userLevel.text = 'Lv:' + player.level;
             this.userAttack.text = 'Attck:' + player.attack;
@@ -83,7 +84,25 @@ class MissionInfoUI extends DisplayObjectContainer {
     }
 }
 
+/**
+ * 背包UI
+ */
+class bagUI extends DisplayObjectContainer {
 
+    player: User = player;
+
+    infoPanel: Bitmap;
+
+    constructor(x: number, y: number) {
+        //super(x, y);
+        super(58, 64);
+
+        this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
+
+        this.addChild(this.infoPanel);
+    }
+
+}
 /**
  * 战斗UI
  */
@@ -182,7 +201,7 @@ class battleEndUI extends DisplayObjectContainer {
 
     expText: TextField;
 
-    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(285, 255);
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(307, 270);
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -198,8 +217,18 @@ class battleEndUI extends DisplayObjectContainer {
         this.addChild(this.expText);
         this.addChild(this.dropTextGroup);
 
-        let textField = new TextField("【上元节】衣服", 15, 15, 15);
-        this.dropTextGroup.addChild(textField);
+
+
+
+        batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+            for (let i = 0; i < dropBox.length; i++) {
+                let equip: Equipment;
+                equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+                let textField = new TextField(equip.name, 0, 25 * i, 17);
+                player.packageEquipment.push()
+                this.dropTextGroup.addChild(textField);
+            }
+        })
 
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backScene", null);

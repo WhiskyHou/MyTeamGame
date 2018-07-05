@@ -59,6 +59,8 @@ SkillButton.src = './assets/1 60x80 技能ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/ui血条.png';
 
+var bagWindowsUI = new Image();
+bagWindowsUI.src = './assets/ui背包界面参考.png';
 /**
  * 常量
  * 
@@ -99,6 +101,7 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
+let baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(() => {
     equipSetInit(equipManager);
@@ -120,7 +123,7 @@ class MenuState extends State {
     title2: TextField;
     constructor() {
         super();
-        this.title = new TextField('点击这里开始', 100, 300, 20);
+        this.title = new TextField('点击这里开始1', 100, 300, 20);
     }
 
     onEnter(): void {
@@ -166,6 +169,7 @@ class MenuState extends State {
 
 var talkUIContainer: DisplayObjectContainer;
 let batteUIContainer: DisplayObjectContainer;
+let bagUIContainer: DisplayObjectContainer;
 
 /**
  * 游戏状态
@@ -180,7 +184,7 @@ class PlayingState extends State {
     missionUIContainer: DisplayObjectContainer;
 
     battleUI: battleUI;
-
+    baggUI: bagUI;
 
 
     constructor() {
@@ -199,6 +203,8 @@ class PlayingState extends State {
 
         batteUIContainer = new DisplayObjectContainer(16, 16);
         this.battleUI = new battleUI(0, 0);//居中显示
+        bagUIContainer = new DisplayObjectContainer(120, -50);
+        this.baggUI = new bagUI(0, 0);//居中显示
     }
 
     onEnter(): void {
@@ -215,9 +221,11 @@ class PlayingState extends State {
 
         stage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
-
-
-
+        stage.addChild(bagUIContainer);
+        //bagUIContainer.addChild(this.baggUI);
+        baManager.addEventListener('openBag',(eventData:any) => {
+            bagUIContainer.addChild(this.baggUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {

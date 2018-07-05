@@ -67,6 +67,8 @@ var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/ui血条.png';
+var bagWindowsUI = new Image();
+bagWindowsUI.src = './assets/ui背包界面参考.png';
 /**
  * 常量
  *
@@ -99,6 +101,7 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
+var baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(function () {
     equipSetInit(equipManager);
@@ -124,7 +127,7 @@ var MenuState = /** @class */ (function (_super) {
             // npcManager.init();
             fsm.replaceState(new PlayingState());
         };
-        _this.title = new TextField('点击这里开始', 100, 300, 20);
+        _this.title = new TextField('点击这里开始1', 100, 300, 20);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
@@ -151,6 +154,7 @@ var MenuState = /** @class */ (function (_super) {
 }(State));
 var talkUIContainer;
 var batteUIContainer;
+var bagUIContainer;
 /**
  * 游戏状态
  */
@@ -168,9 +172,12 @@ var PlayingState = /** @class */ (function (_super) {
         _this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
         batteUIContainer = new DisplayObjectContainer(16, 16);
         _this.battleUI = new battleUI(0, 0); //居中显示
+        bagUIContainer = new DisplayObjectContainer(120, -50);
+        _this.baggUI = new bagUI(0, 0); //居中显示
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
+        var _this = this;
         stage.addChild(this.bg);
         stage.addChild(this.mapContainer);
         stage.addChild(this.userUIContainer);
@@ -182,6 +189,11 @@ var PlayingState = /** @class */ (function (_super) {
         this.missionUIContainer.addChild(this.missionInfoUI);
         stage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
+        stage.addChild(bagUIContainer);
+        //bagUIContainer.addChild(this.baggUI);
+        baManager.addEventListener('openBag', function (eventData) {
+            bagUIContainer.addChild(_this.baggUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {

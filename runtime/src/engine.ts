@@ -323,9 +323,59 @@ class Bitmap extends DisplayObject {
 
 /**
  * 按钮
- * 
+ *
  */
 // TODO
+class Button extends DisplayObjectContainer {
+
+    image: Bitmap
+
+    text: TextField
+
+    constructor(x: number, y: number) {
+        super(x, y);
+    }
+
+    update() {
+
+    }
+
+    reset() {
+
+    }
+}
+
+
+/**
+ * 弹窗
+ */
+class MultiWindow extends DisplayObjectContainer {
+
+    background: Bitmap
+
+    images: Bitmap[] = []
+
+    buttons: Button[] = []
+
+    titleTexts: TextField[] = []
+
+    mainTexts: TextField[] = []
+
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.background = new Bitmap(x, y, new HTMLImageElement());
+    }
+
+    update() {
+
+    }
+
+    reset() {
+
+    }
+}
 
 
 /**
