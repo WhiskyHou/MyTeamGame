@@ -201,9 +201,13 @@ var CreateState = /** @class */ (function (_super) {
     function CreateState() {
         var _this = _super.call(this) || this;
         _this.canAssignPoint = 5;
-        _this.onClick = function (eventData) {
-            // this.onCreatePlayer();
-            fsm.replaceState(new PlayingState());
+        _this.onStartClick = function (eventData) {
+            if (_this.canAssignPoint == 0) {
+                fsm.replaceState(new PlayingState());
+            }
+            else {
+                _this.tipsText.text = " ← 加完点才能学习！";
+            }
         };
         _this.backGround = new Bitmap(0, 0, createBGImg);
         _this.startButton = new Bitmap(350, 430, titleStartImg);
@@ -211,12 +215,45 @@ var CreateState = /** @class */ (function (_super) {
         _this.playerNameText = new TextField(player.name, 565, 160, 30);
         _this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 555, 305, 30);
-        _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 565, 260, 30);
-        _this.hpAddButton = new Bitmap(460, 350, createAddButtonImg);
-        _this.hpMinusButton = new Bitmap(630, 350, createMinusButtonImg);
-        _this.attackAddButton = new Bitmap(460, 305, createAddButtonImg);
-        _this.attackMinusButton = new Bitmap(630, 305, createMinusButtonImg);
-        _this.startButton.addEventListener("onClick", _this.onClick);
+        _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 573, 255, 30);
+        _this.tipsText = new TextField("", 620, 260, 20);
+        _this.hpAddButton = new Bitmap(630, 350, createAddButtonImg);
+        _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
+        _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
+        _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
+        _this.startButton.addEventListener("onClick", _this.onStartClick);
+        _this.hpAddButton.addEventListener("onClick", function () {
+            if (_this.canAssignPoint > 0) {
+                player.hp += 1;
+                _this.canAssignPoint--;
+                _this.canAssignPointText.text = "" + _this.canAssignPoint;
+            }
+            _this.playerHpText.text = "" + player.hp;
+        });
+        _this.hpMinusButton.addEventListener("onClick", function () {
+            if (_this.canAssignPoint < 5 && player.hp >= 60) {
+                player.hp -= 1;
+                _this.canAssignPoint++;
+                _this.canAssignPointText.text = "" + _this.canAssignPoint;
+            }
+            _this.playerHpText.text = "" + player.hp;
+        });
+        _this.attackAddButton.addEventListener("onClick", function () {
+            if (_this.canAssignPoint > 0) {
+                player._attack += 1;
+                _this.canAssignPoint--;
+                _this.canAssignPointText.text = "" + _this.canAssignPoint;
+            }
+            _this.playerAttackText.text = "" + player._attack;
+        });
+        _this.attackMinusButton.addEventListener("onClick", function () {
+            if (_this.canAssignPoint < 5 && player._attack >= 5) {
+                player._attack -= 1;
+                _this.canAssignPoint++;
+                _this.canAssignPointText.text = "" + _this.canAssignPoint;
+            }
+            _this.playerAttackText.text = "" + player._attack;
+        });
         return _this;
     }
     CreateState.prototype.onEnter = function () {
@@ -226,6 +263,7 @@ var CreateState = /** @class */ (function (_super) {
         stage.addChild(this.playerNameText);
         stage.addChild(this.playerAttackText);
         stage.addChild(this.canAssignPointText);
+        stage.addChild(this.tipsText);
         stage.addChild(this.hpAddButton);
         stage.addChild(this.hpMinusButton);
         stage.addChild(this.attackAddButton);
