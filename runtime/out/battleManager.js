@@ -26,12 +26,13 @@ var battleManager = /** @class */ (function (_super) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
         this.originHp = player.hp;
+        console.log(enemy.hp + "  " + enemy.attack);
         var damage = this.playerDealDamage();
         enemy.hp -= damage;
         this.dispatchEvent('playerDealDamage', damage);
         if (enemy.hp <= 0) {
             this.dispatchEvent('enemyDie', null);
-            enemy.makeDrop();
+            this.dispatchEvent('enemyDrop', enemy.makeDrop());
             player.hp = this.originHp;
         }
         damage = this.damageFlow(enemy.attack);

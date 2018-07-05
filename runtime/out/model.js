@@ -25,7 +25,6 @@ var User = /** @class */ (function (_super) {
         _this._originHealth = 100;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
-        // private equipments: Equipment[] = [];
         _this._attack = 0;
         _this.hp = 0;
         _this._criticalPer = 0;
@@ -290,7 +289,7 @@ var Mission = /** @class */ (function () {
     return Mission;
 }());
 /**
- * NPC（含怪物）
+ * NPC
  */
 var Npc = /** @class */ (function () {
     function Npc(id, name) {
@@ -336,10 +335,11 @@ var Monster = /** @class */ (function (_super) {
         _this.y = 0;
         _this.id = 0;
         _this.name = '';
-        _this.hp = 100;
-        _this.attack = 10;
+        _this.dropTime = 3; //掉落次数
         _this.id = id;
         _this.name = name;
+        _this.hp = hp;
+        _this.attack = attack;
         return _this;
     }
     Monster.prototype.toString = function () {
@@ -367,9 +367,11 @@ var Monster = /** @class */ (function (_super) {
         }
     };
     Monster.prototype.makeDrop = function () {
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
+        var equipBox = [];
+        for (var i = 0; i < this.dropTime; i++) {
+            equipBox.push(this.equipDrop());
+        }
+        return equipBox;
     };
     return Monster;
 }(EventDispatcher));

@@ -21,13 +21,15 @@ class battleManager extends EventDispatcher {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
         this.originHp = player.hp;
+        console.log(enemy.hp + "  " + enemy.attack);
+
 
         let damage = this.playerDealDamage();
         enemy.hp -= damage;
         this.dispatchEvent('playerDealDamage', damage);
         if (enemy.hp <= 0) {
             this.dispatchEvent('enemyDie', null);
-            enemy.makeDrop();
+            this.dispatchEvent('enemyDrop', enemy.makeDrop());
             player.hp = this.originHp;
         }
 

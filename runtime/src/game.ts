@@ -49,6 +49,9 @@ let battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 let backButtonImg = new Image();
 backButtonImg.src = './assets/battlePanel/ui button返回.png';
+let battleEndLoseBGImg = new Image();
+battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
@@ -66,7 +69,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  * 
  * 全局变量
  */
-const TILE_SIZE = 128;
+const TILE_SIZE = 64;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
@@ -101,12 +104,13 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
+let monsManager = new monsterManager();
 let baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(() => {
     equipSetInit(equipManager);
-    let m = new Monster(1, "2", 3, 4);
-    m.makeDrop();
+    // let m = new Monster(1, "2", 3, 4);
+    // m.makeDrop();
 });
 
 function noThing() {
@@ -223,7 +227,7 @@ class PlayingState extends State {
         // batteUIContainer.addChild(this.battleUI);
         stage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
-        baManager.addEventListener('openBag',(eventData:any) => {
+        baManager.addEventListener('openBag', (eventData: any) => {
             bagUIContainer.addChild(this.baggUI);
         });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令

@@ -334,6 +334,9 @@ class Button extends DisplayObjectContainer {
 
     constructor(x: number, y: number) {
         super(x, y);
+
+        this.addChild(this.image)
+        this.addChild(this.text)
     }
 
     update() {
@@ -369,6 +372,32 @@ class MultiWindow extends DisplayObjectContainer {
     }
 
     update() {
+
+    }
+
+    reset() {
+
+    }
+}
+
+/**
+ * 动画
+ */
+class Animator extends DisplayObjectContainer {
+
+    frame: number
+
+    count: number
+
+    image: Bitmap
+
+    size: number
+
+    constructor(x: number, y: number) {
+        super(x, y);
+    }
+
+    play() {
 
     }
 

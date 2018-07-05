@@ -20,7 +20,6 @@ class User extends EventDispatcher {
     mounthedEquipment: Equipment[] = [];
     packageEquipment: Equipment[] = [];
 
-    // private equipments: Equipment[] = [];
     _attack = 0;
     hp = 0;
     _criticalPer = 0;
@@ -332,7 +331,7 @@ class Mission {
 
 
 /**
- * NPC（含怪物）
+ * NPC
  */
 class Npc {
     x: number = 0
@@ -387,15 +386,17 @@ class Monster extends EventDispatcher {
     view: Bitmap;
     id: number = 0;
     name: string = '';
-    hp: number = 100;
-    attack: number = 10;
+    hp: number;
+    attack: number;
     curEquipSet: EquipmentSet;
+    dropTime = 3;//掉落次数
 
     constructor(id: number, name: string, hp: number, attack: number) {
         super();
         this.id = id;
         this.name = name;
-
+        this.hp = hp;
+        this.attack = attack;
     }
 
     toString() {
@@ -424,9 +425,11 @@ class Monster extends EventDispatcher {
     }
 
     public makeDrop() {
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
+        let equipBox: number[] = [];
+        for (let i = 0; i < this.dropTime; i++) {
+            equipBox.push(this.equipDrop());
+        }
+        return equipBox;
     }
 }
 

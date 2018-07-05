@@ -155,6 +155,17 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
         });
         batManager.addEventListener('enemyDie', function (eventData) {
+            var textField = new TextField(_this.enemy.name + " 被 " + _this.player.name + " 打飞辣！", 0, _this.index * 20, 15);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+            _this.indexJudge();
+            _this.attackButton.deleteAllEventListener();
+        });
+        batManager.addEventListener('playerDie', function (eventData) {
+            var textField = new TextField(_this.player.name + " 被 " + _this.enemy.name + " 打飞辣！", 0, _this.index * 20, 15);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+            _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
         });
         return _this;
@@ -168,13 +179,13 @@ var battleUI = /** @class */ (function (_super) {
     return battleUI;
 }(DisplayObjectContainer));
 /**
- * 战斗结算UI
+ * 战斗胜利结算UI
  */
-var battleEndUI = /** @class */ (function (_super) {
-    __extends(battleEndUI, _super);
-    function battleEndUI(x, y) {
+var battleEndWinUI = /** @class */ (function (_super) {
+    __extends(battleEndWinUI, _super);
+    function battleEndWinUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.dropTextGroup = new DisplayObjectContainer(285, 255);
+        _this.dropTextGroup = new DisplayObjectContainer(400, 240);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndBGImg);
         _this.backButton = new Bitmap(500, 353, backButtonImg);
@@ -184,14 +195,55 @@ var battleEndUI = /** @class */ (function (_super) {
         _this.addChild(_this.backButton);
         _this.addChild(_this.expText);
         _this.addChild(_this.dropTextGroup);
-        var textField = new TextField("【上元节】衣服", 15, 15, 15);
-        _this.dropTextGroup.addChild(textField);
+        batManager.addEventListener("enemyDrop", function (dropBox) {
+            for (var i = 0; i < dropBox.length; i++) {
+                var equip = void 0;
+                equip = equipManager.getEquipByID(dropBox[i]);
+                var textField = new TextField(equip.name, 0, 30 * i, 20);
+                player.packageEquipment.push(equip);
+                _this.dropTextGroup.addChild(textField);
+            }
+        });
         _this.backButton.addEventListener("onClick", function (eventData) {
-            batManager.dispatchEvent("backScene", null);
+            batManager.dispatchEvent("backSceneWin", null);
         });
         return _this;
     }
-    return battleEndUI;
+    return battleEndWinUI;
+}(DisplayObjectContainer));
+/**
+ * 战斗失败结算UI
+ */
+var battleEndLoseUI = /** @class */ (function (_super) {
+    __extends(battleEndLoseUI, _super);
+    // expText: TextField;
+    // dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
+    function battleEndLoseUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
+        _this.backButton = new Bitmap(500, 325, backButtonImg);
+        // this.expText = new TextField('2333', 400, 207, 20);
+        // this.addChild(this.blackMask);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.backButton);
+        // this.addChild(this.expText);
+        // this.addChild(this.dropTextGroup);
+        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+        //     for (let i = 0; i < dropBox.length; i++) {
+        //         let equip: Equipment;
+        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
+        //         player.packageEquipment.push(equip);
+        //         this.dropTextGroup.addChild(textField);
+        //     }
+        // })
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            batManager.dispatchEvent("backSceneLose", null);
+        });
+        return _this;
+    }
+    return battleEndLoseUI;
 }(DisplayObjectContainer));
 /**
  * 对话窗口UI

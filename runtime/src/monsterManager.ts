@@ -2,7 +2,7 @@
  * 怪物管理器
  */
 class monsterManager {
-    monsList: Monster[] = []
+    monsterList: Monster[] = []
 
     constructor() {
 
@@ -26,11 +26,18 @@ class monsterManager {
             const id = parseInt(item.id);
             const name = item.name;
             const hp = parseInt(item.hp);
-            const damage = parseInt(item.damage);
+            const attack = parseInt(item.attack);
 
-            let monster = new Monster(id, name, hp, damage);
+            let monster = new Monster(id, name, hp, attack);
 
-            this.monsList.push(monster);
+            const viewPath = item.view;
+            let viewImg = new Image();
+            viewImg.src = viewPath;
+            const view = new Bitmap(0, 0, viewImg);
+            monster.view = view;
+
+            this.monsterList.push(monster);
+
         }
     }
 }

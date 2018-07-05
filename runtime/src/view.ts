@@ -95,9 +95,9 @@ class bagUI extends DisplayObjectContainer {
 
     constructor(x: number, y: number) {
         //super(x, y);
-         super(58, 64);
+        super(58, 64);
 
-        this.infoPanel = new Bitmap(42, 48,bagWindowsUI);
+        this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
 
         this.addChild(this.infoPanel);
     }
@@ -177,6 +177,20 @@ class battleUI extends DisplayObjectContainer {
         })
 
         batManager.addEventListener('enemyDie', (eventData: any) => {
+            let textField = new TextField(this.enemy.name + " 被 " + this.player.name + " 打飞辣！", 0, this.index * 20, 15);
+            this.textGroup.addChild(textField);
+            this.index++;
+            this.indexJudge();
+
+            this.attackButton.deleteAllEventListener();
+        })
+
+        batManager.addEventListener('playerDie', (eventData: any) => {
+            let textField = new TextField(this.player.name + " 被 " + this.enemy.name + " 打飞辣！", 0, this.index * 20, 15);
+            this.textGroup.addChild(textField);
+            this.index++;
+            this.indexJudge();
+
             this.attackButton.deleteAllEventListener();
         })
     }
@@ -191,9 +205,9 @@ class battleUI extends DisplayObjectContainer {
 }
 
 /**
- * 战斗结算UI
+ * 战斗胜利结算UI
  */
-class battleEndUI extends DisplayObjectContainer {
+class battleEndWinUI extends DisplayObjectContainer {
 
     backGround: Bitmap;
     blackMask: Bitmap;
@@ -201,7 +215,7 @@ class battleEndUI extends DisplayObjectContainer {
 
     expText: TextField;
 
-    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(285, 255);
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -217,17 +231,64 @@ class battleEndUI extends DisplayObjectContainer {
         this.addChild(this.expText);
         this.addChild(this.dropTextGroup);
 
-        let textField = new TextField("【上元节】衣服", 15, 15, 15);
-        this.dropTextGroup.addChild(textField);
+        batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+            for (let i = 0; i < dropBox.length; i++) {
+                let equip: Equipment;
+                equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+                let textField = new TextField(equip.name, 0, 30 * i, 20);
+                player.packageEquipment.push(equip);
+                this.dropTextGroup.addChild(textField);
+            }
+        })
 
         this.backButton.addEventListener("onClick", (eventData: any) => {
-            batManager.dispatchEvent("backScene", null);
+            batManager.dispatchEvent("backSceneWin", null);
         })
     }
-
-
 }
 
+/**
+ * 战斗失败结算UI
+ */
+class battleEndLoseUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    blackMask: Bitmap;
+    backButton: Bitmap;
+
+    // expText: TextField;
+
+    // dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
+        this.backButton = new Bitmap(500, 325, backButtonImg);
+        // this.expText = new TextField('2333', 400, 207, 20);
+
+        // this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
+        // this.addChild(this.expText);
+        // this.addChild(this.dropTextGroup);
+
+        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+        //     for (let i = 0; i < dropBox.length; i++) {
+        //         let equip: Equipment;
+        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
+        //         player.packageEquipment.push(equip);
+        //         this.dropTextGroup.addChild(textField);
+        //     }
+        // })
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            batManager.dispatchEvent("backSceneLose", null);
+        })
+    }
+}
 
 /**
  * 对话窗口UI

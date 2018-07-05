@@ -31,5 +31,14 @@ var EquipmentManager = /** @class */ (function () {
             this.equipList.push(equip);
         }
     };
+    EquipmentManager.prototype.getEquipByID = function (id) {
+        for (var i = 0; i < equipManager.equipList.length; i++) {
+            if (equipManager.equipList[i].id == id) {
+                console.log(equipManager.equipList[i].name);
+                return equipManager.equipList[i];
+            }
+        }
+        return null;
+    };
     return EquipmentManager;
 }());

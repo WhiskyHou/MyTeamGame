@@ -48,6 +48,7 @@ var GameMap = /** @class */ (function (_super) {
         var obj;
         xhr.onload = function () {
             obj = JSON.parse(xhr.response);
+            _this.config = obj;
             var mapTile = obj.map[0].tile;
             for (var i = 0; i < mapTile.length; i++) {
                 var row = mapTile[i];
@@ -137,10 +138,10 @@ var GameMap = /** @class */ (function (_super) {
                     var id = row[j];
                     if (id) {
                         var monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
-                        var monsterItem = new Monster(1, '队长', 120, 10);
+                        var monsterItem = new Monster(1, '队长', 1200, 100);
                         monsterItem.name = '队长';
                         monsterItem.view = monsterView;
-                        monsterItem.hp = 120;
+                        // monsterItem.hp = 120;
                         monsterItem.x = i;
                         monsterItem.y = j;
                         var key = i + '_' + j;
@@ -149,6 +150,29 @@ var GameMap = /** @class */ (function (_super) {
                     }
                 }
             }
+            // const mapMonster = obj.map[0].monster as number[][];
+            // for (let i = 0; i < mapMonster.length; i++) {
+            //     const row = mapMonster[i];
+            //     for (let j = 0; j < row.length; j++) {
+            //         const item = row[j]
+            //         if (item != 0) {
+            //             const id = item
+            //             for (let monster of monsManager.monsterList) {
+            //                 if (monster.id == id) {
+            //                     const monsterView = monster.view;
+            //                     // const npcHead = npc.head;
+            //                     monsterView.x = TILE_SIZE * i;
+            //                     monsterView.y = TILE_SIZE * j;
+            //                     monster.x = i
+            //                     monster.y = j
+            //                     const key = i + '_' + j;
+            //                     this.monsterConfig[key] = monster;
+            //                     this.roleContainer.addChild(monsterView);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
         };
         // for (let item of this.config) {
         //     const img = item.id == GRASS_L ? grassLight : grassDark;
@@ -223,15 +247,14 @@ var GameMap = /** @class */ (function (_super) {
         //     }
         // }
     };
-    GameMap.prototype.getNodeInfo = function (row, col) {
-        for (var _i = 0, _a = this.config; _i < _a.length; _i++) {
-            var item = _a[_i];
-            if (item.x == row && item.y == col) {
-                return item;
-            }
-        }
-        return null;
-    };
+    // getNodeInfo(row: number, col: number) {
+    //     for (let item of this.config.map.) {
+    //         if (item.x == row && item.y == col) {
+    //             return item;
+    //         }
+    //     }
+    //     return null;
+    // }
     GameMap.prototype.getEquipmentInfo = function (row, col) {
         var key = row + '_' + col;
         return this.equipmentConfig[key];
