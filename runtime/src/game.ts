@@ -61,11 +61,11 @@ var talk_window = new Image();
 talk_window.src = './assets/talkWindow.png';
 
 let battlePanelBgImg = new Image();
-battlePanelBgImg.src = './assets/battlePanel/战斗界面模版1.png';
+battlePanelBgImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版1.png';
 let battlePanelBlackMask = new Image();
 battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 let battlePanelInfo = new Image();
-battlePanelInfo.src = './assets/battlePanel/战斗界面模版2.png';
+battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版2.png';
 let battleAttackButton1 = new Image();
 battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
 let battleEndBGImg = new Image();
