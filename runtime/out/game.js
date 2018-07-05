@@ -13,6 +13,12 @@ var __extends = (this && this.__extends) || (function () {
  * 资源载入
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+var loadingImg = new Image();
+loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+var titleBGImg = new Image();
+titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
+var titleStartImg = new Image();
+titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -58,9 +64,11 @@ battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
 var battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 var backButtonImg = new Image();
-backButtonImg.src = './assets/battlePanel/ui button返回.png';
+backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 var battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+var playerIdleImg = new Image();
+playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -76,7 +84,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  *
  * 全局变量
  */
-var TILE_SIZE = 64; //TODO:还原为128
+var TILE_SIZE = 128; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
 var COL_NUM = 8;
@@ -101,19 +109,81 @@ var player = new User();
 var map;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
+var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
-var monsManager = new monsterManager();
 var baManager = new bagManager();
-npcManager.init(noThing);
-equipManager.init(function () {
-    equipSetInit(equipManager);
-    // let m = new Monster(1, "2", 3, 4);
-    // m.makeDrop();
+npcManager.init(function () {
+    monsManager.init(function () {
+        equipManager.init(function () {
+            equipSetInit(equipManager);
+        });
+    });
 });
-function noThing() {
-    return;
-}
+/**
+ * 载入状态
+ */
+var LoadingState = /** @class */ (function (_super) {
+    __extends(LoadingState, _super);
+    function LoadingState() {
+        var _this = _super.call(this) || this;
+        _this.count = 0;
+        _this.wait = 0;
+        _this.onClick = function (eventData) {
+            // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
+            // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
+            // this.onExit();
+            _this.onCreatePlayer();
+            missionManager.init();
+            // npcManager.init();
+            fsm.replaceState(new MenuState());
+        };
+        _this.loadBG = new Bitmap(0, 0, loadingImg);
+        _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
+        return _this;
+    }
+    LoadingState.prototype.onEnter = function () {
+        stage.addChild(this.loadBG);
+        stage.addChild(this.loadPercent);
+        // stage.addEventListener("onClick", this.onClick);
+        // setTimeout(
+        //     this.onExit()
+        //     , 1000);
+    };
+    LoadingState.prototype.onUpdate = function () {
+        if (this.count < 100) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.count >= 100) {
+            this.wait++;
+        }
+        if (this.wait >= 120 && this.count < 200) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.wait >= 280) {
+            fsm.replaceState(new MenuState());
+        }
+    };
+    LoadingState.prototype.onExit = function () {
+        console.log('Loading State onExit');
+        stage.deleteAllEventListener();
+        stage.deleteAll();
+        // fsm.replaceState(new MenuState());
+        // this.onCreatePlayer();
+    };
+    LoadingState.prototype.onCreatePlayer = function () {
+        player = new User();
+        player.level = 1;
+        player.name = 'Van';
+        player.x = PLAYER_INDEX_X;
+        player.y = PLAYER_INDEX_Y;
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+    };
+    return LoadingState;
+}(State));
 /**
  * 开始状态
  */
@@ -130,12 +200,17 @@ var MenuState = /** @class */ (function (_super) {
             // npcManager.init();
             fsm.replaceState(new PlayingState());
         };
-        _this.title = new TextField('点击这里开始1', 100, 300, 20);
+        _this.backGround = new Bitmap(0, 0, titleBGImg);
+        _this.startButton = new Bitmap(87, 430, titleStartImg);
+        _this.title = new TextField('', 100, 300, 20);
         return _this;
     }
     MenuState.prototype.onEnter = function () {
+        stage.addChild(this.backGround);
+        stage.addChild(this.startButton);
         stage.addChild(this.title);
-        stage.addEventListener("onClick", this.onClick);
+        this.startButton.addEventListener("onClick", this.onClick);
+        // stage.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
     };
@@ -151,7 +226,8 @@ var MenuState = /** @class */ (function (_super) {
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
     };
     return MenuState;
 }(State));
@@ -245,7 +321,7 @@ var PlayingState = /** @class */ (function (_super) {
     PlayingState.prototype.changePlayerViewPosture = function () {
         var _this = this;
         setTimeout(function () {
-            player.view.img = (player.view.img == van1) ? van2 : van1;
+            // player.view.img = (player.view.img == van1) ? van2 : van1; //TODO 动画
             _this.changePlayerViewPosture();
         }, 600);
     };
@@ -255,6 +331,10 @@ var PlayingState = /** @class */ (function (_super) {
 canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
+    //以下调UI位置用
+    var dingWeix = event.offsetX - 16;
+    var dingWeiy = event.offsetY - 16;
+    console.log(dingWeix + " , " + dingWeiy);
     var hitResult = stage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
@@ -266,4 +346,5 @@ canvas.onclick = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(new MenuState());
+// fsm.replaceState(new MenuState());
+fsm.replaceState(new LoadingState());

@@ -2,6 +2,15 @@
  * 资源载入
  */
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
+
+var loadingImg = new Image();
+loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+var titleBGImg = new Image();
+titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
+let titleStartImg = new Image();
+titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
+
+
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -48,10 +57,12 @@ battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
 let battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 let backButtonImg = new Image();
-backButtonImg.src = './assets/battlePanel/ui button返回.png';
+backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 
+let playerIdleImg = new Image();
+playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
@@ -69,7 +80,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  * 
  * 全局变量
  */
-const TILE_SIZE = 64;//TODO:还原为128
+const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
@@ -102,21 +113,90 @@ var player: User = new User();
 var map: GameMap;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
+let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
-let monsManager = new monsterManager();
 let baManager = new bagManager();
-npcManager.init(noThing);
-equipManager.init(() => {
-    equipSetInit(equipManager);
-    // let m = new Monster(1, "2", 3, 4);
-    // m.makeDrop();
+
+npcManager.init(() => {
+    monsManager.init(() => {
+        equipManager.init(() => {
+            equipSetInit(equipManager);
+        });
+    })
 });
 
-function noThing() {
-    return;
-}
+/**
+ * 载入状态
+ */
+class LoadingState extends State {
+    loadBG: Bitmap;
+    loadPercent: TextField;
+    count = 0;
+    wait = 0;
 
+    constructor() {
+        super();
+        this.loadBG = new Bitmap(0, 0, loadingImg);
+        this.loadPercent = new TextField(this.count + " %", 420, 463, 30);
+    }
+
+    onEnter(): void {
+        stage.addChild(this.loadBG);
+        stage.addChild(this.loadPercent);
+        // stage.addEventListener("onClick", this.onClick);
+        // setTimeout(
+        //     this.onExit()
+        //     , 1000);
+
+    }
+    onUpdate(): void {
+        if (this.count < 100) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.count >= 100) {
+            this.wait++;
+        }
+        if (this.wait >= 120 && this.count < 200) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.wait >= 280) {
+            fsm.replaceState(new MenuState());
+        }
+    }
+    onExit(): void {
+        console.log('Loading State onExit');
+        stage.deleteAllEventListener();
+        stage.deleteAll();
+        // fsm.replaceState(new MenuState());
+        // this.onCreatePlayer();
+
+
+    }
+
+    onCreatePlayer() {
+        player = new User();
+        player.level = 1;
+        player.name = 'Van';
+        player.x = PLAYER_INDEX_X;
+        player.y = PLAYER_INDEX_Y;
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+    }
+
+    onClick = (eventData: any) => {
+        // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
+        // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
+        // this.onExit();
+
+        this.onCreatePlayer();
+        missionManager.init();
+        // npcManager.init();
+        fsm.replaceState(new MenuState());
+    }
+}
 
 
 /**
@@ -124,15 +204,23 @@ function noThing() {
  */
 class MenuState extends State {
     title: TextField;
-    title2: TextField;
+    backGround: Bitmap;
+    startButton: Bitmap;
+
     constructor() {
         super();
-        this.title = new TextField('点击这里开始1', 100, 300, 20);
+        this.backGround = new Bitmap(0, 0, titleBGImg);
+        this.startButton = new Bitmap(87, 430, titleStartImg);
+        this.title = new TextField('', 100, 300, 20);
     }
 
     onEnter(): void {
+        stage.addChild(this.backGround);
+        stage.addChild(this.startButton);
         stage.addChild(this.title);
-        stage.addEventListener("onClick", this.onClick);
+
+        this.startButton.addEventListener("onClick", this.onClick);
+        // stage.addEventListener("onClick", this.onClick);
 
 
     }
@@ -154,7 +242,8 @@ class MenuState extends State {
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+        // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
 
     }
 
@@ -288,7 +377,7 @@ class PlayingState extends State {
     // 角色原地动画
     changePlayerViewPosture() {
         setTimeout(() => {
-            player.view.img = (player.view.img == van1) ? van2 : van1;
+            // player.view.img = (player.view.img == van1) ? van2 : van1; //TODO 动画
             this.changePlayerViewPosture();
         }, 600);
     }
@@ -299,6 +388,12 @@ class PlayingState extends State {
 canvas.onclick = function (event) {
     const globalX = event.offsetX;
     const globalY = event.offsetY;
+
+    //以下调UI位置用
+    const dingWeix = event.offsetX - 16;
+    const dingWeiy = event.offsetY - 16;
+    console.log(dingWeix + " , " + dingWeiy);
+
 
     let hitResult = stage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
@@ -314,5 +409,5 @@ canvas.onclick = function (event) {
 
 
 // 初始状态设置
-fsm.replaceState(new MenuState());
-
+// fsm.replaceState(new MenuState());
+fsm.replaceState(new LoadingState());

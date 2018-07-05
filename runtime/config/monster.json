@@ -3,9 +3,9 @@
 		{
 			"id": "1",
 			"name": "引擎怪",
-			"hp": "5",
-			"attack": "0",
-			"view": "assets/gaojianli.png"
+			"hp": "5000",
+			"attack": "1000",
+			"view": "assets/美术素材/角色/反派/128x128 恶狗.png"
 		},
 		{
 			"id": "2",
@@ -27,6 +27,13 @@
 			"hp": "5",
 			"attack": "0",
 			"view": "assets/gaojianli.png"
+		},
+		{
+			"id": "5",
+			"name": "送水工",
+			"hp": "500",
+			"attack": "10",
+			"view": "assets/美术素材/角色/反派/128x128肌肉男.png"
 		}
 	]
 }

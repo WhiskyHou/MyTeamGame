@@ -111,8 +111,11 @@ var battleUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.player = player;
         _this.textGroup = new DisplayObjectContainer(590, 115);
-        _this.playerNameText = new TextField(_this.player.name, 170, 80, 15);
-        _this.enemyNameText = new TextField('this.enemy.name', 300, 80, 15);
+        //战斗名字表现
+        _this.playerNameText = new TextField(_this.player.name, 160, 80, 30);
+        _this.enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
+        //战斗角色表现
+        _this.playerImg = new Bitmap(120, 130, player.view.img);
         _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
@@ -126,6 +129,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.attackButton);
         _this.addChild(_this.playerNameText);
         _this.addChild(_this.enemyNameText);
+        _this.addChild(_this.playerImg);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy);
         });
@@ -135,6 +139,8 @@ var battleUI = /** @class */ (function (_super) {
         batManager.addEventListener('enemyBattleStart', function (enemy) {
             _this.enemy = enemy;
             _this.enemyNameText.text = enemy.name;
+            _this.enemyImg = new Bitmap(355, 130, _this.enemy.view.img);
+            _this.addChild(_this.enemyImg);
         });
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);

@@ -33,13 +33,16 @@ class battleManager extends EventDispatcher {
             player.hp = this.originHp;
         }
 
-        damage = this.damageFlow(enemy.attack);
-        player.hp -= damage;
-        this.dispatchEvent('enemyDealDamage', damage);
-        if (player.hp <= 0) {
-            this.dispatchEvent('playerDie', null);
-            player.hp = this.originHp;
+        if (enemy.hp > 0) {
+            damage = this.damageFlow(enemy.attack);
+            player.hp -= damage;
+            this.dispatchEvent('enemyDealDamage', damage);
+            if (player.hp <= 0) {
+                this.dispatchEvent('playerDie', null);
+                player.hp = this.originHp;
+            }
         }
+
 
     }
 
