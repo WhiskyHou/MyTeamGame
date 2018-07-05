@@ -16,9 +16,9 @@ var van_pick_knife = document.getElementById('van_pick_knife');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 var titleBGImg = new Image();
-titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始界面.png';
+titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 var titleStartImg = new Image();
-titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
+titleStartImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏界面 新游戏.png';
 var createBGImg = new Image();
 createBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/UI 创建角色界面背景 .png';
 var createOkButtonImg = new Image();
@@ -27,6 +27,8 @@ var createAddButtonImg = new Image();
 createAddButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/加号.png';
 var createMinusButtonImg = new Image();
 createMinusButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/减号.png';
+var createStartButtonImg = new Image();
+createStartButtonImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏.png';
 var bg = new Image();
 bg.src = './assets/bg.png';
 var van1 = new Image();
@@ -174,7 +176,7 @@ var MenuState = /** @class */ (function (_super) {
             fsm.replaceState(new CreateState());
         };
         _this.backGround = new Bitmap(0, 0, titleBGImg);
-        _this.startButton = new Bitmap(87, 430, titleStartImg);
+        _this.startButton = new Bitmap(350, 370, titleStartImg);
         _this.title = new TextField('', 100, 300, 20);
         return _this;
     }
@@ -201,6 +203,7 @@ var CreateState = /** @class */ (function (_super) {
     function CreateState() {
         var _this = _super.call(this) || this;
         _this.canAssignPoint = 5;
+        _this.bigTag = true;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
                 fsm.replaceState(new PlayingState());
@@ -210,7 +213,7 @@ var CreateState = /** @class */ (function (_super) {
             }
         };
         _this.backGround = new Bitmap(0, 0, createBGImg);
-        _this.startButton = new Bitmap(350, 430, titleStartImg);
+        _this.startButton = new Bitmap(350, 430, createStartButtonImg);
         _this.onCreatePlayer();
         _this.playerNameText = new TextField(player.name, 565, 160, 30);
         _this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
@@ -231,7 +234,7 @@ var CreateState = /** @class */ (function (_super) {
             _this.playerHpText.text = "" + player.hp;
         });
         _this.hpMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player.hp >= 60) {
+            if (_this.canAssignPoint < 5 && player.hp > 60) {
                 player.hp -= 5;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
@@ -247,7 +250,7 @@ var CreateState = /** @class */ (function (_super) {
             _this.playerAttackText.text = "" + player._attack;
         });
         _this.attackMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._attack >= 5) {
+            if (_this.canAssignPoint < 5 && player._attack > 10) {
                 player._attack -= 1;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
@@ -271,6 +274,13 @@ var CreateState = /** @class */ (function (_super) {
         // stage.addEventListener("onClick", this.onClick);
     };
     CreateState.prototype.onUpdate = function () {
+        if (this.canAssignPoint == 0) {
+            this.heartBeatEffect(this.startButton);
+        }
+        else {
+            this.startButton.scaleX = 1;
+            this.startButton.scaleY = 1;
+        }
     };
     CreateState.prototype.onExit = function () {
         console.log('Create State onExit');
@@ -286,6 +296,22 @@ var CreateState = /** @class */ (function (_super) {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+    };
+    CreateState.prototype.heartBeatEffect = function (bmp) {
+        if (this.bigTag) {
+            bmp.scaleX += 0.1;
+            bmp.scaleY += 0.1;
+        }
+        else {
+            bmp.scaleX -= 0.1;
+            bmp.scaleY -= 0.1;
+        }
+        if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
+            this.bigTag = false;
+        }
+        if (bmp.scaleX < 1 || bmp.scaleY < 1) {
+            this.bigTag = true;
+        }
     };
     return CreateState;
 }(State));

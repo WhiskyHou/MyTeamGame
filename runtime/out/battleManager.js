@@ -12,7 +12,12 @@ var __extends = (this && this.__extends) || (function () {
 var battleManager = /** @class */ (function (_super) {
     __extends(battleManager, _super);
     function battleManager() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.originHp = player.hp;
+        player.addEventListener("changeEquips", function () {
+            _this.originHp = player.hp;
+        });
+        return _this;
     }
     battleManager.prototype.damageFlow = function (damage) {
         var ran = Math.random();
@@ -25,7 +30,6 @@ var battleManager = /** @class */ (function (_super) {
     battleManager.prototype.fightOneTime = function (player, enemy) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
-        this.originHp = player.hp;
         console.log(enemy.hp + "  " + enemy.attack);
         var damage = this.playerDealDamage();
         enemy.hp -= damage;
@@ -34,7 +38,6 @@ var battleManager = /** @class */ (function (_super) {
             this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
             this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
             this.dispatchEvent('enemyDrop', enemy.makeDrop());
-            player.hp = this.originHp;
         }
         if (enemy.hp > 0) {
             damage = this.damageFlow(enemy.attack);
