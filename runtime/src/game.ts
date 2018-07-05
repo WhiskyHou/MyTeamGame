@@ -80,7 +80,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  * 
  * 全局变量
  */
-const TILE_SIZE = 64;//TODO:还原为128
+const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
@@ -133,6 +133,7 @@ class LoadingState extends State {
     loadBG: Bitmap;
     loadPercent: TextField;
     count = 0;
+    wait = 0;
 
     constructor() {
         super();
@@ -150,10 +151,18 @@ class LoadingState extends State {
 
     }
     onUpdate(): void {
-
-        this.count++;
-        this.loadPercent.text = this.count + " %";
-        if (this.count > 200) {
+        if (this.count < 100) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.count >= 100) {
+            this.wait++;
+        }
+        if (this.wait >= 120 && this.count < 200) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.wait >= 280) {
             fsm.replaceState(new MenuState());
         }
     }
