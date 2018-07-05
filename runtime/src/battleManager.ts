@@ -4,8 +4,13 @@ class battleManager extends EventDispatcher {
 
     constructor() {
         super();
+        this.originHp = player.hp;
+        player.addEventListener("changeEquips", () => {
+            this.originHp = player.hp;
+        });
 
     }
+
 
     damageFlow(damage: number): number {
         let ran = Math.random();
@@ -20,7 +25,6 @@ class battleManager extends EventDispatcher {
     fightOneTime(player: User, enemy: Monster) {
         this.dispatchEvent('playerBattleStart', player);
         this.dispatchEvent('enemyBattleStart', enemy);
-        this.originHp = player.hp;
         console.log(enemy.hp + "  " + enemy.attack);
 
 
@@ -31,7 +35,6 @@ class battleManager extends EventDispatcher {
             this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
             this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
             this.dispatchEvent('enemyDrop', enemy.makeDrop());
-            player.hp = this.originHp;
         }
 
         if (enemy.hp > 0) {

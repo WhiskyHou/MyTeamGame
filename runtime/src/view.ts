@@ -119,7 +119,7 @@ class battleUI extends DisplayObjectContainer {
     textGroup: DisplayObjectContainer = new DisplayObjectContainer(590, 115);
 
     //战斗名字表现
-    playerNameText = new TextField(this.player.name, 160, 80, 30);
+    playerNameText = new TextField("" + this.player.name, 160, 80, 30);
     enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
 
     //战斗角色表现

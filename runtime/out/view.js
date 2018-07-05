@@ -112,7 +112,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.player = player;
         _this.textGroup = new DisplayObjectContainer(590, 115);
         //战斗名字表现
-        _this.playerNameText = new TextField(_this.player.name, 160, 80, 30);
+        _this.playerNameText = new TextField("" + _this.player.name, 160, 80, 30);
         _this.enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
         //战斗角色表现
         _this.playerImg = new Bitmap(120, 130, player.view.img);
