@@ -97,7 +97,17 @@ var bagUI = /** @class */ (function (_super) {
         _super.call(this, 58, 64) || this;
         _this.player = player;
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
+        _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
+        _this.bagOffButton = new Bitmap(398, 246, bagOffUI);
         _this.addChild(_this.infoPanel);
+        _this.addChild(_this.bagOnButton);
+        _this.addChild(_this.bagOffButton);
+        _this.bagOnButton.addEventListener("onClick", function (eventData) {
+            baManager.bagOn();
+        });
+        _this.bagOffButton.addEventListener("onClick", function (eventData) {
+            baManager.bagOff();
+        });
         return _this;
     }
     return bagUI;

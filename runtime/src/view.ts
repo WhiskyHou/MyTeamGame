@@ -23,6 +23,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
+    
 
         // this.addChild(this.userName);
         // this.addChild(this.userLevel);
@@ -92,15 +93,27 @@ class bagUI extends DisplayObjectContainer {
     player: User = player;
 
     infoPanel: Bitmap;
-
+    bagOnButton : Bitmap;
+    bagOffButton : Bitmap;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-
+        this.bagOnButton = new Bitmap(327,246,bagOnUI)
+        this.bagOffButton = new Bitmap(398,246,bagOffUI)
         this.addChild(this.infoPanel);
+        this.addChild(this.bagOnButton);
+        this.addChild(this.bagOffButton);
+
+        this.bagOnButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagOn();
+        })
+        this.bagOffButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagOff();
+        })
     }
+
 
 }
 /**

@@ -89,6 +89,10 @@ bloodUI.src = './assets/ui血条.png';
 
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/ui背包界面参考.png';
+var bagOnUI = new Image();
+bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
+var bagOffUI = new Image();
+bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
 /**
  * 常量
  * 
