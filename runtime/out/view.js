@@ -160,13 +160,15 @@ var battleUI = /** @class */ (function (_super) {
             _this.textGroup.addChild(textField);
             _this.index++;
         });
-        batManager.addEventListener('enemyDie', function (eventData) {
-            var textField = new TextField(_this.enemy.name + " 被 " + _this.player.name + " 打飞辣！", 0, _this.index * 20, 15);
-            _this.textGroup.addChild(textField);
-            _this.index++;
-            _this.indexJudge();
-            _this.attackButton.deleteAllEventListener();
-        });
+        if (_this.enemy != null) {
+            batManager.addEventListener(_this.enemy.name + 'enemyDie', function (eventData) {
+                var textField = new TextField(_this.enemy.name + " 被 " + _this.player.name + " 打飞辣！", 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+                _this.indexJudge();
+                _this.attackButton.deleteAllEventListener();
+            });
+        }
         batManager.addEventListener('playerDie', function (eventData) {
             var textField = new TextField(_this.player.name + " 被 " + _this.enemy.name + " 打飞辣！", 0, _this.index * 20, 15);
             _this.textGroup.addChild(textField);
