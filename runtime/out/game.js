@@ -58,7 +58,7 @@ battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
 var battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 var backButtonImg = new Image();
-backButtonImg.src = './assets/battlePanel/ui button返回.png';
+backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 var battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 var bagButton = new Image();
@@ -112,6 +112,47 @@ npcManager.init(function () {
         });
     });
 });
+/**
+ * 载入状态
+ */
+var LoadingState = /** @class */ (function (_super) {
+    __extends(LoadingState, _super);
+    function LoadingState() {
+        var _this = _super.call(this) || this;
+        _this.onClick = function (eventData) {
+            // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
+            // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
+            // this.onExit();
+            _this.onCreatePlayer();
+            missionManager.init();
+            // npcManager.init();
+            fsm.replaceState(new MenuState());
+        };
+        _this.title = new TextField('点击这里loading开始1', 100, 300, 20);
+        return _this;
+    }
+    LoadingState.prototype.onEnter = function () {
+        stage.addChild(this.title);
+        stage.addEventListener("onClick", this.onClick);
+    };
+    LoadingState.prototype.onUpdate = function () {
+    };
+    LoadingState.prototype.onExit = function () {
+        console.log('Login State onExit');
+        stage.deleteAllEventListener();
+        stage.deleteAll();
+        // this.onCreatePlayer();
+    };
+    LoadingState.prototype.onCreatePlayer = function () {
+        player = new User();
+        player.level = 1;
+        player.name = 'Van';
+        player.x = PLAYER_INDEX_X;
+        player.y = PLAYER_INDEX_Y;
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+    };
+    return LoadingState;
+}(State));
 /**
  * 开始状态
  */
@@ -253,6 +294,10 @@ var PlayingState = /** @class */ (function (_super) {
 canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
+    //以下调UI位置用
+    var dingWeix = event.offsetX - 16;
+    var dingWeiy = event.offsetY - 16;
+    console.log(dingWeix + " , " + dingWeiy);
     var hitResult = stage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
@@ -264,4 +309,5 @@ canvas.onclick = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(new MenuState());
+// fsm.replaceState(new MenuState());
+fsm.replaceState(new LoadingState());

@@ -118,8 +118,13 @@ class battleUI extends DisplayObjectContainer {
     attackButton: Bitmap;
     textGroup: DisplayObjectContainer = new DisplayObjectContainer(590, 115);
 
-    playerNameText = new TextField(this.player.name, 170, 80, 15);
-    enemyNameText = new TextField('this.enemy.name', 300, 80, 15);
+    //战斗名字表现
+    playerNameText = new TextField(this.player.name, 160, 80, 30);
+    enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
+
+    //战斗角色表现
+    playerImg = new Bitmap(100, 200, player.view.img);
+    enemyImg: Bitmap;
 
     index = 0;
 
@@ -140,8 +145,10 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.playerNameText);
         this.addChild(this.enemyNameText);
 
-        this.attackButton.addEventListener("onClick", (eventData: any) => {
+        this.addChild(this.playerImg);
 
+
+        this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy);
         })
 
@@ -153,6 +160,8 @@ class battleUI extends DisplayObjectContainer {
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
             this.enemyNameText.text = enemy.name;
+            this.enemyImg = new Bitmap(355, 130, this.enemy.view.img);
+            this.addChild(this.enemyImg);
         })
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
@@ -213,6 +222,7 @@ class battleEndWinUI extends DisplayObjectContainer {
     blackMask: Bitmap;
     backButton: Bitmap;
 
+
     expText: TextField;
 
     dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
@@ -221,6 +231,7 @@ class battleEndWinUI extends DisplayObjectContainer {
         super(x, y);
 
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
         this.backGround = new Bitmap(254, 104, battleEndBGImg);
         this.backButton = new Bitmap(500, 353, backButtonImg);
         this.expText = new TextField('2333', 400, 207, 20);

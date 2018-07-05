@@ -48,7 +48,7 @@ battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
 let battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 let backButtonImg = new Image();
-backButtonImg.src = './assets/battlePanel/ui button返回.png';
+backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 
@@ -114,6 +114,57 @@ npcManager.init(() => {
         });
     })
 });
+
+/**
+ * 载入状态
+ */
+class LoadingState extends State {
+    title: TextField;
+    title2: TextField;
+    constructor() {
+        super();
+        this.title = new TextField('点击这里loading开始1', 100, 300, 20);
+    }
+
+    onEnter(): void {
+        stage.addChild(this.title);
+        stage.addEventListener("onClick", this.onClick);
+
+
+    }
+    onUpdate(): void {
+
+    }
+    onExit(): void {
+        console.log('Login State onExit');
+        stage.deleteAllEventListener();
+        stage.deleteAll();
+        // this.onCreatePlayer();
+
+
+    }
+
+    onCreatePlayer() {
+        player = new User();
+        player.level = 1;
+        player.name = 'Van';
+        player.x = PLAYER_INDEX_X;
+        player.y = PLAYER_INDEX_Y;
+        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);
+
+    }
+
+    onClick = (eventData: any) => {
+        // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
+        // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
+        // this.onExit();
+
+        this.onCreatePlayer();
+        missionManager.init();
+        // npcManager.init();
+        fsm.replaceState(new MenuState());
+    }
+}
 
 
 /**
@@ -297,6 +348,12 @@ canvas.onclick = function (event) {
     const globalX = event.offsetX;
     const globalY = event.offsetY;
 
+    //以下调UI位置用
+    const dingWeix = event.offsetX - 16;
+    const dingWeiy = event.offsetY - 16;
+    console.log(dingWeix + " , " + dingWeiy);
+
+
     let hitResult = stage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
@@ -311,5 +368,5 @@ canvas.onclick = function (event) {
 
 
 // 初始状态设置
-fsm.replaceState(new MenuState());
-
+// fsm.replaceState(new MenuState());
+fsm.replaceState(new LoadingState());
