@@ -334,6 +334,9 @@ class Button extends DisplayObjectContainer {
 
     constructor(x: number, y: number) {
         super(x, y);
+
+        this.addChild(this.image)
+        this.addChild(this.text)
     }
 
     update() {

@@ -45,6 +45,8 @@ class GameMap extends DisplayObjectContainer {
         xhr.onload = () => {
             obj = JSON.parse(xhr.response);
 
+            this.config = obj
+
             const mapTile = obj.map[0].tile as string[][];
             for (let i = 0; i < mapTile.length; i++) {
                 const row = mapTile[i];
@@ -227,14 +229,14 @@ class GameMap extends DisplayObjectContainer {
         // }
     }
 
-    getNodeInfo(row: number, col: number) {
-        for (let item of this.config) {
-            if (item.x == row && item.y == col) {
-                return item;
-            }
-        }
-        return null;
-    }
+    // getNodeInfo(row: number, col: number) {
+    //     for (let item of this.config.map.) {
+    //         if (item.x == row && item.y == col) {
+    //             return item;
+    //         }
+    //     }
+    //     return null;
+    // }
     getEquipmentInfo(row: number, col: number) {
         const key = row + '_' + col
         return this.equipmentConfig[key]
