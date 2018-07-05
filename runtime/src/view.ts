@@ -222,7 +222,6 @@ class battleEndWinUI extends DisplayObjectContainer {
     blackMask: Bitmap;
     backButton: Bitmap;
 
-
     expText: TextField;
 
     dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
@@ -252,6 +251,7 @@ class battleEndWinUI extends DisplayObjectContainer {
             }
         })
 
+        // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneWin", null);
         })
@@ -295,6 +295,7 @@ class battleEndLoseUI extends DisplayObjectContainer {
         //     }
         // })
 
+        // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneLose", null);
         })

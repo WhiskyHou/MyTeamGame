@@ -135,6 +135,7 @@ class TalkCommand extends Command {
 class FightCommand extends Command {
     monster: Monster;
     monsterOriginHp: number;
+    loseOnce = false;
 
     constructor(monster: Monster) {
         super();
@@ -154,7 +155,11 @@ class FightCommand extends Command {
         })
         batManager.addEventListener('backSceneWin', (eventData: any) => {
             batteUIContainer.deleteAll();
-            map.deleteMonster(this.monster);
+
+            if (this.loseOnce != true) {
+                map.deleteMonster(this.monster);
+            }
+
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {

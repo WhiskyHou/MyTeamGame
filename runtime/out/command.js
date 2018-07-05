@@ -133,6 +133,7 @@ var FightCommand = /** @class */ (function (_super) {
     __extends(FightCommand, _super);
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
+        _this.loseOnce = false;
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
         return _this;
@@ -150,7 +151,9 @@ var FightCommand = /** @class */ (function (_super) {
         });
         batManager.addEventListener('backSceneWin', function (eventData) {
             batteUIContainer.deleteAll();
-            map.deleteMonster(_this.monster);
+            if (_this.loseOnce != true) {
+                map.deleteMonster(_this.monster);
+            }
         });
         batManager.addEventListener('playerDie', function (eventData) {
             _this.monster.hp = _this.monsterOriginHp;

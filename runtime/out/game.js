@@ -336,5 +336,5 @@ canvas.onclick = function (event) {
     }
 };
 // 初始状态设置
-// fsm.replaceState(new MenuState());
-fsm.replaceState(new LoadingState());
+fsm.replaceState(new MenuState());
+// fsm.replaceState(new LoadingState());

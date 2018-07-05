@@ -210,6 +210,7 @@ var battleEndWinUI = /** @class */ (function (_super) {
                 _this.dropTextGroup.addChild(textField);
             }
         });
+        // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
         });
@@ -244,6 +245,7 @@ var battleEndLoseUI = /** @class */ (function (_super) {
         //         this.dropTextGroup.addChild(textField);
         //     }
         // })
+        // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneLose", null);
         });
