@@ -380,6 +380,32 @@ class MultiWindow extends DisplayObjectContainer {
     }
 }
 
+/**
+ * 动画
+ */
+class Animator extends DisplayObjectContainer {
+
+    frame: number
+
+    count: number
+
+    image: Bitmap
+
+    size: number
+
+    constructor(x: number, y: number) {
+        super(x, y);
+    }
+
+    play() {
+
+    }
+
+    reset() {
+
+    }
+}
+
 
 /**
  * 文本
