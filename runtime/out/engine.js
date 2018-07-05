@@ -288,7 +288,10 @@ var Bitmap = /** @class */ (function (_super) {
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(x, y) {
-        return _super.call(this, x, y) || this;
+        var _this = _super.call(this, x, y) || this;
+        _this.addChild(_this.image);
+        _this.addChild(_this.text);
+        return _this;
     }
     Button.prototype.update = function () {
     };
@@ -315,6 +318,20 @@ var MultiWindow = /** @class */ (function (_super) {
     MultiWindow.prototype.reset = function () {
     };
     return MultiWindow;
+}(DisplayObjectContainer));
+/**
+ * 动画
+ */
+var Animator = /** @class */ (function (_super) {
+    __extends(Animator, _super);
+    function Animator(x, y) {
+        return _super.call(this, x, y) || this;
+    }
+    Animator.prototype.play = function () {
+    };
+    Animator.prototype.reset = function () {
+    };
+    return Animator;
 }(DisplayObjectContainer));
 /**
  * 文本

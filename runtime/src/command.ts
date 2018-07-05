@@ -134,11 +134,12 @@ class TalkCommand extends Command {
  */
 class FightCommand extends Command {
     monster: Monster;
-    // monsterOriginHp = this.monster.hp;
+    monsterOriginHp: number;
 
     constructor(monster: Monster) {
         super();
         this.monster = monster;
+        this.monsterOriginHp = this.monster.hp;
     }
 
     execute(callback: Function): void {
@@ -157,6 +158,7 @@ class FightCommand extends Command {
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
+            this.monster.hp = this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {

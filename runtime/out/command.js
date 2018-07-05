@@ -131,10 +131,10 @@ var TalkCommand = /** @class */ (function (_super) {
  */
 var FightCommand = /** @class */ (function (_super) {
     __extends(FightCommand, _super);
-    // monsterOriginHp = this.monster.hp;
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
         _this.monster = monster;
+        _this.monsterOriginHp = _this.monster.hp;
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
@@ -153,6 +153,7 @@ var FightCommand = /** @class */ (function (_super) {
             map.deleteMonster(_this.monster);
         });
         batManager.addEventListener('playerDie', function (eventData) {
+            _this.monster.hp = _this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
         });
         batManager.addEventListener('backSceneLose', function (eventData) {

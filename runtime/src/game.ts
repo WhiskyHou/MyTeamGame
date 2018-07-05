@@ -50,7 +50,7 @@ battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 let backButtonImg = new Image();
 backButtonImg.src = './assets/battlePanel/ui button返回.png';
 let battleEndLoseBGImg = new Image();
-battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui.png';// TODO：修改图片
+battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 
 
 var bagButton = new Image();
