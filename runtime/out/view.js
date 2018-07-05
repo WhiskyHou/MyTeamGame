@@ -155,9 +155,17 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
         });
         batManager.addEventListener('enemyDie', function (eventData) {
+            var textField = new TextField(_this.enemy.name + " 被 " + _this.player.name + " 打飞辣！", 0, _this.index * 20, 15);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+            _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
         });
         batManager.addEventListener('playerDie', function (eventData) {
+            var textField = new TextField(_this.player.name + " 被 " + _this.enemy.name + " 打飞辣！", 0, _this.index * 20, 15);
+            _this.textGroup.addChild(textField);
+            _this.index++;
+            _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
         });
         return _this;
@@ -214,7 +222,7 @@ var battleEndLoseUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
-        _this.backButton = new Bitmap(500, 353, backButtonImg);
+        _this.backButton = new Bitmap(500, 325, backButtonImg);
         // this.expText = new TextField('2333', 400, 207, 20);
         // this.addChild(this.blackMask);
         _this.addChild(_this.backGround);

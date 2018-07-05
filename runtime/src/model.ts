@@ -331,7 +331,7 @@ class Mission {
 
 
 /**
- * NPC（含怪物）
+ * NPC
  */
 class Npc {
     x: number = 0

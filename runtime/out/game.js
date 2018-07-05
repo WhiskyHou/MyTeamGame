@@ -60,7 +60,7 @@ battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 var backButtonImg = new Image();
 backButtonImg.src = './assets/battlePanel/ui button返回.png';
 var battleEndLoseBGImg = new Image();
-battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui.png'; // TODO：修改图片
+battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -76,7 +76,7 @@ bagWindowsUI.src = './assets/ui背包界面参考.png';
  *
  * 全局变量
  */
-var TILE_SIZE = 128;
+var TILE_SIZE = 64; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
 var COL_NUM = 8;
@@ -103,6 +103,7 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
+var monsManager = new monsterManager();
 var baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(function () {
