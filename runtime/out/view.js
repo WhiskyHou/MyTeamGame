@@ -174,7 +174,7 @@ var battleEndUI = /** @class */ (function (_super) {
     __extends(battleEndUI, _super);
     function battleEndUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.dropTextGroup = new DisplayObjectContainer(285, 255);
+        _this.dropTextGroup = new DisplayObjectContainer(307, 270);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndBGImg);
         _this.backButton = new Bitmap(500, 353, backButtonImg);
@@ -184,8 +184,15 @@ var battleEndUI = /** @class */ (function (_super) {
         _this.addChild(_this.backButton);
         _this.addChild(_this.expText);
         _this.addChild(_this.dropTextGroup);
-        var textField = new TextField("【上元节】衣服", 15, 15, 15);
-        _this.dropTextGroup.addChild(textField);
+        batManager.addEventListener("enemyDrop", function (dropBox) {
+            for (var i = 0; i < dropBox.length; i++) {
+                var equip = void 0;
+                equip = equipManager.getEquipByID(dropBox[i]);
+                var textField = new TextField(equip.name, 0, 25 * i, 17);
+                player.packageEquipment.push();
+                _this.dropTextGroup.addChild(textField);
+            }
+        });
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backScene", null);
         });

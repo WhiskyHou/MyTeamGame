@@ -338,6 +338,7 @@ var Monster = /** @class */ (function (_super) {
         _this.name = '';
         _this.hp = 100;
         _this.attack = 10;
+        _this.dropTime = 3; //掉落次数
         _this.id = id;
         _this.name = name;
         return _this;
@@ -367,9 +368,11 @@ var Monster = /** @class */ (function (_super) {
         }
     };
     Monster.prototype.makeDrop = function () {
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
+        var equipBox = [];
+        for (var i = 0; i < this.dropTime; i++) {
+            equipBox.push(this.equipDrop());
+        }
+        return equipBox;
     };
     return Monster;
 }(EventDispatcher));

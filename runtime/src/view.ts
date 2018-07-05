@@ -95,9 +95,9 @@ class bagUI extends DisplayObjectContainer {
 
     constructor(x: number, y: number) {
         //super(x, y);
-         super(58, 64);
+        super(58, 64);
 
-        this.infoPanel = new Bitmap(42, 48,bagWindowsUI);
+        this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
 
         this.addChild(this.infoPanel);
     }
@@ -201,7 +201,7 @@ class battleEndUI extends DisplayObjectContainer {
 
     expText: TextField;
 
-    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(285, 255);
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(307, 270);
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -217,8 +217,18 @@ class battleEndUI extends DisplayObjectContainer {
         this.addChild(this.expText);
         this.addChild(this.dropTextGroup);
 
-        let textField = new TextField("【上元节】衣服", 15, 15, 15);
-        this.dropTextGroup.addChild(textField);
+
+
+
+        batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+            for (let i = 0; i < dropBox.length; i++) {
+                let equip: Equipment;
+                equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+                let textField = new TextField(equip.name, 0, 25 * i, 17);
+                player.packageEquipment.push()
+                this.dropTextGroup.addChild(textField);
+            }
+        })
 
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backScene", null);
