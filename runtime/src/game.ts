@@ -102,21 +102,18 @@ var player: User = new User();
 var map: GameMap;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
+let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
-let monsManager = new monsterManager();
 let baManager = new bagManager();
-npcManager.init(noThing);
-equipManager.init(() => {
-    equipSetInit(equipManager);
-    // let m = new Monster(1, "2", 3, 4);
-    // m.makeDrop();
+
+npcManager.init(() => {
+    monsManager.init(() => {
+        equipManager.init(() => {
+            equipSetInit(equipManager);
+        });
+    })
 });
-
-function noThing() {
-    return;
-}
-
 
 
 /**

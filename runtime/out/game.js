@@ -101,19 +101,17 @@ var player = new User();
 var map;
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
+var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
-var monsManager = new monsterManager();
 var baManager = new bagManager();
-npcManager.init(noThing);
-equipManager.init(function () {
-    equipSetInit(equipManager);
-    // let m = new Monster(1, "2", 3, 4);
-    // m.makeDrop();
+npcManager.init(function () {
+    monsManager.init(function () {
+        equipManager.init(function () {
+            equipSetInit(equipManager);
+        });
+    });
 });
-function noThing() {
-    return;
-}
 /**
  * 开始状态
  */
