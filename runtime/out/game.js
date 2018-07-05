@@ -59,6 +59,8 @@ var battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 var backButtonImg = new Image();
 backButtonImg.src = './assets/battlePanel/ui button返回.png';
+var battleEndLoseBGImg = new Image();
+battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui.png'; // TODO：修改图片
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -105,8 +107,8 @@ var baManager = new bagManager();
 npcManager.init(noThing);
 equipManager.init(function () {
     equipSetInit(equipManager);
-    var m = new Monster(1, "2", 3, 4);
-    m.makeDrop();
+    // let m = new Monster(1, "2", 3, 4);
+    // m.makeDrop();
 });
 function noThing() {
     return;

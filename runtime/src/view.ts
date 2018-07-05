@@ -179,6 +179,10 @@ class battleUI extends DisplayObjectContainer {
         batManager.addEventListener('enemyDie', (eventData: any) => {
             this.attackButton.deleteAllEventListener();
         })
+
+        batManager.addEventListener('playerDie', (eventData: any) => {
+            this.attackButton.deleteAllEventListener();
+        })
     }
 
     indexJudge() {
@@ -191,9 +195,9 @@ class battleUI extends DisplayObjectContainer {
 }
 
 /**
- * 战斗结算UI
+ * 战斗胜利结算UI
  */
-class battleEndUI extends DisplayObjectContainer {
+class battleEndWinUI extends DisplayObjectContainer {
 
     backGround: Bitmap;
     blackMask: Bitmap;
@@ -201,7 +205,7 @@ class battleEndUI extends DisplayObjectContainer {
 
     expText: TextField;
 
-    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(307, 270);
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -217,27 +221,64 @@ class battleEndUI extends DisplayObjectContainer {
         this.addChild(this.expText);
         this.addChild(this.dropTextGroup);
 
-
-
-
         batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
             for (let i = 0; i < dropBox.length; i++) {
                 let equip: Equipment;
                 equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-                let textField = new TextField(equip.name, 0, 25 * i, 17);
-                player.packageEquipment.push()
+                let textField = new TextField(equip.name, 0, 30 * i, 20);
+                player.packageEquipment.push(equip);
                 this.dropTextGroup.addChild(textField);
             }
         })
 
         this.backButton.addEventListener("onClick", (eventData: any) => {
-            batManager.dispatchEvent("backScene", null);
+            batManager.dispatchEvent("backSceneWin", null);
         })
     }
-
-
 }
 
+/**
+ * 战斗失败结算UI
+ */
+class battleEndLoseUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    blackMask: Bitmap;
+    backButton: Bitmap;
+
+    // expText: TextField;
+
+    // dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
+        this.backButton = new Bitmap(500, 353, backButtonImg);
+        // this.expText = new TextField('2333', 400, 207, 20);
+
+        // this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
+        // this.addChild(this.expText);
+        // this.addChild(this.dropTextGroup);
+
+        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+        //     for (let i = 0; i < dropBox.length; i++) {
+        //         let equip: Equipment;
+        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
+        //         player.packageEquipment.push(equip);
+        //         this.dropTextGroup.addChild(textField);
+        //     }
+        // })
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            batManager.dispatchEvent("backSceneLose", null);
+        })
+    }
+}
 
 /**
  * 对话窗口UI
