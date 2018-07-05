@@ -390,6 +390,7 @@ class Monster extends EventDispatcher {
     hp: number = 100;
     attack: number = 10;
     curEquipSet: EquipmentSet;
+    dropTime = 3;//掉落次数
 
     constructor(id: number, name: string, hp: number, attack: number) {
         super();
@@ -424,9 +425,11 @@ class Monster extends EventDispatcher {
     }
 
     public makeDrop() {
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
-        console.log(this.equipDrop());
+        let equipBox: number[] = [];
+        for (let i = 0; i < this.dropTime; i++) {
+            equipBox.push(this.equipDrop());
+        }
+        return equipBox;
     }
 }
 
