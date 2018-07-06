@@ -25,6 +25,7 @@ var bagManager = /** @class */ (function (_super) {
         console.log('你脱下了装备');
     };
     bagManager.prototype.bagDown = function () {
+        this.dispatchEvent('bagDown', player);
         console.log('你关闭了窗口');
     };
     bagManager.prototype.bagRight = function () {

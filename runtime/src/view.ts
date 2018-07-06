@@ -126,6 +126,13 @@ class bagUI extends DisplayObjectContainer {
     bagWeaponButton : Bitmap;
     bagArmorButton : Bitmap;
     bagConsumableButton : Bitmap;
+
+    weaponText: TextField;
+    clothText: TextField;
+    watchText: TextField;
+    trousersText: TextField;
+    phoneText: TextField;
+    shoesText: TextField;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
@@ -134,12 +141,19 @@ class bagUI extends DisplayObjectContainer {
         this.bagOnButton = new Bitmap(327,246,bagOnUI)
         this.bagOffButton = new Bitmap(398,246,bagOffUI)
         this.bagDownButton = new Bitmap(45,50,bagDownUI)
-        this.bagRightButton = new Bitmap(279,253,bagRightUI)
+        this.bagRightButton = new Bitmap(278,253,bagRightUI)
         this.bagLeftButton = new Bitmap(183,253,bagLeftUI)
         this.bagOtherButton = new Bitmap(73,252,bagOtherUI)
         this.bagWeaponButton = new Bitmap(73,87,bagWeaponUI)
         this.bagArmorButton = new Bitmap(73,142,bagArmorUI)
         this.bagConsumableButton = new Bitmap(75,197,bagConsumableUI)
+
+        this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
+        this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
+        this.watchText = new TextField(player.mounthedEquipment[2].name, 128, 388, 15);
+        this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
+        this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15); 
+        this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
@@ -151,6 +165,12 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.bagWeaponButton);
         this.addChild(this.bagArmorButton);
         this.addChild(this.bagConsumableButton);
+        this.addChild(this.weaponText);
+        this.addChild(this.clothText);
+        this.addChild(this.watchText);
+        this.addChild(this.trousersText);
+        this.addChild(this.phoneText);
+        this.addChild(this.shoesText);
 
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();

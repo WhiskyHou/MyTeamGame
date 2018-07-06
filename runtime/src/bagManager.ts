@@ -15,6 +15,7 @@ class bagManager extends EventDispatcher {
         console.log('你脱下了装备');
     }
     bagDown(){
+        this.dispatchEvent('bagDown', player);
         console.log('你关闭了窗口');
     }
     bagRight(){

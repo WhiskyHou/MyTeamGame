@@ -38,19 +38,19 @@ class User extends EventDispatcher {
     constructor() {
         super();
         // 以下测试用
-        // let eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
-        // let eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 3, 0, 0);
-        // let eq2 = new Equipment(3, '【毁天灭地】肩甲', 3, 2, 8, 0, 0);
-        // let eq3 = new Equipment(4, '【毁天灭地】衣服', 3, 3, 3, 0, 0);
-        // let eq4 = new Equipment(5, '【毁天灭地】腰带', 3, 4, 3, 0, 0);
-        // let eq5 = new Equipment(6, '【毁天灭地】护腿', 3, 5, 3, 0, 0);
-        // this.mounthedEquipment.push(eq0);
-        // this.mounthedEquipment.push(eq1);
-        // this.mounthedEquipment.push(eq2);
-        // this.mounthedEquipment.push(eq3);
-        // this.mounthedEquipment.push(eq4);
-        // this.mounthedEquipment.push(eq5);
-        // this.changeEquipments();
+        let eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
+        let eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 3, 0, 0);
+        let eq2 = new Equipment(3, '【毁天灭地】肩甲', 3, 2, 8, 0, 0);
+        let eq3 = new Equipment(4, '【毁天灭地】衣服', 3, 3, 3, 0, 0);
+        let eq4 = new Equipment(5, '【毁天灭地】腰带', 3, 4, 3, 0, 0);
+        let eq5 = new Equipment(6, '【毁天灭地】护腿', 3, 5, 3, 0, 0);
+        this.mounthedEquipment.push(eq0);
+        this.mounthedEquipment.push(eq1);
+        this.mounthedEquipment.push(eq2);
+        this.mounthedEquipment.push(eq3);
+        this.mounthedEquipment.push(eq4);
+        this.mounthedEquipment.push(eq5);
+        this.changeEquipments();
 
         //以下测试技能用
         this.skill.push(skillEmpty);

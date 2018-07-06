@@ -416,6 +416,9 @@ var PlayingState = /** @class */ (function (_super) {
         baManager.addEventListener('openBag', function (eventData) {
             bagUIContainer.addChild(_this.baggUI);
         });
+        baManager.addEventListener('bagDown', function (eventData) {
+            bagUIContainer.deleteChild(_this.baggUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {

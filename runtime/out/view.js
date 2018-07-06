@@ -115,12 +115,18 @@ var bagUI = /** @class */ (function (_super) {
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
         _this.bagOffButton = new Bitmap(398, 246, bagOffUI);
         _this.bagDownButton = new Bitmap(45, 50, bagDownUI);
-        _this.bagRightButton = new Bitmap(279, 253, bagRightUI);
+        _this.bagRightButton = new Bitmap(278, 253, bagRightUI);
         _this.bagLeftButton = new Bitmap(183, 253, bagLeftUI);
         _this.bagOtherButton = new Bitmap(73, 252, bagOtherUI);
         _this.bagWeaponButton = new Bitmap(73, 87, bagWeaponUI);
         _this.bagArmorButton = new Bitmap(73, 142, bagArmorUI);
         _this.bagConsumableButton = new Bitmap(75, 197, bagConsumableUI);
+        _this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
+        _this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
+        _this.watchText = new TextField(player.mounthedEquipment[2].name, 128, 388, 15);
+        _this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
+        _this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
+        _this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -131,6 +137,12 @@ var bagUI = /** @class */ (function (_super) {
         _this.addChild(_this.bagWeaponButton);
         _this.addChild(_this.bagArmorButton);
         _this.addChild(_this.bagConsumableButton);
+        _this.addChild(_this.weaponText);
+        _this.addChild(_this.clothText);
+        _this.addChild(_this.watchText);
+        _this.addChild(_this.trousersText);
+        _this.addChild(_this.phoneText);
+        _this.addChild(_this.shoesText);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
         });
