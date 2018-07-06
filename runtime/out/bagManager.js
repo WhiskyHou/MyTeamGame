@@ -18,5 +18,11 @@ var bagManager = /** @class */ (function (_super) {
         console.log('你打开背包');
         this.dispatchEvent('openBag', player);
     };
+    bagManager.prototype.bagOn = function () {
+        console.log('你穿上了装备');
+    };
+    bagManager.prototype.bagOff = function () {
+        console.log('你脱下了装备');
+    };
     return bagManager;
 }(EventDispatcher));

@@ -17,8 +17,10 @@ class User extends EventDispatcher {
     private _originAttack = 10;
     private _originHealth = 60;
 
-    mounthedEquipment: Equipment[] = [];
-    packageEquipment: Equipment[] = [];
+    mounthedEquipment: Equipment[] = [];//已装备的装备
+    packageEquipment: Equipment[] = [];//背包中的装备
+
+    skill: Skill[] = [];
 
     _attack = 10;
     hp = 60;
@@ -44,6 +46,11 @@ class User extends EventDispatcher {
         // this.mounthedEquipment.push(eq4);
         // this.mounthedEquipment.push(eq5);
         // this.changeEquipments();
+
+        //以下测试技能用
+        this.skill.push(skillEmpty);
+        this.skill.push(skillSabi);
+        this.skill.push(skillCaihua);
     }
 
     _level: number;
@@ -519,5 +526,21 @@ function equipSetInit(equipManager: EquipmentManager) {
                 lv5Set.addEquipID(equipManager.equipList[i].id);
                 break;
         }
+    }
+}
+
+/**
+ * 技能
+ */
+class Skill {
+
+    id: number;
+    name: string;
+    description: string;
+    buttonView: Bitmap;
+
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
     }
 }
