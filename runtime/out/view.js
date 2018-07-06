@@ -220,7 +220,13 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
         });
         batManager.addEventListener('enemyDealDamage', function (damage) {
-            var textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            var textField = new TextField("", 0, _this.index * 20, 15);
+            if (damage > 0) {
+                textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            }
+            else {
+                textField.text = _this.player.name + " 吸了 " + -damage + " 点血！";
+            }
             if (player.hp <= 0) {
                 _this.playerHpText.text = "0";
             }
@@ -318,17 +324,31 @@ var battleEndLoseUI = /** @class */ (function (_super) {
  */
 var skillBoxUI = /** @class */ (function (_super) {
     __extends(skillBoxUI, _super);
-    // backButton: Bitmap;
     function skillBoxUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
+        _this.skillTextGroup = new DisplayObjectContainer(395, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
+        _this.descriptionText = new TextField("", 525, 100, 20); //TODO 描述换行
         _this.addChild(_this.backGround);
         _this.addChild(_this.closeButton);
+        _this.addChild(_this.skillTextGroup);
+        _this.addChild(_this.descriptionText);
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
         });
+        var _loop_1 = function (i) {
+            this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+            this_1.skillText.addEventListener('onClick', function () {
+                _this.descriptionText.text = skillArray[i].description;
+            });
+            this_1.skillTextGroup.addChild(this_1.skillText);
+        };
+        var this_1 = this;
+        for (var i = 2; i < skillArray.length; i++) {
+            _loop_1(i);
+        }
         return _this;
     }
     return skillBoxUI;

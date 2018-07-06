@@ -261,7 +261,13 @@ class battleUI extends DisplayObjectContainer {
 
         })
         batManager.addEventListener('enemyDealDamage', (damage: number) => {
-            let textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            let textField = new TextField("", 0, this.index * 20, 15);
+            if (damage > 0) {
+                textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            } else {
+                textField.text = this.player.name + " 吸了 " + -damage + " 点血！";
+            }
+
             if (player.hp <= 0) {
                 this.playerHpText.text = "0";
             } else {
@@ -387,19 +393,38 @@ class skillBoxUI extends DisplayObjectContainer {
     closeButton: Bitmap;
     // backButton: Bitmap;
 
+    skillText: TextField;
+    skillTextGroup: DisplayObjectContainer;
+
+    descriptionText: TextField;
+
+
+
     constructor(x: number, y: number) {
         super(x, y);
 
         this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
+        this.skillTextGroup = new DisplayObjectContainer(395, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
+        this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
 
         this.addChild(this.backGround);
         this.addChild(this.closeButton);
+        this.addChild(this.skillTextGroup);
+        this.addChild(this.descriptionText);
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
         })
+
+        for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
+            this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+            this.skillText.addEventListener('onClick', () => {
+                this.descriptionText.text = skillArray[i].description;
+            })
+            this.skillTextGroup.addChild(this.skillText);
+        }
     }
 }
 

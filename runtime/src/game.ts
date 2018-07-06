@@ -160,13 +160,19 @@ npcManager.init(() => {
 });
 
 /**
- * 技能初始化
+ * 技能初始化(把这里当技能配置文件)
  */
-let skillEmpty = new Skill(1, '空');
+let skillAttack = new Skill(0, '攻击');//攻击预留
+skillAttack.description = '没有技能';
+skillArray.push(skillAttack);
+let skillEmpty = new Skill(1, '空');//空
+skillEmpty.description = '没有技能';
 skillArray.push(skillEmpty);
 let skillSabi = new Skill(2, '撒币');
+skillSabi.description = '撒币150%伤害';
 skillArray.push(skillSabi);
 let skillCaihua = new Skill(3, '菜花');
+skillCaihua.description = '菜花80%伤害吸血';
 skillArray.push(skillCaihua);
 
 /**

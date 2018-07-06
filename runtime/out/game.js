@@ -152,13 +152,19 @@ npcManager.init(function () {
     });
 });
 /**
- * 技能初始化
+ * 技能初始化(把这里当技能配置文件)
  */
-var skillEmpty = new Skill(1, '空');
+var skillAttack = new Skill(0, '攻击'); //攻击预留
+skillAttack.description = '没有技能';
+skillArray.push(skillAttack);
+var skillEmpty = new Skill(1, '空'); //空
+skillEmpty.description = '没有技能';
 skillArray.push(skillEmpty);
 var skillSabi = new Skill(2, '撒币');
+skillSabi.description = '撒币150%伤害';
 skillArray.push(skillSabi);
 var skillCaihua = new Skill(3, '菜花');
+skillCaihua.description = '菜花80%伤害吸血';
 skillArray.push(skillCaihua);
 /**
  * 载入状态
