@@ -74,6 +74,12 @@ let backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+let skillEmptyImg = new Image();
+skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+let skillSabiImg = new Image();
+skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+let skillCaihuaImg = new Image();
+skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
 
 let playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
@@ -135,6 +141,7 @@ let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
+let skillArray: Skill[] = []
 
 npcManager.init(() => {
     monsManager.init(() => {
@@ -143,6 +150,16 @@ npcManager.init(() => {
         });
     })
 });
+
+/**
+ * 技能初始化
+ */
+let skillEmpty = new Skill(0, '空');
+skillArray.push(skillEmpty);
+let skillSabi = new Skill(1, '撒币');
+skillArray.push(skillSabi);
+let skillCaihua = new Skill(2, '菜花');
+skillArray.push(skillCaihua);
 
 /**
  * 载入状态

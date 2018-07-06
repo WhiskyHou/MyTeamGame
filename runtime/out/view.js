@@ -131,12 +131,34 @@ var battleUI = /** @class */ (function (_super) {
         _this.playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
         _this.playerHpText = new TextField("" + player.hp, 175, 250, 20);
         _this.enemyHpText = new TextField("", 410, 250, 20);
+        _this.skillButtonGroup = [];
+        _this.index = 0;
         _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
+        //TODO 技能初始化
         _this.attackButton = new Bitmap(220, 375, battleAttackButton1);
+        _this.skillButton1 = new Bitmap(220, 425, skillEmptyImg);
+        _this.skillButton2 = new Bitmap(345, 425, skillEmptyImg);
+        _this.skillButton3 = new Bitmap(345, 375, skillEmptyImg);
+        _this.skillButtonGroup.push(_this.skillButton1);
+        _this.skillButtonGroup.push(_this.skillButton2);
+        _this.skillButtonGroup.push(_this.skillButton3);
+        for (var i = 0; i < _this.player.skill.length; i++) {
+            switch (player.skill[i].id) {
+                case 0:
+                    _this.skillButtonGroup[i].img = skillEmptyImg;
+                    break;
+                case 1:
+                    _this.skillButtonGroup[i].img = skillSabiImg;
+                    break;
+                case 2:
+                    _this.skillButtonGroup[i].img = skillCaihuaImg;
+                    break;
+            }
+        }
         _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.backGround);
@@ -149,8 +171,20 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.playerHpText);
         _this.addChild(_this.enemyHpText);
         _this.addChild(_this.playerImg);
+        _this.addChild(_this.skillButton1);
+        _this.addChild(_this.skillButton2);
+        _this.addChild(_this.skillButton3);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy);
+        });
+        _this.skillButton1.addEventListener("onClick", function (eventData) {
+            console.log('skill clikc');
+        });
+        _this.skillButton2.addEventListener("onClick", function (eventData) {
+            console.log('skill clikc');
+        });
+        _this.skillButton3.addEventListener("onClick", function (eventData) {
+            console.log('skill clikc');
         });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
@@ -170,7 +204,12 @@ var battleUI = /** @class */ (function (_super) {
         });
         batManager.addEventListener('enemyDealDamage', function (damage) {
             var textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
-            _this.playerHpText.text = "" + player.hp;
+            if (player.hp <= 0) {
+                _this.playerHpText.text = "0";
+            }
+            else {
+                _this.playerHpText.text = "" + player.hp;
+            }
             _this.textGroup.addChild(textField);
             _this.index++;
             _this.indexJudge();
