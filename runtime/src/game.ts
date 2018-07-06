@@ -154,11 +154,11 @@ npcManager.init(() => {
 /**
  * 技能初始化
  */
-let skillEmpty = new Skill(0, '空');
+let skillEmpty = new Skill(1, '空');
 skillArray.push(skillEmpty);
-let skillSabi = new Skill(1, '撒币');
+let skillSabi = new Skill(2, '撒币');
 skillArray.push(skillSabi);
-let skillCaihua = new Skill(2, '菜花');
+let skillCaihua = new Skill(3, '菜花');
 skillArray.push(skillCaihua);
 
 /**

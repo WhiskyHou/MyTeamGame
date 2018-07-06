@@ -148,11 +148,11 @@ npcManager.init(function () {
 /**
  * 技能初始化
  */
-var skillEmpty = new Skill(0, '空');
+var skillEmpty = new Skill(1, '空');
 skillArray.push(skillEmpty);
-var skillSabi = new Skill(1, '撒币');
+var skillSabi = new Skill(2, '撒币');
 skillArray.push(skillSabi);
-var skillCaihua = new Skill(2, '菜花');
+var skillCaihua = new Skill(3, '菜花');
 skillArray.push(skillCaihua);
 /**
  * 载入状态

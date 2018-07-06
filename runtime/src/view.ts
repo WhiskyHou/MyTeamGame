@@ -149,6 +149,7 @@ class battleUI extends DisplayObjectContainer {
     skillButton2: Bitmap;
     skillButton3: Bitmap;
     skillButtonGroup: Bitmap[] = [];
+    skillIDGroup: number[] = [];
 
     index = 0;
 
@@ -161,25 +162,27 @@ class battleUI extends DisplayObjectContainer {
         this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         this.backGround = new Bitmap(42, 48, battlePanelBgImg);
 
-
         //TODO 技能初始化
         this.attackButton = new Bitmap(220, 375, battleAttackButton1);
-        this.skillButton1 = new Bitmap(220, 425, skillEmptyImg);
-        this.skillButton2 = new Bitmap(345, 425, skillEmptyImg);
-        this.skillButton3 = new Bitmap(345, 375, skillEmptyImg);
+        this.skillButton1 = new Bitmap(220, 425, battleAttackButton1);
+        this.skillButton2 = new Bitmap(345, 375, battleAttackButton1);
+        this.skillButton3 = new Bitmap(345, 425, battleAttackButton1);
         this.skillButtonGroup.push(this.skillButton1);
         this.skillButtonGroup.push(this.skillButton2);
         this.skillButtonGroup.push(this.skillButton3);
         for (let i = 0; i < this.player.skill.length; i++) {
             switch (player.skill[i].id) {
-                case 0:
-                    this.skillButtonGroup[i].img = skillEmptyImg;
-                    break;
                 case 1:
-                    this.skillButtonGroup[i].img = skillSabiImg;
+                    this.skillButtonGroup[i].img = skillEmptyImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 2:
+                    this.skillButtonGroup[i].img = skillSabiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 3:
                     this.skillButtonGroup[i].img = skillCaihuaImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
                     break;
             }
         }
@@ -204,17 +207,19 @@ class battleUI extends DisplayObjectContainer {
 
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
-            batManager.fightOneTime(player, this.enemy);
+            batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
         })
         this.skillButton1.addEventListener("onClick", (eventData: any) => {
-            console.log('skill clikc');
-
+            console.log(this.skillIDGroup[0]);
+            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
         })
         this.skillButton2.addEventListener("onClick", (eventData: any) => {
-            console.log('skill clikc');
+            console.log(this.skillIDGroup[1]);
+            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
         })
         this.skillButton3.addEventListener("onClick", (eventData: any) => {
-            console.log('skill clikc');
+            console.log(this.skillIDGroup[2]);
+            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
         })
 
         batManager.addEventListener('playerBattleStart', (player: User) => {

@@ -132,6 +132,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.playerHpText = new TextField("" + player.hp, 175, 250, 20);
         _this.enemyHpText = new TextField("", 410, 250, 20);
         _this.skillButtonGroup = [];
+        _this.skillIDGroup = [];
         _this.index = 0;
         _this.index = 0;
         // super(58, 64);
@@ -140,22 +141,25 @@ var battleUI = /** @class */ (function (_super) {
         _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
         //TODO 技能初始化
         _this.attackButton = new Bitmap(220, 375, battleAttackButton1);
-        _this.skillButton1 = new Bitmap(220, 425, skillEmptyImg);
-        _this.skillButton2 = new Bitmap(345, 425, skillEmptyImg);
-        _this.skillButton3 = new Bitmap(345, 375, skillEmptyImg);
+        _this.skillButton1 = new Bitmap(220, 425, battleAttackButton1);
+        _this.skillButton2 = new Bitmap(345, 375, battleAttackButton1);
+        _this.skillButton3 = new Bitmap(345, 425, battleAttackButton1);
         _this.skillButtonGroup.push(_this.skillButton1);
         _this.skillButtonGroup.push(_this.skillButton2);
         _this.skillButtonGroup.push(_this.skillButton3);
         for (var i = 0; i < _this.player.skill.length; i++) {
             switch (player.skill[i].id) {
-                case 0:
-                    _this.skillButtonGroup[i].img = skillEmptyImg;
-                    break;
                 case 1:
-                    _this.skillButtonGroup[i].img = skillSabiImg;
+                    _this.skillButtonGroup[i].img = skillEmptyImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 2:
+                    _this.skillButtonGroup[i].img = skillSabiImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 3:
                     _this.skillButtonGroup[i].img = skillCaihuaImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
                     break;
             }
         }
@@ -175,16 +179,19 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.skillButton2);
         _this.addChild(_this.skillButton3);
         _this.attackButton.addEventListener("onClick", function (eventData) {
-            batManager.fightOneTime(player, _this.enemy);
+            batManager.fightOneTime(player, _this.enemy, 0); //普通攻击ID为0
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
-            console.log('skill clikc');
+            console.log(_this.skillIDGroup[0]);
+            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[0]);
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
-            console.log('skill clikc');
+            console.log(_this.skillIDGroup[1]);
+            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[1]);
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
-            console.log('skill clikc');
+            console.log(_this.skillIDGroup[2]);
+            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
         });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
