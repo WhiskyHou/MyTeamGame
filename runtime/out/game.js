@@ -105,6 +105,10 @@ var bagOnUI = new Image();
 bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
 var bagOffUI = new Image();
 bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
+var skillBoxBGImg = new Image();
+skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+var skillBoxCloseImg = new Image();
+skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
 /**
  * 常量
  *
@@ -348,6 +352,7 @@ var CreateState = /** @class */ (function (_super) {
 var talkUIContainer;
 var batteUIContainer;
 var bagUIContainer;
+var skillBoxContainer;
 /**
  * 游戏状态
  */
@@ -367,6 +372,7 @@ var PlayingState = /** @class */ (function (_super) {
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
+        skillBoxContainer = new DisplayObjectContainer(16, 16);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
@@ -376,6 +382,7 @@ var PlayingState = /** @class */ (function (_super) {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
+        stage.addChild(skillBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
