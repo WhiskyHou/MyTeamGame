@@ -14,13 +14,15 @@ var bagManager = /** @class */ (function (_super) {
     function bagManager() {
         var _this = _super.call(this) || this;
         //nowGroup : number = 0;//0:武器，1：防具，2：消耗品，3：其他
-        //nowGroupEquipment : Equipment[] = [];//当前组的装备数组
-        _this.nowGroupEquipmentArray = new Array();
+        // nowGroupEquipmentArray: Array<Array<any>>= new Array();
+        _this.nowGroupEquipment = []; //当前组的装备数组
+        _this.nowPage = 0;
         return _this;
     }
     bagManager.prototype.openBag = function () {
         console.log('你打开背包');
         this.dispatchEvent('openBag', player);
+        this.bagWeapon();
     };
     bagManager.prototype.bagOn = function () {
         console.log('你穿上了装备');
@@ -34,9 +36,13 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagRight = function () {
         console.log('你点击了右键');
+        this.nowPage++;
+        this.dispatchEvent('updateBag', player);
     };
     bagManager.prototype.bagLeft = function () {
         console.log('你点击了左键');
+        this.nowPage--;
+        this.dispatchEvent('updateBag', player);
     };
     bagManager.prototype.bagOther = function () {
         console.log('你点击了其他');
@@ -45,33 +51,48 @@ var bagManager = /** @class */ (function (_super) {
     bagManager.prototype.bagWeapon = function () {
         console.log('你点击了武器');
         this.exportCheckedEquipment(0);
+        this.dispatchEvent('updateBag', player);
     };
     bagManager.prototype.bagArmor = function () {
         console.log('你点击了防具');
         this.exportCheckedEquipment(1);
+        this.dispatchEvent('updateBag', player);
     };
     bagManager.prototype.bagConsumable = function () {
         console.log('你点击了消耗品');
         this.exportCheckedEquipment(2);
+        this.dispatchEvent('updateBag', player);
     };
     bagManager.prototype.exportCheckedEquipment = function (nowGroup) {
-        var nowGroupEquipment = []; //当前组的装备数组
-        // this.nowGroupEquipment = []
         //准备好当前选中类别的装备
+        this.nowGroupEquipment = [];
         for (var i = 0; i < player.packageEquipment.length; i++) {
             if (player.packageEquipment[i].posID == nowGroup) {
-                nowGroupEquipment.push(player.packageEquipment[i]);
+                this.nowGroupEquipment.push(player.packageEquipment[i]);
             }
         }
-        //把当前选中类别的装备分页打包
-        this.nowGroupEquipmentArray = [];
-        var page = Math.ceil(nowGroupEquipment.length / 5);
-        for (var i = 0; i < page; i++) {
-            for (var j = 0; j < 5; j++) {
-                if (nowGroupEquipment[j]) {
-                    this.nowGroupEquipmentArray[i][j] = nowGroupEquipment[j];
-                }
-            }
+        for (var i = 0; i < this.nowGroupEquipment.length; i++) {
+            console.log(this.nowGroupEquipment[i].name);
+        }
+        // //把当前选中类别的装备分页打包
+        // var page :number = Math.ceil(this.nowGroupEquipment.length/5)
+        // for(var i=0;i<page;i++){
+        //     this.nowGroupEquipmentArray[i] = new Array()
+        //     for(var j=0;j<5;j++){
+        //         if(nowGroupEquipment[j]){
+        //             console.log('第',i,'页',this.nowGroupEquipment[5*i+j])
+        //             this.nowGroupEquipmentArray[i][j] = nowGroupEquipment[5*i+j];
+        //         }
+        //     }
+        // }
+        this.nowPage = 0;
+    };
+    bagManager.prototype.getNowEquipment = function (num) {
+        if (this.nowGroupEquipment[5 * this.nowPage + num]) {
+            return this.nowGroupEquipment[5 * this.nowPage + num].name;
+        }
+        else {
+            return '';
         }
     };
     return bagManager;

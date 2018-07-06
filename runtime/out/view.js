@@ -127,6 +127,11 @@ var bagUI = /** @class */ (function (_super) {
         _this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
         _this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
         _this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
+        _this.equipment1Text = new TextField(baManager.getNowEquipment(0), 174, 84, 15);
+        _this.equipment2Text = new TextField(baManager.getNowEquipment(1), 174, 116, 15);
+        _this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15);
+        _this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15);
+        _this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -143,8 +148,14 @@ var bagUI = /** @class */ (function (_super) {
         _this.addChild(_this.trousersText);
         _this.addChild(_this.phoneText);
         _this.addChild(_this.shoesText);
+        _this.addChild(_this.equipment1Text);
+        _this.addChild(_this.equipment2Text);
+        _this.addChild(_this.equipment3Text);
+        _this.addChild(_this.equipment4Text);
+        _this.addChild(_this.equipment5Text);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
+            baManager.getNowEquipment(0);
         });
         _this.bagOffButton.addEventListener("onClick", function (eventData) {
             baManager.bagOff();

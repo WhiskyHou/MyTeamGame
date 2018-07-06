@@ -502,6 +502,11 @@ class PlayingState extends State {
         baManager.addEventListener('bagDown', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
         });
+        baManager.addEventListener('updateBag', (eventData: any) => {
+            bagUIContainer.deleteChild(this.baggUI);
+            this.baggUI = new bagUI(0, 0);
+            bagUIContainer.addChild(this.baggUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {

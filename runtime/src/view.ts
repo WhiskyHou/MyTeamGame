@@ -133,6 +133,12 @@ class bagUI extends DisplayObjectContainer {
     trousersText: TextField;
     phoneText: TextField;
     shoesText: TextField;
+
+    equipment1Text: TextField;
+    equipment2Text: TextField;
+    equipment3Text: TextField;
+    equipment4Text: TextField;
+    equipment5Text: TextField;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
@@ -155,6 +161,12 @@ class bagUI extends DisplayObjectContainer {
         this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15); 
         this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
 
+        this.equipment1Text = new TextField(baManager.getNowEquipment(0),174,84,15)
+        this.equipment2Text = new TextField(baManager.getNowEquipment(1),174,116,15)
+        this.equipment3Text = new TextField(baManager.getNowEquipment(2),174,149,15)
+        this.equipment4Text = new TextField(baManager.getNowEquipment(3),174,182,15)
+        this.equipment5Text = new TextField(baManager.getNowEquipment(4),174,215,15)
+
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
@@ -171,9 +183,15 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.trousersText);
         this.addChild(this.phoneText);
         this.addChild(this.shoesText);
+        this.addChild(this.equipment1Text);
+        this.addChild(this.equipment2Text);
+        this.addChild(this.equipment3Text);
+        this.addChild(this.equipment4Text);
+        this.addChild(this.equipment5Text);
 
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
+            baManager.getNowEquipment(0)
         })
         this.bagOffButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOff();
@@ -200,7 +218,6 @@ class bagUI extends DisplayObjectContainer {
             baManager.bagConsumable();
         })
     }
-
 
 }
 /**

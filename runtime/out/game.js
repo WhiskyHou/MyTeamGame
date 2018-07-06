@@ -423,6 +423,11 @@ var PlayingState = /** @class */ (function (_super) {
         baManager.addEventListener('bagDown', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
         });
+        baManager.addEventListener('updateBag', function (eventData) {
+            bagUIContainer.deleteChild(_this.baggUI);
+            _this.baggUI = new bagUI(0, 0);
+            bagUIContainer.addChild(_this.baggUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {

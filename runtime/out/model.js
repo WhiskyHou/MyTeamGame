@@ -49,6 +49,17 @@ var User = /** @class */ (function (_super) {
         _this.mounthedEquipment.push(eq4);
         _this.mounthedEquipment.push(eq5);
         _this.changeEquipments();
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq1);
+        _this.packageEquipment.push(eq1);
+        _this.packageEquipment.push(eq2);
+        _this.packageEquipment.push(eq3);
+        _this.packageEquipment.push(eq4);
         //以下测试技能用
         _this.skill.push(skillEmpty);
         _this.skill.push(skillSabi);

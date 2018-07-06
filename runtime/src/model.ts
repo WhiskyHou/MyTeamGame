@@ -51,7 +51,17 @@ class User extends EventDispatcher {
         this.mounthedEquipment.push(eq4);
         this.mounthedEquipment.push(eq5);
         this.changeEquipments();
-
+        this.packageEquipment.push(eq0)
+        this.packageEquipment.push(eq0)
+        this.packageEquipment.push(eq0)
+        this.packageEquipment.push(eq0)
+        this.packageEquipment.push(eq0)
+        this.packageEquipment.push(eq0)
+        this.packageEquipment.push(eq1)
+        this.packageEquipment.push(eq1)
+        this.packageEquipment.push(eq2)
+        this.packageEquipment.push(eq3)
+        this.packageEquipment.push(eq4)
         //以下测试技能用
         this.skill.push(skillEmpty);
         this.skill.push(skillSabi);
