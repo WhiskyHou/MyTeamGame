@@ -74,13 +74,19 @@ battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 var battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版2.png';
 var battleAttackButton1 = new Image();
-battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
+battleAttackButton1.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 普通攻击.png';
 var battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 var backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 var battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+var skillEmptyImg = new Image();
+skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+var skillSabiImg = new Image();
+skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+var skillCaihuaImg = new Image();
+skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
 var playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var bagButton = new Image();
@@ -133,6 +139,7 @@ var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
+var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
@@ -140,6 +147,15 @@ npcManager.init(function () {
         });
     });
 });
+/**
+ * 技能初始化
+ */
+var skillEmpty = new Skill(1, '空');
+skillArray.push(skillEmpty);
+var skillSabi = new Skill(2, '撒币');
+skillArray.push(skillSabi);
+var skillCaihua = new Skill(3, '菜花');
+skillArray.push(skillCaihua);
 /**
  * 载入状态
  */

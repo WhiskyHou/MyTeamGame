@@ -26,9 +26,13 @@ class UserInfoUI extends DisplayObjectContainer {
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
+<<<<<<< HEAD
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
         this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
+=======
+
+>>>>>>> 515010a66fc5bf6d2c26d8d3e41ee13432a36ede
 
 
 
@@ -132,7 +136,6 @@ class bagUI extends DisplayObjectContainer {
 class battleUI extends DisplayObjectContainer {
 
     player: User = player;
-
     enemy: Monster;
 
     infoPanel: Bitmap;
@@ -146,19 +149,58 @@ class battleUI extends DisplayObjectContainer {
     enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
 
     //战斗角色表现
-    playerImg = new Bitmap(120, 130, player.view.img);
+    playerImg = new Bitmap(120, 120, player.view.img);
     enemyImg: Bitmap;
+
+    //战斗人物属性
+    playerAtkText = new TextField("" + player._attack, 150, 375, 30);
+    playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
+    playerHpText = new TextField("" + player.hp, 175, 250, 20);
+    enemyHpText = new TextField("", 410, 250, 20);
+
+    //技能按钮
+    skillButton1: Bitmap;
+    skillButton2: Bitmap;
+    skillButton3: Bitmap;
+    skillButtonGroup: Bitmap[] = [];
+    skillIDGroup: number[] = [];
 
     index = 0;
 
     constructor(x: number, y: number) {
         super(x, y);
+        this.index = 0;
         // super(58, 64);
 
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         this.backGround = new Bitmap(42, 48, battlePanelBgImg);
-        this.attackButton = new Bitmap(400, 400, battleAttackButton1);
+
+        //TODO 技能初始化
+        this.attackButton = new Bitmap(220, 375, battleAttackButton1);
+        this.skillButton1 = new Bitmap(220, 425, battleAttackButton1);
+        this.skillButton2 = new Bitmap(345, 375, battleAttackButton1);
+        this.skillButton3 = new Bitmap(345, 425, battleAttackButton1);
+        this.skillButtonGroup.push(this.skillButton1);
+        this.skillButtonGroup.push(this.skillButton2);
+        this.skillButtonGroup.push(this.skillButton3);
+        for (let i = 0; i < this.player.skill.length; i++) {
+            switch (player.skill[i].id) {
+                case 1:
+                    this.skillButtonGroup[i].img = skillEmptyImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 2:
+                    this.skillButtonGroup[i].img = skillSabiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 3:
+                    this.skillButtonGroup[i].img = skillCaihuaImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+            }
+        }
+
 
         this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
@@ -167,12 +209,31 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.attackButton);
         this.addChild(this.playerNameText);
         this.addChild(this.enemyNameText);
-
+        this.addChild(this.playerAtkText);
+        this.addChild(this.playerCriText);
+        this.addChild(this.playerHpText);
+        this.addChild(this.enemyHpText);
         this.addChild(this.playerImg);
+
+        this.addChild(this.skillButton1);
+        this.addChild(this.skillButton2);
+        this.addChild(this.skillButton3);
 
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
-            batManager.fightOneTime(player, this.enemy);
+            batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
+        })
+        this.skillButton1.addEventListener("onClick", (eventData: any) => {
+            console.log(this.skillIDGroup[0]);
+            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
+        })
+        this.skillButton2.addEventListener("onClick", (eventData: any) => {
+            console.log(this.skillIDGroup[1]);
+            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
+        })
+        this.skillButton3.addEventListener("onClick", (eventData: any) => {
+            console.log(this.skillIDGroup[2]);
+            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
         })
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
@@ -183,20 +244,25 @@ class battleUI extends DisplayObjectContainer {
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
             this.enemyNameText.text = enemy.name;
-            this.enemyImg = new Bitmap(355, 130, this.enemy.view.img);
+            this.enemyImg = new Bitmap(355, 120, this.enemy.view.img);
+            this.enemyHpText.text = '' + enemy.hp;
             this.addChild(this.enemyImg);
         })
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            console.log(this.enemy.hp);
+            this.enemyHpText.text = '' + this.enemy.hp;
             this.textGroup.addChild(textField);
             this.index++;
 
         })
         batManager.addEventListener('enemyDealDamage', (damage: number) => {
             let textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            console.log(this.player.hp);
+            if (player.hp <= 0) {
+                this.playerHpText.text = "0";
+            } else {
+                this.playerHpText.text = "" + player.hp;
+            }
 
             this.textGroup.addChild(textField);
             this.index++;

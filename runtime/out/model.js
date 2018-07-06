@@ -26,8 +26,9 @@ var User = /** @class */ (function (_super) {
         _this.diamond = 0;
         _this._originAttack = 10;
         _this._originHealth = 60;
-        _this.mounthedEquipment = [];
-        _this.packageEquipment = [];
+        _this.mounthedEquipment = []; //已装备的装备
+        _this.packageEquipment = []; //背包中的装备
+        _this.skill = [];
         _this.skill = [];
         _this._attack = 10;
         _this.hp = 60;
@@ -35,7 +36,6 @@ var User = /** @class */ (function (_super) {
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
-        return _this;
         // 以下测试用
         // let eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
         // let eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 3, 0, 0);
@@ -50,6 +50,11 @@ var User = /** @class */ (function (_super) {
         // this.mounthedEquipment.push(eq4);
         // this.mounthedEquipment.push(eq5);
         // this.changeEquipments();
+        //以下测试技能用
+        _this.skill.push(skillEmpty);
+        _this.skill.push(skillSabi);
+        _this.skill.push(skillCaihua);
+        return _this;
     }
     Object.defineProperty(User.prototype, "level", {
         get: function () {
@@ -474,3 +479,13 @@ function equipSetInit(equipManager) {
         }
     }
 }
+/**
+ * 技能
+ */
+var Skill = /** @class */ (function () {
+    function Skill(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Skill;
+}());
