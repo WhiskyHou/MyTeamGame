@@ -29,7 +29,7 @@ var User = /** @class */ (function (_super) {
         _this.mounthedEquipment = []; //已装备的装备
         _this.packageEquipment = []; //背包中的装备
         _this.skill = [];
-        _this.skill = [];
+        // skill: Skill[] = [];
         _this._attack = 10;
         _this.hp = 60;
         _this._criticalPer = 0;
@@ -227,19 +227,22 @@ var Equipment = /** @class */ (function () {
     };
     return Equipment;
 }());
-var Skill = /** @class */ (function () {
-    function Skill(id, name, addattack) {
-        this.x = 0;
-        this.y = 0;
-        this.id = id;
-        this.name = name;
-        this.addattack = addattack;
-    }
-    Skill.prototype.toString = function () {
-        return "[Equipment ~ name:" + this.name + ", attack:" + this.addattack + "]";
-    };
-    return Skill;
-}());
+// class Skill {
+//     x: number = 0;
+//     y: number = 0;
+//     view: Bitmap
+//     public id: number;
+//     public name: string;
+//     public addattack: number;
+//     constructor(id: number, name: string, addattack: number) {
+//         this.id = id;
+//         this.name = name;
+//         this.addattack = addattack;
+//     }
+//     toString() {
+//         return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
+//     }
+// }
 /**
  * 任务
  */

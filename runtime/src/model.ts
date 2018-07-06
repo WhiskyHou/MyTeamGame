@@ -25,7 +25,7 @@ class User extends EventDispatcher {
 
     skill: Skill[] = [];
 
-    skill: Skill[] = [];
+    // skill: Skill[] = [];
 
 
     _attack = 10;
@@ -269,24 +269,24 @@ class Equipment {
     }
 }
 
-class Skill {
-    x: number = 0;
-    y: number = 0;
-    view: Bitmap
+// class Skill {
+//     x: number = 0;
+//     y: number = 0;
+//     view: Bitmap
 
-    public id: number;
-    public name: string;
-    public addattack: number;
-    constructor(id: number, name: string, addattack: number) {
-        this.id = id;
-        this.name = name;
-        this.addattack = addattack;
-    }
+//     public id: number;
+//     public name: string;
+//     public addattack: number;
+//     constructor(id: number, name: string, addattack: number) {
+//         this.id = id;
+//         this.name = name;
+//         this.addattack = addattack;
+//     }
 
-    toString() {
-        return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
-    }
-}
+//     toString() {
+//         return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
+//     }
+// }
 
 
 /**

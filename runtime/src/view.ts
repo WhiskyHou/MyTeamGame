@@ -26,13 +26,10 @@ class UserInfoUI extends DisplayObjectContainer {
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
-<<<<<<< HEAD
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
         this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
-=======
 
->>>>>>> 515010a66fc5bf6d2c26d8d3e41ee13432a36ede
 
 
 
