@@ -132,6 +132,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15);
         _this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15);
         _this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15);
+        _this.equipmentInfoText = new TextField('', 376, 125, 15);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -153,6 +154,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.addChild(_this.equipment3Text);
         _this.addChild(_this.equipment4Text);
         _this.addChild(_this.equipment5Text);
+        _this.addChild(_this.equipmentInfoText);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
             baManager.getNowEquipment(0);
@@ -181,8 +183,32 @@ var bagUI = /** @class */ (function (_super) {
         _this.bagConsumableButton.addEventListener("onClick", function (eventData) {
             baManager.bagConsumable();
         });
+        _this.equipment1Text.addEventListener("onClick", function (eventData) {
+            _this.changeEquipmentInfo(1);
+        });
+        _this.equipment2Text.addEventListener("onClick", function (eventData) {
+            _this.changeEquipmentInfo(1);
+        });
+        _this.equipment3Text.addEventListener("onClick", function (eventData) {
+            _this.changeEquipmentInfo(1);
+        });
+        _this.equipment4Text.addEventListener("onClick", function (eventData) {
+            _this.changeEquipmentInfo(1);
+        });
+        _this.equipment5Text.addEventListener("onClick", function (eventData) {
+            _this.changeEquipmentInfo(1);
+        });
         return _this;
     }
+    bagUI.prototype.changeEquipmentInfo = function (num) {
+        if (baManager.nowEquipment) {
+            baManager.changeNowEquipment(num);
+            this.deleteChild(this.equipmentInfoText);
+            this.equipmentInfoText = new TextField(baManager.nowEquipment.name, 332, 125, 15);
+            this.addChild(this.equipmentInfoText);
+            this.dispatchEvent('updateBag', player);
+        }
+    };
     return bagUI;
 }(DisplayObjectContainer));
 /**

@@ -37,31 +37,32 @@ var bagManager = /** @class */ (function (_super) {
     bagManager.prototype.bagRight = function () {
         console.log('你点击了右键');
         this.nowPage++;
-        this.dispatchEvent('updateBag', player);
+        this.bagUpdate();
     };
     bagManager.prototype.bagLeft = function () {
         console.log('你点击了左键');
         this.nowPage--;
-        this.dispatchEvent('updateBag', player);
+        this.bagUpdate();
     };
     bagManager.prototype.bagOther = function () {
         console.log('你点击了其他');
         this.exportCheckedEquipment(3);
+        this.bagUpdate();
     };
     bagManager.prototype.bagWeapon = function () {
         console.log('你点击了武器');
         this.exportCheckedEquipment(0);
-        this.dispatchEvent('updateBag', player);
+        this.bagUpdate();
     };
     bagManager.prototype.bagArmor = function () {
         console.log('你点击了防具');
         this.exportCheckedEquipment(1);
-        this.dispatchEvent('updateBag', player);
+        this.bagUpdate();
     };
     bagManager.prototype.bagConsumable = function () {
         console.log('你点击了消耗品');
         this.exportCheckedEquipment(2);
-        this.dispatchEvent('updateBag', player);
+        this.bagUpdate();
     };
     bagManager.prototype.exportCheckedEquipment = function (nowGroup) {
         //准备好当前选中类别的装备
@@ -86,6 +87,7 @@ var bagManager = /** @class */ (function (_super) {
         //     }
         // }
         this.nowPage = 0;
+        this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5];
     };
     bagManager.prototype.getNowEquipment = function (num) {
         if (this.nowGroupEquipment[5 * this.nowPage + num]) {
@@ -94,6 +96,14 @@ var bagManager = /** @class */ (function (_super) {
         else {
             return '';
         }
+    };
+    bagManager.prototype.changeNowEquipment = function (num) {
+        if (this.nowGroupEquipment[5 * this.nowPage + num]) {
+            this.nowEquipment = this.nowGroupEquipment[5 * this.nowPage + num];
+        }
+    };
+    bagManager.prototype.bagUpdate = function () {
+        this.dispatchEvent('updateBag', player);
     };
     return bagManager;
 }(EventDispatcher));

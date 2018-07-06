@@ -139,6 +139,8 @@ class bagUI extends DisplayObjectContainer {
     equipment3Text: TextField;
     equipment4Text: TextField;
     equipment5Text: TextField;
+
+    equipmentInfoText: TextField;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
@@ -167,6 +169,8 @@ class bagUI extends DisplayObjectContainer {
         this.equipment4Text = new TextField(baManager.getNowEquipment(3),174,182,15)
         this.equipment5Text = new TextField(baManager.getNowEquipment(4),174,215,15)
 
+        this.equipmentInfoText = new TextField('',376,125,15)
+
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
@@ -188,6 +192,7 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.equipment3Text);
         this.addChild(this.equipment4Text);
         this.addChild(this.equipment5Text);
+        this.addChild(this.equipmentInfoText);
 
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
@@ -217,6 +222,30 @@ class bagUI extends DisplayObjectContainer {
         this.bagConsumableButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagConsumable();
         })
+        this.equipment1Text.addEventListener("onClick", (eventData: any) => {
+            this.changeEquipmentInfo(1)
+        })
+        this.equipment2Text.addEventListener("onClick", (eventData: any) => {
+            this.changeEquipmentInfo(1)
+        })
+        this.equipment3Text.addEventListener("onClick", (eventData: any) => {
+            this.changeEquipmentInfo(1)
+        })
+        this.equipment4Text.addEventListener("onClick", (eventData: any) => {
+            this.changeEquipmentInfo(1)
+        })
+        this.equipment5Text.addEventListener("onClick", (eventData: any) => {
+            this.changeEquipmentInfo(1)
+        })
+    }
+    changeEquipmentInfo(num : number){
+        if(baManager.nowEquipment){
+            baManager.changeNowEquipment(num)
+            this.deleteChild(this.equipmentInfoText)
+            this.equipmentInfoText = new TextField(baManager.nowEquipment.name,332,125,15) 
+            this.addChild(this.equipmentInfoText)
+            this.dispatchEvent('updateBag',player)
+        }
     }
 
 }

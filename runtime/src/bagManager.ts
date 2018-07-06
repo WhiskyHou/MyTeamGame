@@ -3,6 +3,7 @@ class bagManager extends EventDispatcher {
     // nowGroupEquipmentArray: Array<Array<any>>= new Array();
     nowGroupEquipment : Equipment[] = [];//当前组的装备数组
     nowPage : number = 0;
+    nowEquipment : Equipment;
     constructor() {
         super();
 
@@ -25,31 +26,32 @@ class bagManager extends EventDispatcher {
     bagRight(){
         console.log('你点击了右键');
         this.nowPage++;
-        this.dispatchEvent('updateBag',player)
+        this.bagUpdate()
     }
     bagLeft(){
         console.log('你点击了左键');
         this.nowPage--;
-        this.dispatchEvent('updateBag',player)
+        this.bagUpdate()
     }
     bagOther(){
         console.log('你点击了其他');
         this.exportCheckedEquipment(3);
+        this.bagUpdate()
     }
     bagWeapon(){
         console.log('你点击了武器');
         this.exportCheckedEquipment(0);
-        this.dispatchEvent('updateBag',player)
+        this.bagUpdate()
     }
     bagArmor(){
         console.log('你点击了防具');
         this.exportCheckedEquipment(1);
-        this.dispatchEvent('updateBag',player)
+        this.bagUpdate()
     }
     bagConsumable(){
         console.log('你点击了消耗品');
         this.exportCheckedEquipment(2);
-        this.dispatchEvent('updateBag',player)
+        this.bagUpdate()
     }
     exportCheckedEquipment(nowGroup : number) {
         //准备好当前选中类别的装备
@@ -76,6 +78,7 @@ class bagManager extends EventDispatcher {
             
         // }
         this.nowPage = 0;
+        this.nowEquipment = this.nowGroupEquipment[this.nowPage*5]
     }
     getNowEquipment(num : number) : string{
         if(this.nowGroupEquipment[5*this.nowPage+num]){
@@ -83,5 +86,13 @@ class bagManager extends EventDispatcher {
         }else{
             return ''
         }   
+    }
+    changeNowEquipment(num : number){
+        if(this.nowGroupEquipment[5*this.nowPage+num]){
+            this.nowEquipment = this.nowGroupEquipment[5*this.nowPage+num]
+        }
+    }
+    bagUpdate(){
+        this.dispatchEvent('updateBag',player)
     }
 }
