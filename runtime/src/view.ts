@@ -15,6 +15,10 @@ class UserInfoUI extends DisplayObjectContainer {
     bloodUI: Bitmap;
     bloodUI2: Bitmap;
 
+    skillUI: skillBoxUI;
+
+
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -31,8 +35,6 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
 
 
-
-
         this.addChild(this.userName);
         this.addChild(this.userLevel);
         // this.addChild(this.userAttack);
@@ -44,6 +46,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.bloodUI2);
         this.addChild(this.userCoin);
         this.addChild(this.userDiamond);
+
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
         });
@@ -56,6 +59,10 @@ class UserInfoUI extends DisplayObjectContainer {
             }
             this.userEquipment.text = '装备: ' + equipments;
         });
+        this.SkillButton.addEventListener('onClick', (eventData: any) => {
+            this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(this.skillUI);
+        })
         // console.log(player);
     }
 }
@@ -354,37 +361,44 @@ class battleEndLoseUI extends DisplayObjectContainer {
     blackMask: Bitmap;
     backButton: Bitmap;
 
-    // expText: TextField;
-
-    // dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
-
     constructor(x: number, y: number) {
         super(x, y);
 
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
         this.backButton = new Bitmap(500, 325, backButtonImg);
-        // this.expText = new TextField('2333', 400, 207, 20);
 
-        // this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.backButton);
-        // this.addChild(this.expText);
-        // this.addChild(this.dropTextGroup);
 
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //     }
-        // })
-
-        // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneLose", null);
+        })
+    }
+}
+
+/**
+ * 技能栏UI
+ */
+class skillBoxUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+
+    closeButton: Bitmap;
+    // backButton: Bitmap;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.backGround = new Bitmap(225, 25, skillBoxBGImg);
+        this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
+        // this.backButton = new Bitmap(500, 325, backButtonImg);
+
+        this.addChild(this.backGround);
+        this.addChild(this.closeButton);
+
+        this.closeButton.addEventListener('onClick', () => {
+            this.deleteAll();
         })
     }
 }
