@@ -365,6 +365,8 @@ class CreateState extends State {
     onCreatePlayer() {
         player = new User();//初始hp 60，攻击8，初始化于类中。
         player.level = 1;
+        player.needEXP = 100;
+        player.currentEXP = 0;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;

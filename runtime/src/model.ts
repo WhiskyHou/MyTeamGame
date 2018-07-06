@@ -1,4 +1,4 @@
-const MAX_LEVEL = 99;
+const MAX_LEVEL = 20;
 const MAX_HP = 140;
 const MAX_ATTACK = 200;
 const USER_ATTACK_PRE = 100;
@@ -15,7 +15,6 @@ class User extends EventDispatcher {
 
     public name: string;
     public coin: number = 0;
-    public EXP: number = 0;
     public diamond: number = 0;
     private _originAttack = 10;
     private _originHealth = 60;
@@ -65,6 +64,22 @@ class User extends EventDispatcher {
     }
     set level(level: number) {
         this._level = level;
+        this.dispatchEvent('updateUserInfo', null);
+    }
+    _needEXP: number;
+    _currentEXP: number;
+    get needEXP() {
+        return this._needEXP;
+    }
+    set needEXP(needEXP: number) {
+        this._needEXP = needEXP;
+        this.dispatchEvent('updateUserInfo', null);
+    }
+    get currentEXP() {
+        return this._currentEXP;
+    }
+    set currentEXP(currentEXP: number) {
+        this._currentEXP = currentEXP;
         this.dispatchEvent('updateUserInfo', null);
     }
 
@@ -422,17 +437,19 @@ class Monster extends EventDispatcher {
     attack: number;
     curEquipSet: EquipmentSet;
     dropTime = 3;//掉落次数
+    exp: number = 0;
 
-    constructor(id: number, name: string, hp: number, attack: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number) {
         super();
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.attack = attack;
+        this.exp = exp;
     }
 
     toString() {
-        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
+        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}]`
     }
 
     private die() {

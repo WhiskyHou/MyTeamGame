@@ -51,6 +51,8 @@ var battleManager = /** @class */ (function (_super) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
+                player.currentEXP += enemy.exp;
+                console.log(player.currentEXP);
             }
         }
         if (skillType == 3) {

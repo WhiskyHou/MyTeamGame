@@ -5,35 +5,40 @@
 			"name": "引擎怪",
 			"hp": "5000",
 			"attack": "1000",
-			"view": "assets/美术素材/角色/反派/128x128 恶狗.png"
+			"view": "assets/美术素材/角色/反派/128x128 恶狗.png",
+			"exp": "30"
 		},
 		{
 			"id": "2",
 			"name": "程序猿",
 			"hp": "5",
 			"attack": "0",
-			"view": "assets/gaojianli.png"
+			"view": "assets/gaojianli.png",
+			"exp": "30"
 		},
 		{
 			"id": "3",
 			"name": "填表工",
 			"hp": "5",
 			"attack": "0",
-			"view": "assets/gaojianli.png"
+			"view": "assets/gaojianli.png",
+			"exp": "30"
 		},
 		{
 			"id": "4",
 			"name": "填表工",
 			"hp": "25",
 			"attack": "10",
-			"view": "assets/gaojianli.png"
+			"view": "assets/gaojianli.png",
+			"exp": "30"
 		},
 		{
 			"id": "5",
 			"name": "送水工",
 			"hp": "100",
 			"attack": "10",
-			"view": "assets/美术素材/角色/反派/128x128肌肉男.png"
+			"view": "assets/美术素材/角色/反派/128x128肌肉男.png",
+			"exp": "30"
 		}
 	]
 }

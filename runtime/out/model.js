@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var MAX_LEVEL = 99;
+var MAX_LEVEL = 20;
 var MAX_HP = 140;
 var MAX_ATTACK = 200;
 var USER_ATTACK_PRE = 100;
@@ -22,7 +22,6 @@ var User = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
         _this.coin = 0;
-        _this.EXP = 0;
         _this.diamond = 0;
         _this._originAttack = 10;
         _this._originHealth = 60;
@@ -62,6 +61,28 @@ var User = /** @class */ (function (_super) {
         },
         set: function (level) {
             this._level = level;
+            this.dispatchEvent('updateUserInfo', null);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "needEXP", {
+        get: function () {
+            return this._needEXP;
+        },
+        set: function (needEXP) {
+            this._needEXP = needEXP;
+            this.dispatchEvent('updateUserInfo', null);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "currentEXP", {
+        get: function () {
+            return this._currentEXP;
+        },
+        set: function (currentEXP) {
+            this._currentEXP = currentEXP;
             this.dispatchEvent('updateUserInfo', null);
         },
         enumerable: true,
@@ -349,21 +370,23 @@ var Npc = /** @class */ (function () {
  */
 var Monster = /** @class */ (function (_super) {
     __extends(Monster, _super);
-    function Monster(id, name, hp, attack) {
+    function Monster(id, name, hp, attack, exp) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
         _this.id = 0;
         _this.name = '';
         _this.dropTime = 3; //掉落次数
+        _this.exp = 0;
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
         _this.attack = attack;
+        _this.exp = exp;
         return _this;
     }
     Monster.prototype.toString = function () {
-        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
+        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + "]";
     };
     Monster.prototype.die = function () {
     };

@@ -27,6 +27,8 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
         _this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
+        _this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
+        _this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
         _this.addChild(_this.userName);
         _this.addChild(_this.userLevel);
         // this.addChild(this.userAttack);
@@ -38,11 +40,14 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.bloodUI2);
         _this.addChild(_this.userCoin);
         _this.addChild(_this.userDiamond);
+        _this.addChild(_this.currentEXP);
+        _this.addChild(_this.needEXP);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
         });
         player.addEventListener('updateUserInfo', function (eventData) {
-            _this.userLevel.text = 'Lv:' + player.level;
+            // this.userLevel.text = 'Lv:' + player.level;
+            _this.currentEXP.text = '' + player.currentEXP;
             _this.userAttack.text = 'Attck:' + player._attack;
             var equipments = '';
             for (var _i = 0, _a = player.mounthedEquipment; _i < _a.length; _i++) {

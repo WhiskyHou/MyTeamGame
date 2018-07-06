@@ -8,6 +8,8 @@ class UserInfoUI extends DisplayObjectContainer {
     userEquipment: TextField;
     userCoin: TextField;
     userDiamond: TextField;
+    currentEXP: TextField;
+    needEXP: TextField;
 
     bagButton: Bitmap;
     EscButton: Bitmap;
@@ -29,7 +31,8 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
         this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
-
+        this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
+        this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
 
 
 
@@ -44,11 +47,14 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.bloodUI2);
         this.addChild(this.userCoin);
         this.addChild(this.userDiamond);
+        this.addChild(this.currentEXP);
+        this.addChild(this.needEXP);
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
         });
         player.addEventListener('updateUserInfo', (eventData: any) => {
-            this.userLevel.text = 'Lv:' + player.level;
+            // this.userLevel.text = 'Lv:' + player.level;
+            this.currentEXP.text = '' + player.currentEXP;
             this.userAttack.text = 'Attck:' + player._attack;
             let equipments: string = '';
             for (let item of player.mounthedEquipment) {

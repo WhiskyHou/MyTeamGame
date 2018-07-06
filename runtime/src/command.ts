@@ -133,7 +133,7 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-    monster: Monster = new Monster(0, "1", 3, 4);
+    monster: Monster = new Monster(0, "1", 3, 4, 5);
     monsterOriginHp: number;
 
     constructor(monster: Monster) {
