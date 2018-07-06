@@ -9,20 +9,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var bagManager = /** @class */ (function (_super) {
-    __extends(bagManager, _super);
-    function bagManager() {
+var skillManager = /** @class */ (function (_super) {
+    __extends(skillManager, _super);
+    function skillManager() {
         return _super.call(this) || this;
     }
-    bagManager.prototype.openBag = function () {
-        console.log('你打开背包');
-        this.dispatchEvent('openBag', player);
-    };
-    bagManager.prototype.bagOn = function () {
-        console.log('你穿上了装备');
-    };
-    bagManager.prototype.bagOff = function () {
-        console.log('你脱下了装备');
-    };
-    return bagManager;
+    return skillManager;
 }(EventDispatcher));

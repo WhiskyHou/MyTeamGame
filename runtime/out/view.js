@@ -16,22 +16,28 @@ var UserInfoUI = /** @class */ (function (_super) {
     __extends(UserInfoUI, _super);
     function UserInfoUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.userName = new TextField(player.name, 10, 0, 20);
-        _this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
+        _this.userName = new TextField(player.name, 130, 5, 20);
+        _this.userLevel = new TextField('' + player.level, 52, 85, 20);
         _this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
         _this.bagButton = new Bitmap(750, 465, bagButton);
         _this.EscButton = new Bitmap(820, 465, EscButton);
         _this.SkillButton = new Bitmap(680, 465, SkillButton);
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
-        // this.addChild(this.userName);
-        // this.addChild(this.userLevel);
+        _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
+        _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
+        _this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
+        _this.addChild(_this.userName);
+        _this.addChild(_this.userLevel);
         // this.addChild(this.userAttack);
         // this.addChild(this.userEquipment);
         _this.addChild(_this.bagButton);
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
         _this.addChild(_this.bloodUI);
+        _this.addChild(_this.bloodUI2);
+        _this.addChild(_this.userCoin);
+        _this.addChild(_this.userDiamond);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
         });

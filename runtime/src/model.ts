@@ -14,11 +14,17 @@ class User extends EventDispatcher {
     moveStatus: boolean = true;
 
     public name: string;
+    public coin: number = 0;
+    public EXP: number = 0;
+    public diamond: number = 0;
     private _originAttack = 10;
     private _originHealth = 60;
 
     mounthedEquipment: Equipment[] = [];
     packageEquipment: Equipment[] = [];
+
+    skill: Skill[] = [];
+
 
     _attack = 10;
     hp = 60;
@@ -253,6 +259,25 @@ class Equipment {
 
     toString() {
         return `[Equipment ~ name:${this.name}, attack:${this.attack}]`;
+    }
+}
+
+class Skill {
+    x: number = 0;
+    y: number = 0;
+    view: Bitmap
+
+    public id: number;
+    public name: string;
+    public addattack: number;
+    constructor(id: number, name: string, addattack: number) {
+        this.id = id;
+        this.name = name;
+        this.addattack = addattack;
+    }
+
+    toString() {
+        return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
     }
 }
 

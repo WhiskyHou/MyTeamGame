@@ -21,10 +21,14 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
+        _this.coin = 0;
+        _this.EXP = 0;
+        _this.diamond = 0;
         _this._originAttack = 10;
         _this._originHealth = 60;
         _this.mounthedEquipment = [];
         _this.packageEquipment = [];
+        _this.skill = [];
         _this._attack = 10;
         _this.hp = 60;
         _this._criticalPer = 0;
@@ -217,6 +221,19 @@ var Equipment = /** @class */ (function () {
         return "[Equipment ~ name:" + this.name + ", attack:" + this.attack + "]";
     };
     return Equipment;
+}());
+var Skill = /** @class */ (function () {
+    function Skill(id, name, addattack) {
+        this.x = 0;
+        this.y = 0;
+        this.id = id;
+        this.name = name;
+        this.addattack = addattack;
+    }
+    Skill.prototype.toString = function () {
+        return "[Equipment ~ name:" + this.name + ", attack:" + this.addattack + "]";
+    };
+    return Skill;
 }());
 /**
  * 任务

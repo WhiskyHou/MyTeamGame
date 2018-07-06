@@ -6,33 +6,43 @@ class UserInfoUI extends DisplayObjectContainer {
     userLevel: TextField;
     userAttack: TextField;
     userEquipment: TextField;
+    userCoin: TextField;
+    userDiamond: TextField;
 
     bagButton: Bitmap;
     EscButton: Bitmap;
     SkillButton: Bitmap;
     bloodUI: Bitmap;
+    bloodUI2: Bitmap;
 
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.userName = new TextField(player.name, 10, 0, 20);
-        this.userLevel = new TextField('Lv:' + player.level, 120, 0, 20);
+        this.userName = new TextField(player.name, 130, 5, 20);
+        this.userLevel = new TextField('' + player.level, 52, 85, 20);
         this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
         this.bagButton = new Bitmap(750, 465, bagButton);
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
-    
+        this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
+        this.userCoin = new TextField('' + player.coin, 245, 9, 20);
+        this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
 
-        // this.addChild(this.userName);
-        // this.addChild(this.userLevel);
+
+
+        this.addChild(this.userName);
+        this.addChild(this.userLevel);
         // this.addChild(this.userAttack);
         // this.addChild(this.userEquipment);
         this.addChild(this.bagButton);
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
         this.addChild(this.bloodUI);
+        this.addChild(this.bloodUI2);
+        this.addChild(this.userCoin);
+        this.addChild(this.userDiamond);
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
         });
@@ -93,15 +103,15 @@ class bagUI extends DisplayObjectContainer {
     player: User = player;
 
     infoPanel: Bitmap;
-    bagOnButton : Bitmap;
-    bagOffButton : Bitmap;
+    bagOnButton: Bitmap;
+    bagOffButton: Bitmap;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-        this.bagOnButton = new Bitmap(327,246,bagOnUI)
-        this.bagOffButton = new Bitmap(398,246,bagOffUI)
+        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
+        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
