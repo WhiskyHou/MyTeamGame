@@ -13,8 +13,9 @@ var bagManager = /** @class */ (function (_super) {
     __extends(bagManager, _super);
     function bagManager() {
         var _this = _super.call(this) || this;
-        _this.nowGroup = 0; //0:武器，1：防具，2：消耗品，3：其他
-        _this.nowGroupEquipment = []; //当前组的装备数组
+        //nowGroup : number = 0;//0:武器，1：防具，2：消耗品，3：其他
+        //nowGroupEquipment : Equipment[] = [];//当前组的装备数组
+        _this.nowGroupEquipmentArray = new Array();
         return _this;
     }
     bagManager.prototype.openBag = function () {
@@ -39,25 +40,39 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagOther = function () {
         console.log('你点击了其他');
+        this.exportCheckedEquipment(3);
     };
     bagManager.prototype.bagWeapon = function () {
         console.log('你点击了武器');
+        this.exportCheckedEquipment(0);
     };
     bagManager.prototype.bagArmor = function () {
         console.log('你点击了防具');
+        this.exportCheckedEquipment(1);
     };
     bagManager.prototype.bagConsumable = function () {
         console.log('你点击了消耗品');
+        this.exportCheckedEquipment(2);
     };
     bagManager.prototype.exportCheckedEquipment = function (nowGroup) {
-        this.nowGroupEquipment = [];
-        this.nowGroup = nowGroup;
+        var nowGroupEquipment = []; //当前组的装备数组
+        // this.nowGroupEquipment = []
+        //准备好当前选中类别的装备
         for (var i = 0; i < player.packageEquipment.length; i++) {
-            if (player.packageEquipment[i].posID == this.nowGroup) {
-                this.nowGroupEquipment.push(player.packageEquipment[i]);
+            if (player.packageEquipment[i].posID == nowGroup) {
+                nowGroupEquipment.push(player.packageEquipment[i]);
             }
         }
-        return this.nowGroupEquipment;
+        //把当前选中类别的装备分页打包
+        this.nowGroupEquipmentArray = [];
+        var page = Math.ceil(nowGroupEquipment.length / 5);
+        for (var i = 0; i < page; i++) {
+            for (var j = 0; j < 5; j++) {
+                if (nowGroupEquipment[j]) {
+                    this.nowGroupEquipmentArray[i][j] = nowGroupEquipment[j];
+                }
+            }
+        }
     };
     return bagManager;
 }(EventDispatcher));

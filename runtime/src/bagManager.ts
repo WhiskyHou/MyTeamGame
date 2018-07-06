@@ -1,6 +1,7 @@
 class bagManager extends EventDispatcher {
-    nowGroup : number = 0;//0:武器，1：防具，2：消耗品，3：其他
-    nowGroupEquipment : Equipment[] = [];//当前组的装备数组
+    //nowGroup : number = 0;//0:武器，1：防具，2：消耗品，3：其他
+    //nowGroupEquipment : Equipment[] = [];//当前组的装备数组
+    nowGroupEquipmentArray: Array<Array<any>> = new Array<Array<any>>();
     constructor() {
         super();
 
@@ -27,25 +28,38 @@ class bagManager extends EventDispatcher {
     }
     bagOther(){
         console.log('你点击了其他');
+        this.exportCheckedEquipment(3);
     }
     bagWeapon(){
         console.log('你点击了武器');
+        this.exportCheckedEquipment(0);
     }
     bagArmor(){
         console.log('你点击了防具');
+        this.exportCheckedEquipment(1);
     }
     bagConsumable(){
         console.log('你点击了消耗品');
+        this.exportCheckedEquipment(2);
     }
-    exportCheckedEquipment(nowGroup : number) : Equipment[] {
-        this.nowGroupEquipment = []
-        this.nowGroup = nowGroup;
+    exportCheckedEquipment(nowGroup : number) {
+        var nowGroupEquipment : Equipment[] = [];//当前组的装备数组
+        // this.nowGroupEquipment = []
+        //准备好当前选中类别的装备
         for(var i=0;i<player.packageEquipment.length;i++){
-            if(player.packageEquipment[i].posID == this.nowGroup){
-                this.nowGroupEquipment.push(player.packageEquipment[i]) 
+            if(player.packageEquipment[i].posID == nowGroup){
+                nowGroupEquipment.push(player.packageEquipment[i]) 
             }
         }
-        return this.nowGroupEquipment
-
+        //把当前选中类别的装备分页打包
+        this.nowGroupEquipmentArray = []
+        var page :number = Math.ceil(nowGroupEquipment.length/5)
+        for(var i=0;i<page;i++){
+            for(var j=0;j<5;j++){
+                if(nowGroupEquipment[j]){
+                    this.nowGroupEquipmentArray[i][j] = nowGroupEquipment[j];
+                }
+            }
+        }
     }
 }
