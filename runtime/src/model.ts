@@ -84,9 +84,10 @@ class User extends EventDispatcher {
     }
 
     pick(equipment: Equipment) {
-        this.mounthedEquipment.push(equipment);
+        this.packageEquipment.push(equipment);
         this.dispatchEvent('updateUserInfo', null);
         this.dispatchEvent('pickEquipment', { name: equipment.name })
+        console.log('packageEquipemt',this.packageEquipment)
     }
     drop() {
 

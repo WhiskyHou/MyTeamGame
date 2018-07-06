@@ -89,9 +89,10 @@ var User = /** @class */ (function (_super) {
         configurable: true
     });
     User.prototype.pick = function (equipment) {
-        this.mounthedEquipment.push(equipment);
+        this.packageEquipment.push(equipment);
         this.dispatchEvent('updateUserInfo', null);
         this.dispatchEvent('pickEquipment', { name: equipment.name });
+        console.log('packageEquipemt', this.packageEquipment);
     };
     User.prototype.drop = function () {
     };

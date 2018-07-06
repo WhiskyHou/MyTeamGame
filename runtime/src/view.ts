@@ -117,24 +117,67 @@ class bagUI extends DisplayObjectContainer {
     player: User = player;
 
     infoPanel: Bitmap;
-    bagOnButton: Bitmap;
-    bagOffButton: Bitmap;
+    bagOnButton : Bitmap;
+    bagOffButton : Bitmap;
+    bagDownButton : Bitmap;
+    bagRightButton : Bitmap;
+    bagLeftButton : Bitmap;
+    bagOtherButton : Bitmap;
+    bagWeaponButton : Bitmap;
+    bagArmorButton : Bitmap;
+    bagConsumableButton : Bitmap;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
-        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
+        this.bagOnButton = new Bitmap(327,246,bagOnUI)
+        this.bagOffButton = new Bitmap(398,246,bagOffUI)
+        this.bagDownButton = new Bitmap(310,246,bagDownUI)
+        this.bagRightButton = new Bitmap(3008,246,bagRightUI)
+        this.bagLeftButton = new Bitmap(280,246,bagLeftUI)
+        this.bagOtherButton = new Bitmap(398,246,bagOtherUI)
+        this.bagWeaponButton = new Bitmap(398,246,bagWeaponUI)
+        this.bagArmorButton = new Bitmap(298,106,bagArmorUI)
+        this.bagConsumableButton = new Bitmap(398,246,bagConsumableUI)
+
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
+        this.addChild(this.bagDownButton);
+        this.addChild(this.bagRightButton);
+        this.addChild(this.bagLeftButton);
+        this.addChild(this.bagOtherButton);
+        this.addChild(this.bagWeaponButton);
+        this.addChild(this.bagArmorButton);
+        this.addChild(this.bagConsumableButton);
 
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
         })
         this.bagOffButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOff();
+        })
+        this.bagDownButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagDown();
+        })
+        this.bagRightButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagRight();
+        })
+        this.bagLeftButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagLeft();
+        })
+        this.bagOtherButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagOther();
+        })
+        this.bagWeaponButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagWeapon();
+        })
+        this.bagArmorButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagArmor();
+        })
+        this.bagConsumableButton.addEventListener("onClick", (eventData: any) => {
+            baManager.bagConsumable();
         })
     }
 

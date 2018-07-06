@@ -114,14 +114,49 @@ var bagUI = /** @class */ (function (_super) {
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
         _this.bagOffButton = new Bitmap(398, 246, bagOffUI);
+        _this.bagDownButton = new Bitmap(310, 246, bagDownUI);
+        _this.bagRightButton = new Bitmap(3008, 246, bagRightUI);
+        _this.bagLeftButton = new Bitmap(280, 246, bagLeftUI);
+        _this.bagOtherButton = new Bitmap(398, 246, bagOtherUI);
+        _this.bagWeaponButton = new Bitmap(398, 246, bagWeaponUI);
+        _this.bagArmorButton = new Bitmap(298, 106, bagArmorUI);
+        _this.bagConsumableButton = new Bitmap(398, 246, bagConsumableUI);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
+        _this.addChild(_this.bagDownButton);
+        _this.addChild(_this.bagRightButton);
+        _this.addChild(_this.bagLeftButton);
+        _this.addChild(_this.bagOtherButton);
+        _this.addChild(_this.bagWeaponButton);
+        _this.addChild(_this.bagArmorButton);
+        _this.addChild(_this.bagConsumableButton);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
         });
         _this.bagOffButton.addEventListener("onClick", function (eventData) {
             baManager.bagOff();
+        });
+        _this.bagDownButton.addEventListener("onClick", function (eventData) {
+            baManager.bagDown();
+        });
+        _this.bagRightButton.addEventListener("onClick", function (eventData) {
+            baManager.bagRight();
+        });
+        _this.bagLeftButton.addEventListener("onClick", function (eventData) {
+            baManager.bagLeft();
+        });
+        _this.bagOtherButton.addEventListener("onClick", function (eventData) {
+            baManager.bagOther();
+        });
+        _this.bagWeaponButton.addEventListener("onClick", function (eventData) {
+            baManager.bagWeapon();
+        });
+        _this.bagArmorButton.addEventListener("onClick", function (eventData) {
+            baManager.bagArmor();
+        });
+        _this.bagConsumableButton.addEventListener("onClick", function (eventData) {
+            baManager.bagConsumable();
         });
         return _this;
     }
