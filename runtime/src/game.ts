@@ -101,7 +101,6 @@ var bagOnUI = new Image();
 bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
 var bagOffUI = new Image();
 bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
-<<<<<<< HEAD
 var bagDownUI = new Image();
 bagDownUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/UI 取消按钮.png';
 var bagRightUI = new Image();
@@ -116,14 +115,12 @@ var bagArmorUI = new Image();
 bagArmorUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
-=======
 
 let skillBoxBGImg = new Image();
 skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
 let skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
 
->>>>>>> cb3d6b8f7f103cb60615512db266b6f490b8a07a
 /**
  * 常量
  * 

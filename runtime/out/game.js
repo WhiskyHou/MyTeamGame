@@ -119,6 +119,15 @@ var bagArmorUI = new Image();
 bagArmorUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
+var skillBoxBGImg = new Image();
+skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+var skillBoxCloseImg = new Image();
+skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+/**
+ * 常量
+ *
+ * 全局变量
+ */
 var TILE_SIZE = 64; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;

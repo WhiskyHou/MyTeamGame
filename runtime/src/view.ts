@@ -117,7 +117,6 @@ class bagUI extends DisplayObjectContainer {
     player: User = player;
 
     infoPanel: Bitmap;
-<<<<<<< HEAD
     bagOnButton : Bitmap;
     bagOffButton : Bitmap;
     bagDownButton : Bitmap;
@@ -127,16 +126,11 @@ class bagUI extends DisplayObjectContainer {
     bagWeaponButton : Bitmap;
     bagArmorButton : Bitmap;
     bagConsumableButton : Bitmap;
-=======
-    bagOnButton: Bitmap;
-    bagOffButton: Bitmap;
->>>>>>> cb3d6b8f7f103cb60615512db266b6f490b8a07a
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-<<<<<<< HEAD
         this.bagOnButton = new Bitmap(327,246,bagOnUI)
         this.bagOffButton = new Bitmap(398,246,bagOffUI)
         this.bagDownButton = new Bitmap(310,246,bagDownUI)
@@ -147,10 +141,6 @@ class bagUI extends DisplayObjectContainer {
         this.bagArmorButton = new Bitmap(298,106,bagArmorUI)
         this.bagConsumableButton = new Bitmap(398,246,bagConsumableUI)
 
-=======
-        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
-        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
->>>>>>> cb3d6b8f7f103cb60615512db266b6f490b8a07a
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
