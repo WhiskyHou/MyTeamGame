@@ -11,6 +11,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 /**
  * 资源载入
+ *
+ * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
 var loadingImg = new Image();
@@ -127,6 +129,8 @@ skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI �
  * 常量
  *
  * 全局变量
+ *
+ * TODO: 部分需要删除整合
  */
 var TILE_SIZE = 64; //TODO:还原为128
 var ASSETS_PATH = "./assets/";

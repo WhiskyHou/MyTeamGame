@@ -12,7 +12,10 @@ var __extends = (this && this.__extends) || (function () {
 var bagManager = /** @class */ (function (_super) {
     __extends(bagManager, _super);
     function bagManager() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.nowGroup = 0; //0:武器，1：防具，2：消耗品，3：其他
+        _this.nowGroupEquipment = []; //当前组的装备数组
+        return _this;
     }
     bagManager.prototype.openBag = function () {
         console.log('你打开背包');
@@ -45,6 +48,16 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagConsumable = function () {
         console.log('你点击了消耗品');
+    };
+    bagManager.prototype.exportCheckedEquipment = function (nowGroup) {
+        this.nowGroupEquipment = [];
+        this.nowGroup = nowGroup;
+        for (var i = 0; i < player.packageEquipment.length; i++) {
+            if (player.packageEquipment[i].posID == this.nowGroup) {
+                this.nowGroupEquipment.push(player.packageEquipment[i]);
+            }
+        }
+        return this.nowGroupEquipment;
     };
     return bagManager;
 }(EventDispatcher));
