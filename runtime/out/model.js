@@ -21,11 +21,15 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
+        _this.coin = 0;
+        _this.EXP = 0;
+        _this.diamond = 0;
         _this._originAttack = 10;
         _this._originHealth = 60;
         _this.mounthedEquipment = []; //已装备的装备
         _this.packageEquipment = []; //背包中的装备
         _this.skill = [];
+        // skill: Skill[] = [];
         _this._attack = 10;
         _this.hp = 60;
         _this._criticalPer = 0;
@@ -223,6 +227,22 @@ var Equipment = /** @class */ (function () {
     };
     return Equipment;
 }());
+// class Skill {
+//     x: number = 0;
+//     y: number = 0;
+//     view: Bitmap
+//     public id: number;
+//     public name: string;
+//     public addattack: number;
+//     constructor(id: number, name: string, addattack: number) {
+//         this.id = id;
+//         this.name = name;
+//         this.addattack = addattack;
+//     }
+//     toString() {
+//         return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
+//     }
+// }
 /**
  * 任务
  */

@@ -96,7 +96,9 @@ EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
 var bloodUI = new Image();
-bloodUI.src = './assets/ui血条.png';
+bloodUI.src = './assets/ui血条1.png';
+var bloodUI2 = new Image();
+bloodUI2.src = './assets/ui血条2.png';
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/ui背包界面参考.png';
 var bagOnUI = new Image();
@@ -148,11 +150,11 @@ npcManager.init(function () {
 /**
  * 技能初始化
  */
-var skillEmpty = new Skill(0, '空');
+var skillEmpty = new Skill(1, '空');
 skillArray.push(skillEmpty);
-var skillSabi = new Skill(1, '撒币');
+var skillSabi = new Skill(2, '撒币');
 skillArray.push(skillSabi);
-var skillCaihua = new Skill(2, '菜花');
+var skillCaihua = new Skill(3, '菜花');
 skillArray.push(skillCaihua);
 /**
  * 载入状态
