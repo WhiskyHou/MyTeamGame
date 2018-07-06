@@ -1,4 +1,4 @@
-const MAX_LEVEL = 99;
+const MAX_LEVEL = 20;
 const MAX_HP = 140;
 const MAX_ATTACK = 200;
 const USER_ATTACK_PRE = 100;
@@ -14,11 +14,18 @@ class User extends EventDispatcher {
     moveStatus: boolean = true;
 
     public name: string;
+    public coin: number = 0;
+    public diamond: number = 0;
     private _originAttack = 10;
     private _originHealth = 60;
 
-    mounthedEquipment: Equipment[] = [];
-    packageEquipment: Equipment[] = [];
+    mounthedEquipment: Equipment[] = [];//已装备的装备
+    packageEquipment: Equipment[] = [];//背包中的装备
+
+    skill: Skill[] = [];
+
+    // skill: Skill[] = [];
+
 
     _attack = 10;
     hp = 60;
@@ -44,6 +51,11 @@ class User extends EventDispatcher {
         // this.mounthedEquipment.push(eq4);
         // this.mounthedEquipment.push(eq5);
         // this.changeEquipments();
+
+        //以下测试技能用
+        this.skill.push(skillEmpty);
+        this.skill.push(skillSabi);
+        this.skill.push(skillCaihua);
     }
 
     _level: number;
@@ -52,6 +64,22 @@ class User extends EventDispatcher {
     }
     set level(level: number) {
         this._level = level;
+        this.dispatchEvent('updateUserInfo', null);
+    }
+    _needEXP: number;
+    _currentEXP: number;
+    get needEXP() {
+        return this._needEXP;
+    }
+    set needEXP(needEXP: number) {
+        this._needEXP = needEXP;
+        this.dispatchEvent('updateUserInfo', null);
+    }
+    get currentEXP() {
+        return this._currentEXP;
+    }
+    set currentEXP(currentEXP: number) {
+        this._currentEXP = currentEXP;
         this.dispatchEvent('updateUserInfo', null);
     }
 
@@ -257,6 +285,25 @@ class Equipment {
     }
 }
 
+// class Skill {
+//     x: number = 0;
+//     y: number = 0;
+//     view: Bitmap
+
+//     public id: number;
+//     public name: string;
+//     public addattack: number;
+//     constructor(id: number, name: string, addattack: number) {
+//         this.id = id;
+//         this.name = name;
+//         this.addattack = addattack;
+//     }
+
+//     toString() {
+//         return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
+//     }
+// }
+
 
 /**
  * 任务
@@ -391,17 +438,19 @@ class Monster extends EventDispatcher {
     attack: number;
     curEquipSet: EquipmentSet;
     dropTime = 3;//掉落次数
+    exp: number = 0;
 
-    constructor(id: number, name: string, hp: number, attack: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number) {
         super();
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.attack = attack;
+        this.exp = exp;
     }
 
     toString() {
-        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}]`
+        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}]`
     }
 
     private die() {
@@ -520,5 +569,21 @@ function equipSetInit(equipManager: EquipmentManager) {
                 lv5Set.addEquipID(equipManager.equipList[i].id);
                 break;
         }
+    }
+}
+
+/**
+ * 技能
+ */
+class Skill {
+
+    id: number;
+    name: string;
+    description: string;
+    buttonView: Bitmap;
+
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
     }
 }

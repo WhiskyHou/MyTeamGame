@@ -74,13 +74,19 @@ battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 var battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版2.png';
 var battleAttackButton1 = new Image();
-battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
+battleAttackButton1.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 普通攻击.png';
 var battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 var backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 var battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+var skillEmptyImg = new Image();
+skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+var skillSabiImg = new Image();
+skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+var skillCaihuaImg = new Image();
+skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
 var playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var bagButton = new Image();
@@ -90,7 +96,9 @@ EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
 var bloodUI = new Image();
-bloodUI.src = './assets/ui血条.png';
+bloodUI.src = './assets/ui血条1.png';
+var bloodUI2 = new Image();
+bloodUI2.src = './assets/ui血条2.png';
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景.png';
 var bagOnUI = new Image();
@@ -111,11 +119,6 @@ var bagArmorUI = new Image();
 bagArmorUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
-/**
- * 常量
- *
- * 全局变量
- */
 var TILE_SIZE = 64; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
@@ -145,6 +148,7 @@ var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
+var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
@@ -152,6 +156,21 @@ npcManager.init(function () {
         });
     });
 });
+/**
+ * 技能初始化(把这里当技能配置文件)
+ */
+var skillAttack = new Skill(0, '攻击'); //攻击预留
+skillAttack.description = '没有技能';
+skillArray.push(skillAttack);
+var skillEmpty = new Skill(1, '空'); //空
+skillEmpty.description = '没有技能';
+skillArray.push(skillEmpty);
+var skillSabi = new Skill(2, '撒币');
+skillSabi.description = '撒币150%伤害';
+skillArray.push(skillSabi);
+var skillCaihua = new Skill(3, '菜花');
+skillCaihua.description = '菜花80%伤害吸血';
+skillArray.push(skillCaihua);
 /**
  * 载入状态
  */
@@ -317,6 +336,8 @@ var CreateState = /** @class */ (function (_super) {
     CreateState.prototype.onCreatePlayer = function () {
         player = new User(); //初始hp 60，攻击8，初始化于类中。
         player.level = 1;
+        player.needEXP = 100;
+        player.currentEXP = 0;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
@@ -344,6 +365,7 @@ var CreateState = /** @class */ (function (_super) {
 var talkUIContainer;
 var batteUIContainer;
 var bagUIContainer;
+var skillBoxContainer;
 /**
  * 游戏状态
  */
@@ -363,6 +385,7 @@ var PlayingState = /** @class */ (function (_super) {
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
+        skillBoxContainer = new DisplayObjectContainer(16, 16);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
@@ -372,6 +395,7 @@ var PlayingState = /** @class */ (function (_super) {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
+        stage.addChild(skillBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);

@@ -67,13 +67,19 @@ battlePanelBlackMask.src = './assets/battlePanel/blackMask.png';
 let battlePanelInfo = new Image();
 battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版2.png';
 let battleAttackButton1 = new Image();
-battleAttackButton1.src = './assets/battlePanel/ui button确定.png';
+battleAttackButton1.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 普通攻击.png';
 let battleEndBGImg = new Image();
 battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
 let backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
+let skillEmptyImg = new Image();
+skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+let skillSabiImg = new Image();
+skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+let skillCaihuaImg = new Image();
+skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
 
 let playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
@@ -85,7 +91,9 @@ EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
 var bloodUI = new Image();
-bloodUI.src = './assets/ui血条.png';
+bloodUI.src = './assets/ui血条1.png';
+var bloodUI2 = new Image();
+bloodUI2.src = './assets/ui血条2.png';
 
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景.png';
@@ -93,6 +101,7 @@ var bagOnUI = new Image();
 bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
 var bagOffUI = new Image();
 bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
+<<<<<<< HEAD
 var bagDownUI = new Image();
 bagDownUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/UI 取消按钮.png';
 var bagRightUI = new Image();
@@ -107,6 +116,14 @@ var bagArmorUI = new Image();
 bagArmorUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
+=======
+
+let skillBoxBGImg = new Image();
+skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+let skillBoxCloseImg = new Image();
+skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+
+>>>>>>> cb3d6b8f7f103cb60615512db266b6f490b8a07a
 /**
  * 常量
  * 
@@ -149,6 +166,7 @@ let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
+let skillArray: Skill[] = []
 
 npcManager.init(() => {
     monsManager.init(() => {
@@ -157,6 +175,22 @@ npcManager.init(() => {
         });
     })
 });
+
+/**
+ * 技能初始化(把这里当技能配置文件)
+ */
+let skillAttack = new Skill(0, '攻击');//攻击预留
+skillAttack.description = '没有技能';
+skillArray.push(skillAttack);
+let skillEmpty = new Skill(1, '空');//空
+skillEmpty.description = '没有技能';
+skillArray.push(skillEmpty);
+let skillSabi = new Skill(2, '撒币');
+skillSabi.description = '撒币150%伤害';
+skillArray.push(skillSabi);
+let skillCaihua = new Skill(3, '菜花');
+skillCaihua.description = '菜花80%伤害吸血';
+skillArray.push(skillCaihua);
 
 /**
  * 载入状态
@@ -360,6 +394,8 @@ class CreateState extends State {
     onCreatePlayer() {
         player = new User();//初始hp 60，攻击8，初始化于类中。
         player.level = 1;
+        player.needEXP = 100;
+        player.currentEXP = 0;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
@@ -398,6 +434,7 @@ class CreateState extends State {
 var talkUIContainer: DisplayObjectContainer;
 let batteUIContainer: DisplayObjectContainer;
 let bagUIContainer: DisplayObjectContainer;
+let skillBoxContainer: DisplayObjectContainer;
 
 /**
  * 游戏状态
@@ -413,6 +450,7 @@ class PlayingState extends State {
 
     battleUI: battleUI;
     baggUI: bagUI;
+
 
 
     constructor() {
@@ -433,6 +471,10 @@ class PlayingState extends State {
         this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         this.baggUI = new bagUI(0, 0);
+
+        skillBoxContainer = new DisplayObjectContainer(16, 16);
+
+
     }
 
     onEnter(): void {
@@ -441,11 +483,13 @@ class PlayingState extends State {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
+        stage.addChild(skillBoxContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
+
 
         stage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
