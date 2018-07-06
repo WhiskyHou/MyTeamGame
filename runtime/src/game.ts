@@ -88,11 +88,25 @@ var bloodUI = new Image();
 bloodUI.src = './assets/ui血条.png';
 
 var bagWindowsUI = new Image();
-bagWindowsUI.src = './assets/ui背包界面参考.png';
+bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景.png';
 var bagOnUI = new Image();
 bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
 var bagOffUI = new Image();
 bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
+var bagDownUI = new Image();
+bagDownUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/UI 取消按钮.png';
+var bagRightUI = new Image();
+bagRightUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/UI 翻页按钮右.png';
+var bagLeftUI = new Image();
+bagLeftUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/UI 翻页按钮左.png';
+var bagOtherUI = new Image();
+bagOtherUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 其他.png';
+var bagWeaponUI = new Image();
+bagWeaponUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 武器.png';
+var bagArmorUI = new Image();
+bagArmorUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
+var bagConsumableUI = new Image();
+bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 /**
  * 常量
  * 

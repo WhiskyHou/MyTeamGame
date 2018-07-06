@@ -24,5 +24,26 @@ var bagManager = /** @class */ (function (_super) {
     bagManager.prototype.bagOff = function () {
         console.log('你脱下了装备');
     };
+    bagManager.prototype.bagDown = function () {
+        console.log('你关闭了窗口');
+    };
+    bagManager.prototype.bagRight = function () {
+        console.log('你点击了右键');
+    };
+    bagManager.prototype.bagLeft = function () {
+        console.log('你点击了左键');
+    };
+    bagManager.prototype.bagOther = function () {
+        console.log('你点击了其他');
+    };
+    bagManager.prototype.bagWeapon = function () {
+        console.log('你点击了武器');
+    };
+    bagManager.prototype.bagArmor = function () {
+        console.log('你点击了防具');
+    };
+    bagManager.prototype.bagConsumable = function () {
+        console.log('你点击了消耗品');
+    };
     return bagManager;
 }(EventDispatcher));
