@@ -17,6 +17,10 @@ class UserInfoUI extends DisplayObjectContainer {
     bloodUI: Bitmap;
     bloodUI2: Bitmap;
 
+    skillUI: skillBoxUI;
+
+
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -34,8 +38,6 @@ class UserInfoUI extends DisplayObjectContainer {
         this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
 
-
-
         this.addChild(this.userName);
         this.addChild(this.userLevel);
         // this.addChild(this.userAttack);
@@ -49,6 +51,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
+
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
         });
@@ -62,6 +65,10 @@ class UserInfoUI extends DisplayObjectContainer {
             }
             this.userEquipment.text = '装备: ' + equipments;
         });
+        this.SkillButton.addEventListener('onClick', (eventData: any) => {
+            this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(this.skillUI);
+        })
         // console.log(player);
     }
 }
@@ -260,7 +267,13 @@ class battleUI extends DisplayObjectContainer {
 
         })
         batManager.addEventListener('enemyDealDamage', (damage: number) => {
-            let textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            let textField = new TextField("", 0, this.index * 20, 15);
+            if (damage > 0) {
+                textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            } else {
+                textField.text = this.player.name + " 吸了 " + -damage + " 点血！";
+            }
+
             if (player.hp <= 0) {
                 this.playerHpText.text = "0";
             } else {
@@ -360,38 +373,64 @@ class battleEndLoseUI extends DisplayObjectContainer {
     blackMask: Bitmap;
     backButton: Bitmap;
 
-    // expText: TextField;
-
-    // dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
-
     constructor(x: number, y: number) {
         super(x, y);
 
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
         this.backButton = new Bitmap(500, 325, backButtonImg);
-        // this.expText = new TextField('2333', 400, 207, 20);
 
-        // this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.backButton);
-        // this.addChild(this.expText);
-        // this.addChild(this.dropTextGroup);
 
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //     }
-        // })
-
-        // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneLose", null);
         })
+    }
+}
+
+/**
+ * 技能栏UI
+ */
+class skillBoxUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+
+    closeButton: Bitmap;
+    // backButton: Bitmap;
+
+    skillText: TextField;
+    skillTextGroup: DisplayObjectContainer;
+
+    descriptionText: TextField;
+
+
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.backGround = new Bitmap(225, 25, skillBoxBGImg);
+        this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
+        this.skillTextGroup = new DisplayObjectContainer(395, 20);
+        // this.backButton = new Bitmap(500, 325, backButtonImg);
+        this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
+
+        this.addChild(this.backGround);
+        this.addChild(this.closeButton);
+        this.addChild(this.skillTextGroup);
+        this.addChild(this.descriptionText);
+
+        this.closeButton.addEventListener('onClick', () => {
+            this.deleteAll();
+        })
+
+        for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
+            this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+            this.skillText.addEventListener('onClick', () => {
+                this.descriptionText.text = skillArray[i].description;
+            })
+            this.skillTextGroup.addChild(this.skillText);
+        }
     }
 }
 

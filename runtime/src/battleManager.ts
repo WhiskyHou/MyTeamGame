@@ -52,8 +52,10 @@ class battleManager extends EventDispatcher {
             }
         }
         if (skillType == 3) {
-            enemy.hp -= Math.floor(damage * 1.2);//菜花技能伤害系数为1.2
-            this.dispatchEvent('playerDealDamage', Math.floor(damage * 1.2));
+            enemy.hp -= Math.floor(damage * 0.8);//菜花技能伤害系数为0.8
+            player.hp += Math.floor(damage * 0.8);
+            this.dispatchEvent('playerDealDamage', Math.floor(damage * 0.8));
+            this.dispatchEvent('enemyDealDamage', -Math.floor(damage * 0.8));//吸血
             if (enemy.hp <= 0 && enemy != null) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报

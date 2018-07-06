@@ -105,6 +105,10 @@ var bagOnUI = new Image();
 bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
 var bagOffUI = new Image();
 bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
+var skillBoxBGImg = new Image();
+skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+var skillBoxCloseImg = new Image();
+skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
 /**
  * 常量
  *
@@ -148,13 +152,19 @@ npcManager.init(function () {
     });
 });
 /**
- * 技能初始化
+ * 技能初始化(把这里当技能配置文件)
  */
-var skillEmpty = new Skill(1, '空');
+var skillAttack = new Skill(0, '攻击'); //攻击预留
+skillAttack.description = '没有技能';
+skillArray.push(skillAttack);
+var skillEmpty = new Skill(1, '空'); //空
+skillEmpty.description = '没有技能';
 skillArray.push(skillEmpty);
 var skillSabi = new Skill(2, '撒币');
+skillSabi.description = '撒币150%伤害';
 skillArray.push(skillSabi);
 var skillCaihua = new Skill(3, '菜花');
+skillCaihua.description = '菜花80%伤害吸血';
 skillArray.push(skillCaihua);
 /**
  * 载入状态
@@ -350,6 +360,7 @@ var CreateState = /** @class */ (function (_super) {
 var talkUIContainer;
 var batteUIContainer;
 var bagUIContainer;
+var skillBoxContainer;
 /**
  * 游戏状态
  */
@@ -369,6 +380,7 @@ var PlayingState = /** @class */ (function (_super) {
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
+        skillBoxContainer = new DisplayObjectContainer(16, 16);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
@@ -378,6 +390,7 @@ var PlayingState = /** @class */ (function (_super) {
         stage.addChild(this.userUIContainer);
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
+        stage.addChild(skillBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);

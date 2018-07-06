@@ -56,6 +56,10 @@ var UserInfoUI = /** @class */ (function (_super) {
             }
             _this.userEquipment.text = '装备: ' + equipments;
         });
+        _this.SkillButton.addEventListener('onClick', function (eventData) {
+            _this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(_this.skillUI);
+        });
         return _this;
         // console.log(player);
     }
@@ -221,7 +225,13 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
         });
         batManager.addEventListener('enemyDealDamage', function (damage) {
-            var textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            var textField = new TextField("", 0, _this.index * 20, 15);
+            if (damage > 0) {
+                textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            }
+            else {
+                textField.text = _this.player.name + " 吸了 " + -damage + " 点血！";
+            }
             if (player.hp <= 0) {
                 _this.playerHpText.text = "0";
             }
@@ -300,35 +310,53 @@ var battleEndWinUI = /** @class */ (function (_super) {
  */
 var battleEndLoseUI = /** @class */ (function (_super) {
     __extends(battleEndLoseUI, _super);
-    // expText: TextField;
-    // dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
     function battleEndLoseUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndLoseBGImg);
         _this.backButton = new Bitmap(500, 325, backButtonImg);
-        // this.expText = new TextField('2333', 400, 207, 20);
-        // this.addChild(this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.backButton);
-        // this.addChild(this.expText);
-        // this.addChild(this.dropTextGroup);
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //     }
-        // })
-        // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneLose", null);
         });
         return _this;
     }
     return battleEndLoseUI;
+}(DisplayObjectContainer));
+/**
+ * 技能栏UI
+ */
+var skillBoxUI = /** @class */ (function (_super) {
+    __extends(skillBoxUI, _super);
+    function skillBoxUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(225, 25, skillBoxBGImg);
+        _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
+        _this.skillTextGroup = new DisplayObjectContainer(395, 20);
+        // this.backButton = new Bitmap(500, 325, backButtonImg);
+        _this.descriptionText = new TextField("", 525, 100, 20); //TODO 描述换行
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.closeButton);
+        _this.addChild(_this.skillTextGroup);
+        _this.addChild(_this.descriptionText);
+        _this.closeButton.addEventListener('onClick', function () {
+            _this.deleteAll();
+        });
+        var _loop_1 = function (i) {
+            this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+            this_1.skillText.addEventListener('onClick', function () {
+                _this.descriptionText.text = skillArray[i].description;
+            });
+            this_1.skillTextGroup.addChild(this_1.skillText);
+        };
+        var this_1 = this;
+        for (var i = 2; i < skillArray.length; i++) {
+            _loop_1(i);
+        }
+        return _this;
+    }
+    return skillBoxUI;
 }(DisplayObjectContainer));
 /**
  * 对话窗口UI
