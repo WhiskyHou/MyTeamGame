@@ -23,7 +23,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
-    
+
 
         // this.addChild(this.userName);
         // this.addChild(this.userLevel);
@@ -93,15 +93,15 @@ class bagUI extends DisplayObjectContainer {
     player: User = player;
 
     infoPanel: Bitmap;
-    bagOnButton : Bitmap;
-    bagOffButton : Bitmap;
+    bagOnButton: Bitmap;
+    bagOffButton: Bitmap;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-        this.bagOnButton = new Bitmap(327,246,bagOnUI)
-        this.bagOffButton = new Bitmap(398,246,bagOffUI)
+        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
+        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
@@ -136,8 +136,14 @@ class battleUI extends DisplayObjectContainer {
     enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
 
     //战斗角色表现
-    playerImg = new Bitmap(120, 130, player.view.img);
+    playerImg = new Bitmap(120, 120, player.view.img);
     enemyImg: Bitmap;
+
+    //战斗人物属性
+    playerAtkText = new TextField("" + player._attack, 150, 375, 30);
+    playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
+    playerHpText = new TextField("" + player.hp, 175, 250, 20);
+    enemyHpText = new TextField("", 410, 250, 20);
 
     index = 0;
 
@@ -148,7 +154,7 @@ class battleUI extends DisplayObjectContainer {
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         this.backGround = new Bitmap(42, 48, battlePanelBgImg);
-        this.attackButton = new Bitmap(400, 400, battleAttackButton1);
+        this.attackButton = new Bitmap(220, 375, battleAttackButton1);
 
         this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
@@ -157,7 +163,10 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.attackButton);
         this.addChild(this.playerNameText);
         this.addChild(this.enemyNameText);
-
+        this.addChild(this.playerAtkText);
+        this.addChild(this.playerCriText);
+        this.addChild(this.playerHpText);
+        this.addChild(this.enemyHpText);
         this.addChild(this.playerImg);
 
 
@@ -173,20 +182,21 @@ class battleUI extends DisplayObjectContainer {
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
             this.enemyNameText.text = enemy.name;
-            this.enemyImg = new Bitmap(355, 130, this.enemy.view.img);
+            this.enemyImg = new Bitmap(355, 120, this.enemy.view.img);
+            this.enemyHpText.text = '' + enemy.hp;
             this.addChild(this.enemyImg);
         })
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            console.log(this.enemy.hp);
+            this.enemyHpText.text = '' + this.enemy.hp;
             this.textGroup.addChild(textField);
             this.index++;
 
         })
         batManager.addEventListener('enemyDealDamage', (damage: number) => {
             let textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            console.log(this.player.hp);
+            this.playerHpText.text = "" + player.hp;
 
             this.textGroup.addChild(textField);
             this.index++;
