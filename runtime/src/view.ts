@@ -133,13 +133,13 @@ class bagUI extends DisplayObjectContainer {
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         this.bagOnButton = new Bitmap(327,246,bagOnUI)
         this.bagOffButton = new Bitmap(398,246,bagOffUI)
-        this.bagDownButton = new Bitmap(310,246,bagDownUI)
-        this.bagRightButton = new Bitmap(3008,246,bagRightUI)
-        this.bagLeftButton = new Bitmap(280,246,bagLeftUI)
-        this.bagOtherButton = new Bitmap(398,246,bagOtherUI)
-        this.bagWeaponButton = new Bitmap(398,246,bagWeaponUI)
-        this.bagArmorButton = new Bitmap(298,106,bagArmorUI)
-        this.bagConsumableButton = new Bitmap(398,246,bagConsumableUI)
+        this.bagDownButton = new Bitmap(45,50,bagDownUI)
+        this.bagRightButton = new Bitmap(279,253,bagRightUI)
+        this.bagLeftButton = new Bitmap(183,253,bagLeftUI)
+        this.bagOtherButton = new Bitmap(73,252,bagOtherUI)
+        this.bagWeaponButton = new Bitmap(73,87,bagWeaponUI)
+        this.bagArmorButton = new Bitmap(73,142,bagArmorUI)
+        this.bagConsumableButton = new Bitmap(75,197,bagConsumableUI)
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
