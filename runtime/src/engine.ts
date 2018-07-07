@@ -43,6 +43,25 @@ class StateMachine {
 
 
 /**
+ * 资源管理
+ */
+class Resource {
+
+    static resource: { [index: string]: HTMLImageElement } = {}
+
+    static load(path: string, key: string) {
+        const obj = new Image();
+        obj.src = path;
+        this.resource[key] = obj;
+    }
+
+    static get(key: string) {
+        return this.resource[key];
+    }
+}
+
+
+/**
  * 事件处理
  * 
  * listeners: Function[]                    函数数组，储存事件触发后的回调函数
@@ -321,11 +340,11 @@ class Bitmap extends DisplayObject {
     }
 }
 
+
 /**
  * 按钮
  *
  */
-// TODO
 class Button extends DisplayObjectContainer {
 
     image: Bitmap
@@ -380,10 +399,11 @@ class MultiWindow extends DisplayObjectContainer {
     }
 }
 
+
 /**
  * 动画
  */
-class Animator extends DisplayObjectContainer {
+class Animator extends DisplayObject {
 
     frame: number
 
@@ -403,6 +423,10 @@ class Animator extends DisplayObjectContainer {
 
     reset() {
 
+    }
+
+    render(context: CanvasRenderingContext2D): void {
+        throw new Error("Method not implemented.");
     }
 }
 

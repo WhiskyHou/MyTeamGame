@@ -47,6 +47,23 @@ var StateMachine = /** @class */ (function () {
     return StateMachine;
 }());
 /**
+ * 资源管理
+ */
+var Resource = /** @class */ (function () {
+    function Resource() {
+    }
+    Resource.load = function (path, key) {
+        var obj = new Image();
+        obj.src = path;
+        this.resource[key] = obj;
+    };
+    Resource.get = function (key) {
+        return this.resource[key];
+    };
+    Resource.resource = {};
+    return Resource;
+}());
+/**
  * 事件处理
  *
  * listeners: Function[]                    函数数组，储存事件触发后的回调函数
@@ -284,7 +301,6 @@ var Bitmap = /** @class */ (function (_super) {
  * 按钮
  *
  */
-// TODO
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(x, y) {
@@ -331,8 +347,11 @@ var Animator = /** @class */ (function (_super) {
     };
     Animator.prototype.reset = function () {
     };
+    Animator.prototype.render = function (context) {
+        throw new Error("Method not implemented.");
+    };
     return Animator;
-}(DisplayObjectContainer));
+}(DisplayObject));
 /**
  * 文本
  *

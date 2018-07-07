@@ -17,6 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 var van_pick_knife = document.getElementById('van_pick_knife');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
 var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 var titleStartImg = new Image();
@@ -192,7 +193,7 @@ var LoadingState = /** @class */ (function (_super) {
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
-        _this.loadBG = new Bitmap(0, 0, loadingImg);
+        _this.loadBG = new Bitmap(0, 0, Resource.get('loging'));
         _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
         return _this;
     }
