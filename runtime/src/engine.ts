@@ -405,28 +405,64 @@ class MultiWindow extends DisplayObjectContainer {
  */
 class Animator extends DisplayObject {
 
-    frame: number
+    isPlaying: boolean
+
+    duringTiem: number
+
+    delta: number
+
+    index: number
 
     count: number
 
-    image: Bitmap
+    image: HTMLImageElement
 
     size: number
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, image: HTMLImageElement, size: number, count: number, delta: number) {
         super(x, y);
+        this.index = 0
+        this.duringTiem = delta
+        this.image = image
+        this.size = size
+        this.count = count
+        this.delta = delta
+
+        this.visible = false
+        this.isPlaying = false
+    }
+
+    onStart() {
+
+    }
+
+    onUpdate(delta: number) {
+        if (this.isPlaying) {
+            if (this.index == this.count) {
+                this.reset();
+            }
+            if (this.duringTiem >= this.delta) {
+                this.index++;
+                this.duringTiem = 0;
+            }
+            this.duringTiem += delta;
+        }
     }
 
     play() {
-
+        this.isPlaying = true
+        this.visible = true
     }
 
     reset() {
-
+        this.isPlaying = false
+        this.visible = false
+        this.index = 0
+        this.duringTiem = this.delta
     }
 
     render(context: CanvasRenderingContext2D): void {
-        throw new Error("Method not implemented.");
+        context.drawImage(this.image, this.index * this.size, 0, this.size, this.size, 0, 0, this.size, this.size);
     }
 }
 

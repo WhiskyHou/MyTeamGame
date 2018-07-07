@@ -340,15 +340,44 @@ var MultiWindow = /** @class */ (function (_super) {
  */
 var Animator = /** @class */ (function (_super) {
     __extends(Animator, _super);
-    function Animator(x, y) {
-        return _super.call(this, x, y) || this;
+    function Animator(x, y, image, size, count, delta) {
+        var _this = _super.call(this, x, y) || this;
+        _this.index = 0;
+        _this.duringTiem = delta;
+        _this.image = image;
+        _this.size = size;
+        _this.count = count;
+        _this.delta = delta;
+        _this.visible = false;
+        _this.isPlaying = false;
+        return _this;
     }
+    Animator.prototype.onStart = function () {
+    };
+    Animator.prototype.onUpdate = function (delta) {
+        if (this.isPlaying) {
+            if (this.index == this.count) {
+                this.reset();
+            }
+            if (this.duringTiem >= this.delta) {
+                this.index++;
+                this.duringTiem = 0;
+            }
+            this.duringTiem += delta;
+        }
+    };
     Animator.prototype.play = function () {
+        this.isPlaying = true;
+        this.visible = true;
     };
     Animator.prototype.reset = function () {
+        this.isPlaying = false;
+        this.visible = false;
+        this.index = 0;
+        this.duringTiem = this.delta;
     };
     Animator.prototype.render = function (context) {
-        throw new Error("Method not implemented.");
+        context.drawImage(this.image, this.index * this.size, 0, this.size, this.size, 0, 0, this.size, this.size);
     };
     return Animator;
 }(DisplayObject));
