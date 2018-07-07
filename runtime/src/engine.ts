@@ -47,7 +47,7 @@ class StateMachine {
  */
 class Resource {
 
-    static resource: { [index: string]: HTMLImageElement } = {}
+    static resource: { [index: string]: HTMLElement } = {}
 
     static load(path: string, key: string) {
         const obj = new Image();
@@ -499,6 +499,24 @@ class Rectangle extends DisplayObject {
         context.fillRect(0, 0, this.width, this.height);
         context.fill();
         context.closePath();
+    }
+}
+
+
+/**
+ * 音频
+ */
+class AudioPlay {
+    audio: HTMLAudioElement
+
+    constructor(audio: HTMLAudioElement) {
+        this.audio = audio
+        this.audio.hidden = true;
+
+    }
+
+    play() {
+        this.audio.play()
     }
 }
 

@@ -244,6 +244,13 @@ var MenuState = /** @class */ (function (_super) {
         stage.addChild(this.loadButton);
         stage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
+        var temp = new Audio();
+        temp.src = "assets/van_pick_knife.mp3";
+        temp.hidden = true;
+        temp.controls = true;
+        // temp.loop = true
+        var audio = new AudioPlay(temp);
+        audio.play();
     };
     MenuState.prototype.onUpdate = function () {
     };
