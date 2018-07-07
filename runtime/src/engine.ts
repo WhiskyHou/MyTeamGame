@@ -512,7 +512,12 @@ class AudioPlay {
     constructor(audio: HTMLAudioElement) {
         this.audio = audio
         this.audio.hidden = true;
+        this.audio.controls = true;
+        this.audio.loop = false;
+    }
 
+    set playOnlyOnce(v: boolean) {
+        this.audio.loop = !v;
     }
 
     play() {

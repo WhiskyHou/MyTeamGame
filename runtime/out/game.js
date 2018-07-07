@@ -246,10 +246,8 @@ var MenuState = /** @class */ (function (_super) {
         this.startButton.addEventListener("onClick", this.onClick);
         var temp = new Audio();
         temp.src = "assets/van_pick_knife.mp3";
-        temp.hidden = true;
-        temp.controls = true;
-        // temp.loop = true
         var audio = new AudioPlay(temp);
+        audio.playOnlyOnce = true;
         audio.play();
     };
     MenuState.prototype.onUpdate = function () {

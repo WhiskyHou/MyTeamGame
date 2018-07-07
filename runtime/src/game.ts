@@ -263,10 +263,8 @@ class MenuState extends State {
 
         const temp = new Audio()
         temp.src = "assets/van_pick_knife.mp3"
-        temp.hidden = true
-        temp.controls = true
-        // temp.loop = true
         const audio = new AudioPlay(temp);
+        audio.playOnlyOnce = true
         audio.play()
     }
     onUpdate(): void {
