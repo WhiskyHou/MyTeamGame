@@ -56,14 +56,22 @@ class UserInfoUI extends DisplayObjectContainer {
             baManager.openBag();
         });
         player.addEventListener('updateUserInfo', (eventData: any) => {
-            // this.userLevel.text = 'Lv:' + player.level;
+            // if (player.currentEXP >= player.needEXP) {
+            //     player.level++;
+            //     //TODO升级提升血量 攻击力
+            //     player.currentEXP -= player.needEXP;
+            //     player.needEXP *= 1.2
+            // }
+            this.userLevel.text = '' + player.level;
             this.currentEXP.text = '' + player.currentEXP;
-            this.userAttack.text = 'Attck:' + player._attack;
-            let equipments: string = '';
-            for (let item of player.mounthedEquipment) {
-                equipments += item.name.toString();
-            }
-            this.userEquipment.text = '装备: ' + equipments;
+            this.needEXP.text = '' + player.needEXP;
+            this.userCoin.text = '' + player.coin;
+            // this.userAttack.text = 'Attck:' + player._attack;
+            // let equipments: string = '';
+            // for (let item of player.mounthedEquipment) {
+            //     equipments += item.name.toString();
+            // }
+            // this.userEquipment.text = '装备: ' + equipments;
         });
         this.SkillButton.addEventListener('onClick', (eventData: any) => {
             this.skillUI = new skillBoxUI(0, 0);
@@ -117,15 +125,15 @@ class bagUI extends DisplayObjectContainer {
     player: User = player;
 
     infoPanel: Bitmap;
-    bagOnButton : Bitmap;
-    bagOffButton : Bitmap;
-    bagDownButton : Bitmap;
-    bagRightButton : Bitmap;
-    bagLeftButton : Bitmap;
-    bagOtherButton : Bitmap;
-    bagWeaponButton : Bitmap;
-    bagArmorButton : Bitmap;
-    bagConsumableButton : Bitmap;
+    bagOnButton: Bitmap;
+    bagOffButton: Bitmap;
+    bagDownButton: Bitmap;
+    bagRightButton: Bitmap;
+    bagLeftButton: Bitmap;
+    bagOtherButton: Bitmap;
+    bagWeaponButton: Bitmap;
+    bagArmorButton: Bitmap;
+    bagConsumableButton: Bitmap;
 
     weaponText: TextField;
     clothText: TextField;
@@ -146,30 +154,30 @@ class bagUI extends DisplayObjectContainer {
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-        this.bagOnButton = new Bitmap(327,246,bagOnUI)
-        this.bagOffButton = new Bitmap(398,246,bagOffUI)
-        this.bagDownButton = new Bitmap(45,50,bagDownUI)
-        this.bagRightButton = new Bitmap(278,253,bagRightUI)
-        this.bagLeftButton = new Bitmap(183,253,bagLeftUI)
-        this.bagOtherButton = new Bitmap(73,252,bagOtherUI)
-        this.bagWeaponButton = new Bitmap(73,87,bagWeaponUI)
-        this.bagArmorButton = new Bitmap(73,142,bagArmorUI)
-        this.bagConsumableButton = new Bitmap(75,197,bagConsumableUI)
+        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
+        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
+        this.bagDownButton = new Bitmap(45, 50, bagDownUI)
+        this.bagRightButton = new Bitmap(278, 253, bagRightUI)
+        this.bagLeftButton = new Bitmap(183, 253, bagLeftUI)
+        this.bagOtherButton = new Bitmap(73, 252, bagOtherUI)
+        this.bagWeaponButton = new Bitmap(73, 87, bagWeaponUI)
+        this.bagArmorButton = new Bitmap(73, 142, bagArmorUI)
+        this.bagConsumableButton = new Bitmap(75, 197, bagConsumableUI)
 
         this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
         this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
         this.watchText = new TextField(player.mounthedEquipment[2].name, 128, 388, 15);
         this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
-        this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15); 
+        this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
         this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
 
-        this.equipment1Text = new TextField(baManager.getNowEquipment(0),174,84,15)
-        this.equipment2Text = new TextField(baManager.getNowEquipment(1),174,116,15)
-        this.equipment3Text = new TextField(baManager.getNowEquipment(2),174,149,15)
-        this.equipment4Text = new TextField(baManager.getNowEquipment(3),174,182,15)
-        this.equipment5Text = new TextField(baManager.getNowEquipment(4),174,215,15)
+        this.equipment1Text = new TextField(baManager.getNowEquipment(0), 174, 84, 15)
+        this.equipment2Text = new TextField(baManager.getNowEquipment(1), 174, 116, 15)
+        this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15)
+        this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15)
+        this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15)
 
-        this.equipmentInfoText = new TextField('',376,125,15)
+        this.equipmentInfoText = new TextField('', 376, 125, 15)
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
@@ -238,13 +246,13 @@ class bagUI extends DisplayObjectContainer {
             this.changeEquipmentInfo(1)
         })
     }
-    changeEquipmentInfo(num : number){
-        if(baManager.nowEquipment){
+    changeEquipmentInfo(num: number) {
+        if (baManager.nowEquipment) {
             baManager.changeNowEquipment(num)
             this.deleteChild(this.equipmentInfoText)
-            this.equipmentInfoText = new TextField(baManager.nowEquipment.name,332,125,15) 
+            this.equipmentInfoText = new TextField(baManager.nowEquipment.name, 332, 125, 15)
             this.addChild(this.equipmentInfoText)
-            this.dispatchEvent('updateBag',player)
+            this.dispatchEvent('updateBag', player)
         }
     }
 

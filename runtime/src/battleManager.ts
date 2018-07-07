@@ -48,7 +48,13 @@ class battleManager extends EventDispatcher {
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 player.currentEXP += enemy.exp;
-                console.log(player.currentEXP);
+                player.coin += enemy.coin;
+                if (player.currentEXP >= player.needEXP) {
+                    player.level++;
+                    //TODO升级提升血量 攻击力
+                    player.currentEXP -= player.needEXP;
+                    player.needEXP *= 1.2
+                }
             }
         }
         if (skillType == 3) {

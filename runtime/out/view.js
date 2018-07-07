@@ -46,15 +46,22 @@ var UserInfoUI = /** @class */ (function (_super) {
             baManager.openBag();
         });
         player.addEventListener('updateUserInfo', function (eventData) {
-            // this.userLevel.text = 'Lv:' + player.level;
+            // if (player.currentEXP >= player.needEXP) {
+            //     player.level++;
+            //     //TODO升级提升血量 攻击力
+            //     player.currentEXP -= player.needEXP;
+            //     player.needEXP *= 1.2
+            // }
+            _this.userLevel.text = '' + player.level;
             _this.currentEXP.text = '' + player.currentEXP;
-            _this.userAttack.text = 'Attck:' + player._attack;
-            var equipments = '';
-            for (var _i = 0, _a = player.mounthedEquipment; _i < _a.length; _i++) {
-                var item = _a[_i];
-                equipments += item.name.toString();
-            }
-            _this.userEquipment.text = '装备: ' + equipments;
+            _this.needEXP.text = '' + player.needEXP;
+            _this.userCoin.text = '' + player.coin;
+            // this.userAttack.text = 'Attck:' + player._attack;
+            // let equipments: string = '';
+            // for (let item of player.mounthedEquipment) {
+            //     equipments += item.name.toString();
+            // }
+            // this.userEquipment.text = '装备: ' + equipments;
         });
         _this.SkillButton.addEventListener('onClick', function (eventData) {
             _this.skillUI = new skillBoxUI(0, 0);
