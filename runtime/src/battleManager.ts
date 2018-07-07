@@ -53,7 +53,7 @@ class battleManager extends EventDispatcher {
                     player.level++;
                     //TODO升级提升血量 攻击力
                     player.currentEXP -= player.needEXP;
-                    player.needEXP *= 1.2
+                    player.needEXP = Math.floor(player.needEXP * 1.2);
                 }
             }
         }

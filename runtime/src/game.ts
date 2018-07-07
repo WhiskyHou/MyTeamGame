@@ -382,6 +382,8 @@ class CreateState extends State {
         } else {
             this.startButton.scaleX = 1;
             this.startButton.scaleY = 1;
+            this.startButton.x = 350;
+            this.startButton.y = 430;
         }
 
     }
@@ -393,7 +395,7 @@ class CreateState extends State {
     }
 
     onCreatePlayer() {
-        player = new User();//初始hp 60，攻击8，初始化于类中。
+        player = new User();//初始hp 60，攻击10，初始化于类中。
         player.level = 1;
         player.needEXP = 20;
         player.currentEXP = 0;
@@ -416,11 +418,15 @@ class CreateState extends State {
 
     heartBeatEffect(bmp: Bitmap) {
         if (this.bigTag) {
-            bmp.scaleX += 0.1;
-            bmp.scaleY += 0.1;
+            bmp.scaleX += 0.08;
+            bmp.scaleY += 0.08;
+            bmp.x -= 5;
+            bmp.y -= 3;
         } else {
-            bmp.scaleX -= 0.1;
-            bmp.scaleY -= 0.1;
+            bmp.scaleX -= 0.08;
+            bmp.scaleY -= 0.08;
+            bmp.x += 5;
+            bmp.y += 3;
         }
         if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
             this.bigTag = false;
