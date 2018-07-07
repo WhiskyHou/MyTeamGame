@@ -207,7 +207,7 @@ class LoadingState extends State {
 
     constructor() {
         super();
-        this.loadBG = new Bitmap(0, 0, Resource.get('loging'));
+        this.loadBG = new Bitmap(0, 0, Resource.get('loging') as HTMLImageElement);
         this.loadPercent = new TextField(this.count + " %", 420, 463, 30);
     }
 
@@ -260,6 +260,12 @@ class MenuState extends State {
         stage.addChild(this.workerButton);
 
         this.startButton.addEventListener("onClick", this.onClick);
+
+        const temp = new Audio()
+        temp.src = "assets/van_pick_knife.mp3"
+        const audio = new AudioPlay(temp);
+        audio.playOnlyOnce = true
+        audio.play()
     }
     onUpdate(): void {
 

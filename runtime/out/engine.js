@@ -414,6 +414,28 @@ var Rectangle = /** @class */ (function (_super) {
     return Rectangle;
 }(DisplayObject));
 /**
+ * 音频
+ */
+var AudioPlay = /** @class */ (function () {
+    function AudioPlay(audio) {
+        this.audio = audio;
+        this.audio.hidden = true;
+        this.audio.controls = true;
+        this.audio.loop = false;
+    }
+    Object.defineProperty(AudioPlay.prototype, "playOnlyOnce", {
+        set: function (v) {
+            this.audio.loop = !v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AudioPlay.prototype.play = function () {
+        this.audio.play();
+    };
+    return AudioPlay;
+}());
+/**
  * 舞台
  *
  * 继承 DisplayObjectContainer，初始化坐标为0，作为渲染树的根
