@@ -147,7 +147,7 @@ class bagUI extends DisplayObjectContainer {
     equipment3Text: TextField;
     equipment4Text: TextField;
     equipment5Text: TextField;
-
+    pageText: TextField;
     equipmentMultiInfoText: MultiTextField;
 
     attackText : TextField;
@@ -182,6 +182,7 @@ class bagUI extends DisplayObjectContainer {
         this.equipment3Text = new TextField(baManager.getNowEquipment(2),174,149,15)
         this.equipment4Text = new TextField(baManager.getNowEquipment(3),174,182,15)
         this.equipment5Text = new TextField(baManager.getNowEquipment(4),174,215,15)
+        this.pageText = new TextField((baManager.nowPage+1).toString(),220,243,30)
         //装备信息栏
         let str :Array<string> = ['名称：','品质:','部位：','加血：','攻击力：','暴击：'];
         this.equipmentMultiInfoText =  new MultiTextField(str,327,125,12,5)
@@ -215,6 +216,7 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.equipment3Text);
         this.addChild(this.equipment4Text);
         this.addChild(this.equipment5Text);
+        this.addChild(this.pageText);
         this.addChild(this.equipmentMultiInfoText);
         this.addChild(this.attackText);
         this.addChild(this.criticalPerText);
