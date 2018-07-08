@@ -128,6 +128,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.bagWeaponButton = new Bitmap(73, 87, bagWeaponUI);
         _this.bagArmorButton = new Bitmap(73, 142, bagArmorUI);
         _this.bagConsumableButton = new Bitmap(75, 197, bagConsumableUI);
+        //装备栏
         _this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
         _this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
         _this.watchText = new TextField(player.mounthedEquipment[2].name, 128, 388, 15);
@@ -139,7 +140,9 @@ var bagUI = /** @class */ (function (_super) {
         _this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15);
         _this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15);
         _this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15);
-        _this.equipmentInfoText = new TextField('', 376, 125, 15);
+        //装备信息栏
+        var str = ['名称：', '品质:', '部位：', '加血：', '攻击力：', '暴击：'];
+        _this.equipmentMultiInfoText = new MultiTextField(str, 327, 125, 12, 5);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -161,7 +164,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.addChild(_this.equipment3Text);
         _this.addChild(_this.equipment4Text);
         _this.addChild(_this.equipment5Text);
-        _this.addChild(_this.equipmentInfoText);
+        _this.addChild(_this.equipmentMultiInfoText);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
             baManager.getNowEquipment(0);
@@ -191,28 +194,49 @@ var bagUI = /** @class */ (function (_super) {
             baManager.bagConsumable();
         });
         _this.equipment1Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(1);
+            _this.changeEquipmentInfo(0);
         });
         _this.equipment2Text.addEventListener("onClick", function (eventData) {
             _this.changeEquipmentInfo(1);
         });
         _this.equipment3Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(1);
+            _this.changeEquipmentInfo(2);
         });
         _this.equipment4Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(1);
+            _this.changeEquipmentInfo(3);
         });
         _this.equipment5Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(1);
+            _this.changeEquipmentInfo(4);
+        });
+        _this.weaponText.addEventListener("onClick", function (ecentData) {
+            baManager.changeNowMounthedEquipment(0);
+        });
+        _this.clothText.addEventListener("onClick", function (ecentData) {
+            baManager.changeNowMounthedEquipment(1);
+        });
+        _this.watchText.addEventListener("onClick", function (ecentData) {
+            baManager.changeNowMounthedEquipment(2);
+        });
+        _this.trousersText.addEventListener("onClick", function (ecentData) {
+            baManager.changeNowMounthedEquipment(3);
+        });
+        _this.phoneText.addEventListener("onClick", function (ecentData) {
+            baManager.changeNowMounthedEquipment(4);
+        });
+        _this.shoesText.addEventListener("onClick", function (ecentData) {
+            baManager.changeNowMounthedEquipment(5);
         });
         return _this;
     }
     bagUI.prototype.changeEquipmentInfo = function (num) {
         if (baManager.nowEquipment) {
             baManager.changeNowEquipment(num);
-            this.deleteChild(this.equipmentInfoText);
-            this.equipmentInfoText = new TextField(baManager.nowEquipment.name, 332, 125, 15);
-            this.addChild(this.equipmentInfoText);
+            this.deleteChild(this.equipmentMultiInfoText);
+            var equipmentIfo = ['名称：' + baManager.nowEquipment.name, '品质：' + baManager.nowEquipment.quality,
+                '部位：' + baManager.nowEquipment.posID, '血量：+' + baManager.nowEquipment.health,
+                '攻击力：+' + baManager.nowEquipment.attack, '暴击：+' + baManager.nowEquipment.criticalPer + '%'];
+            this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
+            this.addChild(this.equipmentMultiInfoText);
             this.dispatchEvent('updateBag', player);
         }
     };

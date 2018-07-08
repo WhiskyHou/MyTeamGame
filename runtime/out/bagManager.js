@@ -17,6 +17,8 @@ var bagManager = /** @class */ (function (_super) {
         // nowGroupEquipmentArray: Array<Array<any>>= new Array();
         _this.nowGroupEquipment = []; //当前组的装备数组
         _this.nowPage = 0;
+        _this.nowGroup = 0;
+        _this.nowNumber = 0;
         return _this;
     }
     bagManager.prototype.openBag = function () {
@@ -26,9 +28,28 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagOn = function () {
         console.log('你穿上了装备');
+        var pos = this.nowEquipment.posID;
+        if (pos < 7) {
+            if (player.mounthedEquipment[pos].id != 0) { //如果当前位置有装备，就先把他卸下来
+                this.nowMounthedEquipment = player.mounthedEquipment[pos];
+                this.bagOff();
+            }
+            player.mounthedEquipment[pos] = this.nowEquipment;
+            this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
+            this.changeNowEquipment(this.nowNumber);
+            this.exportCheckedEquipment(false);
+            this.bagUpdate();
+        }
     };
     bagManager.prototype.bagOff = function () {
         console.log('你脱下了装备');
+        if (this.nowMounthedEquipment.id != 0) {
+            player.packageEquipment.push(this.nowMounthedEquipment);
+            this.nowMounthedEquipment = new Equipment(0, '', 0, this.nowMounthedEquipment.posID, 0, 0, 0);
+            player.mounthedEquipment[this.nowMounthedEquipment.posID] = this.nowMounthedEquipment;
+            this.exportCheckedEquipment(false);
+            this.bagUpdate();
+        }
     };
     bagManager.prototype.bagDown = function () {
         this.dispatchEvent('bagDown', player);
@@ -46,48 +67,69 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagOther = function () {
         console.log('你点击了其他');
-        this.exportCheckedEquipment(3);
+        this.nowGroup = 3;
+        this.exportCheckedEquipment(true);
         this.bagUpdate();
     };
     bagManager.prototype.bagWeapon = function () {
         console.log('你点击了武器');
-        this.exportCheckedEquipment(0);
+        this.nowGroup = 0;
+        this.exportCheckedEquipment(true);
         this.bagUpdate();
     };
     bagManager.prototype.bagArmor = function () {
         console.log('你点击了防具');
-        this.exportCheckedEquipment(1);
+        this.nowGroup = 1;
+        this.exportCheckedEquipment(true);
         this.bagUpdate();
     };
     bagManager.prototype.bagConsumable = function () {
         console.log('你点击了消耗品');
-        this.exportCheckedEquipment(2);
+        this.nowGroup = 2;
+        this.exportCheckedEquipment(true);
         this.bagUpdate();
     };
-    bagManager.prototype.exportCheckedEquipment = function (nowGroup) {
+    bagManager.prototype.exportCheckedEquipment = function (isUpdate) {
         //准备好当前选中类别的装备
         this.nowGroupEquipment = [];
         for (var i = 0; i < player.packageEquipment.length; i++) {
-            if (player.packageEquipment[i].posID == nowGroup) {
+            if (this.posTOgroup(player.packageEquipment[i].posID) == this.nowGroup) {
                 this.nowGroupEquipment.push(player.packageEquipment[i]);
             }
         }
-        for (var i = 0; i < this.nowGroupEquipment.length; i++) {
-            console.log(this.nowGroupEquipment[i].name);
+        if (isUpdate) {
+            this.nowPage = 0;
         }
-        // //把当前选中类别的装备分页打包
-        // var page :number = Math.ceil(this.nowGroupEquipment.length/5)
-        // for(var i=0;i<page;i++){
-        //     this.nowGroupEquipmentArray[i] = new Array()
-        //     for(var j=0;j<5;j++){
-        //         if(nowGroupEquipment[j]){
-        //             console.log('第',i,'页',this.nowGroupEquipment[5*i+j])
-        //             this.nowGroupEquipmentArray[i][j] = nowGroupEquipment[5*i+j];
-        //         }
-        //     }
-        // }
-        this.nowPage = 0;
-        this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5];
+        this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5 + this.nowNumber];
+    };
+    bagManager.prototype.posTOgroup = function (pos) {
+        if (pos == 0) { //武器
+            return 0;
+        }
+        else if (pos > 0 && pos < 7) { //防具
+            return 1;
+        }
+        else if (pos == 7) { //消耗品
+            return 2;
+        }
+        else { //其他
+            return 3;
+        }
+    };
+    bagManager.prototype.deletePackageEquipment = function (nowG, nowP, nowN) {
+        var newPackageEquipment = [];
+        for (var i = 0; i < player.packageEquipment.length; i++) {
+            if (this.posTOgroup(player.packageEquipment[i].posID) != nowG) {
+                newPackageEquipment.push(player.packageEquipment[i]);
+            }
+        }
+        this.nowGroup = nowG;
+        this.exportCheckedEquipment(false);
+        this.nowGroupEquipment.splice(5 * nowP + nowN, 1);
+        for (var i = 0; i < this.nowGroupEquipment.length; i++) {
+            newPackageEquipment.push(this.nowGroupEquipment[i]);
+        }
+        player.packageEquipment = newPackageEquipment;
     };
     bagManager.prototype.getNowEquipment = function (num) {
         if (this.nowGroupEquipment[5 * this.nowPage + num]) {
@@ -98,8 +140,14 @@ var bagManager = /** @class */ (function (_super) {
         }
     };
     bagManager.prototype.changeNowEquipment = function (num) {
-        if (this.nowGroupEquipment[5 * this.nowPage + num]) {
-            this.nowEquipment = this.nowGroupEquipment[5 * this.nowPage + num];
+        this.nowNumber = num;
+        if (this.nowGroupEquipment[5 * this.nowPage + this.nowNumber]) {
+            this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5 + this.nowNumber];
+        }
+    };
+    bagManager.prototype.changeNowMounthedEquipment = function (num) {
+        if (player.mounthedEquipment[num]) {
+            this.nowMounthedEquipment = player.mounthedEquipment[num];
         }
     };
     bagManager.prototype.bagUpdate = function () {

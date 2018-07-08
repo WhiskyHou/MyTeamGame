@@ -148,12 +148,24 @@ class bagUI extends DisplayObjectContainer {
     equipment4Text: TextField;
     equipment5Text: TextField;
 
-    equipmentInfoText: TextField;
+    equipmentMultiInfoText: MultiTextField;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
+<<<<<<< HEAD
+        this.bagOnButton = new Bitmap(327,246,bagOnUI)
+        this.bagOffButton = new Bitmap(398,246,bagOffUI)
+        this.bagDownButton = new Bitmap(45,50,bagDownUI)
+        this.bagRightButton = new Bitmap(278,253,bagRightUI)
+        this.bagLeftButton = new Bitmap(183,253,bagLeftUI)
+        this.bagOtherButton = new Bitmap(73,252,bagOtherUI)
+        this.bagWeaponButton = new Bitmap(73,87,bagWeaponUI)
+        this.bagArmorButton = new Bitmap(73,142,bagArmorUI)
+        this.bagConsumableButton = new Bitmap(75,197,bagConsumableUI)
+        //装备栏
+=======
         this.bagOnButton = new Bitmap(327, 246, bagOnUI)
         this.bagOffButton = new Bitmap(398, 246, bagOffUI)
         this.bagDownButton = new Bitmap(45, 50, bagDownUI)
@@ -164,12 +176,24 @@ class bagUI extends DisplayObjectContainer {
         this.bagArmorButton = new Bitmap(73, 142, bagArmorUI)
         this.bagConsumableButton = new Bitmap(75, 197, bagConsumableUI)
 
+>>>>>>> 2b3b5a2582e63fe0f16a0adea1faf1f1b7f8221f
         this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
         this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
         this.watchText = new TextField(player.mounthedEquipment[2].name, 128, 388, 15);
         this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
         this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
         this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
+<<<<<<< HEAD
+        //背包栏
+        this.equipment1Text = new TextField(baManager.getNowEquipment(0),174,84,15)
+        this.equipment2Text = new TextField(baManager.getNowEquipment(1),174,116,15)
+        this.equipment3Text = new TextField(baManager.getNowEquipment(2),174,149,15)
+        this.equipment4Text = new TextField(baManager.getNowEquipment(3),174,182,15)
+        this.equipment5Text = new TextField(baManager.getNowEquipment(4),174,215,15)
+        //装备信息栏
+        let str :Array<string> = ['名称：','品质:','部位：','加血：','攻击力：','暴击：'];
+        this.equipmentMultiInfoText =  new MultiTextField(str,327,125,12,5)
+=======
 
         this.equipment1Text = new TextField(baManager.getNowEquipment(0), 174, 84, 15)
         this.equipment2Text = new TextField(baManager.getNowEquipment(1), 174, 116, 15)
@@ -178,6 +202,7 @@ class bagUI extends DisplayObjectContainer {
         this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15)
 
         this.equipmentInfoText = new TextField('', 376, 125, 15)
+>>>>>>> 2b3b5a2582e63fe0f16a0adea1faf1f1b7f8221f
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
@@ -200,8 +225,7 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.equipment3Text);
         this.addChild(this.equipment4Text);
         this.addChild(this.equipment5Text);
-        this.addChild(this.equipmentInfoText);
-
+        this.addChild(this.equipmentMultiInfoText);
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
             baManager.getNowEquipment(0)
@@ -231,28 +255,56 @@ class bagUI extends DisplayObjectContainer {
             baManager.bagConsumable();
         })
         this.equipment1Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(1)
+            this.changeEquipmentInfo(0)
         })
         this.equipment2Text.addEventListener("onClick", (eventData: any) => {
             this.changeEquipmentInfo(1)
         })
         this.equipment3Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(1)
+            this.changeEquipmentInfo(2)
         })
         this.equipment4Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(1)
+            this.changeEquipmentInfo(3)
         })
         this.equipment5Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(1)
+            this.changeEquipmentInfo(4)
+        })
+        this.weaponText.addEventListener("onClick",(ecentData: any) => {
+            baManager.changeNowMounthedEquipment(0)
+        })
+        this.clothText.addEventListener("onClick",(ecentData: any) => {
+            baManager.changeNowMounthedEquipment(1)
+        })
+        this.watchText.addEventListener("onClick",(ecentData: any) => {
+            baManager.changeNowMounthedEquipment(2)
+        })
+        this.trousersText.addEventListener("onClick",(ecentData: any) => {
+            baManager.changeNowMounthedEquipment(3)
+        })
+        this.phoneText.addEventListener("onClick",(ecentData: any) => {
+            baManager.changeNowMounthedEquipment(4)
+        })
+        this.shoesText.addEventListener("onClick",(ecentData: any) => {
+            baManager.changeNowMounthedEquipment(5)
         })
     }
     changeEquipmentInfo(num: number) {
         if (baManager.nowEquipment) {
             baManager.changeNowEquipment(num)
+<<<<<<< HEAD
+            this.deleteChild(this.equipmentMultiInfoText)
+            let equipmentIfo :Array<string> = ['名称：'+baManager.nowEquipment.name,'品质：'+baManager.nowEquipment.quality,
+            '部位：'+baManager.nowEquipment.posID,'血量：+'+baManager.nowEquipment.health,
+            '攻击力：+'+baManager.nowEquipment.attack,'暴击：+'+baManager.nowEquipment.criticalPer+'%'];
+            this.equipmentMultiInfoText =  new MultiTextField(equipmentIfo,327,125,12,5)
+            this.addChild(this.equipmentMultiInfoText)
+            this.dispatchEvent('updateBag',player)
+=======
             this.deleteChild(this.equipmentInfoText)
             this.equipmentInfoText = new TextField(baManager.nowEquipment.name, 332, 125, 15)
             this.addChild(this.equipmentInfoText)
             this.dispatchEvent('updateBag', player)
+>>>>>>> 2b3b5a2582e63fe0f16a0adea1faf1f1b7f8221f
         }
     }
 
