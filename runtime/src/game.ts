@@ -7,6 +7,10 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+
+Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
+
+
 var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 let titleStartImg = new Image();
@@ -203,7 +207,7 @@ class LoadingState extends State {
 
     constructor() {
         super();
-        this.loadBG = new Bitmap(0, 0, loadingImg);
+        this.loadBG = new Bitmap(0, 0, Resource.get('loging') as HTMLImageElement);
         this.loadPercent = new TextField(this.count + " %", 420, 463, 30);
     }
 
@@ -256,6 +260,12 @@ class MenuState extends State {
         stage.addChild(this.workerButton);
 
         this.startButton.addEventListener("onClick", this.onClick);
+
+        const temp = new Audio()
+        temp.src = "assets/van_pick_knife.mp3"
+        const audio = new AudioPlay(temp);
+        audio.playOnlyOnce = true
+        audio.play()
     }
     onUpdate(): void {
 
@@ -382,6 +392,8 @@ class CreateState extends State {
         } else {
             this.startButton.scaleX = 1;
             this.startButton.scaleY = 1;
+            this.startButton.x = 350;
+            this.startButton.y = 430;
         }
 
     }
@@ -393,10 +405,11 @@ class CreateState extends State {
     }
 
     onCreatePlayer() {
-        player = new User();//初始hp 60，攻击8，初始化于类中。
+        player = new User();//初始hp 60，攻击10，初始化于类中。
         player.level = 1;
-        player.needEXP = 100;
+        player.needEXP = 20;
         player.currentEXP = 0;
+        player.coin = 0;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
@@ -415,11 +428,15 @@ class CreateState extends State {
 
     heartBeatEffect(bmp: Bitmap) {
         if (this.bigTag) {
-            bmp.scaleX += 0.1;
-            bmp.scaleY += 0.1;
+            bmp.scaleX += 0.08;
+            bmp.scaleY += 0.08;
+            bmp.x -= 5;
+            bmp.y -= 3;
         } else {
-            bmp.scaleX -= 0.1;
-            bmp.scaleY -= 0.1;
+            bmp.scaleX -= 0.08;
+            bmp.scaleY -= 0.08;
+            bmp.x += 5;
+            bmp.y += 3;
         }
         if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
             this.bigTag = false;

@@ -17,6 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 var van_pick_knife = document.getElementById('van_pick_knife');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
 var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 var titleStartImg = new Image();
@@ -192,7 +193,7 @@ var LoadingState = /** @class */ (function (_super) {
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
-        _this.loadBG = new Bitmap(0, 0, loadingImg);
+        _this.loadBG = new Bitmap(0, 0, Resource.get('loging'));
         _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
         return _this;
     }
@@ -243,6 +244,11 @@ var MenuState = /** @class */ (function (_super) {
         stage.addChild(this.loadButton);
         stage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
+        var temp = new Audio();
+        temp.src = "assets/van_pick_knife.mp3";
+        var audio = new AudioPlay(temp);
+        audio.playOnlyOnce = true;
+        audio.play();
     };
     MenuState.prototype.onUpdate = function () {
     };
@@ -338,6 +344,8 @@ var CreateState = /** @class */ (function (_super) {
         else {
             this.startButton.scaleX = 1;
             this.startButton.scaleY = 1;
+            this.startButton.x = 350;
+            this.startButton.y = 430;
         }
     };
     CreateState.prototype.onExit = function () {
@@ -347,10 +355,11 @@ var CreateState = /** @class */ (function (_super) {
         // this.onCreatePlayer();
     };
     CreateState.prototype.onCreatePlayer = function () {
-        player = new User(); //初始hp 60，攻击8，初始化于类中。
+        player = new User(); //初始hp 60，攻击10，初始化于类中。
         player.level = 1;
-        player.needEXP = 100;
+        player.needEXP = 20;
         player.currentEXP = 0;
+        player.coin = 0;
         player.name = 'Van';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
@@ -359,12 +368,16 @@ var CreateState = /** @class */ (function (_super) {
     };
     CreateState.prototype.heartBeatEffect = function (bmp) {
         if (this.bigTag) {
-            bmp.scaleX += 0.1;
-            bmp.scaleY += 0.1;
+            bmp.scaleX += 0.08;
+            bmp.scaleY += 0.08;
+            bmp.x -= 5;
+            bmp.y -= 3;
         }
         else {
-            bmp.scaleX -= 0.1;
-            bmp.scaleY -= 0.1;
+            bmp.scaleX -= 0.08;
+            bmp.scaleY -= 0.08;
+            bmp.x += 5;
+            bmp.y += 3;
         }
         if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
             this.bigTag = false;

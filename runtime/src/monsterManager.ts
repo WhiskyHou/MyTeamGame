@@ -28,8 +28,9 @@ class monsterManager {
             const hp = parseInt(item.hp);
             const attack = parseInt(item.attack);
             const exp = parseInt(item.exp);
+            const coin = parseInt(item.coin);
 
-            let monster = new Monster(id, name, hp, attack, exp);
+            let monster = new Monster(id, name, hp, attack, exp, coin);
 
             const viewPath = item.view;
             let viewImg = new Image();

@@ -43,6 +43,25 @@ class StateMachine {
 
 
 /**
+ * 资源管理
+ */
+class Resource {
+
+    static resource: { [index: string]: HTMLElement } = {}
+
+    static load(path: string, key: string) {
+        const obj = new Image();
+        obj.src = path;
+        this.resource[key] = obj;
+    }
+
+    static get(key: string) {
+        return this.resource[key];
+    }
+}
+
+
+/**
  * 事件处理
  * 
  * listeners: Function[]                    函数数组，储存事件触发后的回调函数
@@ -321,11 +340,11 @@ class Bitmap extends DisplayObject {
     }
 }
 
+
 /**
  * 按钮
  *
  */
-// TODO
 class Button extends DisplayObjectContainer {
 
     image: Bitmap
@@ -380,29 +399,70 @@ class MultiWindow extends DisplayObjectContainer {
     }
 }
 
+
 /**
  * 动画
  */
-class Animator extends DisplayObjectContainer {
+class Animator extends DisplayObject {
 
-    frame: number
+    isPlaying: boolean
+
+    duringTiem: number
+
+    delta: number
+
+    index: number
 
     count: number
 
-    image: Bitmap
+    image: HTMLImageElement
 
     size: number
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, image: HTMLImageElement, size: number, count: number, delta: number) {
         super(x, y);
+        this.index = 0
+        this.duringTiem = delta
+        this.image = image
+        this.size = size
+        this.count = count
+        this.delta = delta
+
+        this.visible = false
+        this.isPlaying = false
+    }
+
+    onStart() {
+
+    }
+
+    onUpdate(delta: number) {
+        if (this.isPlaying) {
+            if (this.index == this.count) {
+                this.reset();
+            }
+            if (this.duringTiem >= this.delta) {
+                this.index++;
+                this.duringTiem = 0;
+            }
+            this.duringTiem += delta;
+        }
     }
 
     play() {
-
+        this.isPlaying = true
+        this.visible = true
     }
 
     reset() {
+        this.isPlaying = false
+        this.visible = false
+        this.index = 0
+        this.duringTiem = this.delta
+    }
 
+    render(context: CanvasRenderingContext2D): void {
+        context.drawImage(this.image, this.index * this.size, 0, this.size, this.size, 0, 0, this.size, this.size);
     }
 }
 
@@ -527,6 +587,29 @@ class Rectangle extends DisplayObject {
         context.fillRect(0, 0, this.width, this.height);
         context.fill();
         context.closePath();
+    }
+}
+
+
+/**
+ * 音频
+ */
+class AudioPlay {
+    audio: HTMLAudioElement
+
+    constructor(audio: HTMLAudioElement) {
+        this.audio = audio
+        this.audio.hidden = true;
+        this.audio.controls = true;
+        this.audio.loop = false;
+    }
+
+    set playOnlyOnce(v: boolean) {
+        this.audio.loop = !v;
+    }
+
+    play() {
+        this.audio.play()
     }
 }
 

@@ -14,7 +14,6 @@ class User extends EventDispatcher {
     moveStatus: boolean = true;
 
     public name: string;
-    public coin: number = 0;
     public diamond: number = 0;
     private _originAttack = 10;
     private _originHealth = 60;
@@ -92,12 +91,20 @@ class User extends EventDispatcher {
         this._currentEXP = currentEXP;
         this.dispatchEvent('updateUserInfo', null);
     }
+    _coin: number;
+    get coin() {
+        return this._coin;
+    }
+    set coin(coin: number) {
+        this._coin = coin;
+        this.dispatchEvent('updateUserInfo', null);
+    }
 
     pick(equipment: Equipment) {
         this.packageEquipment.push(equipment);
         this.dispatchEvent('updateUserInfo', null);
         this.dispatchEvent('pickEquipment', { name: equipment.name })
-        console.log('packageEquipemt',this.packageEquipment)
+        console.log('packageEquipemt', this.packageEquipment)
     }
     drop() {
 
@@ -449,18 +456,20 @@ class Monster extends EventDispatcher {
     curEquipSet: EquipmentSet;
     dropTime = 3;//掉落次数
     exp: number = 0;
+    coin: number = 0;
 
-    constructor(id: number, name: string, hp: number, attack: number, exp: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number) {
         super();
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.attack = attack;
         this.exp = exp;
+        this.coin = coin
     }
 
     toString() {
-        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}]`
+        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}, coin:${this.coin}]`
     }
 
     private die() {
