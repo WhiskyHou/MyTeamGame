@@ -47,6 +47,23 @@ var StateMachine = /** @class */ (function () {
     return StateMachine;
 }());
 /**
+ * 资源管理
+ */
+var Resource = /** @class */ (function () {
+    function Resource() {
+    }
+    Resource.load = function (path, key) {
+        var obj = new Image();
+        obj.src = path;
+        this.resource[key] = obj;
+    };
+    Resource.get = function (key) {
+        return this.resource[key];
+    };
+    Resource.resource = {};
+    return Resource;
+}());
+/**
  * 事件处理
  *
  * listeners: Function[]                    函数数组，储存事件触发后的回调函数
@@ -284,7 +301,6 @@ var Bitmap = /** @class */ (function (_super) {
  * 按钮
  *
  */
-// TODO
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(x, y) {
@@ -324,15 +340,47 @@ var MultiWindow = /** @class */ (function (_super) {
  */
 var Animator = /** @class */ (function (_super) {
     __extends(Animator, _super);
-    function Animator(x, y) {
-        return _super.call(this, x, y) || this;
+    function Animator(x, y, image, size, count, delta) {
+        var _this = _super.call(this, x, y) || this;
+        _this.index = 0;
+        _this.duringTiem = delta;
+        _this.image = image;
+        _this.size = size;
+        _this.count = count;
+        _this.delta = delta;
+        _this.visible = false;
+        _this.isPlaying = false;
+        return _this;
     }
+    Animator.prototype.onStart = function () {
+    };
+    Animator.prototype.onUpdate = function (delta) {
+        if (this.isPlaying) {
+            if (this.index == this.count) {
+                this.reset();
+            }
+            if (this.duringTiem >= this.delta) {
+                this.index++;
+                this.duringTiem = 0;
+            }
+            this.duringTiem += delta;
+        }
+    };
     Animator.prototype.play = function () {
+        this.isPlaying = true;
+        this.visible = true;
     };
     Animator.prototype.reset = function () {
+        this.isPlaying = false;
+        this.visible = false;
+        this.index = 0;
+        this.duringTiem = this.delta;
+    };
+    Animator.prototype.render = function (context) {
+        context.drawImage(this.image, this.index * this.size, 0, this.size, this.size, 0, 0, this.size, this.size);
     };
     return Animator;
-}(DisplayObjectContainer));
+}(DisplayObject));
 /**
  * 文本
  *
@@ -384,6 +432,52 @@ var TextField = /** @class */ (function (_super) {
     return TextField;
 }(DisplayObject));
 /**
+ * 文本
+ *
+ * 继承 DisplayObject
+ */
+var MultiTextField = /** @class */ (function (_super) {
+    __extends(MultiTextField, _super);
+    function MultiTextField(text, x, y, size, space) {
+        var _this = _super.call(this, x, y) || this;
+        _this.size = size;
+        _this.text = text;
+        _this.space = space;
+        return _this;
+    }
+    MultiTextField.prototype.hitTest = function (point) {
+        var x = point.x;
+        var y = point.y;
+        var width = this.width;
+        var height = this.size * this.text.length;
+        if (x > 0 && x < width && y > 0 && y < height) {
+            return this;
+        }
+        else {
+            return null;
+        }
+    };
+    MultiTextField.prototype.render = function (context) {
+        // 获取文本渲染的宽度,取所有宽度中最大值
+        this.width = 0;
+        for (var i = 0; i < this.text.length; i++) {
+            if (this.width < context.measureText(this.text[i]).width) {
+                this.width = context.measureText(this.text[i]).width;
+            }
+        }
+        for (var i = 0; i < this.text.length; i++) {
+            var width = context.measureText(this.text[i]).width;
+            context.fillStyle = 'black';
+            context.font = this.size.toString() + 'px Arial';
+            context.fillText(this.text[i], 0, i * (this.size + this.space), width);
+        }
+    };
+    MultiTextField.prototype.centered = function () {
+        this.x -= this.width / 2;
+    };
+    return MultiTextField;
+}(DisplayObject));
+/**
  * 矩形
  *
  * 继承 DisplayObject
@@ -407,6 +501,28 @@ var Rectangle = /** @class */ (function (_super) {
     };
     return Rectangle;
 }(DisplayObject));
+/**
+ * 音频
+ */
+var AudioPlay = /** @class */ (function () {
+    function AudioPlay(audio) {
+        this.audio = audio;
+        this.audio.hidden = true;
+        this.audio.controls = true;
+        this.audio.loop = false;
+    }
+    Object.defineProperty(AudioPlay.prototype, "playOnlyOnce", {
+        set: function (v) {
+            this.audio.loop = !v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AudioPlay.prototype.play = function () {
+        this.audio.play();
+    };
+    return AudioPlay;
+}());
 /**
  * 舞台
  *

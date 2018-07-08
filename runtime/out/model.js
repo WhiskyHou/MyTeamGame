@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var MAX_LEVEL = 99;
+var MAX_LEVEL = 20;
 var MAX_HP = 140;
 var MAX_ATTACK = 200;
 var USER_ATTACK_PRE = 100;
@@ -21,25 +21,28 @@ var User = /** @class */ (function (_super) {
     function User() {
         var _this = _super.call(this) || this;
         _this.moveStatus = true;
-        _this._originAttack = 20;
-        _this._originHealth = 100;
-        _this.mounthedEquipment = [];
-        _this.packageEquipment = [];
-        // private equipments: Equipment[] = [];
-        _this._attack = 0;
-        _this.hp = 0;
+        _this.diamond = 0;
+        _this._originAttack = 10;
+        _this._originHealth = 60;
+        _this.mounthedEquipment = []; //已装备的装备
+        _this.packageEquipment = []; //背包中的装备
+        _this.skill = [];
+        // skill: Skill[] = [];
+        _this._attack = _this._originAttack;
+        _this._hp = _this._originHealth;
         _this._criticalPer = 0;
+        _this._charm = 0;
+        _this._mp = 0;
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
         // 以下测试用
-        _this.name = "菜鸡";
-        var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 100, 20);
-        var eq1 = new Equipment(2, '【毁天灭地】头盔', 3, 1, 0, 0, 0);
-        var eq2 = new Equipment(3, '【毁天灭地】肩甲', 3, 2, 0, 0, 0);
-        var eq3 = new Equipment(4, '【毁天灭地】衣服', 3, 3, 0, 0, 0);
-        var eq4 = new Equipment(5, '【毁天灭地】腰带', 3, 4, 0, 0, 0);
-        var eq5 = new Equipment(6, '【毁天灭地】护腿', 3, 5, 0, 0, 0);
+        var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
+        var eq1 = new Equipment(2, '【毁天灭地】衣服', 3, 1, 3, 0, 0);
+        var eq2 = new Equipment(3, '【毁天灭地】手表', 3, 2, 8, 0, 0);
+        var eq3 = new Equipment(4, '【毁天灭地】裤子', 3, 3, 3, 0, 0);
+        var eq4 = new Equipment(5, '【毁天灭地】电话', 3, 4, 3, 0, 0);
+        var eq5 = new Equipment(6, '【毁天灭地】鞋子', 3, 5, 3, 0, 0);
         _this.mounthedEquipment.push(eq0);
         _this.mounthedEquipment.push(eq1);
         _this.mounthedEquipment.push(eq2);
@@ -47,6 +50,21 @@ var User = /** @class */ (function (_super) {
         _this.mounthedEquipment.push(eq4);
         _this.mounthedEquipment.push(eq5);
         _this.changeEquipments();
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq0);
+        _this.packageEquipment.push(eq1);
+        _this.packageEquipment.push(eq1);
+        _this.packageEquipment.push(eq2);
+        _this.packageEquipment.push(eq3);
+        _this.packageEquipment.push(eq4);
+        //以下测试技能用
+        _this.skill.push(skillEmpty);
+        _this.skill.push(skillSabi);
+        _this.skill.push(skillCaihua);
         return _this;
     }
     Object.defineProperty(User.prototype, "level", {
@@ -60,10 +78,44 @@ var User = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(User.prototype, "needEXP", {
+        get: function () {
+            return this._needEXP;
+        },
+        set: function (needEXP) {
+            this._needEXP = needEXP;
+            this.dispatchEvent('updateUserInfo', null);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "currentEXP", {
+        get: function () {
+            return this._currentEXP;
+        },
+        set: function (currentEXP) {
+            this._currentEXP = currentEXP;
+            this.dispatchEvent('updateUserInfo', null);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "coin", {
+        get: function () {
+            return this._coin;
+        },
+        set: function (coin) {
+            this._coin = coin;
+            this.dispatchEvent('updateUserInfo', null);
+        },
+        enumerable: true,
+        configurable: true
+    });
     User.prototype.pick = function (equipment) {
-        this.mounthedEquipment.push(equipment);
+        this.packageEquipment.push(equipment);
         this.dispatchEvent('updateUserInfo', null);
         this.dispatchEvent('pickEquipment', { name: equipment.name });
+        console.log('packageEquipemt', this.packageEquipment);
     };
     User.prototype.drop = function () {
     };
@@ -73,18 +125,13 @@ var User = /** @class */ (function (_super) {
     User.prototype.talk = function (npc) {
         this.dispatchEvent('talkWithNpc', { name: npc.name });
     };
-    Object.defineProperty(User.prototype, "attack", {
-        get: function () {
-            var equipmentAttack = 0;
-            for (var _i = 0, _a = this.mounthedEquipment; _i < _a.length; _i++) {
-                var equipment = _a[_i];
-                equipmentAttack += equipment.attack;
-            }
-            return this.level * USER_ATTACK_PRE + equipmentAttack;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    // get attack(): number {
+    //     let equipmentAttack = 0;
+    //     for (let equipment of this.mounthedEquipment) {
+    //         equipmentAttack += equipment.attack;
+    //     }
+    //     return this.level * USER_ATTACK_PRE + equipmentAttack;
+    // }
     User.prototype.changeGridPos = function (row, col) {
         this.x = row;
         this.y = col;
@@ -125,16 +172,17 @@ var User = /** @class */ (function (_super) {
         this.moveSmooth();
     };
     User.prototype.toString = function () {
-        return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this.hp + ", attack:" + this.attack + "]";
+        return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this._hp + ", attack:" + this._attack + "]";
     };
     //---------------------------------------------------------------
     User.prototype.changeEquipments = function () {
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
-            this.hp += this.mounthedEquipment[i].health;
+            this._hp += this.mounthedEquipment[i].health;
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
+        this.dispatchEvent("changeEquips", null);
         // this.checkSuit();
     };
     //TODO:套装属性检测
@@ -189,7 +237,7 @@ var User = /** @class */ (function (_super) {
     };
     User.prototype.initProperty = function () {
         this._attack = this._originAttack;
-        this.hp = this._originHealth;
+        this._hp = this._originHealth;
         this._criticalPer = 0;
         this._suitDefensePer = 0;
         this.suitAttackPer = 0;
@@ -224,6 +272,22 @@ var Equipment = /** @class */ (function () {
     };
     return Equipment;
 }());
+// class Skill {
+//     x: number = 0;
+//     y: number = 0;
+//     view: Bitmap
+//     public id: number;
+//     public name: string;
+//     public addattack: number;
+//     constructor(id: number, name: string, addattack: number) {
+//         this.id = id;
+//         this.name = name;
+//         this.addattack = addattack;
+//     }
+//     toString() {
+//         return `[Equipment ~ name:${this.name}, attack:${this.addattack}]`;
+//     }
+// }
 /**
  * 任务
  */
@@ -290,7 +354,7 @@ var Mission = /** @class */ (function () {
     return Mission;
 }());
 /**
- * NPC（含怪物）
+ * NPC
  */
 var Npc = /** @class */ (function () {
     function Npc(id, name) {
@@ -330,21 +394,25 @@ var Npc = /** @class */ (function () {
  */
 var Monster = /** @class */ (function (_super) {
     __extends(Monster, _super);
-    function Monster(id, name, hp, attack) {
+    function Monster(id, name, hp, attack, exp, coin) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
         _this.id = 0;
         _this.name = '';
-        _this.hp = 100;
-        _this.attack = 10;
         _this.dropTime = 3; //掉落次数
+        _this.exp = 0;
+        _this.coin = 0;
         _this.id = id;
         _this.name = name;
+        _this.hp = hp;
+        _this.attack = attack;
+        _this.exp = exp;
+        _this.coin = coin;
         return _this;
     }
     Monster.prototype.toString = function () {
-        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + "]";
+        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + "]";
     };
     Monster.prototype.die = function () {
     };
@@ -463,3 +531,13 @@ function equipSetInit(equipManager) {
         }
     }
 }
+/**
+ * 技能
+ */
+var Skill = /** @class */ (function () {
+    function Skill(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Skill;
+}());

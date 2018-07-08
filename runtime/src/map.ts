@@ -81,8 +81,10 @@ class GameMap extends DisplayObjectContainer {
                 for (let j = 0; j < row.length; j++) {
                     const item = row[j]
                     if (item != 0) {
-                        const id = item
+                        const id = item;
+                        console.log(npcManager.npcList.length);
                         for (let npc of npcManager.npcList) {
+
                             if (npc.id == id) {
                                 const npcView = npc.view;
                                 const npcHead = npc.head;
@@ -131,25 +133,53 @@ class GameMap extends DisplayObjectContainer {
                 }
             }
 
-            const mapMonster = obj.map[0].monster as number[][]
+            // const mapMonster = obj.map[0].monster as number[][]
+            // for (let i = 0; i < mapMonster.length; i++) {
+            //     const row = mapMonster[i];
+            //     for (let j = 0; j < row.length; j++) {
+            //         const id = row[j]
+            //         if (id) {
+            //             const monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
+            //             const monsterItem = new Monster(1, '队长', 1200, 100);
+            //             monsterItem.name = '队长';
+            //             monsterItem.view = monsterView;
+            //             // monsterItem.hp = 120;
+            //             monsterItem.x = i;
+            //             monsterItem.y = j;
+            //             const key = i + '_' + j;
+            //             this.monsterConfig[key] = monsterItem;
+            //             this.roleContainer.addChild(monsterView);
+            //         }
+            //     }
+            // }
+
+            const mapMonster = obj.map[0].monster as number[][];
             for (let i = 0; i < mapMonster.length; i++) {
                 const row = mapMonster[i];
                 for (let j = 0; j < row.length; j++) {
-                    const id = row[j]
-                    if (id) {
-                        const monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
-                        const monsterItem = new Monster(1, '队长', 120, 10);
-                        monsterItem.name = '队长';
-                        monsterItem.view = monsterView;
-                        monsterItem.hp = 120;
-                        monsterItem.x = i;
-                        monsterItem.y = j;
-                        const key = i + '_' + j;
-                        this.monsterConfig[key] = monsterItem;
-                        this.roleContainer.addChild(monsterView);
+                    const item = row[j]
+                    if (item != 0) {
+                        const id = item
+                        console.log(monsManager.monsterList.length);
+                        for (let monster of monsManager.monsterList) {
+
+
+                            if (monster.id == id) {
+                                const monsterView = monster.view;
+                                // const npcHead = npc.head;
+                                monsterView.x = TILE_SIZE * i;
+                                monsterView.y = TILE_SIZE * j;
+                                monster.x = i
+                                monster.y = j
+                                const key = i + '_' + j;
+                                this.monsterConfig[key] = monster;
+                                this.roleContainer.addChild(monsterView);
+                            }
+                        }
                     }
                 }
             }
+
 
         }
 

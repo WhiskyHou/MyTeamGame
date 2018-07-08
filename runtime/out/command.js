@@ -133,27 +133,38 @@ var FightCommand = /** @class */ (function (_super) {
     __extends(FightCommand, _super);
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
+        _this.monster = new Monster(0, "1", 3, 4, 5, 6);
         _this.monster = monster;
+        _this.monsterOriginHp = _this.monster.hp;
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
         var batUI = new battleUI(0, 0);
-        var batEndUI = new battleEndUI(0, 0);
+        var batEndUI = new battleEndWinUI(0, 0);
+        var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
-        batManager.addEventListener('enemyDie', function (eventData) {
+        batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
-        });
-        batManager.addEventListener('backScene', function (eventData) {
-            batteUIContainer.deleteAll();
             map.deleteMonster(_this.monster);
+        });
+        batManager.addEventListener('backSceneWin', function (eventData) {
+            batteUIContainer.deleteAll();
+        });
+        batManager.addEventListener('playerDie', function (eventData) {
+            _this.monster.hp = _this.monsterOriginHp;
+            batteUIContainer.addChild(batEndLoseUI);
+        });
+        batManager.addEventListener('backSceneLose', function (eventData) {
+            batteUIContainer.deleteAll();
+            // this.monster.hp = this.monsterOriginHp;
         });
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
         // this.monster.hp -= player.attack;
-        // player.hp -= this.monster.attack;
+        // player._hp -= this.monster.attack;
         // if (this.monster.hp <= 0) {
         //     player.fight(this.monster);
         //     map.deleteMonster(this.monster);

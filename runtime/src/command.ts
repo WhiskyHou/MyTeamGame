@@ -133,31 +133,48 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-    monster: Monster;
+    monster: Monster = new Monster(0, "1", 3, 4, 5, 6);
+    monsterOriginHp: number;
 
     constructor(monster: Monster) {
         super();
         this.monster = monster;
+        this.monsterOriginHp = this.monster.hp;
     }
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
         const batUI = new battleUI(0, 0);
-        const batEndUI = new battleEndUI(0, 0);
+        const batEndUI = new battleEndWinUI(0, 0);
+        const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
-        batManager.addEventListener('enemyDie', (eventData: any) => {
+        batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
+
             batteUIContainer.addChild(batEndUI);
-        })
-        batManager.addEventListener('backScene', (eventData: any) => {
-            batteUIContainer.deleteAll();
             map.deleteMonster(this.monster);
         })
+
+        batManager.addEventListener('backSceneWin', (eventData: any) => {
+            batteUIContainer.deleteAll();
+
+
+        })
+
+        batManager.addEventListener('playerDie', (eventData: any) => {
+            this.monster.hp = this.monsterOriginHp;
+            batteUIContainer.addChild(batEndLoseUI);
+        })
+        batManager.addEventListener('backSceneLose', (eventData: any) => {
+            batteUIContainer.deleteAll();
+            // this.monster.hp = this.monsterOriginHp;
+        })
+
 
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
         // this.monster.hp -= player.attack;
-        // player.hp -= this.monster.attack;
+        // player._hp -= this.monster.attack;
         // if (this.monster.hp <= 0) {
         //     player.fight(this.monster);
         //     map.deleteMonster(this.monster);
