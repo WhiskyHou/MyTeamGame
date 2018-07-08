@@ -141,7 +141,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15);
         _this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15);
         _this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15);
-        _this.pageText = new TextField((baManager.nowPage + 1).toString(), 220, 243, 30);
+        _this.pageText = new TextField((baManager.nowPage + 1).toString(), 220, 246, 26);
         //装备信息栏
         var str = ['名称：', '品质:', '部位：', '加血：', '攻击力：', '暴击：'];
         _this.equipmentMultiInfoText = new MultiTextField(str, 327, 125, 12, 5);

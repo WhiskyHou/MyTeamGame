@@ -102,7 +102,7 @@ var bloodUI2 = new Image();
 bloodUI2.src = './assets/ui血条2.png';
 
 var bagWindowsUI = new Image();
-bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景.png';
+bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景2.png';
 var bagOnUI = new Image();
 bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
 var bagOffUI = new Image();
