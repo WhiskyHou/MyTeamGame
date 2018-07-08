@@ -4,9 +4,9 @@ class battleManager extends EventDispatcher {
 
     constructor() {
         super();
-        this.originHp = player.hp;
+        this.originHp = player._hp;
         player.addEventListener("changeEquips", () => {
-            this.originHp = player.hp;
+            this.originHp = player._hp;
         });
 
     }
@@ -59,7 +59,7 @@ class battleManager extends EventDispatcher {
         }
         if (skillType == 3) {
             enemy.hp -= Math.floor(damage * 0.8);//菜花技能伤害系数为0.8
-            player.hp += Math.floor(damage * 0.8);
+            player._hp += Math.floor(damage * 0.8);
             this.dispatchEvent('playerDealDamage', Math.floor(damage * 0.8));
             this.dispatchEvent('enemyDealDamage', -Math.floor(damage * 0.8));//吸血
             if (enemy.hp <= 0 && enemy != null) {
@@ -71,11 +71,11 @@ class battleManager extends EventDispatcher {
 
         if (enemy.hp > 0) {
             damage = this.damageFlow(enemy.attack);
-            player.hp -= damage;
+            player._hp -= damage;
             this.dispatchEvent('enemyDealDamage', damage);
-            if (player.hp <= 0) {
+            if (player._hp <= 0) {
                 this.dispatchEvent('playerDie', null);
-                player.hp = this.originHp;
+                player._hp = this.originHp;
             }
         }
 

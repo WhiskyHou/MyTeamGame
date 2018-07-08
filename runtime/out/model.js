@@ -28,9 +28,11 @@ var User = /** @class */ (function (_super) {
         _this.packageEquipment = []; //背包中的装备
         _this.skill = [];
         // skill: Skill[] = [];
-        _this._attack = 10;
-        _this.hp = 60;
+        _this._attack = _this._originAttack;
+        _this._hp = _this._originHealth;
         _this._criticalPer = 0;
+        _this._charm = 0;
+        _this._mp = 0;
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
@@ -170,14 +172,14 @@ var User = /** @class */ (function (_super) {
         this.moveSmooth();
     };
     User.prototype.toString = function () {
-        return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this.hp + ", attack:" + this._attack + "]";
+        return "[User ~ name:" + this.name + ", level:" + this.level + ", hp:" + this._hp + ", attack:" + this._attack + "]";
     };
     //---------------------------------------------------------------
     User.prototype.changeEquipments = function () {
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
-            this.hp += this.mounthedEquipment[i].health;
+            this._hp += this.mounthedEquipment[i].health;
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
         this.dispatchEvent("changeEquips", null);
@@ -235,7 +237,7 @@ var User = /** @class */ (function (_super) {
     };
     User.prototype.initProperty = function () {
         this._attack = this._originAttack;
-        this.hp = this._originHealth;
+        this._hp = this._originHealth;
         this._criticalPer = 0;
         this._suitDefensePer = 0;
         this.suitAttackPer = 0;

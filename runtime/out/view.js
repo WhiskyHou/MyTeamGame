@@ -135,6 +135,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
         _this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
         _this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
+        //背包栏
         _this.equipment1Text = new TextField(baManager.getNowEquipment(0), 174, 84, 15);
         _this.equipment2Text = new TextField(baManager.getNowEquipment(1), 174, 116, 15);
         _this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15);
@@ -143,6 +144,13 @@ var bagUI = /** @class */ (function (_super) {
         //装备信息栏
         var str = ['名称：', '品质:', '部位：', '加血：', '攻击力：', '暴击：'];
         _this.equipmentMultiInfoText = new MultiTextField(str, 327, 125, 12, 5);
+        //人物属性显示
+        player.changeEquipments();
+        _this.attackText = new TextField(player._attack.toString(), 90, 453, 15);
+        _this.criticalPerText = new TextField(player._criticalPer.toString(), 183, 453, 15);
+        _this.charmText = new TextField(player._charm.toString(), 262, 453, 15);
+        _this.hpText = new TextField(player._hp.toString(), 336, 453, 15);
+        _this.mpText = new TextField(player._mp.toString(), 420, 453, 15);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -165,6 +173,11 @@ var bagUI = /** @class */ (function (_super) {
         _this.addChild(_this.equipment4Text);
         _this.addChild(_this.equipment5Text);
         _this.addChild(_this.equipmentMultiInfoText);
+        _this.addChild(_this.attackText);
+        _this.addChild(_this.criticalPerText);
+        _this.addChild(_this.charmText);
+        _this.addChild(_this.hpText);
+        _this.addChild(_this.mpText);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
             baManager.getNowEquipment(0);
@@ -259,7 +272,7 @@ var battleUI = /** @class */ (function (_super) {
         //战斗人物属性
         _this.playerAtkText = new TextField("" + player._attack, 150, 375, 30);
         _this.playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
-        _this.playerHpText = new TextField("" + player.hp, 175, 250, 20);
+        _this.playerHpText = new TextField("" + player._hp, 175, 250, 20);
         _this.enemyHpText = new TextField("", 410, 250, 20);
         _this.skillButtonGroup = [];
         _this.skillIDGroup = [];
@@ -347,11 +360,11 @@ var battleUI = /** @class */ (function (_super) {
             else {
                 textField.text = _this.player.name + " 吸了 " + -damage + " 点血！";
             }
-            if (player.hp <= 0) {
+            if (player._hp <= 0) {
                 _this.playerHpText.text = "0";
             }
             else {
-                _this.playerHpText.text = "" + player.hp;
+                _this.playerHpText.text = "" + player._hp;
             }
             _this.textGroup.addChild(textField);
             _this.index++;

@@ -149,12 +149,17 @@ class bagUI extends DisplayObjectContainer {
     equipment5Text: TextField;
 
     equipmentMultiInfoText: MultiTextField;
+
+    attackText : TextField;
+    criticalPerText : TextField;
+    charmText : TextField;
+    hpText : TextField;
+    mpText : TextField;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-<<<<<<< HEAD
         this.bagOnButton = new Bitmap(327,246,bagOnUI)
         this.bagOffButton = new Bitmap(398,246,bagOffUI)
         this.bagDownButton = new Bitmap(45,50,bagDownUI)
@@ -165,25 +170,12 @@ class bagUI extends DisplayObjectContainer {
         this.bagArmorButton = new Bitmap(73,142,bagArmorUI)
         this.bagConsumableButton = new Bitmap(75,197,bagConsumableUI)
         //装备栏
-=======
-        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
-        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
-        this.bagDownButton = new Bitmap(45, 50, bagDownUI)
-        this.bagRightButton = new Bitmap(278, 253, bagRightUI)
-        this.bagLeftButton = new Bitmap(183, 253, bagLeftUI)
-        this.bagOtherButton = new Bitmap(73, 252, bagOtherUI)
-        this.bagWeaponButton = new Bitmap(73, 87, bagWeaponUI)
-        this.bagArmorButton = new Bitmap(73, 142, bagArmorUI)
-        this.bagConsumableButton = new Bitmap(75, 197, bagConsumableUI)
-
->>>>>>> 2b3b5a2582e63fe0f16a0adea1faf1f1b7f8221f
         this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
         this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
         this.watchText = new TextField(player.mounthedEquipment[2].name, 128, 388, 15);
         this.trousersText = new TextField(player.mounthedEquipment[3].name, 332, 331, 15);
         this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
         this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
-<<<<<<< HEAD
         //背包栏
         this.equipment1Text = new TextField(baManager.getNowEquipment(0),174,84,15)
         this.equipment2Text = new TextField(baManager.getNowEquipment(1),174,116,15)
@@ -193,16 +185,14 @@ class bagUI extends DisplayObjectContainer {
         //装备信息栏
         let str :Array<string> = ['名称：','品质:','部位：','加血：','攻击力：','暴击：'];
         this.equipmentMultiInfoText =  new MultiTextField(str,327,125,12,5)
-=======
 
-        this.equipment1Text = new TextField(baManager.getNowEquipment(0), 174, 84, 15)
-        this.equipment2Text = new TextField(baManager.getNowEquipment(1), 174, 116, 15)
-        this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15)
-        this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15)
-        this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15)
-
-        this.equipmentInfoText = new TextField('', 376, 125, 15)
->>>>>>> 2b3b5a2582e63fe0f16a0adea1faf1f1b7f8221f
+        //人物属性显示
+        player.changeEquipments()
+        this.attackText = new TextField(player._attack.toString(),90,453,15)
+        this.criticalPerText = new TextField(player._criticalPer.toString(),183,453,15)
+        this.charmText = new TextField(player._charm.toString(),262,453,15)
+        this.hpText = new TextField(player._hp.toString(),336,453,15)
+        this.mpText = new TextField(player._mp.toString(),420,453,15)
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
@@ -226,6 +216,11 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.equipment4Text);
         this.addChild(this.equipment5Text);
         this.addChild(this.equipmentMultiInfoText);
+        this.addChild(this.attackText);
+        this.addChild(this.criticalPerText);
+        this.addChild(this.charmText);
+        this.addChild(this.hpText);
+        this.addChild(this.mpText);
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
             baManager.getNowEquipment(0)
@@ -291,7 +286,6 @@ class bagUI extends DisplayObjectContainer {
     changeEquipmentInfo(num: number) {
         if (baManager.nowEquipment) {
             baManager.changeNowEquipment(num)
-<<<<<<< HEAD
             this.deleteChild(this.equipmentMultiInfoText)
             let equipmentIfo :Array<string> = ['名称：'+baManager.nowEquipment.name,'品质：'+baManager.nowEquipment.quality,
             '部位：'+baManager.nowEquipment.posID,'血量：+'+baManager.nowEquipment.health,
@@ -299,12 +293,6 @@ class bagUI extends DisplayObjectContainer {
             this.equipmentMultiInfoText =  new MultiTextField(equipmentIfo,327,125,12,5)
             this.addChild(this.equipmentMultiInfoText)
             this.dispatchEvent('updateBag',player)
-=======
-            this.deleteChild(this.equipmentInfoText)
-            this.equipmentInfoText = new TextField(baManager.nowEquipment.name, 332, 125, 15)
-            this.addChild(this.equipmentInfoText)
-            this.dispatchEvent('updateBag', player)
->>>>>>> 2b3b5a2582e63fe0f16a0adea1faf1f1b7f8221f
         }
     }
 
@@ -334,7 +322,7 @@ class battleUI extends DisplayObjectContainer {
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
     playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
-    playerHpText = new TextField("" + player.hp, 175, 250, 20);
+    playerHpText = new TextField("" + player._hp, 175, 250, 20);
     enemyHpText = new TextField("", 410, 250, 20);
 
     //技能按钮
@@ -443,10 +431,10 @@ class battleUI extends DisplayObjectContainer {
                 textField.text = this.player.name + " 吸了 " + -damage + " 点血！";
             }
 
-            if (player.hp <= 0) {
+            if (player._hp <= 0) {
                 this.playerHpText.text = "0";
             } else {
-                this.playerHpText.text = "" + player.hp;
+                this.playerHpText.text = "" + player._hp;
             }
 
             this.textGroup.addChild(textField);

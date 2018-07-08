@@ -280,7 +280,7 @@ var CreateState = /** @class */ (function (_super) {
         _this.startButton = new Bitmap(350, 430, createStartButtonImg);
         _this.onCreatePlayer();
         _this.playerNameText = new TextField(player.name, 565, 160, 30);
-        _this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
+        _this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 573, 255, 30);
         _this.tipsText = new TextField("", 620, 260, 20);
@@ -291,19 +291,19 @@ var CreateState = /** @class */ (function (_super) {
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
-                player.hp += 5;
+                player._hp += 5;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerHpText.text = "" + player.hp;
+            _this.playerHpText.text = "" + player._hp;
         });
         _this.hpMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player.hp > 60) {
-                player.hp -= 5;
+            if (_this.canAssignPoint < 5 && player._hp > 60) {
+                player._hp -= 5;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerHpText.text = "" + player.hp;
+            _this.playerHpText.text = "" + player._hp;
         });
         _this.attackAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
