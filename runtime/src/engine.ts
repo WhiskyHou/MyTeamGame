@@ -449,7 +449,59 @@ class TextField extends DisplayObject {
         this.x -= this.width / 2;
     }
 }
+/**
+ * 文本
+ * 
+ * 继承 DisplayObject
+ */
+class MultiTextField extends DisplayObject {
+    text: Array<string>;
+    size: number;
+    space: number;//行间距
+    width: number;
 
+    constructor(text: Array<string>, x: number, y: number, size: number,space : number) {
+        super(x, y);
+        this.size = size;
+        this.text = text;
+        this.space = space;
+    }
+
+    hitTest(point: math.Point) {
+        const x = point.x;
+        const y = point.y;
+
+        const width = this.width;
+        const height = this.size*this.text.length;
+
+        if (x > 0 && x < width && y > 0 && y < height) {
+            return this;
+        } else {
+            return null;
+        }
+    }
+
+    render(context: CanvasRenderingContext2D) {
+     
+        // 获取文本渲染的宽度,取所有宽度中最大值
+        this.width=0;
+        for(var i =0;i<this.text.length;i++){
+            if(this.width < context.measureText(this.text[i]).width){
+                this.width = context.measureText(this.text[i]).width
+            }
+        }
+        for(var i =0;i<this.text.length;i++){
+            let width = context.measureText(this.text[i]).width
+            context.fillStyle = 'black';
+            context.font = this.size.toString() + 'px Arial';
+            context.fillText(this.text[i], 0,i*(this.size+this.space), width);
+        }
+    }
+
+    centered() {
+        this.x -= this.width / 2;
+    }
+}
 
 /**
  * 矩形

@@ -371,6 +371,52 @@ var TextField = /** @class */ (function (_super) {
     return TextField;
 }(DisplayObject));
 /**
+ * 文本
+ *
+ * 继承 DisplayObject
+ */
+var MultiTextField = /** @class */ (function (_super) {
+    __extends(MultiTextField, _super);
+    function MultiTextField(text, x, y, size, space) {
+        var _this = _super.call(this, x, y) || this;
+        _this.size = size;
+        _this.text = text;
+        _this.space = space;
+        return _this;
+    }
+    MultiTextField.prototype.hitTest = function (point) {
+        var x = point.x;
+        var y = point.y;
+        var width = this.width;
+        var height = this.size * this.text.length;
+        if (x > 0 && x < width && y > 0 && y < height) {
+            return this;
+        }
+        else {
+            return null;
+        }
+    };
+    MultiTextField.prototype.render = function (context) {
+        // 获取文本渲染的宽度,取所有宽度中最大值
+        this.width = 0;
+        for (var i = 0; i < this.text.length; i++) {
+            if (this.width < context.measureText(this.text[i]).width) {
+                this.width = context.measureText(this.text[i]).width;
+            }
+        }
+        for (var i = 0; i < this.text.length; i++) {
+            var width = context.measureText(this.text[i]).width;
+            context.fillStyle = 'black';
+            context.font = this.size.toString() + 'px Arial';
+            context.fillText(this.text[i], 0, i * (this.size + this.space), width);
+        }
+    };
+    MultiTextField.prototype.centered = function () {
+        this.x -= this.width / 2;
+    };
+    return MultiTextField;
+}(DisplayObject));
+/**
  * 矩形
  *
  * 继承 DisplayObject

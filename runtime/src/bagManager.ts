@@ -3,7 +3,10 @@ class bagManager extends EventDispatcher {
     // nowGroupEquipmentArray: Array<Array<any>>= new Array();
     nowGroupEquipment : Equipment[] = [];//当前组的装备数组
     nowPage : number = 0;
-    nowEquipment : Equipment;
+    nowGroup : number = 0;
+    nowNumber : number = 0;
+    nowEquipment : Equipment;//背包里的选中装备
+    nowMounthedEquipment : Equipment;//身上的选中装备
     constructor() {
         super();
 
@@ -15,9 +18,28 @@ class bagManager extends EventDispatcher {
     }
     bagOn(){
         console.log('你穿上了装备');
+        let pos = this.nowEquipment.posID
+        if(pos<7){
+            if(player.mounthedEquipment[pos].id != 0){//如果当前位置有装备，就先把他卸下来
+                this.nowMounthedEquipment = player.mounthedEquipment[pos]
+                this.bagOff()
+            }
+        player.mounthedEquipment[pos] = this.nowEquipment
+        this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
+        this.changeNowEquipment(this.nowNumber)
+        this.exportCheckedEquipment(false);
+        this.bagUpdate()
+        }
     }
     bagOff(){
         console.log('你脱下了装备');
+        if(this.nowMounthedEquipment.id != 0){
+            player.packageEquipment.push(this.nowMounthedEquipment)
+            this.nowMounthedEquipment = new Equipment(0, '', 0, this.nowMounthedEquipment.posID, 0, 0, 0);
+            player.mounthedEquipment[this.nowMounthedEquipment.posID] = this.nowMounthedEquipment
+            this.exportCheckedEquipment(false);
+            this.bagUpdate()
+        } 
     }
     bagDown(){
         this.dispatchEvent('bagDown', player);
@@ -35,50 +57,66 @@ class bagManager extends EventDispatcher {
     }
     bagOther(){
         console.log('你点击了其他');
-        this.exportCheckedEquipment(3);
+        this.nowGroup = 3;
+        this.exportCheckedEquipment(true);
         this.bagUpdate()
     }
     bagWeapon(){
         console.log('你点击了武器');
-        this.exportCheckedEquipment(0);
+        this.nowGroup = 0;
+        this.exportCheckedEquipment(true);
         this.bagUpdate()
     }
     bagArmor(){
         console.log('你点击了防具');
-        this.exportCheckedEquipment(1);
+        this.nowGroup = 1;
+        this.exportCheckedEquipment(true);
         this.bagUpdate()
     }
     bagConsumable(){
         console.log('你点击了消耗品');
-        this.exportCheckedEquipment(2);
+        this.nowGroup = 2;
+        this.exportCheckedEquipment(true);
         this.bagUpdate()
     }
-    exportCheckedEquipment(nowGroup : number) {
+    exportCheckedEquipment(isUpdate : boolean) {//如果是通过点击分栏就是true，nowPage更新到1
         //准备好当前选中类别的装备
         this.nowGroupEquipment = []
         for(var i=0;i<player.packageEquipment.length;i++){
-            if(player.packageEquipment[i].posID == nowGroup){
+            if(this.posTOgroup(player.packageEquipment[i].posID) == this.nowGroup){
                 this.nowGroupEquipment.push(player.packageEquipment[i]) 
             }
         }
-        for(var i=0;i<this.nowGroupEquipment.length;i++){
-            console.log(this.nowGroupEquipment[i].name)
+        if(isUpdate){
+            this.nowPage = 0;
         }
-        
-        // //把当前选中类别的装备分页打包
-        // var page :number = Math.ceil(this.nowGroupEquipment.length/5)
-        // for(var i=0;i<page;i++){
-        //     this.nowGroupEquipmentArray[i] = new Array()
-        //     for(var j=0;j<5;j++){
-        //         if(nowGroupEquipment[j]){
-        //             console.log('第',i,'页',this.nowGroupEquipment[5*i+j])
-        //             this.nowGroupEquipmentArray[i][j] = nowGroupEquipment[5*i+j];
-        //         }
-        //     }
-            
-        // }
-        this.nowPage = 0;
-        this.nowEquipment = this.nowGroupEquipment[this.nowPage*5]
+        this.nowEquipment = this.nowGroupEquipment[this.nowPage*5+this.nowNumber]
+    }
+    posTOgroup(pos : number): number {//posID转分栏信息
+        if(pos == 0){//武器
+            return 0
+        }else if(pos > 0 && pos < 7){//防具
+            return 1
+        }else if(pos == 7){//消耗品
+            return 2
+        }else{//其他
+            return 3
+        }
+    }
+    deletePackageEquipment(nowG : number,nowP : number,nowN : number){//把不是当前栏的导出，删除当前栏再导回来
+        let newPackageEquipment : Array<Equipment> = []
+            for(var i=0;i<player.packageEquipment.length;i++){
+                if(this.posTOgroup(player.packageEquipment[i].posID) != nowG){
+                    newPackageEquipment.push(player.packageEquipment[i]) 
+                }
+            }
+            this.nowGroup = nowG
+            this.exportCheckedEquipment(false)
+            this.nowGroupEquipment.splice(5*nowP+nowN,1)
+            for(var i=0;i<this.nowGroupEquipment.length;i++){
+                newPackageEquipment.push(this.nowGroupEquipment[i]) 
+            }
+            player.packageEquipment = newPackageEquipment
     }
     getNowEquipment(num : number) : string{
         if(this.nowGroupEquipment[5*this.nowPage+num]){
@@ -88,8 +126,14 @@ class bagManager extends EventDispatcher {
         }   
     }
     changeNowEquipment(num : number){
-        if(this.nowGroupEquipment[5*this.nowPage+num]){
-            this.nowEquipment = this.nowGroupEquipment[5*this.nowPage+num]
+        this.nowNumber = num;
+        if(this.nowGroupEquipment[5*this.nowPage+this.nowNumber]){
+            this.nowEquipment = this.nowGroupEquipment[this.nowPage*5+this.nowNumber]
+        }
+    }
+    changeNowMounthedEquipment(num : number){
+        if(player.mounthedEquipment[num]){
+            this.nowMounthedEquipment = player.mounthedEquipment[num]
         }
     }
     bagUpdate(){
