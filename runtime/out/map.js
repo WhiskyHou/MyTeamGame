@@ -48,6 +48,7 @@ var GameMap = /** @class */ (function (_super) {
         var obj;
         xhr.onload = function () {
             obj = JSON.parse(xhr.response);
+            _this.config = obj;
             var mapTile = obj.map[0].tile;
             for (var i = 0; i < mapTile.length; i++) {
                 var row = mapTile[i];
@@ -223,15 +224,14 @@ var GameMap = /** @class */ (function (_super) {
         //     }
         // }
     };
-    GameMap.prototype.getNodeInfo = function (row, col) {
-        for (var _i = 0, _a = this.config; _i < _a.length; _i++) {
-            var item = _a[_i];
-            if (item.x == row && item.y == col) {
-                return item;
-            }
-        }
-        return null;
-    };
+    // getNodeInfo(row: number, col: number) {
+    //     for (let item of this.config.map.) {
+    //         if (item.x == row && item.y == col) {
+    //             return item;
+    //         }
+    //     }
+    //     return null;
+    // }
     GameMap.prototype.getEquipmentInfo = function (row, col) {
         var key = row + '_' + col;
         return this.equipmentConfig[key];

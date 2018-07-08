@@ -416,11 +416,15 @@ class TextField extends DisplayObject {
     text: string;
     size: number;
     width: number;
+    style: string;
+    color: string;
 
-    constructor(text: string, x: number, y: number, size: number) {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'Arial', color: string = 'black') {
         super(x, y);
         this.size = size;
         this.text = text;
+        this.style = style;
+        this.color = color;
     }
 
     hitTest(point: math.Point) {
@@ -439,7 +443,7 @@ class TextField extends DisplayObject {
 
     render(context: CanvasRenderingContext2D) {
         context.fillStyle = 'black';
-        context.font = this.size.toString() + 'px Arial';
+        context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
         // 获取文本渲染的宽度
         this.width = context.measureText(this.text).width;
@@ -447,6 +451,18 @@ class TextField extends DisplayObject {
 
     centered() {
         this.x -= this.width / 2;
+    }
+
+    setStyle(style: string) {
+        this.style = style
+    }
+
+    setSize(size: number) {
+        this.size = size;
+    }
+
+    setColor(color: string) {
+        this.color = color;
     }
 }
 
@@ -460,6 +476,7 @@ class Rectangle extends DisplayObject {
     color: string;
     width: number;
     height: number;
+
 
     constructor(x: number, y: number, width: number, height: number, color: string) {
         super(x, y);
@@ -488,6 +505,16 @@ class Stage extends DisplayObjectContainer {
     constructor() {
         super(0, 0);
     }
+}
+
+
+/**
+ * 存取
+ * 
+ * TODO
+ */
+class SaveAndLoad {
+
 }
 
 

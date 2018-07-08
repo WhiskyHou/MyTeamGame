@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import * as electron from 'electron'
 import * as path from 'path'
 import { project } from "./project";
+import { URL } from "url";
 
 
 export function createPropertyItem(metadata: PropertyMetadata, currentObject: any): PropertyItem {
@@ -261,6 +262,9 @@ class GameMapTilePropertyItem extends PropertyItem {
         return view;
     }
     updateView(value: any): void {
-
+        if (value) {
+            const root = project.projectRoot;
+            const src = path.join(root, value)
+        }
     }
 }

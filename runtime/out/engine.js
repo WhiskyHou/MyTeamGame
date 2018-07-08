@@ -288,7 +288,10 @@ var Bitmap = /** @class */ (function (_super) {
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(x, y) {
-        return _super.call(this, x, y) || this;
+        var _this = _super.call(this, x, y) || this;
+        _this.addChild(_this.image);
+        _this.addChild(_this.text);
+        return _this;
     }
     Button.prototype.update = function () {
     };
@@ -317,16 +320,34 @@ var MultiWindow = /** @class */ (function (_super) {
     return MultiWindow;
 }(DisplayObjectContainer));
 /**
+ * 动画
+ */
+var Animator = /** @class */ (function (_super) {
+    __extends(Animator, _super);
+    function Animator(x, y) {
+        return _super.call(this, x, y) || this;
+    }
+    Animator.prototype.play = function () {
+    };
+    Animator.prototype.reset = function () {
+    };
+    return Animator;
+}(DisplayObjectContainer));
+/**
  * 文本
  *
  * 继承 DisplayObject
  */
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
-    function TextField(text, x, y, size) {
+    function TextField(text, x, y, size, style, color) {
+        if (style === void 0) { style = 'Arial'; }
+        if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
         _this.size = size;
         _this.text = text;
+        _this.style = style;
+        _this.color = color;
         return _this;
     }
     TextField.prototype.hitTest = function (point) {
@@ -343,13 +364,22 @@ var TextField = /** @class */ (function (_super) {
     };
     TextField.prototype.render = function (context) {
         context.fillStyle = 'black';
-        context.font = this.size.toString() + 'px Arial';
+        context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
         // 获取文本渲染的宽度
         this.width = context.measureText(this.text).width;
     };
     TextField.prototype.centered = function () {
         this.x -= this.width / 2;
+    };
+    TextField.prototype.setStyle = function (style) {
+        this.style = style;
+    };
+    TextField.prototype.setSize = function (size) {
+        this.size = size;
+    };
+    TextField.prototype.setColor = function (color) {
+        this.color = color;
     };
     return TextField;
 }(DisplayObject));
@@ -389,6 +419,16 @@ var Stage = /** @class */ (function (_super) {
     }
     return Stage;
 }(DisplayObjectContainer));
+/**
+ * 存取
+ *
+ * TODO
+ */
+var SaveAndLoad = /** @class */ (function () {
+    function SaveAndLoad() {
+    }
+    return SaveAndLoad;
+}());
 /**
  * 心跳控制器
  */
