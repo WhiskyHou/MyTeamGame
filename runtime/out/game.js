@@ -193,6 +193,7 @@ var LoadingState = /** @class */ (function (_super) {
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
+        _this.waitTime = 0;
         _this.loadBG = new Bitmap(0, 0, Resource.get('loging'));
         _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
         return _this;
@@ -202,9 +203,18 @@ var LoadingState = /** @class */ (function (_super) {
         stage.addChild(this.loadPercent);
     };
     LoadingState.prototype.onUpdate = function () {
-        this.count++;
-        this.loadPercent.text = this.count + " %";
-        if (this.count > 200) {
+        if (this.count < 100 && this.waitTime == 0) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.count >= 100) {
+            this.waitTime++;
+        }
+        if (this.waitTime > 120 && this.count < 200) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.waitTime >= 280) {
             fsm.replaceState(new MenuState());
         }
     };
@@ -514,5 +524,5 @@ canvas.onclick = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(new MenuState());
-// fsm.replaceState(new LoadingState());
+// fsm.replaceState(new MenuState());
+fsm.replaceState(new LoadingState());
