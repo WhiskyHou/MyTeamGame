@@ -499,7 +499,8 @@ class TextField extends DisplayObject {
 
     render(context: CanvasRenderingContext2D) {
         context.fillStyle = 'black';
-        context.font = this.size.toString() + 'px Arial';
+        // context.font = this.size.toString() + 'px cursive';
+        context.font = this.size.toString() + 'px fantasy';
         context.fillText(this.text, 0, this.size);
         // 获取文本渲染的宽度
         this.width = context.measureText(this.text).width;
@@ -553,7 +554,8 @@ class MultiTextField extends DisplayObject {
         for(var i =0;i<this.text.length;i++){
             let width = context.measureText(this.text[i]).width
             context.fillStyle = 'black';
-            context.font = this.size.toString() + 'px Arial';
+            // context.font = this.size.toString() + 'px Arial';
+            context.font = this.size.toString() + 'px fantasy';
             context.fillText(this.text[i], 0,i*(this.size+this.space), width);
         }
     }

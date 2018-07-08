@@ -189,7 +189,7 @@ class bagUI extends DisplayObjectContainer {
 
         //人物属性显示
         player.changeEquipments()
-        this.attackText = new TextField(player._attack.toString(),90,453,15)
+        this.attackText = new TextField(player._attack.toString(),102,453,15)
         this.criticalPerText = new TextField(player._criticalPer.toString(),183,453,15)
         this.charmText = new TextField(player._charm.toString(),262,453,15)
         this.hpText = new TextField(player._hp.toString(),336,453,15)

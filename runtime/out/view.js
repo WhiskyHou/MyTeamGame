@@ -147,7 +147,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.equipmentMultiInfoText = new MultiTextField(str, 327, 125, 12, 5);
         //人物属性显示
         player.changeEquipments();
-        _this.attackText = new TextField(player._attack.toString(), 90, 453, 15);
+        _this.attackText = new TextField(player._attack.toString(), 102, 453, 15);
         _this.criticalPerText = new TextField(player._criticalPer.toString(), 183, 453, 15);
         _this.charmText = new TextField(player._charm.toString(), 262, 453, 15);
         _this.hpText = new TextField(player._hp.toString(), 336, 453, 15);
