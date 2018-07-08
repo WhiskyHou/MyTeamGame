@@ -164,7 +164,7 @@ var FightCommand = /** @class */ (function (_super) {
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
         // this.monster.hp -= player.attack;
-        // player.hp -= this.monster.attack;
+        // player._hp -= this.monster.attack;
         // if (this.monster.hp <= 0) {
         //     player.fight(this.monster);
         //     map.deleteMonster(this.monster);

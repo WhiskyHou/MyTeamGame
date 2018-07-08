@@ -320,7 +320,7 @@ class CreateState extends State {
         this.startButton = new Bitmap(350, 430, createStartButtonImg);
         this.onCreatePlayer();
         this.playerNameText = new TextField(player.name, 565, 160, 30);
-        this.playerHpText = new TextField("" + player.hp, 545, 350, 30);
+        this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         this.canAssignPointText = new TextField("" + this.canAssignPoint, 573, 255, 30);
         this.tipsText = new TextField("", 620, 260, 20);
@@ -335,19 +335,19 @@ class CreateState extends State {
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player.hp += 5;
+                player._hp += 5;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player.hp;
+            this.playerHpText.text = "" + player._hp;
         });
         this.hpMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player.hp > 60) {
-                player.hp -= 5;
+            if (this.canAssignPoint < 5 && player._hp > 60) {
+                player._hp -= 5;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player.hp;
+            this.playerHpText.text = "" + player._hp;
         });
         this.attackAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {

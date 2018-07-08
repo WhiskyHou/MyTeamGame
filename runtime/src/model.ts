@@ -26,9 +26,11 @@ class User extends EventDispatcher {
     // skill: Skill[] = [];
 
 
-    _attack = 10;
-    hp = 60;
+    _attack = this._originAttack;
+    _hp = this._originHealth
     _criticalPer = 0;
+    _charm = 0; 
+    _mp = 0;
 
     _suitDefensePer = 0;
     suitAttackPer = 0;
@@ -169,7 +171,7 @@ class User extends EventDispatcher {
     }
 
     toString() {
-        return `[User ~ name:${this.name}, level:${this.level}, hp:${this.hp}, attack:${this._attack}]`;
+        return `[User ~ name:${this.name}, level:${this.level}, hp:${this._hp}, attack:${this._attack}]`;
     }
 
     //---------------------------------------------------------------
@@ -179,7 +181,7 @@ class User extends EventDispatcher {
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
-            this.hp += this.mounthedEquipment[i].health;
+            this._hp += this.mounthedEquipment[i].health;
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
         this.dispatchEvent("changeEquips", null);
@@ -246,7 +248,7 @@ class User extends EventDispatcher {
 
     private initProperty() {
         this._attack = this._originAttack;
-        this.hp = this._originHealth;
+        this._hp = this._originHealth;
         this._criticalPer = 0;
 
         this._suitDefensePer = 0;
