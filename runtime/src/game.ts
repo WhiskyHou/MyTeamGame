@@ -204,6 +204,7 @@ class LoadingState extends State {
     loadBG: Bitmap;
     loadPercent: TextField;
     count = 0;
+    waitTime = 0;
 
     constructor() {
         super();
@@ -218,9 +219,18 @@ class LoadingState extends State {
     }
     onUpdate(): void {
 
-        this.count++;
-        this.loadPercent.text = this.count + " %";
-        if (this.count > 200) {
+        if (this.count < 100 && this.waitTime == 0) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.count >= 100) {
+            this.waitTime++;
+        }
+        if (this.waitTime > 120 && this.count < 200) {
+            this.count++;
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.waitTime >= 280) {
             fsm.replaceState(new MenuState());
         }
     }
@@ -614,5 +624,5 @@ canvas.onclick = function (event) {
 
 
 // 初始状态设置
-fsm.replaceState(new MenuState());
-// fsm.replaceState(new LoadingState());
+// fsm.replaceState(new MenuState());
+fsm.replaceState(new LoadingState());
