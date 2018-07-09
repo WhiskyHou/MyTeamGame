@@ -389,7 +389,7 @@ var Animator = /** @class */ (function (_super) {
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
     function TextField(text, x, y, size, style, color) {
-        if (style === void 0) { style = 'KaiTi'; }
+        if (style === void 0) { style = 'LiSu'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
         _this.size = size;
@@ -469,9 +469,17 @@ var MultiTextField = /** @class */ (function (_super) {
             var width = context.measureText(this.text[i]).width;
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
-            context.font = this.size.toString() + 'px fantasy';
+            context.font = this.size.toString() + 'px lisu';
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
+    };
+    MultiTextField.prototype.setStringByNumber = function (con, num) {
+        for (var i = 0; i < con.length; i += num) {
+            this.text.push(con.slice(i, i + num - 1));
+        }
+    };
+    MultiTextField.prototype.setStringByStr = function (con, str) {
+        this.text = con.split(str);
     };
     MultiTextField.prototype.centered = function () {
         this.x -= this.width / 2;
