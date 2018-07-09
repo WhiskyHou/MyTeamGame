@@ -29,7 +29,7 @@ class User extends EventDispatcher {
     _attack = this._originAttack;
     _hp = this._originHealth
     _criticalPer = 0;
-    _charm = 0; 
+    _charm = 0;
     _mp = 0;
 
     _suitDefensePer = 0;
@@ -459,19 +459,21 @@ class Monster extends EventDispatcher {
     dropTime = 3;//掉落次数
     exp: number = 0;
     coin: number = 0;
+    level: number = 0;
 
-    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number) {
         super();
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.attack = attack;
         this.exp = exp;
-        this.coin = coin
+        this.coin = coin;
+        this.level = level;
     }
 
     toString() {
-        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}, coin:${this.coin}]`
+        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}, coin:${this.coin}, level:${this.level}]`
     }
 
     private die() {
