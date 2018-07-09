@@ -479,7 +479,7 @@ class TextField extends DisplayObject {
     style: string;
     color: string;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'KaiTi', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'LiSu', color: string = 'black') {
         super(x, y);
         this.size = size;
         this.text = text;
@@ -570,11 +570,19 @@ class MultiTextField extends DisplayObject {
             let width = context.measureText(this.text[i]).width
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
-            context.font = this.size.toString() + 'px fantasy';
+            context.font = this.size.toString() + 'px lisu';
             context.fillText(this.text[i], 0,i*(this.size+this.space), width);
         }
     }
-
+    setStringByNumber(con : string ,num : number){//按照一行显示文字数换行
+        for(var i = 0 ; i < con.length ; i += num){
+            this.text.push(con.slice(i,i+num-1)) 
+        }
+        
+    }
+    setStringByStr(con : string , str : string){//按照str的标记字符分割文本
+        this.text = con.split(str)
+    }
     centered() {
         this.x -= this.width / 2;
     }
