@@ -678,7 +678,7 @@ class skillBoxUI extends DisplayObjectContainer {
     skillText: TextField;
     skillTextGroup: DisplayObjectContainer;
 
-    descriptionText: TextField;
+    descriptionText: Bitmap;
 
     mountedSkillText: TextField;
     mountedSkillGroup: DisplayObjectContainer;
@@ -698,7 +698,7 @@ class skillBoxUI extends DisplayObjectContainer {
         this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
-        this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
+        this.descriptionText = new Bitmap(508, 100, skillEmptyDesImg);
         this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         this.skillOffButton = new Bitmap(582, 290, bagOffUI);
@@ -764,7 +764,7 @@ class skillBoxUI extends DisplayObjectContainer {
             this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this.skillText.addEventListener('onClick', () => {
                 this.nowChoice = 1;
-                this.descriptionText.text = skillArray[i].description;
+                this.descriptionText.img = skillArray[i].description.img;
                 this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(this.choosingSkillArrayNo);
             })
@@ -779,7 +779,7 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this.mountedSkillText.addEventListener('onClick', () => {
                 this.nowChoice = 2;
-                this.descriptionText.text = player.skill[i].description;
+                this.descriptionText.img = player.skill[i].description.img;
                 this.choosingMountedSkillArrayNo = player.skill[i].id;
                 console.log(this.choosingMountedSkillArrayNo);
             })

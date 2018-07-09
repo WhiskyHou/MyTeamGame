@@ -622,7 +622,8 @@ class Skill {
 
     id: number;
     name: string = '[空]';
-    description: string;
+    description: Bitmap;
+    // desImg: Bitmap;
     buttonView: Bitmap;
     mp: number
 

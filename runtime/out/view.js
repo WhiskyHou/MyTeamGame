@@ -570,7 +570,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         _this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
-        _this.descriptionText = new TextField("", 525, 100, 20); //TODO 描述换行
+        _this.descriptionText = new Bitmap(508, 100, skillEmptyDesImg);
         _this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         _this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         _this.skillOffButton = new Bitmap(582, 290, bagOffUI);
@@ -629,7 +629,7 @@ var skillBoxUI = /** @class */ (function (_super) {
             this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this_1.skillText.addEventListener('onClick', function () {
                 _this.nowChoice = 1;
-                _this.descriptionText.text = skillArray[i].description;
+                _this.descriptionText.img = skillArray[i].description.img;
                 _this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(_this.choosingSkillArrayNo);
             });
@@ -647,7 +647,7 @@ var skillBoxUI = /** @class */ (function (_super) {
             this_2.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this_2.mountedSkillText.addEventListener('onClick', function () {
                 _this.nowChoice = 2;
-                _this.descriptionText.text = player.skill[i].description;
+                _this.descriptionText.img = player.skill[i].description.img;
                 _this.choosingMountedSkillArrayNo = player.skill[i].id;
                 console.log(_this.choosingMountedSkillArrayNo);
             });
