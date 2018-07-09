@@ -407,7 +407,7 @@ var Npc = /** @class */ (function () {
  */
 var Monster = /** @class */ (function (_super) {
     __extends(Monster, _super);
-    function Monster(id, name, hp, attack, exp, coin) {
+    function Monster(id, name, hp, attack, exp, coin, level) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
@@ -423,10 +423,11 @@ var Monster = /** @class */ (function (_super) {
         _this.attack = attack;
         _this.exp = exp;
         _this.coin = coin;
+        _this.level = level;
         return _this;
     }
     Monster.prototype.toString = function () {
-        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + "]";
+        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + ", level:" + this.level + "]";
     };
     Monster.prototype.die = function () {
     };
