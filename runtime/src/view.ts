@@ -290,54 +290,54 @@ class bagUI extends DisplayObjectContainer {
         })
         this.equipment1Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(0)
-            this.changeEquipmentInfo(baManager.nowEquipment) 
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment2Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(1)
-            this.changeEquipmentInfo(baManager.nowEquipment) 
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment3Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(2)
-            this.changeEquipmentInfo(baManager.nowEquipment) 
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment4Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(3)
-            this.changeEquipmentInfo(baManager.nowEquipment) 
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment5Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(4)
-            this.changeEquipmentInfo(baManager.nowEquipment) 
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.weaponText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(0)
-            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.clothText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(1)
-            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.watchText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(2)
-            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.trousersText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(3)
-            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.phoneText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(4)
-            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.shoesText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(5)
-            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
     }
     changeEquipmentInfo(equip: Equipment) {
         this.deleteChild(this.equipmentMultiInfoText)
         let equipmentIfo: Array<string> = ['名称：' + equip.name, '品质：' + equip.quality,
-            '部位：' + equip.posID, '血量：+' + equip.health,
-            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        '部位：' + equip.posID, '血量：+' + equip.health,
+        '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
         this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
         this.addChild(this.equipmentMultiInfoText)
         this.dispatchEvent('updateBag', player)
@@ -467,7 +467,7 @@ class battleUI extends DisplayObjectContainer {
         })
         this.skillButton1.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[0]);
-            if (player._mp > player.skill[0].mp) {
+            if (player._mp >= player.skill[0].mp) {
                 player._mp -= player.skill[0].mp;
                 this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
                 batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
@@ -479,7 +479,7 @@ class battleUI extends DisplayObjectContainer {
         })
         this.skillButton2.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[1]);
-            if (player._mp > player.skill[1].mp) {
+            if (player._mp >= player.skill[1].mp) {
                 player._mp -= player.skill[1].mp;
                 this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
                 batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
@@ -491,7 +491,7 @@ class battleUI extends DisplayObjectContainer {
         })
         this.skillButton3.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[2]);
-            if (player._mp > player.skill[2].mp) {
+            if (player._mp >= player.skill[2].mp) {
                 player._mp -= player.skill[2].mp;
                 this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
                 batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
