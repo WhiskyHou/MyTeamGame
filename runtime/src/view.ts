@@ -289,50 +289,58 @@ class bagUI extends DisplayObjectContainer {
             baManager.bagConsumable();
         })
         this.equipment1Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(0)
+            baManager.changeNowEquipment(0)
+            this.changeEquipmentInfo(baManager.nowEquipment) 
         })
         this.equipment2Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(1)
+            baManager.changeNowEquipment(1)
+            this.changeEquipmentInfo(baManager.nowEquipment) 
         })
         this.equipment3Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(2)
+            baManager.changeNowEquipment(2)
+            this.changeEquipmentInfo(baManager.nowEquipment) 
         })
         this.equipment4Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(3)
+            baManager.changeNowEquipment(3)
+            this.changeEquipmentInfo(baManager.nowEquipment) 
         })
         this.equipment5Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(4)
+            baManager.changeNowEquipment(4)
+            this.changeEquipmentInfo(baManager.nowEquipment) 
         })
         this.weaponText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(0)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
         })
         this.clothText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(1)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
         })
         this.watchText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(2)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
         })
         this.trousersText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(3)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
         })
         this.phoneText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(4)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
         })
         this.shoesText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(5)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment) 
         })
     }
-    changeEquipmentInfo(num: number) {
-        if (baManager.nowEquipment) {
-            baManager.changeNowEquipment(num)
-            this.deleteChild(this.equipmentMultiInfoText)
-            let equipmentIfo: Array<string> = ['名称：' + baManager.nowEquipment.name, '品质：' + baManager.nowEquipment.quality,
-            '部位：' + baManager.nowEquipment.posID, '血量：+' + baManager.nowEquipment.health,
-            '攻击力：+' + baManager.nowEquipment.attack, '暴击：+' + baManager.nowEquipment.criticalPer + '%'];
-            this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
-            this.addChild(this.equipmentMultiInfoText)
-            this.dispatchEvent('updateBag', player)
-        }
+    changeEquipmentInfo(equip: Equipment) {
+        this.deleteChild(this.equipmentMultiInfoText)
+        let equipmentIfo: Array<string> = ['名称：' + equip.name, '品质：' + equip.quality,
+            '部位：' + equip.posID, '血量：+' + equip.health,
+            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
+        this.addChild(this.equipmentMultiInfoText)
+        this.dispatchEvent('updateBag', player)
     }
 
 }

@@ -38,12 +38,12 @@ var User = /** @class */ (function (_super) {
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
         // 以下测试用
-        var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
-        var eq1 = new Equipment(2, '【毁天灭地】衣服', 3, 1, 3, 0, 0);
-        var eq2 = new Equipment(3, '【毁天灭地】手表', 3, 2, 8, 0, 0);
-        var eq3 = new Equipment(4, '【毁天灭地】裤子', 3, 3, 3, 0, 0);
-        var eq4 = new Equipment(5, '【毁天灭地】电话', 3, 4, 3, 0, 0);
-        var eq5 = new Equipment(6, '【毁天灭地】鞋子', 3, 5, 3, 0, 0);
+        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0);
+        var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
+        var eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
+        var eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
+        var eq4 = new Equipment(5, '一无是处的烂电话', 0, 4, 0, 0, 0);
+        var eq5 = new Equipment(6, '一无是处的烂鞋子', 0, 5, 0, 0, 0);
         _this.mounthedEquipment.push(eq0);
         _this.mounthedEquipment.push(eq1);
         _this.mounthedEquipment.push(eq2);
@@ -51,17 +51,17 @@ var User = /** @class */ (function (_super) {
         _this.mounthedEquipment.push(eq4);
         _this.mounthedEquipment.push(eq5);
         _this.changeEquipments();
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq1);
-        _this.packageEquipment.push(eq1);
-        _this.packageEquipment.push(eq2);
-        _this.packageEquipment.push(eq3);
-        _this.packageEquipment.push(eq4);
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq1)
+        // this.packageEquipment.push(eq1)
+        // this.packageEquipment.push(eq2)
+        // this.packageEquipment.push(eq3)
+        // this.packageEquipment.push(eq4)
         //以下测试技能用
         _this.skill.push(skillEmpty);
         _this.skill.push(skillSabi);

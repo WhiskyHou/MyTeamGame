@@ -233,51 +233,59 @@ var bagUI = /** @class */ (function (_super) {
             baManager.bagConsumable();
         });
         _this.equipment1Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(0);
+            baManager.changeNowEquipment(0);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment2Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(1);
+            baManager.changeNowEquipment(1);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment3Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(2);
+            baManager.changeNowEquipment(2);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment4Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(3);
+            baManager.changeNowEquipment(3);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment5Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(4);
+            baManager.changeNowEquipment(4);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.weaponText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(0);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.clothText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(1);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.watchText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(2);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.trousersText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(3);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.phoneText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(4);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.shoesText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(5);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         return _this;
     }
-    bagUI.prototype.changeEquipmentInfo = function (num) {
-        if (baManager.nowEquipment) {
-            baManager.changeNowEquipment(num);
-            this.deleteChild(this.equipmentMultiInfoText);
-            var equipmentIfo = ['名称：' + baManager.nowEquipment.name, '品质：' + baManager.nowEquipment.quality,
-                '部位：' + baManager.nowEquipment.posID, '血量：+' + baManager.nowEquipment.health,
-                '攻击力：+' + baManager.nowEquipment.attack, '暴击：+' + baManager.nowEquipment.criticalPer + '%'];
-            this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
-            this.addChild(this.equipmentMultiInfoText);
-            this.dispatchEvent('updateBag', player);
-        }
+    bagUI.prototype.changeEquipmentInfo = function (equip) {
+        this.deleteChild(this.equipmentMultiInfoText);
+        var equipmentIfo = ['名称：' + equip.name, '品质：' + equip.quality,
+            '部位：' + equip.posID, '血量：+' + equip.health,
+            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
+        this.addChild(this.equipmentMultiInfoText);
+        this.dispatchEvent('updateBag', player);
     };
     return bagUI;
 }(DisplayObjectContainer));
