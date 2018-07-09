@@ -11,13 +11,15 @@ class UserInfoUI extends DisplayObjectContainer {
     currentEXP: TextField;
     needEXP: TextField;
 
-    bagButton: Bitmap;
     EscButton: Bitmap;
+    bagButton: Bitmap;
     SkillButton: Bitmap;
+    missionButton: Bitmap;
     bloodUI: Bitmap;
     bloodUI2: Bitmap;
 
     skillUI: skillBoxUI;
+    missionUI: MissionUI;
 
 
 
@@ -31,6 +33,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bagButton = new Bitmap(750, 465, bagButton);
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
+        this.missionButton = new Bitmap(610, 465, MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -45,6 +48,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.bagButton);
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
+        this.addChild(this.missionButton);
         this.addChild(this.bloodUI);
         this.addChild(this.bloodUI2);
         this.addChild(this.userCoin);
@@ -55,6 +59,18 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
         });
+
+        this.SkillButton.addEventListener('onClick', (eventData: any) => {
+            this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(this.skillUI);
+        });
+
+        this.missionButton.addEventListener('onClick', (eventData: any) => {
+            this.missionUI = new MissionUI(0, 0);
+            missionBoxContainer.addChild(this.missionUI);
+        });
+
+
         player.addEventListener('updateUserInfo', (eventData: any) => {
             // if (player.currentEXP >= player.needEXP) {
             //     player.level++;
@@ -73,10 +89,8 @@ class UserInfoUI extends DisplayObjectContainer {
             // }
             // this.userEquipment.text = '装备: ' + equipments;
         });
-        this.SkillButton.addEventListener('onClick', (eventData: any) => {
-            this.skillUI = new skillBoxUI(0, 0);
-            skillBoxContainer.addChild(this.skillUI);
-        })
+
+
         // console.log(player);
     }
 }
@@ -117,6 +131,29 @@ class MissionInfoUI extends DisplayObjectContainer {
     }
 }
 
+/**
+ * 任务界面UI
+ */
+
+class MissionUI extends DisplayObjectContainer {
+
+    MissionBackGround: Bitmap;
+    closeButton: Bitmap;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.MissionBackGround = new Bitmap(225, 25, missionImg);
+        this.closeButton = new Bitmap(215, 15, missionCloseImg);
+
+        this.addChild(this.MissionBackGround);
+        this.addChild(this.closeButton);
+
+        this.closeButton.addEventListener('onClick', () => {
+            this.deleteAll();
+        })
+    }
+}
 /**
  * 背包UI
  */
@@ -334,6 +371,9 @@ class battleUI extends DisplayObjectContainer {
     skillButtonGroup: Bitmap[] = [];
     skillIDGroup: number[] = [];
 
+    escapeButton: Bitmap;
+    itemButton: Bitmap;
+
     index = 0;
 
     constructor(x: number, y: number) {
@@ -353,6 +393,10 @@ class battleUI extends DisplayObjectContainer {
         this.skillButtonGroup.push(this.skillButton1);
         this.skillButtonGroup.push(this.skillButton2);
         this.skillButtonGroup.push(this.skillButton3);
+
+        this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
+        this.itemButton = new Bitmap(475, 420, battleItemImg);
+
         for (let i = 0; i < this.player.skill.length; i++) {
             switch (player.skill[i].id) {
                 case 1:
@@ -388,6 +432,8 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.skillButton2);
         this.addChild(this.skillButton3);
 
+        this.addChild(this.escapeButton);
+        this.addChild(this.itemButton);
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
@@ -405,11 +451,22 @@ class battleUI extends DisplayObjectContainer {
             batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
         })
 
-        batManager.addEventListener('playerBattleStart', (player: User) => {
-            this.player = player;
-
+        this.escapeButton.addEventListener('onClick', (eventData: any) => {
+            let ran = Math.random() * 100;
+            if (ran <= 50 + player._level - this.enemy.level) {//逃跑几率为50% + 人物等级 - 怪物等级
+                batManager.dispatchEvent("backSceneLose", null);
+            } else {
+                batManager.dispatchEvent('playerDealDamage', 0);
+                batManager.fightOneTime(player, this.enemy, 100);//此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
+            }
+        })
+        this.itemButton.addEventListener('onClick', (eventData: any) => {
+            console.log('弹出消耗品界面！');
         })
 
+        batManager.addEventListener('playerBattleStart', (player: User) => {
+            this.player = player;
+        })
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
             this.enemyNameText.text = enemy.name;
@@ -420,6 +477,12 @@ class battleUI extends DisplayObjectContainer {
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            if (damage == 0) {
+                textField = new TextField(this.player.name + " 逃跑失败辣！", 0, this.index * 20, 15);
+            } else {
+                textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            }
+
             this.enemyHpText.text = '' + this.enemy.hp;
             this.textGroup.addChild(textField);
             this.index++;
@@ -569,7 +632,14 @@ class skillBoxUI extends DisplayObjectContainer {
 
     descriptionText: TextField;
 
+    mountedSkillText: TextField;
+    mountedSkillGroup: DisplayObjectContainer;
 
+    skillOnButton: Bitmap;
+    skillOffButton: Bitmap;
+
+    choosingSkillArrayNo: number = 0;
+    choosingMountedSkillArrayNo: number = 0;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -579,20 +649,68 @@ class skillBoxUI extends DisplayObjectContainer {
         this.skillTextGroup = new DisplayObjectContainer(395, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
         this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
+        this.mountedSkillGroup = new DisplayObjectContainer(520, 350);
+        this.skillOnButton = new Bitmap(510, 290, bagOnUI);
+        this.skillOffButton = new Bitmap(582, 290, bagOffUI);
 
         this.addChild(this.backGround);
         this.addChild(this.closeButton);
         this.addChild(this.skillTextGroup);
         this.addChild(this.descriptionText);
+        this.addChild(this.mountedSkillGroup);
+        this.addChild(this.skillOnButton);
+        this.addChild(this.skillOffButton);
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
         })
+        //TODO 技能装备
+        this.skillOnButton.addEventListener('onClick', () => {
+            console.log(skillArray[this.choosingMountedSkillArrayNo + 1].name);
 
+            player.skill.push(skillArray[this.choosingMountedSkillArrayNo]);
+            console.log(player.skill.length);
+            skillArray.slice(this.choosingMountedSkillArrayNo, 1);
+            this.skillButtonUpdate();
+        })
+
+        this.skillOffButton.addEventListener('onClick', () => {
+            // this.deleteAll();
+        })
+
+        // for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
+        //     this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+        //     this.skillText.addEventListener('onClick', () => {
+        //         this.descriptionText.text = skillArray[i].description;
+        //         this.choosingSkillArrayNo = i - 1;
+        //         console.log(this.choosingSkillArrayNo);
+        //         player.skill.push(skillArray[i]);
+        //         skillArray.slice(i, 1);
+        //     })
+        //     this.skillTextGroup.addChild(this.skillText);
+        // }
+        this.skillButtonUpdate();
+
+        for (let i = 0; i < player.skill.length; i++) {
+
+            this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
+            this.mountedSkillText.addEventListener('onClick', () => {
+                this.descriptionText.text = player.skill[i].description;
+                this.choosingMountedSkillArrayNo = i;
+            })
+            this.mountedSkillGroup.addChild(this.mountedSkillText);
+        }
+
+    }
+
+    skillButtonUpdate() {
+        this.skillTextGroup.deleteAll();
         for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
             this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this.skillText.addEventListener('onClick', () => {
                 this.descriptionText.text = skillArray[i].description;
+                this.choosingSkillArrayNo = i - 1;
+                console.log(this.choosingSkillArrayNo);
             })
             this.skillTextGroup.addChild(this.skillText);
         }
