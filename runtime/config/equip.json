@@ -195,7 +195,7 @@
 			"name": "女款手表",
 			"quality": "3",
 			"posID": "2",
-			"health": "800",
+			"health": "30",
 			"attack": "0",
 			"criticalPer": "0",
 			"charm": "30"
