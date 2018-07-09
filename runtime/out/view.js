@@ -382,7 +382,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            if (player._mp > player.skill[0].mp) {
+            if (player._mp >= player.skill[0].mp) {
                 player._mp -= player.skill[0].mp;
                 _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
                 batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[0]);
@@ -395,7 +395,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[1]);
-            if (player._mp > player.skill[1].mp) {
+            if (player._mp >= player.skill[1].mp) {
                 player._mp -= player.skill[1].mp;
                 _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
                 batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[1]);
@@ -408,7 +408,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[2]);
-            if (player._mp > player.skill[2].mp) {
+            if (player._mp >= player.skill[2].mp) {
                 player._mp -= player.skill[2].mp;
                 _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
                 batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
@@ -422,7 +422,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+            if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
