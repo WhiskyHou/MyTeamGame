@@ -383,6 +383,9 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
             _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
+            for (var i = 0; i < _this.skillButtonGroup.length; i++) {
+                _this.skillButtonGroup[i].deleteAllEventListener();
+            }
         });
         batManager.addEventListener('playerDie', function (eventData) {
             var textField = new TextField(_this.player.name + " 被 " + _this.enemy.name + " 打飞辣！", 0, _this.index * 20, 15);
@@ -390,6 +393,9 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
             _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
+            for (var i = 0; i < _this.skillButtonGroup.length; i++) {
+                _this.skillButtonGroup[i].deleteAllEventListener();
+            }
         });
         return _this;
     }
