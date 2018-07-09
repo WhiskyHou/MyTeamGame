@@ -476,10 +476,10 @@ class TextField extends DisplayObject {
     text: string;
     size: number;
     width: number;
-    style: string = 'fantasy';
+    style: string;
     color: string;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'Arial', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'KaiTi', color: string = 'black') {
         super(x, y);
         this.size = size;
         this.text = text;

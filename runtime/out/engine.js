@@ -392,7 +392,7 @@ var TextField = /** @class */ (function (_super) {
         if (style === void 0) { style = 'Arial'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
-        _this.style = 'fantasy';
+        _this.style = 'KaiTi';
         _this.size = size;
         _this.text = text;
         _this.style = style;
