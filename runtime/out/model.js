@@ -63,9 +63,9 @@ var User = /** @class */ (function (_super) {
         _this.packageEquipment.push(eq3);
         _this.packageEquipment.push(eq4);
         //以下测试技能用
-        _this.skill.push(skillEmpty);
-        _this.skill.push(skillSabi);
-        _this.skill.push(skillCaihua);
+        // this.skill.push(skillEmpty);
+        // this.skill.push(skillSabi);
+        // this.skill.push(skillCaihua);
         _this.addEventListener('updateUserInfo', function () { return _this.calProperty(); });
         return _this;
     }
@@ -555,5 +555,12 @@ var Skill = /** @class */ (function () {
         this.id = id;
         this.name = name;
     }
+    Skill.prototype.searchSkillByID = function (id) {
+        for (var i = 0; i < skillArray.length; i++) {
+            if (id == skillArray[i].id) {
+                return skillArray[i];
+            }
+        }
+    };
     return Skill;
 }());

@@ -368,7 +368,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
-            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+            if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -536,55 +536,60 @@ var skillBoxUI = /** @class */ (function (_super) {
         });
         //TODO 技能装备
         _this.skillOnButton.addEventListener('onClick', function () {
-            console.log(skillArray[_this.choosingMountedSkillArrayNo + 1].name);
-            player.skill.push(skillArray[_this.choosingMountedSkillArrayNo]);
-            console.log(player.skill.length);
-            skillArray.slice(_this.choosingMountedSkillArrayNo, 1);
+            for (var i = 0; i < skillArray.length; i++) {
+                if (_this.choosingSkillArrayNo == skillArray[i].id) {
+                    player.skill.push(skillArray[i]);
+                    skillArray.splice(i, 1);
+                }
+            }
             _this.skillButtonUpdate();
+            _this.mountedSkillUpdate();
         });
         _this.skillOffButton.addEventListener('onClick', function () {
-            // this.deleteAll();
+            for (var i = 0; i < player.skill.length; i++) {
+                if (_this.choosingMountedSkillArrayNo == player.skill[i].id) {
+                    skillArray.push(player.skill[i]);
+                    player.skill.splice(i, 1);
+                }
+            }
+            _this.skillButtonUpdate();
+            _this.mountedSkillUpdate();
         });
-        // for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
-        //     this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
-        //     this.skillText.addEventListener('onClick', () => {
-        //         this.descriptionText.text = skillArray[i].description;
-        //         this.choosingSkillArrayNo = i - 1;
-        //         console.log(this.choosingSkillArrayNo);
-        //         player.skill.push(skillArray[i]);
-        //         skillArray.slice(i, 1);
-        //     })
-        //     this.skillTextGroup.addChild(this.skillText);
-        // }
         _this.skillButtonUpdate();
-        var _loop_1 = function (i) {
-            this_1.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
-            this_1.mountedSkillText.addEventListener('onClick', function () {
-                _this.descriptionText.text = player.skill[i].description;
-                _this.choosingMountedSkillArrayNo = i;
-            });
-            this_1.mountedSkillGroup.addChild(this_1.mountedSkillText);
-        };
-        var this_1 = this;
-        for (var i = 0; i < player.skill.length; i++) {
-            _loop_1(i);
-        }
+        _this.mountedSkillUpdate();
         return _this;
     }
     skillBoxUI.prototype.skillButtonUpdate = function () {
         var _this = this;
         this.skillTextGroup.deleteAll();
-        var _loop_2 = function (i) {
-            this_2.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
-            this_2.skillText.addEventListener('onClick', function () {
+        var _loop_1 = function (i) {
+            this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+            this_1.skillText.addEventListener('onClick', function () {
                 _this.descriptionText.text = skillArray[i].description;
-                _this.choosingSkillArrayNo = i - 1;
+                _this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(_this.choosingSkillArrayNo);
             });
-            this_2.skillTextGroup.addChild(this_2.skillText);
+            this_1.skillTextGroup.addChild(this_1.skillText);
+        };
+        var this_1 = this;
+        for (var i = 2; i < skillArray.length; i++) {
+            _loop_1(i);
+        }
+    };
+    skillBoxUI.prototype.mountedSkillUpdate = function () {
+        var _this = this;
+        this.mountedSkillGroup.deleteAll();
+        var _loop_2 = function (i) {
+            this_2.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
+            this_2.mountedSkillText.addEventListener('onClick', function () {
+                _this.descriptionText.text = player.skill[i].description;
+                _this.choosingMountedSkillArrayNo = player.skill[i].id;
+                console.log(_this.choosingMountedSkillArrayNo);
+            });
+            this_2.mountedSkillGroup.addChild(this_2.mountedSkillText);
         };
         var this_2 = this;
-        for (var i = 2; i < skillArray.length; i++) {
+        for (var i = 0; i < player.skill.length; i++) {
             _loop_2(i);
         }
     };

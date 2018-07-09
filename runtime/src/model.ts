@@ -65,9 +65,10 @@ class User extends EventDispatcher {
         this.packageEquipment.push(eq4)
 
         //以下测试技能用
-        this.skill.push(skillEmpty);
-        this.skill.push(skillSabi);
-        this.skill.push(skillCaihua);
+        // this.skill.push(skillEmpty);
+        // this.skill.push(skillSabi);
+        // this.skill.push(skillCaihua);
+
         this.addEventListener('updateUserInfo', () => this.calProperty());
     }
 
@@ -621,5 +622,13 @@ class Skill {
     constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
+    }
+
+    searchSkillByID(id: number) {
+        for (let i = 0; i < skillArray.length; i++) {
+            if (id == skillArray[i].id) {
+                return skillArray[i];
+            }
+        }
     }
 }
