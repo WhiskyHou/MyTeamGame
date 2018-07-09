@@ -82,10 +82,13 @@ let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 let skillEmptyImg = new Image();
 skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+
 let skillSabiImg = new Image();
 skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 let skillCaihuaImg = new Image();
 skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+
+
 let battleEscapeImg = new Image();
 battleEscapeImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 逃跑.png';
 let battleItemImg = new Image();
@@ -195,18 +198,31 @@ npcManager.init(() => {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
-let skillAttack = new Skill(0, '攻击');//攻击预留
+let skillAttack = new Skill(0, '攻击', 0);//攻击预留
 skillAttack.description = '没有技能';
 skillArray.push(skillAttack);
-let skillEmpty = new Skill(1, '空');//空
+let skillEmpty = new Skill(1, '空', 0);//空
 skillEmpty.description = '没有技能';
 skillArray.push(skillEmpty);
-let skillSabi = new Skill(2, '撒币');
-skillSabi.description = '撒币150%伤害';
-skillArray.push(skillSabi);
-let skillCaihua = new Skill(3, '菜花');
-skillCaihua.description = '菜花80%伤害吸血';
+let skillCaihua = new Skill(2, '菜花宝典', 30);
+skillCaihua.description = '葵花宝典的删减版。虽然威力不大，但胜在不用自宫。可造成普通攻击120%的伤害。';
 skillArray.push(skillCaihua);
+let skillSabi = new Skill(3, '撒币大法', 20);
+skillSabi.description = '有钱能使鬼推磨。用钱也可以砸死别人，威力巨大。可造成普通攻击150%的伤害。';
+skillArray.push(skillSabi);
+let skillBusi = new Skill(4, '英雄不死', 40);
+skillBusi.description = '获得心爱女生加成的技能，能够让主角怎么打都打不死。可恢复普通攻击120%的生命值。';
+skillArray.push(skillBusi);
+let skillGuolai = new Skill(5, '你过来啊', 65);
+skillGuolai.description = '融合了武林两大绝技，一阳指和狮吼功。此招一出，惊天动地。可造成普通攻击200%的伤害。';
+skillArray.push(skillGuolai);
+let skillQishang = new Skill(6, '七伤拳', 50);
+skillQishang.description = '伤敌先伤己。每次使用此技能都会对自身造成伤害。可造成普通攻击180%的伤害，对自身造成普通攻击60%伤害。';
+skillArray.push(skillQishang);
+let skillXixing = new Skill(7, '吸星大法', 45);
+skillXixing.description = '游戏里唯一一个吸血技能，任我行的绝招。可造成普通攻击120%的伤害，并恢复自身普通攻击25%的血量。';
+skillArray.push(skillXixing);
+
 
 /**
  * 载入状态

@@ -404,11 +404,11 @@ class battleUI extends DisplayObjectContainer {
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 2:
-                    this.skillButtonGroup[i].img = skillSabiImg;
+                    this.skillButtonGroup[i].img = skillCaihuaImg;
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 3:
-                    this.skillButtonGroup[i].img = skillCaihuaImg;
+                    this.skillButtonGroup[i].img = skillSabiImg;
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
             }
@@ -641,15 +641,17 @@ class skillBoxUI extends DisplayObjectContainer {
     choosingSkillArrayNo: number = 0;
     choosingMountedSkillArrayNo: number = 0;
 
+    nowChoice = 0;//1为技能栏中技能被选中，2为已装备技能被选中。
+
     constructor(x: number, y: number) {
         super(x, y);
 
         this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
-        this.skillTextGroup = new DisplayObjectContainer(395, 20);
+        this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
         this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
-        this.mountedSkillGroup = new DisplayObjectContainer(520, 350);
+        this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         this.skillOffButton = new Bitmap(582, 290, bagOffUI);
 
@@ -665,31 +667,46 @@ class skillBoxUI extends DisplayObjectContainer {
             this.deleteAll();
         })
 
-        //TODO 技能装备
         this.skillOnButton.addEventListener('onClick', () => {
-            for (let i = 0; i < skillArray.length; i++) {
-                if (this.choosingSkillArrayNo == skillArray[i].id) {
-                    player.skill.push(skillArray[i]);
-                    skillArray.splice(i, 1);
+            if (this.nowChoice == 1) {
+                for (let i = 0; i < skillArray.length; i++) {
+                    if (this.choosingSkillArrayNo == skillArray[i].id) {
+                        for (let b = 0; b < player.skill.length; b++) {
+                            if (player.skill[b].id == 1) {
+                                player.skill.splice(b, 1, skillArray[i]);
+                                skillArray.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
                 }
+                this.skillButtonUpdate();
+                this.mountedSkillUpdate();
             }
-            this.skillButtonUpdate();
-            this.mountedSkillUpdate();
         })
 
         this.skillOffButton.addEventListener('onClick', () => {
-            for (let i = 0; i < player.skill.length; i++) {
-                if (this.choosingMountedSkillArrayNo == player.skill[i].id) {
-                    skillArray.push(player.skill[i]);
-                    player.skill.splice(i, 1);
+            if (this.nowChoice == 2) {
+                for (let i = 0; i < player.skill.length; i++) {
+                    if (this.choosingMountedSkillArrayNo == player.skill[i].id) {
+                        if (player.skill[i].id != 1) {
+                            skillArray.push(player.skill[i]);
+                            player.skill.splice(i, 1);
+                            if (player.skill.length < 3) {
+                                player.skill.push(skillEmpty);
+                            }
+                        }
+                    }
                 }
+                this.skillButtonUpdate();
+                this.mountedSkillUpdate();
             }
-            this.skillButtonUpdate();
-            this.mountedSkillUpdate();
+
         })
 
         this.skillButtonUpdate();
         this.mountedSkillUpdate();
+
 
     }
 
@@ -698,6 +715,7 @@ class skillBoxUI extends DisplayObjectContainer {
         for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
             this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this.skillText.addEventListener('onClick', () => {
+                this.nowChoice = 1;
                 this.descriptionText.text = skillArray[i].description;
                 this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(this.choosingSkillArrayNo);
@@ -712,6 +730,7 @@ class skillBoxUI extends DisplayObjectContainer {
 
             this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this.mountedSkillText.addEventListener('onClick', () => {
+                this.nowChoice = 2;
                 this.descriptionText.text = player.skill[i].description;
                 this.choosingMountedSkillArrayNo = player.skill[i].id;
                 console.log(this.choosingMountedSkillArrayNo);
@@ -719,6 +738,15 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillGroup.addChild(this.mountedSkillText);
         }
     }
+
+    // returnSkillNo(id: number) {
+    //     for (let i = 0; i < skillArray.length; i++) {
+    //         if (id == skillArray[i].id) {
+    //             return i;
+    //         }
+    //     }
+    //     return 1;
+    // }
 }
 
 /**

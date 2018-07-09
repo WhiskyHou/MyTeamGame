@@ -325,11 +325,11 @@ var battleUI = /** @class */ (function (_super) {
                     _this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 2:
-                    _this.skillButtonGroup[i].img = skillSabiImg;
+                    _this.skillButtonGroup[i].img = skillCaihuaImg;
                     _this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 3:
-                    _this.skillButtonGroup[i].img = skillCaihuaImg;
+                    _this.skillButtonGroup[i].img = skillSabiImg;
                     _this.skillIDGroup[i] = player.skill[i].id;
                     break;
             }
@@ -516,12 +516,13 @@ var skillBoxUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.choosingSkillArrayNo = 0;
         _this.choosingMountedSkillArrayNo = 0;
+        _this.nowChoice = 0; //1为技能栏中技能被选中，2为已装备技能被选中。
         _this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
-        _this.skillTextGroup = new DisplayObjectContainer(395, 20);
+        _this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
         _this.descriptionText = new TextField("", 525, 100, 20); //TODO 描述换行
-        _this.mountedSkillGroup = new DisplayObjectContainer(520, 350);
+        _this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         _this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         _this.skillOffButton = new Bitmap(582, 290, bagOffUI);
         _this.addChild(_this.backGround);
@@ -534,26 +535,39 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
         });
-        //TODO 技能装备
         _this.skillOnButton.addEventListener('onClick', function () {
-            for (var i = 0; i < skillArray.length; i++) {
-                if (_this.choosingSkillArrayNo == skillArray[i].id) {
-                    player.skill.push(skillArray[i]);
-                    skillArray.splice(i, 1);
+            if (_this.nowChoice == 1) {
+                for (var i = 0; i < skillArray.length; i++) {
+                    if (_this.choosingSkillArrayNo == skillArray[i].id) {
+                        for (var b = 0; b < player.skill.length; b++) {
+                            if (player.skill[b].id == 1) {
+                                player.skill.splice(b, 1, skillArray[i]);
+                                skillArray.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
                 }
+                _this.skillButtonUpdate();
+                _this.mountedSkillUpdate();
             }
-            _this.skillButtonUpdate();
-            _this.mountedSkillUpdate();
         });
         _this.skillOffButton.addEventListener('onClick', function () {
-            for (var i = 0; i < player.skill.length; i++) {
-                if (_this.choosingMountedSkillArrayNo == player.skill[i].id) {
-                    skillArray.push(player.skill[i]);
-                    player.skill.splice(i, 1);
+            if (_this.nowChoice == 2) {
+                for (var i = 0; i < player.skill.length; i++) {
+                    if (_this.choosingMountedSkillArrayNo == player.skill[i].id) {
+                        if (player.skill[i].id != 1) {
+                            skillArray.push(player.skill[i]);
+                            player.skill.splice(i, 1);
+                            if (player.skill.length < 3) {
+                                player.skill.push(skillEmpty);
+                            }
+                        }
+                    }
                 }
+                _this.skillButtonUpdate();
+                _this.mountedSkillUpdate();
             }
-            _this.skillButtonUpdate();
-            _this.mountedSkillUpdate();
         });
         _this.skillButtonUpdate();
         _this.mountedSkillUpdate();
@@ -565,6 +579,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         var _loop_1 = function (i) {
             this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this_1.skillText.addEventListener('onClick', function () {
+                _this.nowChoice = 1;
                 _this.descriptionText.text = skillArray[i].description;
                 _this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(_this.choosingSkillArrayNo);
@@ -582,6 +597,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         var _loop_2 = function (i) {
             this_2.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this_2.mountedSkillText.addEventListener('onClick', function () {
+                _this.nowChoice = 2;
                 _this.descriptionText.text = player.skill[i].description;
                 _this.choosingMountedSkillArrayNo = player.skill[i].id;
                 console.log(_this.choosingMountedSkillArrayNo);

@@ -65,9 +65,9 @@ class User extends EventDispatcher {
         this.packageEquipment.push(eq4)
 
         //以下测试技能用
-        // this.skill.push(skillEmpty);
-        // this.skill.push(skillSabi);
-        // this.skill.push(skillCaihua);
+        this.skill.push(skillEmpty);
+        this.skill.push(skillEmpty);
+        this.skill.push(skillEmpty);
 
         this.addEventListener('updateUserInfo', () => this.calProperty());
     }
@@ -618,10 +618,12 @@ class Skill {
     name: string = '[空]';
     description: string;
     buttonView: Bitmap;
+    mp: number
 
-    constructor(id: number, name: string) {
+    constructor(id: number, name: string, mp: number) {
         this.id = id;
         this.name = name;
+        this.mp = mp;
     }
 
     searchSkillByID(id: number) {
