@@ -422,7 +422,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
