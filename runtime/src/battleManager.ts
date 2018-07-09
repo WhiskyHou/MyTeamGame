@@ -63,7 +63,7 @@ class battleManager extends EventDispatcher {
             enemy.hp -= Math.floor(damage * 0.8);//菜花技能伤害系数为0.8
             player._hp += Math.floor(damage * 0.8);
             this.dispatchEvent('playerDealDamage', Math.floor(damage * 0.8));
-            this.dispatchEvent('enemyDealDamage', -Math.floor(damage * 0.8));//吸血
+            this.dispatchEvent('enemyDealDamage', -Math.floor(damage * 0.8 * 0.5));//吸血系数为0.5
             if (enemy.hp <= 0 && enemy != null) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报

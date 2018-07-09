@@ -334,6 +334,9 @@ class battleUI extends DisplayObjectContainer {
     skillButtonGroup: Bitmap[] = [];
     skillIDGroup: number[] = [];
 
+    escapeButton: Bitmap;
+    itemButton: Bitmap;
+
     index = 0;
 
     constructor(x: number, y: number) {
@@ -353,6 +356,10 @@ class battleUI extends DisplayObjectContainer {
         this.skillButtonGroup.push(this.skillButton1);
         this.skillButtonGroup.push(this.skillButton2);
         this.skillButtonGroup.push(this.skillButton3);
+
+        this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
+        this.itemButton = new Bitmap(475, 420, battleItemImg);
+
         for (let i = 0; i < this.player.skill.length; i++) {
             switch (player.skill[i].id) {
                 case 1:
@@ -388,6 +395,8 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.skillButton2);
         this.addChild(this.skillButton3);
 
+        this.addChild(this.escapeButton);
+        this.addChild(this.itemButton);
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
@@ -405,11 +414,22 @@ class battleUI extends DisplayObjectContainer {
             batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
         })
 
-        batManager.addEventListener('playerBattleStart', (player: User) => {
-            this.player = player;
+        this.escapeButton.addEventListener('onClick', (eventData: any) => {
+            let ran = Math.random() * 100;
+            if (ran <= 50 + player._level - this.enemy.level) {//逃跑几率为50% + 人物等级 - 怪物等级
+                batManager.dispatchEvent("backSceneLose", null);
+            } else {
+                batManager.dispatchEvent('playerDealDamage', 0);
+                batManager.fightOneTime(player, this.enemy, 100);//此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
+            }
+        })
+        this.itemButton.addEventListener('onClick', (eventData: any) => {
 
         })
 
+        batManager.addEventListener('playerBattleStart', (player: User) => {
+            this.player = player;
+        })
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
             this.enemyNameText.text = enemy.name;
@@ -420,6 +440,12 @@ class battleUI extends DisplayObjectContainer {
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            if (damage == 0) {
+                textField = new TextField(this.player.name + " 逃跑失败辣！", 0, this.index * 20, 15);
+            } else {
+                textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            }
+
             this.enemyHpText.text = '' + this.enemy.hp;
             this.textGroup.addChild(textField);
             this.index++;

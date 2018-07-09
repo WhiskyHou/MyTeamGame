@@ -167,7 +167,7 @@ class FightCommand extends Command {
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {
             batteUIContainer.deleteAll();
-            // this.monster.hp = this.monsterOriginHp;
+            this.monster.hp = this.monsterOriginHp;
         })
 
 

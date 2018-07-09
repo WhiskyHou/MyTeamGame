@@ -416,6 +416,7 @@ var Monster = /** @class */ (function (_super) {
         _this.dropTime = 3; //掉落次数
         _this.exp = 0;
         _this.coin = 0;
+        _this.level = 0;
         _this.id = id;
         _this.name = name;
         _this.hp = hp;

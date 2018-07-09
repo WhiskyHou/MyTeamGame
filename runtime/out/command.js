@@ -159,7 +159,7 @@ var FightCommand = /** @class */ (function (_super) {
         });
         batManager.addEventListener('backSceneLose', function (eventData) {
             batteUIContainer.deleteAll();
-            // this.monster.hp = this.monsterOriginHp;
+            _this.monster.hp = _this.monsterOriginHp;
         });
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);

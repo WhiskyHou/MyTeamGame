@@ -472,6 +472,7 @@ class Monster extends EventDispatcher {
     dropTime = 3;//掉落次数
     exp: number = 0;
     coin: number = 0;
+    level: number = 0;
 
     constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number) {
         super();
