@@ -332,6 +332,22 @@ var battleUI = /** @class */ (function (_super) {
                     _this.skillButtonGroup[i].img = skillSabiImg;
                     _this.skillIDGroup[i] = player.skill[i].id;
                     break;
+                case 4:
+                    _this.skillButtonGroup[i].img = skillBusiImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 5:
+                    _this.skillButtonGroup[i].img = skillGuolaiImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 6:
+                    _this.skillButtonGroup[i].img = skillQishangImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 7:
+                    _this.skillButtonGroup[i].img = skillXixingImg;
+                    _this.skillIDGroup[i] = player.skill[i].id;
+                    break;
             }
         }
         _this.addChild(_this.blackMask);

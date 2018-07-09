@@ -411,6 +411,22 @@ class battleUI extends DisplayObjectContainer {
                     this.skillButtonGroup[i].img = skillSabiImg;
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
+                case 4:
+                    this.skillButtonGroup[i].img = skillBusiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 5:
+                    this.skillButtonGroup[i].img = skillGuolaiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 6:
+                    this.skillButtonGroup[i].img = skillQishangImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 7:
+                    this.skillButtonGroup[i].img = skillXixingImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
             }
         }
 

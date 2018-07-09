@@ -84,10 +84,17 @@ let skillEmptyImg = new Image();
 skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
 
 let skillSabiImg = new Image();
-skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+skillSabiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 let skillCaihuaImg = new Image();
-skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
-
+skillCaihuaImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+let skillBusiImg = new Image();
+skillBusiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 不死.png';
+let skillGuolaiImg = new Image();
+skillGuolaiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 过来.png';
+let skillQishangImg = new Image();
+skillQishangImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 七伤.png';
+let skillXixingImg = new Image();
+skillXixingImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 吸星.png';
 
 let battleEscapeImg = new Image();
 battleEscapeImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 逃跑.png';
