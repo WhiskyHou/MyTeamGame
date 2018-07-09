@@ -551,6 +551,7 @@ function equipSetInit(equipManager) {
  */
 var Skill = /** @class */ (function () {
     function Skill(id, name) {
+        this.name = '[空]';
         this.id = id;
         this.name = name;
     }
