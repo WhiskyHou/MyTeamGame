@@ -75,7 +75,7 @@ battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG
 let battleAttackButton1 = new Image();
 battleAttackButton1.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 普通攻击.png';
 let battleEndBGImg = new Image();
-battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
+battleEndBGImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗结算ui 成功.png';
 let backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 let battleEndLoseBGImg = new Image();
@@ -624,5 +624,5 @@ canvas.onclick = function (event) {
 
 
 // 初始状态设置
-// fsm.replaceState(new MenuState());
-fsm.replaceState(new LoadingState());
+fsm.replaceState(new CreateState());
+// fsm.replaceState(new LoadingState());

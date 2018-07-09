@@ -63,10 +63,12 @@ class User extends EventDispatcher {
         this.packageEquipment.push(eq2)
         this.packageEquipment.push(eq3)
         this.packageEquipment.push(eq4)
+
         //以下测试技能用
         this.skill.push(skillEmpty);
         this.skill.push(skillSabi);
         this.skill.push(skillCaihua);
+        this.addEventListener('updateUserInfo', () => this.calProperty());
     }
 
     _level: number;
@@ -77,7 +79,7 @@ class User extends EventDispatcher {
         this._level = level;
         this.dispatchEvent('updateUserInfo', null);
     }
-    _needEXP: number;
+    _needEXP: number = 20;
     _currentEXP: number;
     get needEXP() {
         return this._needEXP;
@@ -229,7 +231,18 @@ class User extends EventDispatcher {
 
     }
 
+    calProperty() {
+        if (this._currentEXP >= this._needEXP) {
+            this._level += 1;
+            this._currentEXP = 0;
+            this._needEXP = Math.floor(20 * 1.2 * this._level);
+            this._originHealth += 2;
+            this._originAttack += 6;
+            this.changeEquipments();
+            console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
 
+        }
+    }
 
     // private _httpaaa: number
     // public get aaa(){
