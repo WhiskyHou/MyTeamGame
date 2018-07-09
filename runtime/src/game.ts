@@ -129,7 +129,7 @@ var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 
 let skillBoxBGImg = new Image();
-skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+skillBoxBGImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能界面底.png';
 let skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
 
@@ -490,8 +490,6 @@ class PlayingState extends State {
 
     battleUI: battleUI;
     baggUI: bagUI;
-
-
 
     constructor() {
         super();
