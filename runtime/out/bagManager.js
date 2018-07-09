@@ -28,17 +28,20 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagOn = function () {
         console.log('你穿上了装备');
-        var pos = this.nowEquipment.posID;
-        if (pos < 7) {
-            if (player.mounthedEquipment[pos].id != 0) {
-                this.nowMounthedEquipment = player.mounthedEquipment[pos];
-                this.bagOff();
+        if (this.nowNumber > -1) {
+            var pos = this.nowEquipment.posID;
+            if (pos < 7) {
+                if (player.mounthedEquipment[pos].id != 0) {
+                    this.nowMounthedEquipment = player.mounthedEquipment[pos];
+                    this.bagOff();
+                }
+                player.mounthedEquipment[pos] = this.nowEquipment;
+                this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
+                this.changeNowEquipment(this.nowNumber);
+                this.exportCheckedEquipment(false);
+                this.bagUpdate();
+                this.nowNumber = -1;
             }
-            player.mounthedEquipment[pos] = this.nowEquipment;
-            this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
-            this.changeNowEquipment(this.nowNumber);
-            this.exportCheckedEquipment(false);
-            this.bagUpdate();
         }
     };
     bagManager.prototype.bagOff = function () {
@@ -57,12 +60,24 @@ var bagManager = /** @class */ (function (_super) {
     };
     bagManager.prototype.bagRight = function () {
         console.log('你点击了右键');
-        this.nowPage++;
+        this.nowGroupEquipment = [];
+        for (var i = 0; i < player.packageEquipment.length; i++) {
+            if (this.posTOgroup(player.packageEquipment[i].posID) == this.nowGroup) {
+                this.nowGroupEquipment.push(player.packageEquipment[i]);
+            }
+        }
+        var MaxPage = (this.nowGroupEquipment.length / 5) - 1;
+        console.log(MaxPage);
+        if (this.nowPage < MaxPage) {
+            this.nowPage++;
+        }
         this.bagUpdate();
     };
     bagManager.prototype.bagLeft = function () {
         console.log('你点击了左键');
-        this.nowPage--;
+        if (this.nowPage > 0) {
+            this.nowPage--;
+        }
         this.bagUpdate();
     };
     bagManager.prototype.bagOther = function () {
@@ -112,8 +127,11 @@ var bagManager = /** @class */ (function (_super) {
         else if (pos == 7) {
             return 2;
         }
-        else {
+        else if (pos == 8) {
             return 3;
+        }
+        else {
+            return 4;
         }
     };
     bagManager.prototype.deletePackageEquipment = function (nowG, nowP, nowN) {

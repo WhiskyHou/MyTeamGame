@@ -7,25 +7,28 @@
 			"attack": "1000",
 			"view": "assets/美术素材/角色/反派/128x128 恶狗.png",
 			"exp": "30",
-			"coin": "30"
+			"coin": "30",
+			"level": "1"
 		},
 		{
 			"id": "2",
 			"name": "程序猿",
 			"hp": "5",
-			"attack": "0",
+			"attack": "3",
 			"view": "assets/gaojianli.png",
 			"exp": "30",
-			"coin": "30"
+			"coin": "30",
+			"level": "1"
 		},
 		{
 			"id": "3",
 			"name": "填表工",
 			"hp": "5",
-			"attack": "0",
+			"attack": "3",
 			"view": "assets/gaojianli.png",
 			"exp": "30",
-			"coin": "30"
+			"coin": "30",
+			"level": "1"
 		},
 		{
 			"id": "4",
@@ -34,7 +37,8 @@
 			"attack": "10",
 			"view": "assets/gaojianli.png",
 			"exp": "30",
-			"coin": "30"
+			"coin": "30",
+			"level": "1"
 		},
 		{
 			"id": "5",

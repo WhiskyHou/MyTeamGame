@@ -233,51 +233,59 @@ var bagUI = /** @class */ (function (_super) {
             baManager.bagConsumable();
         });
         _this.equipment1Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(0);
+            baManager.changeNowEquipment(0);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment2Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(1);
+            baManager.changeNowEquipment(1);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment3Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(2);
+            baManager.changeNowEquipment(2);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment4Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(3);
+            baManager.changeNowEquipment(3);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.equipment5Text.addEventListener("onClick", function (eventData) {
-            _this.changeEquipmentInfo(4);
+            baManager.changeNowEquipment(4);
+            _this.changeEquipmentInfo(baManager.nowEquipment);
         });
         _this.weaponText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(0);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.clothText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(1);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.watchText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(2);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.trousersText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(3);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.phoneText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(4);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         _this.shoesText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(5);
+            _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
         });
         return _this;
     }
-    bagUI.prototype.changeEquipmentInfo = function (num) {
-        if (baManager.nowEquipment) {
-            baManager.changeNowEquipment(num);
-            this.deleteChild(this.equipmentMultiInfoText);
-            var equipmentIfo = ['名称：' + baManager.nowEquipment.name, '品质：' + baManager.nowEquipment.quality,
-                '部位：' + baManager.nowEquipment.posID, '血量：+' + baManager.nowEquipment.health,
-                '攻击力：+' + baManager.nowEquipment.attack, '暴击：+' + baManager.nowEquipment.criticalPer + '%'];
-            this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
-            this.addChild(this.equipmentMultiInfoText);
-            this.dispatchEvent('updateBag', player);
-        }
+    bagUI.prototype.changeEquipmentInfo = function (equip) {
+        this.deleteChild(this.equipmentMultiInfoText);
+        var equipmentIfo = ['名称：' + equip.name, '品质：' + equip.quality,
+            '部位：' + equip.posID, '血量：+' + equip.health,
+            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
+        this.addChild(this.equipmentMultiInfoText);
+        this.dispatchEvent('updateBag', player);
     };
     return bagUI;
 }(DisplayObjectContainer));
@@ -298,8 +306,9 @@ var battleUI = /** @class */ (function (_super) {
         //战斗人物属性
         _this.playerAtkText = new TextField("" + player._attack, 150, 375, 30);
         _this.playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
-        _this.playerHpText = new TextField("" + player._hp, 175, 250, 20);
-        _this.enemyHpText = new TextField("", 410, 250, 20);
+        _this.playerHpText = new TextField("" + player._hp + " / " + _this.player.maxHP, 175, 273, 20);
+        _this.playerMpText = new TextField("" + _this.player._mp + " / " + _this.player.maxMp, 173, 313, 20);
+        _this.enemyHpText = new TextField("", 410, 273, 20);
         _this.skillButtonGroup = [];
         _this.skillIDGroup = [];
         _this.index = 0;
@@ -361,6 +370,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.playerCriText);
         _this.addChild(_this.playerHpText);
         _this.addChild(_this.enemyHpText);
+        _this.addChild(_this.playerMpText);
         _this.addChild(_this.playerImg);
         _this.addChild(_this.skillButton1);
         _this.addChild(_this.skillButton2);
@@ -372,18 +382,46 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[0]);
+            if (player._mp >= player.skill[0].mp) {
+                player._mp -= player.skill[0].mp;
+                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[0]);
+            }
+            else {
+                var textField = new TextField("当前MP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+            }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[1]);
-            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[1]);
+            if (player._mp >= player.skill[1].mp) {
+                player._mp -= player.skill[1].mp;
+                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[1]);
+            }
+            else {
+                var textField = new TextField("当前MP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+            }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[2]);
-            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
+            if (player._mp >= player.skill[2].mp) {
+                player._mp -= player.skill[2].mp;
+                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
+            }
+            else {
+                var textField = new TextField("当前MP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+            }
         });
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
+            console.log(ran);
             if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
@@ -405,6 +443,9 @@ var battleUI = /** @class */ (function (_super) {
             _this.enemyHpText.text = '' + enemy.hp;
             _this.addChild(_this.enemyImg);
         });
+        // batManager.addEventListener('playerHpUpdate', () => {
+        //     this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
+        // })
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
             if (damage == 0) {
@@ -422,14 +463,14 @@ var battleUI = /** @class */ (function (_super) {
             if (damage > 0) {
                 textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
             }
-            else {
+            else if (damage < 0) {
                 textField.text = _this.player.name + " 吸了 " + -damage + " 点血！";
             }
             if (player._hp <= 0) {
-                _this.playerHpText.text = "0";
+                _this.playerHpText.text = "0" + " / " + _this.player.maxHP;
             }
             else {
-                _this.playerHpText.text = "" + player._hp;
+                _this.playerHpText.text = "" + player._hp + " / " + _this.player.maxHP;
             }
             _this.textGroup.addChild(textField);
             _this.index++;
@@ -537,7 +578,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         _this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
-        _this.descriptionText = new TextField("", 525, 100, 20); //TODO 描述换行
+        _this.descriptionText = new Bitmap(508, 100, skillEmptyDesImg);
         _this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         _this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         _this.skillOffButton = new Bitmap(582, 290, bagOffUI);
@@ -596,7 +637,7 @@ var skillBoxUI = /** @class */ (function (_super) {
             this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this_1.skillText.addEventListener('onClick', function () {
                 _this.nowChoice = 1;
-                _this.descriptionText.text = skillArray[i].description;
+                _this.descriptionText.img = skillArray[i].description.img;
                 _this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(_this.choosingSkillArrayNo);
             });
@@ -614,7 +655,7 @@ var skillBoxUI = /** @class */ (function (_super) {
             this_2.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this_2.mountedSkillText.addEventListener('onClick', function () {
                 _this.nowChoice = 2;
-                _this.descriptionText.text = player.skill[i].description;
+                _this.descriptionText.img = player.skill[i].description.img;
                 _this.choosingMountedSkillArrayNo = player.skill[i].id;
                 console.log(_this.choosingMountedSkillArrayNo);
             });

@@ -143,6 +143,22 @@ skillBoxBGImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI �
 let skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
 
+let skillSabiDesImg = new Image();
+skillSabiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 撒币大法.png';
+let skillCaihuaDesImg = new Image();
+skillCaihuaDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 菜花宝典.png';
+let skillBusiDesImg = new Image();
+skillBusiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 英雄不死.png';
+let skillGuolaiDesImg = new Image();
+skillGuolaiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 你过来啊.png';
+let skillQishangDesImg = new Image();
+skillQishangDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 七伤拳.png';
+let skillXixingDesImg = new Image();
+skillXixingDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 吸星大法.png';
+let skillEmptyDesImg = new Image();
+skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
+
+
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 let missionCloseImg = new Image();
@@ -206,28 +222,28 @@ npcManager.init(() => {
  * 技能初始化(把这里当技能配置文件)
  */
 let skillAttack = new Skill(0, '攻击', 0);//攻击预留
-skillAttack.description = '没有技能';
+skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
 let skillEmpty = new Skill(1, '空', 0);//空
-skillEmpty.description = '没有技能';
+skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
 let skillCaihua = new Skill(2, '菜花宝典', 30);
-skillCaihua.description = '葵花宝典的删减版。虽然威力不大，但胜在不用自宫。可造成普通攻击120%的伤害。';
+skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
 skillArray.push(skillCaihua);
 let skillSabi = new Skill(3, '撒币大法', 20);
-skillSabi.description = '有钱能使鬼推磨。用钱也可以砸死别人，威力巨大。可造成普通攻击150%的伤害。';
+skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
 skillArray.push(skillSabi);
 let skillBusi = new Skill(4, '英雄不死', 40);
-skillBusi.description = '获得心爱女生加成的技能，能够让主角怎么打都打不死。可恢复普通攻击120%的生命值。';
+skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
 skillArray.push(skillBusi);
 let skillGuolai = new Skill(5, '你过来啊', 65);
-skillGuolai.description = '融合了武林两大绝技，一阳指和狮吼功。此招一出，惊天动地。可造成普通攻击200%的伤害。';
+skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
 skillArray.push(skillGuolai);
 let skillQishang = new Skill(6, '七伤拳', 50);
-skillQishang.description = '伤敌先伤己。每次使用此技能都会对自身造成伤害。可造成普通攻击180%的伤害，对自身造成普通攻击60%伤害。';
+skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
 skillArray.push(skillQishang);
 let skillXixing = new Skill(7, '吸星大法', 45);
-skillXixing.description = '游戏里唯一一个吸血技能，任我行的绝招。可造成普通攻击120%的伤害，并恢复自身普通攻击25%的血量。';
+skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
 skillArray.push(skillXixing);
 
 
@@ -379,35 +395,35 @@ class CreateState extends State {
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player._hp += 5;
+                player._originHealth += 5;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player._hp;
+            this.playerHpText.text = "" + player._originHealth;
         });
         this.hpMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._hp > 60) {
-                player._hp -= 5;
+            if (this.canAssignPoint < 5 && player._originHealth > 60) {
+                player._originHealth -= 5;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player._hp;
+            this.playerHpText.text = "" + player._originHealth;
         });
         this.attackAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player._attack += 1;
+                player._originAttack += 1;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerAttackText.text = "" + player._attack;
+            this.playerAttackText.text = "" + player._originAttack;
         });
         this.attackMinusButton.addEventListener("onClick", () => {
             if (this.canAssignPoint < 5 && player._attack > 10) {
-                player._attack -= 1;
+                player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerAttackText.text = "" + player._attack;
+            this.playerAttackText.text = "" + player._originAttack;
         });
     }
 

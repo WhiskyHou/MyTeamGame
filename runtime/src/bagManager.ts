@@ -18,17 +18,20 @@ class bagManager extends EventDispatcher {
     }
     bagOn(){
         console.log('你穿上了装备');
-        let pos = this.nowEquipment.posID
-        if(pos<7){
-            if(player.mounthedEquipment[pos].id != 0){//如果当前位置有装备，就先把他卸下来
-                this.nowMounthedEquipment = player.mounthedEquipment[pos]
-                this.bagOff()
-            }
-        player.mounthedEquipment[pos] = this.nowEquipment
-        this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
-        this.changeNowEquipment(this.nowNumber)
-        this.exportCheckedEquipment(false);
-        this.bagUpdate()
+        if(this.nowNumber >-1){
+            let pos = this.nowEquipment.posID
+            if(pos<7){
+                if(player.mounthedEquipment[pos].id != 0){//如果当前位置有装备，就先把他卸下来
+                    this.nowMounthedEquipment = player.mounthedEquipment[pos]
+                    this.bagOff()
+                }
+            player.mounthedEquipment[pos] = this.nowEquipment
+            this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
+            this.changeNowEquipment(this.nowNumber)
+            this.exportCheckedEquipment(false);
+            this.bagUpdate()
+            this.nowNumber = -1
+        }
         }
     }
     bagOff(){
@@ -47,12 +50,24 @@ class bagManager extends EventDispatcher {
     }
     bagRight(){
         console.log('你点击了右键');
-        this.nowPage++;
+        this.nowGroupEquipment = []
+        for(var i=0;i<player.packageEquipment.length;i++){
+            if(this.posTOgroup(player.packageEquipment[i].posID) == this.nowGroup){
+                this.nowGroupEquipment.push(player.packageEquipment[i]) 
+            }
+        }
+        let MaxPage=(this.nowGroupEquipment.length/5)-1;
+        console.log(MaxPage);
+        if(this.nowPage< MaxPage){
+           this.nowPage++; 
+        }
         this.bagUpdate()
     }
     bagLeft(){
         console.log('你点击了左键');
-        this.nowPage--;
+        if(this.nowPage > 0){
+            this.nowPage--; 
+         }
         this.bagUpdate()
     }
     bagOther(){
@@ -99,8 +114,10 @@ class bagManager extends EventDispatcher {
             return 1
         }else if(pos == 7){//消耗品
             return 2
-        }else{//其他
+        }else if(pos == 8){//其他
             return 3
+        }else{
+            return 4
         }
     }
     deletePackageEquipment(nowG : number,nowP : number,nowN : number){//把不是当前栏的导出，删除当前栏再导回来

@@ -24,26 +24,28 @@ var User = /** @class */ (function (_super) {
         _this.diamond = 0;
         _this._originAttack = 10;
         _this._originHealth = 60;
+        _this._originMp = 110;
+        _this.maxHP = _this._originHealth;
+        _this.maxMp = _this._originMp;
         _this.mounthedEquipment = []; //已装备的装备
         _this.packageEquipment = []; //背包中的装备
         _this.skill = [];
-        // skill: Skill[] = [];
         _this._attack = _this._originAttack;
         _this._hp = _this._originHealth;
         _this._criticalPer = 0;
         _this._charm = 0;
-        _this._mp = 0;
+        _this._mp = _this._originMp;
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
         // 以下测试用
-        var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
-        var eq1 = new Equipment(2, '【毁天灭地】衣服', 3, 1, 3, 0, 0);
-        var eq2 = new Equipment(3, '【毁天灭地】手表', 3, 2, 8, 0, 0);
-        var eq3 = new Equipment(4, '【毁天灭地】裤子', 3, 3, 3, 0, 0);
-        var eq4 = new Equipment(5, '【毁天灭地】电话', 3, 4, 3, 0, 0);
-        var eq5 = new Equipment(6, '【毁天灭地】鞋子', 3, 5, 3, 0, 0);
+        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0);
+        var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
+        var eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
+        var eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
+        var eq4 = new Equipment(5, '一无是处的烂电话', 0, 4, 0, 0, 0);
+        var eq5 = new Equipment(6, '一无是处的烂鞋子', 0, 5, 0, 0, 0);
         _this.mounthedEquipment.push(eq0);
         _this.mounthedEquipment.push(eq1);
         _this.mounthedEquipment.push(eq2);
@@ -51,17 +53,17 @@ var User = /** @class */ (function (_super) {
         _this.mounthedEquipment.push(eq4);
         _this.mounthedEquipment.push(eq5);
         _this.changeEquipments();
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq0);
-        _this.packageEquipment.push(eq1);
-        _this.packageEquipment.push(eq1);
-        _this.packageEquipment.push(eq2);
-        _this.packageEquipment.push(eq3);
-        _this.packageEquipment.push(eq4);
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq0)
+        // this.packageEquipment.push(eq1)
+        // this.packageEquipment.push(eq1)
+        // this.packageEquipment.push(eq2)
+        // this.packageEquipment.push(eq3)
+        // this.packageEquipment.push(eq4)
         //以下测试技能用
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
@@ -178,12 +180,16 @@ var User = /** @class */ (function (_super) {
     };
     //---------------------------------------------------------------
     User.prototype.changeEquipments = function () {
+        // let currentHp = this._hp;
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
             this._hp += this.mounthedEquipment[i].health;
+            // currentHp += this.mounthedEquipment[i].health;
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
+        this.maxHP = this._hp;
+        // this._hp = currentHp;
         this.dispatchEvent("changeEquips", null);
         // this.checkSuit();
     };
@@ -232,6 +238,10 @@ var User = /** @class */ (function (_super) {
             this._needEXP = Math.floor(20 * 1.2 * this._level);
             this._originHealth += 2;
             this._originAttack += 6;
+            this._originMp += 10;
+            this._mp = this._originMp;
+            this.maxMp = this._originMp;
+            this.maxHP = this._originHealth;
             this.changeEquipments();
             console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
         }

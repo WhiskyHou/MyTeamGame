@@ -289,53 +289,62 @@ class bagUI extends DisplayObjectContainer {
             baManager.bagConsumable();
         })
         this.equipment1Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(0)
+            baManager.changeNowEquipment(0)
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment2Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(1)
+            baManager.changeNowEquipment(1)
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment3Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(2)
+            baManager.changeNowEquipment(2)
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment4Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(3)
+            baManager.changeNowEquipment(3)
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.equipment5Text.addEventListener("onClick", (eventData: any) => {
-            this.changeEquipmentInfo(4)
+            baManager.changeNowEquipment(4)
+            this.changeEquipmentInfo(baManager.nowEquipment)
         })
         this.weaponText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(0)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.clothText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(1)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.watchText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(2)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.trousersText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(3)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.phoneText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(4)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
         this.shoesText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(5)
+            this.changeEquipmentInfo(baManager.nowMounthedEquipment)
         })
     }
-    changeEquipmentInfo(num: number) {
-        if (baManager.nowEquipment) {
-            baManager.changeNowEquipment(num)
-            this.deleteChild(this.equipmentMultiInfoText)
-            let equipmentIfo: Array<string> = ['名称：' + baManager.nowEquipment.name, '品质：' + baManager.nowEquipment.quality,
-            '部位：' + baManager.nowEquipment.posID, '血量：+' + baManager.nowEquipment.health,
-            '攻击力：+' + baManager.nowEquipment.attack, '暴击：+' + baManager.nowEquipment.criticalPer + '%'];
-            this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
-            this.addChild(this.equipmentMultiInfoText)
-            this.dispatchEvent('updateBag', player)
-        }
+    changeEquipmentInfo(equip: Equipment) {
+        this.deleteChild(this.equipmentMultiInfoText)
+        let equipmentIfo: Array<string> = ['名称：' + equip.name, '品质：' + equip.quality,
+        '部位：' + equip.posID, '血量：+' + equip.health,
+        '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
+        this.addChild(this.equipmentMultiInfoText)
+        this.dispatchEvent('updateBag', player)
     }
 
 }
+
 /**
  * 战斗UI
  */
@@ -361,8 +370,9 @@ class battleUI extends DisplayObjectContainer {
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
     playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
-    playerHpText = new TextField("" + player._hp, 175, 250, 20);
-    enemyHpText = new TextField("", 410, 250, 20);
+    playerHpText = new TextField("" + player._hp + " / " + this.player.maxHP, 175, 273, 20);
+    playerMpText = new TextField("" + this.player._mp + " / " + this.player.maxMp, 173, 313, 20);
+    enemyHpText = new TextField("", 410, 273, 20);
 
     //技能按钮
     skillButton1: Bitmap;
@@ -442,6 +452,7 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.playerCriText);
         this.addChild(this.playerHpText);
         this.addChild(this.enemyHpText);
+        this.addChild(this.playerMpText);
         this.addChild(this.playerImg);
 
         this.addChild(this.skillButton1);
@@ -456,19 +467,45 @@ class battleUI extends DisplayObjectContainer {
         })
         this.skillButton1.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[0]);
-            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
+            if (player._mp >= player.skill[0].mp) {
+                player._mp -= player.skill[0].mp;
+                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
+            } else {
+                let textField = new TextField("当前MP值不足以施放 " + player.skill[0].name, 0, this.index * 20, 15);
+                this.textGroup.addChild(textField);
+                this.index++;
+            }
         })
         this.skillButton2.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[1]);
-            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
+            if (player._mp >= player.skill[1].mp) {
+                player._mp -= player.skill[1].mp;
+                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
+            } else {
+                let textField = new TextField("当前MP值不足以施放 " + player.skill[1].name, 0, this.index * 20, 15);
+                this.textGroup.addChild(textField);
+                this.index++;
+            }
         })
         this.skillButton3.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[2]);
-            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
+            if (player._mp >= player.skill[2].mp) {
+                player._mp -= player.skill[2].mp;
+                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
+            } else {
+                let textField = new TextField("当前MP值不足以施放 " + player.skill[2].name, 0, this.index * 20, 15);
+                this.textGroup.addChild(textField);
+                this.index++;
+            }
         })
 
         this.escapeButton.addEventListener('onClick', (eventData: any) => {
             let ran = Math.random() * 100;
+            console.log(ran);
+
             if (ran <= 50 + player._level - this.enemy.level) {//逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             } else {
@@ -491,6 +528,10 @@ class battleUI extends DisplayObjectContainer {
             this.addChild(this.enemyImg);
         })
 
+        // batManager.addEventListener('playerHpUpdate', () => {
+        //     this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
+        // })
+
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
             if (damage == 0) {
@@ -508,14 +549,14 @@ class battleUI extends DisplayObjectContainer {
             let textField = new TextField("", 0, this.index * 20, 15);
             if (damage > 0) {
                 textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            } else {
+            } else if (damage < 0) {
                 textField.text = this.player.name + " 吸了 " + -damage + " 点血！";
             }
 
             if (player._hp <= 0) {
-                this.playerHpText.text = "0";
+                this.playerHpText.text = "0" + " / " + this.player.maxHP;
             } else {
-                this.playerHpText.text = "" + player._hp;
+                this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
             }
 
             this.textGroup.addChild(textField);
@@ -539,7 +580,6 @@ class battleUI extends DisplayObjectContainer {
                 this.skillButtonGroup[i].deleteAllEventListener();
             }
         })
-
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             let textField = new TextField(this.player.name + " 被 " + this.enemy.name + " 打飞辣！", 0, this.index * 20, 15);
@@ -646,7 +686,7 @@ class skillBoxUI extends DisplayObjectContainer {
     skillText: TextField;
     skillTextGroup: DisplayObjectContainer;
 
-    descriptionText: TextField;
+    descriptionText: Bitmap;
 
     mountedSkillText: TextField;
     mountedSkillGroup: DisplayObjectContainer;
@@ -666,7 +706,7 @@ class skillBoxUI extends DisplayObjectContainer {
         this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
-        this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
+        this.descriptionText = new Bitmap(508, 100, skillEmptyDesImg);
         this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         this.skillOffButton = new Bitmap(582, 290, bagOffUI);
@@ -732,7 +772,7 @@ class skillBoxUI extends DisplayObjectContainer {
             this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this.skillText.addEventListener('onClick', () => {
                 this.nowChoice = 1;
-                this.descriptionText.text = skillArray[i].description;
+                this.descriptionText.img = skillArray[i].description.img;
                 this.choosingSkillArrayNo = skillArray[i].id;
                 console.log(this.choosingSkillArrayNo);
             })
@@ -747,7 +787,7 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this.mountedSkillText.addEventListener('onClick', () => {
                 this.nowChoice = 2;
-                this.descriptionText.text = player.skill[i].description;
+                this.descriptionText.img = player.skill[i].description.img;
                 this.choosingMountedSkillArrayNo = player.skill[i].id;
                 console.log(this.choosingMountedSkillArrayNo);
             })
