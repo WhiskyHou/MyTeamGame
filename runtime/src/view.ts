@@ -638,7 +638,8 @@ class skillBoxUI extends DisplayObjectContainer {
     skillOnButton: Bitmap;
     skillOffButton: Bitmap;
 
-    choosingSkillID: number;
+    choosingSkillArrayNo: number = 0;
+    choosingMountedSkillArrayNo: number = 0;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -663,22 +664,55 @@ class skillBoxUI extends DisplayObjectContainer {
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
         })
+        //TODO 技能装备
+        this.skillOnButton.addEventListener('onClick', () => {
+            console.log(skillArray[this.choosingMountedSkillArrayNo + 1].name);
 
-        for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
-            this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
-            this.skillText.addEventListener('onClick', () => {
-                this.descriptionText.text = skillArray[i].description;
-            })
-            this.skillTextGroup.addChild(this.skillText);
-        }
+            player.skill.push(skillArray[this.choosingMountedSkillArrayNo]);
+            console.log(player.skill.length);
+            skillArray.slice(this.choosingMountedSkillArrayNo, 1);
+            this.skillButtonUpdate();
+        })
+
+        this.skillOffButton.addEventListener('onClick', () => {
+            // this.deleteAll();
+        })
+
+        // for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
+        //     this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+        //     this.skillText.addEventListener('onClick', () => {
+        //         this.descriptionText.text = skillArray[i].description;
+        //         this.choosingSkillArrayNo = i - 1;
+        //         console.log(this.choosingSkillArrayNo);
+        //         player.skill.push(skillArray[i]);
+        //         skillArray.slice(i, 1);
+        //     })
+        //     this.skillTextGroup.addChild(this.skillText);
+        // }
+        this.skillButtonUpdate();
 
         for (let i = 0; i < player.skill.length; i++) {
 
             this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this.mountedSkillText.addEventListener('onClick', () => {
                 this.descriptionText.text = player.skill[i].description;
+                this.choosingMountedSkillArrayNo = i;
             })
             this.mountedSkillGroup.addChild(this.mountedSkillText);
+        }
+
+    }
+
+    skillButtonUpdate() {
+        this.skillTextGroup.deleteAll();
+        for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
+            this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
+            this.skillText.addEventListener('onClick', () => {
+                this.descriptionText.text = skillArray[i].description;
+                this.choosingSkillArrayNo = i - 1;
+                console.log(this.choosingSkillArrayNo);
+            })
+            this.skillTextGroup.addChild(this.skillText);
         }
     }
 }
