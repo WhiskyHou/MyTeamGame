@@ -384,6 +384,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
+            console.log(ran);
             if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
@@ -422,7 +423,7 @@ var battleUI = /** @class */ (function (_super) {
             if (damage > 0) {
                 textField = new TextField(_this.enemy.name + " 对 " + _this.player.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
             }
-            else {
+            else if (damage < 0) {
                 textField.text = _this.player.name + " 吸了 " + -damage + " 点血！";
             }
             if (player._hp <= 0) {

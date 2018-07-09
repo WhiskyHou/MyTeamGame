@@ -469,6 +469,8 @@ class battleUI extends DisplayObjectContainer {
 
         this.escapeButton.addEventListener('onClick', (eventData: any) => {
             let ran = Math.random() * 100;
+            console.log(ran);
+
             if (ran <= 50 + player._level - this.enemy.level) {//逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             } else {
@@ -508,7 +510,7 @@ class battleUI extends DisplayObjectContainer {
             let textField = new TextField("", 0, this.index * 20, 15);
             if (damage > 0) {
                 textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            } else {
+            } else if (damage < 0) {
                 textField.text = this.player.name + " 吸了 " + -damage + " 点血！";
             }
 
