@@ -379,35 +379,35 @@ class CreateState extends State {
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player._hp += 5;
+                player._originHealth += 5;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player._hp;
+            this.playerHpText.text = "" + player._originHealth;
         });
         this.hpMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._hp > 60) {
-                player._hp -= 5;
+            if (this.canAssignPoint < 5 && player._originHealth > 60) {
+                player._originHealth -= 5;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player._hp;
+            this.playerHpText.text = "" + player._originHealth;
         });
         this.attackAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player._attack += 1;
+                player._originAttack += 1;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerAttackText.text = "" + player._attack;
+            this.playerAttackText.text = "" + player._originAttack;
         });
         this.attackMinusButton.addEventListener("onClick", () => {
             if (this.canAssignPoint < 5 && player._attack > 10) {
-                player._attack -= 1;
+                player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerAttackText.text = "" + player._attack;
+            this.playerAttackText.text = "" + player._originAttack;
         });
     }
 

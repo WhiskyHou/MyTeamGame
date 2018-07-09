@@ -70,6 +70,10 @@ var battleManager = /** @class */ (function (_super) {
         if (skillType == 4) {
             var skillDamage = -Math.floor(damage * 1.2); //英雄不死技能伤害系数为1.2，为恢复技能
             player._hp -= skillDamage;
+            if (player._hp > player.maxHP) {
+                player._hp = player.maxHP;
+                // batManager.dispatchEvent('playerHpUpdate', null);
+            }
             // enemy.hp -= skillDamage;
             this.dispatchEvent('enemyDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
@@ -97,7 +101,7 @@ var battleManager = /** @class */ (function (_super) {
             this.dispatchEvent('enemyDealDamage', Math.floor(damage * 0.6));
             if (player._hp <= 0) {
                 this.dispatchEvent('playerDie', null);
-                player._hp = this.originHp;
+                player._hp = 1;
             }
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
@@ -110,6 +114,10 @@ var battleManager = /** @class */ (function (_super) {
         if (skillType == 7) {
             var restore = -Math.floor(damage * 0.25);
             player._hp -= restore;
+            if (player._hp > player.maxHP) {
+                player._hp = player.maxHP;
+                // batManager.dispatchEvent('playerHpUpdate', null);
+            }
             var skillDamage = Math.floor(damage * 1.2); //吸星大法技能伤害系数为1.2，为恢复技能
             enemy.hp -= skillDamage;
             this.dispatchEvent('enemyDealDamage', skillDamage);
@@ -127,7 +135,7 @@ var battleManager = /** @class */ (function (_super) {
             this.dispatchEvent('enemyDealDamage', damage);
             if (player._hp <= 0) {
                 this.dispatchEvent('playerDie', null);
-                player._hp = this.originHp;
+                player._hp = 1;
             }
         }
     };

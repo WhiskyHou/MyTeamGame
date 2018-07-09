@@ -298,8 +298,9 @@ var battleUI = /** @class */ (function (_super) {
         //战斗人物属性
         _this.playerAtkText = new TextField("" + player._attack, 150, 375, 30);
         _this.playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
-        _this.playerHpText = new TextField("" + player._hp, 175, 250, 20);
-        _this.enemyHpText = new TextField("", 410, 250, 20);
+        _this.playerHpText = new TextField("" + player._hp + " / " + _this.player.maxHP, 175, 273, 20);
+        _this.playerMpText = new TextField("" + _this.player._mp + " / " + _this.player.maxMp, 173, 313, 20);
+        _this.enemyHpText = new TextField("", 410, 273, 20);
         _this.skillButtonGroup = [];
         _this.skillIDGroup = [];
         _this.index = 0;
@@ -361,6 +362,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.playerCriText);
         _this.addChild(_this.playerHpText);
         _this.addChild(_this.enemyHpText);
+        _this.addChild(_this.playerMpText);
         _this.addChild(_this.playerImg);
         _this.addChild(_this.skillButton1);
         _this.addChild(_this.skillButton2);
@@ -372,15 +374,42 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[0]);
+            if (player._mp > player.skill[0].mp) {
+                player._mp -= player.skill[0].mp;
+                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[0]);
+            }
+            else {
+                var textField = new TextField("当前MP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+            }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[1]);
-            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[1]);
+            if (player._mp > player.skill[1].mp) {
+                player._mp -= player.skill[1].mp;
+                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[1]);
+            }
+            else {
+                var textField = new TextField("当前MP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+            }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[2]);
-            batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
+            if (player._mp > player.skill[2].mp) {
+                player._mp -= player.skill[2].mp;
+                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
+            }
+            else {
+                var textField = new TextField("当前MP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
+                _this.textGroup.addChild(textField);
+                _this.index++;
+            }
         });
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
@@ -406,6 +435,9 @@ var battleUI = /** @class */ (function (_super) {
             _this.enemyHpText.text = '' + enemy.hp;
             _this.addChild(_this.enemyImg);
         });
+        // batManager.addEventListener('playerHpUpdate', () => {
+        //     this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
+        // })
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
             if (damage == 0) {
@@ -427,10 +459,10 @@ var battleUI = /** @class */ (function (_super) {
                 textField.text = _this.player.name + " 吸了 " + -damage + " 点血！";
             }
             if (player._hp <= 0) {
-                _this.playerHpText.text = "0";
+                _this.playerHpText.text = "0" + " / " + _this.player.maxHP;
             }
             else {
-                _this.playerHpText.text = "" + player._hp;
+                _this.playerHpText.text = "" + player._hp + " / " + _this.player.maxHP;
             }
             _this.textGroup.addChild(textField);
             _this.index++;

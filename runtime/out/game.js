@@ -331,35 +331,35 @@ var CreateState = /** @class */ (function (_super) {
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
-                player._hp += 5;
+                player._originHealth += 5;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerHpText.text = "" + player._hp;
+            _this.playerHpText.text = "" + player._originHealth;
         });
         _this.hpMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._hp > 60) {
-                player._hp -= 5;
+            if (_this.canAssignPoint < 5 && player._originHealth > 60) {
+                player._originHealth -= 5;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerHpText.text = "" + player._hp;
+            _this.playerHpText.text = "" + player._originHealth;
         });
         _this.attackAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
-                player._attack += 1;
+                player._originAttack += 1;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerAttackText.text = "" + player._attack;
+            _this.playerAttackText.text = "" + player._originAttack;
         });
         _this.attackMinusButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint < 5 && player._attack > 10) {
-                player._attack -= 1;
+                player._originAttack -= 1;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerAttackText.text = "" + player._attack;
+            _this.playerAttackText.text = "" + player._originAttack;
         });
         return _this;
     }
