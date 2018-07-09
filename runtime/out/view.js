@@ -23,6 +23,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.bagButton = new Bitmap(750, 465, bagButton);
         _this.EscButton = new Bitmap(820, 465, EscButton);
         _this.SkillButton = new Bitmap(680, 465, SkillButton);
+        _this.missionButton = new Bitmap(610, 465, MissionButton);
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
         _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -36,6 +37,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.bagButton);
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
+        _this.addChild(_this.missionButton);
         _this.addChild(_this.bloodUI);
         _this.addChild(_this.bloodUI2);
         _this.addChild(_this.userCoin);
@@ -44,6 +46,14 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.needEXP);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
+        });
+        _this.SkillButton.addEventListener('onClick', function (eventData) {
+            _this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(_this.skillUI);
+        });
+        _this.missionButton.addEventListener('onClick', function (eventData) {
+            _this.missionUI = new MissionUI(0, 0);
+            missionBoxContainer.addChild(_this.missionUI);
         });
         player.addEventListener('updateUserInfo', function (eventData) {
             // if (player.currentEXP >= player.needEXP) {
@@ -62,10 +72,6 @@ var UserInfoUI = /** @class */ (function (_super) {
             //     equipments += item.name.toString();
             // }
             // this.userEquipment.text = '装备: ' + equipments;
-        });
-        _this.SkillButton.addEventListener('onClick', function (eventData) {
-            _this.skillUI = new skillBoxUI(0, 0);
-            skillBoxContainer.addChild(_this.skillUI);
         });
         return _this;
         // console.log(player);
@@ -107,6 +113,24 @@ var MissionInfoUI = /** @class */ (function (_super) {
         }
     };
     return MissionInfoUI;
+}(DisplayObjectContainer));
+/**
+ * 任务界面UI
+ */
+var MissionUI = /** @class */ (function (_super) {
+    __extends(MissionUI, _super);
+    function MissionUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.MissionBackGround = new Bitmap(225, 25, missionImg);
+        _this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        _this.addChild(_this.MissionBackGround);
+        _this.addChild(_this.closeButton);
+        _this.closeButton.addEventListener('onClick', function () {
+            _this.deleteAll();
+        });
+        return _this;
+    }
+    return MissionUI;
 }(DisplayObjectContainer));
 /**
  * 背包UI

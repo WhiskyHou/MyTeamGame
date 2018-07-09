@@ -96,6 +96,8 @@ var EscButton = new Image();
 EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
+var MissionButton = new Image();
+MissionButton.src = './assets/1 60x80 任务ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/ui血条1.png';
 var bloodUI2 = new Image();
@@ -126,6 +128,11 @@ let skillBoxBGImg = new Image();
 skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
 let skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+
+let missionImg = new Image();
+missionImg.src = './assets/UI 任务界面底.png';
+let missionCloseImg = new Image();
+missionCloseImg.src = './assets//UI 取消按钮.png';
 
 /**
  * 常量
@@ -463,6 +470,7 @@ var talkUIContainer: DisplayObjectContainer;
 let batteUIContainer: DisplayObjectContainer;
 let bagUIContainer: DisplayObjectContainer;
 let skillBoxContainer: DisplayObjectContainer;
+let missionBoxContainer: DisplayObjectContainer;
 
 /**
  * 游戏状态
@@ -501,7 +509,7 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
 
         skillBoxContainer = new DisplayObjectContainer(16, 16);
-
+        missionBoxContainer = new DisplayObjectContainer(16,16);
 
     }
 
@@ -512,6 +520,7 @@ class PlayingState extends State {
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
         stage.addChild(skillBoxContainer);
+        stage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);

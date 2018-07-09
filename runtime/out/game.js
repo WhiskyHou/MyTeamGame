@@ -98,6 +98,8 @@ var EscButton = new Image();
 EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
+var MissionButton = new Image();
+MissionButton.src = './assets/1 60x80 任务ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/ui血条1.png';
 var bloodUI2 = new Image();
@@ -126,6 +128,10 @@ var skillBoxBGImg = new Image();
 skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
 var skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+var missionImg = new Image();
+missionImg.src = './assets/UI 任务界面底.png';
+var missionCloseImg = new Image();
+missionCloseImg.src = './assets//UI 取消按钮.png';
 /**
  * 常量
  *
@@ -402,6 +408,7 @@ var talkUIContainer;
 var batteUIContainer;
 var bagUIContainer;
 var skillBoxContainer;
+var missionBoxContainer;
 /**
  * 游戏状态
  */
@@ -422,6 +429,7 @@ var PlayingState = /** @class */ (function (_super) {
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(16, 16);
+        missionBoxContainer = new DisplayObjectContainer(16, 16);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
@@ -432,6 +440,7 @@ var PlayingState = /** @class */ (function (_super) {
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
         stage.addChild(skillBoxContainer);
+        stage.addChild(missionBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
