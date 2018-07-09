@@ -23,6 +23,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.bagButton = new Bitmap(750, 465, bagButton);
         _this.EscButton = new Bitmap(820, 465, EscButton);
         _this.SkillButton = new Bitmap(680, 465, SkillButton);
+        _this.missionButton = new Bitmap(610, 465, MissionButton);
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
         _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -36,6 +37,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.bagButton);
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
+        _this.addChild(_this.missionButton);
         _this.addChild(_this.bloodUI);
         _this.addChild(_this.bloodUI2);
         _this.addChild(_this.userCoin);
@@ -44,6 +46,14 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.needEXP);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
+        });
+        _this.SkillButton.addEventListener('onClick', function (eventData) {
+            _this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(_this.skillUI);
+        });
+        _this.missionButton.addEventListener('onClick', function (eventData) {
+            _this.missionUI = new MissionUI(0, 0);
+            missionBoxContainer.addChild(_this.missionUI);
         });
         player.addEventListener('updateUserInfo', function (eventData) {
             // if (player.currentEXP >= player.needEXP) {
@@ -62,10 +72,6 @@ var UserInfoUI = /** @class */ (function (_super) {
             //     equipments += item.name.toString();
             // }
             // this.userEquipment.text = '装备: ' + equipments;
-        });
-        _this.SkillButton.addEventListener('onClick', function (eventData) {
-            _this.skillUI = new skillBoxUI(0, 0);
-            skillBoxContainer.addChild(_this.skillUI);
         });
         return _this;
         // console.log(player);
@@ -107,6 +113,24 @@ var MissionInfoUI = /** @class */ (function (_super) {
         }
     };
     return MissionInfoUI;
+}(DisplayObjectContainer));
+/**
+ * 任务界面UI
+ */
+var MissionUI = /** @class */ (function (_super) {
+    __extends(MissionUI, _super);
+    function MissionUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.MissionBackGround = new Bitmap(225, 25, missionImg);
+        _this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        _this.addChild(_this.MissionBackGround);
+        _this.addChild(_this.closeButton);
+        _this.closeButton.addEventListener('onClick', function () {
+            _this.deleteAll();
+        });
+        return _this;
+    }
+    return MissionUI;
 }(DisplayObjectContainer));
 /**
  * 背包UI
@@ -292,6 +316,8 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButtonGroup.push(_this.skillButton1);
         _this.skillButtonGroup.push(_this.skillButton2);
         _this.skillButtonGroup.push(_this.skillButton3);
+        _this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
+        _this.itemButton = new Bitmap(475, 420, battleItemImg);
         for (var i = 0; i < _this.player.skill.length; i++) {
             switch (player.skill[i].id) {
                 case 1:
@@ -323,6 +349,8 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.skillButton1);
         _this.addChild(_this.skillButton2);
         _this.addChild(_this.skillButton3);
+        _this.addChild(_this.escapeButton);
+        _this.addChild(_this.itemButton);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy, 0); //普通攻击ID为0
         });
@@ -338,6 +366,18 @@ var battleUI = /** @class */ (function (_super) {
             console.log(_this.skillIDGroup[2]);
             batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
         });
+        _this.escapeButton.addEventListener('onClick', function (eventData) {
+            var ran = Math.random() * 100;
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+                batManager.dispatchEvent("backSceneLose", null);
+            }
+            else {
+                batManager.dispatchEvent('playerDealDamage', 0);
+                batManager.fightOneTime(player, _this.enemy, 100); //此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
+            }
+        });
+        _this.itemButton.addEventListener('onClick', function (eventData) {
+        });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
         });
@@ -350,6 +390,12 @@ var battleUI = /** @class */ (function (_super) {
         });
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            if (damage == 0) {
+                textField = new TextField(_this.player.name + " 逃跑失败辣！", 0, _this.index * 20, 15);
+            }
+            else {
+                textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            }
             _this.enemyHpText.text = '' + _this.enemy.hp;
             _this.textGroup.addChild(textField);
             _this.index++;
@@ -383,6 +429,9 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
             _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
+            for (var i = 0; i < _this.skillButtonGroup.length; i++) {
+                _this.skillButtonGroup[i].deleteAllEventListener();
+            }
         });
         batManager.addEventListener('playerDie', function (eventData) {
             var textField = new TextField(_this.player.name + " 被 " + _this.enemy.name + " 打飞辣！", 0, _this.index * 20, 15);
@@ -390,6 +439,9 @@ var battleUI = /** @class */ (function (_super) {
             _this.index++;
             _this.indexJudge();
             _this.attackButton.deleteAllEventListener();
+            for (var i = 0; i < _this.skillButtonGroup.length; i++) {
+                _this.skillButtonGroup[i].deleteAllEventListener();
+            }
         });
         return _this;
     }
@@ -408,7 +460,7 @@ var battleEndWinUI = /** @class */ (function (_super) {
     __extends(battleEndWinUI, _super);
     function battleEndWinUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.dropTextGroup = new DisplayObjectContainer(400, 240);
+        _this.dropTextGroup = new DisplayObjectContainer(310, 270);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndBGImg);
         _this.backButton = new Bitmap(500, 353, backButtonImg);

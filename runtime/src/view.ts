@@ -11,13 +11,15 @@ class UserInfoUI extends DisplayObjectContainer {
     currentEXP: TextField;
     needEXP: TextField;
 
-    bagButton: Bitmap;
     EscButton: Bitmap;
+    bagButton: Bitmap;
     SkillButton: Bitmap;
+    missionButton: Bitmap;
     bloodUI: Bitmap;
     bloodUI2: Bitmap;
 
     skillUI: skillBoxUI;
+    missionUI: MissionUI;
 
 
 
@@ -31,6 +33,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bagButton = new Bitmap(750, 465, bagButton);
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
+        this.missionButton=new Bitmap(610,465,MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -45,6 +48,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.bagButton);
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
+        this.addChild(this.missionButton);
         this.addChild(this.bloodUI);
         this.addChild(this.bloodUI2);
         this.addChild(this.userCoin);
@@ -55,6 +59,18 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
         });
+
+        this.SkillButton.addEventListener('onClick', (eventData: any) => {
+            this.skillUI = new skillBoxUI(0, 0);
+            skillBoxContainer.addChild(this.skillUI);
+        });
+
+        this.missionButton.addEventListener('onClick', (eventData: any) => {
+            this.missionUI = new MissionUI(0, 0);
+            missionBoxContainer.addChild(this.missionUI);
+        });
+    
+
         player.addEventListener('updateUserInfo', (eventData: any) => {
             // if (player.currentEXP >= player.needEXP) {
             //     player.level++;
@@ -73,10 +89,8 @@ class UserInfoUI extends DisplayObjectContainer {
             // }
             // this.userEquipment.text = '装备: ' + equipments;
         });
-        this.SkillButton.addEventListener('onClick', (eventData: any) => {
-            this.skillUI = new skillBoxUI(0, 0);
-            skillBoxContainer.addChild(this.skillUI);
-        })
+        
+       
         // console.log(player);
     }
 }
@@ -118,6 +132,29 @@ class MissionInfoUI extends DisplayObjectContainer {
 }
 
 /**
+ * 任务界面UI
+ */
+
+class MissionUI extends DisplayObjectContainer {
+
+    MissionBackGround:Bitmap;
+    closeButton: Bitmap;
+    
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.MissionBackGround=new Bitmap(225, 25,missionImg);
+        this.closeButton = new Bitmap(215, 15, missionCloseImg);
+      
+        this.addChild(this.MissionBackGround);
+        this.addChild(this.closeButton);
+       
+        this.closeButton.addEventListener('onClick', () => {
+            this.deleteAll();
+        })
+    }
+}
+/**
  * 背包UI
  */
 class bagUI extends DisplayObjectContainer {
@@ -150,25 +187,25 @@ class bagUI extends DisplayObjectContainer {
     pageText: TextField;
     equipmentMultiInfoText: MultiTextField;
 
-    attackText : TextField;
-    criticalPerText : TextField;
-    charmText : TextField;
-    hpText : TextField;
-    mpText : TextField;
+    attackText: TextField;
+    criticalPerText: TextField;
+    charmText: TextField;
+    hpText: TextField;
+    mpText: TextField;
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
 
         this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
-        this.bagOnButton = new Bitmap(327,246,bagOnUI)
-        this.bagOffButton = new Bitmap(398,246,bagOffUI)
-        this.bagDownButton = new Bitmap(45,50,bagDownUI)
-        this.bagRightButton = new Bitmap(278,253,bagRightUI)
-        this.bagLeftButton = new Bitmap(183,253,bagLeftUI)
-        this.bagOtherButton = new Bitmap(73,252,bagOtherUI)
-        this.bagWeaponButton = new Bitmap(73,87,bagWeaponUI)
-        this.bagArmorButton = new Bitmap(73,142,bagArmorUI)
-        this.bagConsumableButton = new Bitmap(75,197,bagConsumableUI)
+        this.bagOnButton = new Bitmap(327, 246, bagOnUI)
+        this.bagOffButton = new Bitmap(398, 246, bagOffUI)
+        this.bagDownButton = new Bitmap(45, 50, bagDownUI)
+        this.bagRightButton = new Bitmap(278, 253, bagRightUI)
+        this.bagLeftButton = new Bitmap(183, 253, bagLeftUI)
+        this.bagOtherButton = new Bitmap(73, 252, bagOtherUI)
+        this.bagWeaponButton = new Bitmap(73, 87, bagWeaponUI)
+        this.bagArmorButton = new Bitmap(73, 142, bagArmorUI)
+        this.bagConsumableButton = new Bitmap(75, 197, bagConsumableUI)
         //装备栏
         this.weaponText = new TextField(player.mounthedEquipment[0].name, 128, 330, 15);
         this.clothText = new TextField(player.mounthedEquipment[1].name, 128, 358, 15);
@@ -177,23 +214,23 @@ class bagUI extends DisplayObjectContainer {
         this.phoneText = new TextField(player.mounthedEquipment[4].name, 332, 359, 15);
         this.shoesText = new TextField(player.mounthedEquipment[5].name, 332, 388, 15);
         //背包栏
-        this.equipment1Text = new TextField(baManager.getNowEquipment(0),174,84,15)
-        this.equipment2Text = new TextField(baManager.getNowEquipment(1),174,116,15)
-        this.equipment3Text = new TextField(baManager.getNowEquipment(2),174,149,15)
-        this.equipment4Text = new TextField(baManager.getNowEquipment(3),174,182,15)
-        this.equipment5Text = new TextField(baManager.getNowEquipment(4),174,215,15)
-        this.pageText = new TextField((baManager.nowPage+1).toString(),220,246,26)
+        this.equipment1Text = new TextField(baManager.getNowEquipment(0), 174, 84, 15)
+        this.equipment2Text = new TextField(baManager.getNowEquipment(1), 174, 116, 15)
+        this.equipment3Text = new TextField(baManager.getNowEquipment(2), 174, 149, 15)
+        this.equipment4Text = new TextField(baManager.getNowEquipment(3), 174, 182, 15)
+        this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15)
+        this.pageText = new TextField((baManager.nowPage + 1).toString(), 220, 246, 26)
         //装备信息栏
-        let str :Array<string> = ['名称：','品质:','部位：','加血：','攻击力：','暴击：'];
-        this.equipmentMultiInfoText =  new MultiTextField(str,327,125,12,5)
+        let str: Array<string> = ['名称：', '品质:', '部位：', '加血：', '攻击力：', '暴击：'];
+        this.equipmentMultiInfoText = new MultiTextField(str, 327, 125, 12, 5)
 
         //人物属性显示
         player.changeEquipments()
-        this.attackText = new TextField(player._attack.toString(),102,453,15)
-        this.criticalPerText = new TextField(player._criticalPer.toString(),183,453,15)
-        this.charmText = new TextField(player._charm.toString(),262,453,15)
-        this.hpText = new TextField(player._hp.toString(),336,453,15)
-        this.mpText = new TextField(player._mp.toString(),420,453,15)
+        this.attackText = new TextField(player._attack.toString(), 102, 453, 15)
+        this.criticalPerText = new TextField(player._criticalPer.toString(), 183, 453, 15)
+        this.charmText = new TextField(player._charm.toString(), 262, 453, 15)
+        this.hpText = new TextField(player._hp.toString(), 336, 453, 15)
+        this.mpText = new TextField(player._mp.toString(), 420, 453, 15)
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
@@ -266,22 +303,22 @@ class bagUI extends DisplayObjectContainer {
         this.equipment5Text.addEventListener("onClick", (eventData: any) => {
             this.changeEquipmentInfo(4)
         })
-        this.weaponText.addEventListener("onClick",(ecentData: any) => {
+        this.weaponText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(0)
         })
-        this.clothText.addEventListener("onClick",(ecentData: any) => {
+        this.clothText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(1)
         })
-        this.watchText.addEventListener("onClick",(ecentData: any) => {
+        this.watchText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(2)
         })
-        this.trousersText.addEventListener("onClick",(ecentData: any) => {
+        this.trousersText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(3)
         })
-        this.phoneText.addEventListener("onClick",(ecentData: any) => {
+        this.phoneText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(4)
         })
-        this.shoesText.addEventListener("onClick",(ecentData: any) => {
+        this.shoesText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(5)
         })
     }
@@ -289,12 +326,12 @@ class bagUI extends DisplayObjectContainer {
         if (baManager.nowEquipment) {
             baManager.changeNowEquipment(num)
             this.deleteChild(this.equipmentMultiInfoText)
-            let equipmentIfo :Array<string> = ['名称：'+baManager.nowEquipment.name,'品质：'+baManager.nowEquipment.quality,
-            '部位：'+baManager.nowEquipment.posID,'血量：+'+baManager.nowEquipment.health,
-            '攻击力：+'+baManager.nowEquipment.attack,'暴击：+'+baManager.nowEquipment.criticalPer+'%'];
-            this.equipmentMultiInfoText =  new MultiTextField(equipmentIfo,327,125,12,5)
+            let equipmentIfo: Array<string> = ['名称：' + baManager.nowEquipment.name, '品质：' + baManager.nowEquipment.quality,
+            '部位：' + baManager.nowEquipment.posID, '血量：+' + baManager.nowEquipment.health,
+            '攻击力：+' + baManager.nowEquipment.attack, '暴击：+' + baManager.nowEquipment.criticalPer + '%'];
+            this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
             this.addChild(this.equipmentMultiInfoText)
-            this.dispatchEvent('updateBag',player)
+            this.dispatchEvent('updateBag', player)
         }
     }
 
@@ -334,6 +371,9 @@ class battleUI extends DisplayObjectContainer {
     skillButtonGroup: Bitmap[] = [];
     skillIDGroup: number[] = [];
 
+    escapeButton: Bitmap;
+    itemButton: Bitmap;
+
     index = 0;
 
     constructor(x: number, y: number) {
@@ -353,6 +393,10 @@ class battleUI extends DisplayObjectContainer {
         this.skillButtonGroup.push(this.skillButton1);
         this.skillButtonGroup.push(this.skillButton2);
         this.skillButtonGroup.push(this.skillButton3);
+
+        this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
+        this.itemButton = new Bitmap(475, 420, battleItemImg);
+
         for (let i = 0; i < this.player.skill.length; i++) {
             switch (player.skill[i].id) {
                 case 1:
@@ -388,6 +432,8 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.skillButton2);
         this.addChild(this.skillButton3);
 
+        this.addChild(this.escapeButton);
+        this.addChild(this.itemButton);
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
@@ -405,11 +451,22 @@ class battleUI extends DisplayObjectContainer {
             batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
         })
 
-        batManager.addEventListener('playerBattleStart', (player: User) => {
-            this.player = player;
+        this.escapeButton.addEventListener('onClick', (eventData: any) => {
+            let ran = Math.random() * 100;
+            if (ran <= 50 + player._level - this.enemy.level) {//逃跑几率为50% + 人物等级 - 怪物等级
+                batManager.dispatchEvent("backSceneLose", null);
+            } else {
+                batManager.dispatchEvent('playerDealDamage', 0);
+                batManager.fightOneTime(player, this.enemy, 100);//此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
+            }
+        })
+        this.itemButton.addEventListener('onClick', (eventData: any) => {
 
         })
 
+        batManager.addEventListener('playerBattleStart', (player: User) => {
+            this.player = player;
+        })
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
             this.enemyNameText.text = enemy.name;
@@ -420,6 +477,12 @@ class battleUI extends DisplayObjectContainer {
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            if (damage == 0) {
+                textField = new TextField(this.player.name + " 逃跑失败辣！", 0, this.index * 20, 15);
+            } else {
+                textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
+            }
+
             this.enemyHpText.text = '' + this.enemy.hp;
             this.textGroup.addChild(textField);
             this.index++;
@@ -456,6 +519,9 @@ class battleUI extends DisplayObjectContainer {
             this.indexJudge();
 
             this.attackButton.deleteAllEventListener();
+            for (let i = 0; i < this.skillButtonGroup.length; i++) {
+                this.skillButtonGroup[i].deleteAllEventListener();
+            }
         })
 
 
@@ -466,6 +532,9 @@ class battleUI extends DisplayObjectContainer {
             this.indexJudge();
 
             this.attackButton.deleteAllEventListener();
+            for (let i = 0; i < this.skillButtonGroup.length; i++) {
+                this.skillButtonGroup[i].deleteAllEventListener();
+            }
         })
     }
 
@@ -484,12 +553,12 @@ class battleUI extends DisplayObjectContainer {
 class battleEndWinUI extends DisplayObjectContainer {
 
     backGround: Bitmap;
-    blackMask: Bitmap;
+    blackMask: Bitmap;  
     backButton: Bitmap;
 
     expText: TextField;
 
-    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(310, 270);
 
     constructor(x: number, y: number) {
         super(x, y);

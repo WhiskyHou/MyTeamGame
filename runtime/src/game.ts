@@ -75,7 +75,7 @@ battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG
 let battleAttackButton1 = new Image();
 battleAttackButton1.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 普通攻击.png';
 let battleEndBGImg = new Image();
-battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
+battleEndBGImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗结算ui 成功.png';
 let backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 let battleEndLoseBGImg = new Image();
@@ -86,6 +86,10 @@ let skillSabiImg = new Image();
 skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 let skillCaihuaImg = new Image();
 skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+let battleEscapeImg = new Image();
+battleEscapeImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 逃跑.png';
+let battleItemImg = new Image();
+battleItemImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品.png';
 
 let playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
@@ -96,6 +100,8 @@ var EscButton = new Image();
 EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
+var MissionButton = new Image();
+MissionButton.src = './assets/1 60x80 任务ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/ui血条1.png';
 var bloodUI2 = new Image();
@@ -126,6 +132,11 @@ let skillBoxBGImg = new Image();
 skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
 let skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+
+let missionImg = new Image();
+missionImg.src = './assets/UI 任务界面底.png';
+let missionCloseImg = new Image();
+missionCloseImg.src = './assets//UI 取消按钮.png';
 
 /**
  * 常量
@@ -463,6 +474,7 @@ var talkUIContainer: DisplayObjectContainer;
 let batteUIContainer: DisplayObjectContainer;
 let bagUIContainer: DisplayObjectContainer;
 let skillBoxContainer: DisplayObjectContainer;
+let missionBoxContainer: DisplayObjectContainer;
 
 /**
  * 游戏状态
@@ -501,7 +513,7 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
 
         skillBoxContainer = new DisplayObjectContainer(16, 16);
-
+        missionBoxContainer = new DisplayObjectContainer(16,16);
 
     }
 
@@ -512,6 +524,7 @@ class PlayingState extends State {
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
         stage.addChild(skillBoxContainer);
+        stage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
@@ -624,5 +637,5 @@ canvas.onclick = function (event) {
 
 
 // 初始状态设置
-// fsm.replaceState(new MenuState());
-fsm.replaceState(new LoadingState());
+fsm.replaceState(new CreateState());
+// fsm.replaceState(new LoadingState());

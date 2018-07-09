@@ -36,6 +36,7 @@ var User = /** @class */ (function (_super) {
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
+        _this._needEXP = 20;
         // 以下测试用
         var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
         var eq1 = new Equipment(2, '【毁天灭地】衣服', 3, 1, 3, 0, 0);
@@ -65,6 +66,7 @@ var User = /** @class */ (function (_super) {
         _this.skill.push(skillEmpty);
         _this.skill.push(skillSabi);
         _this.skill.push(skillCaihua);
+        _this.addEventListener('updateUserInfo', function () { return _this.calProperty(); });
         return _this;
     }
     Object.defineProperty(User.prototype, "level", {
@@ -221,6 +223,17 @@ var User = /** @class */ (function (_super) {
                 this.suitAttackPer += this.mounthedEquipment[i].suitAttackPer;
                 this._suitCriticalPer += this.mounthedEquipment[i].suitCriticalPer;
             }
+        }
+    };
+    User.prototype.calProperty = function () {
+        if (this._currentEXP >= this._needEXP) {
+            this._level += 1;
+            this._currentEXP = 0;
+            this._needEXP = Math.floor(20 * 1.2 * this._level);
+            this._originHealth += 2;
+            this._originAttack += 6;
+            this.changeEquipments();
+            console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
         }
     };
     // private _httpaaa: number
@@ -394,7 +407,7 @@ var Npc = /** @class */ (function () {
  */
 var Monster = /** @class */ (function (_super) {
     __extends(Monster, _super);
-    function Monster(id, name, hp, attack, exp, coin) {
+    function Monster(id, name, hp, attack, exp, coin, level) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
@@ -403,16 +416,18 @@ var Monster = /** @class */ (function (_super) {
         _this.dropTime = 3; //掉落次数
         _this.exp = 0;
         _this.coin = 0;
+        _this.level = 0;
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
         _this.attack = attack;
         _this.exp = exp;
         _this.coin = coin;
+        _this.level = level;
         return _this;
     }
     Monster.prototype.toString = function () {
-        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + "]";
+        return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + ", level:" + this.level + "]";
     };
     Monster.prototype.die = function () {
     };

@@ -5,6 +5,7 @@
 class MissionManager extends EventDispatcher {
     missions: Mission[] = []
 
+   
 
     constructor() {
         super();

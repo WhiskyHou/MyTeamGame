@@ -79,7 +79,7 @@ battlePanelInfo.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG
 var battleAttackButton1 = new Image();
 battleAttackButton1.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 普通攻击.png';
 var battleEndBGImg = new Image();
-battleEndBGImg.src = './assets/battlePanel/战斗结算ui.png';
+battleEndBGImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗结算ui 成功.png';
 var backButtonImg = new Image();
 backButtonImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/UI 战斗界面 返回.png';
 var battleEndLoseBGImg = new Image();
@@ -90,6 +90,10 @@ var skillSabiImg = new Image();
 skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 var skillCaihuaImg = new Image();
 skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+var battleEscapeImg = new Image();
+battleEscapeImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 逃跑.png';
+var battleItemImg = new Image();
+battleItemImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品.png';
 var playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var bagButton = new Image();
@@ -98,6 +102,8 @@ var EscButton = new Image();
 EscButton.src = './assets/1 60x80 设置ui.png';
 var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
+var MissionButton = new Image();
+MissionButton.src = './assets/1 60x80 任务ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/ui血条1.png';
 var bloodUI2 = new Image();
@@ -126,6 +132,10 @@ var skillBoxBGImg = new Image();
 skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
 var skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+var missionImg = new Image();
+missionImg.src = './assets/UI 任务界面底.png';
+var missionCloseImg = new Image();
+missionCloseImg.src = './assets//UI 取消按钮.png';
 /**
  * 常量
  *
@@ -402,6 +412,7 @@ var talkUIContainer;
 var batteUIContainer;
 var bagUIContainer;
 var skillBoxContainer;
+var missionBoxContainer;
 /**
  * 游戏状态
  */
@@ -422,6 +433,7 @@ var PlayingState = /** @class */ (function (_super) {
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(16, 16);
+        missionBoxContainer = new DisplayObjectContainer(16, 16);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
@@ -432,6 +444,7 @@ var PlayingState = /** @class */ (function (_super) {
         stage.addChild(this.missionUIContainer);
         stage.addChild(talkUIContainer);
         stage.addChild(skillBoxContainer);
+        stage.addChild(missionBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
@@ -524,5 +537,5 @@ canvas.onclick = function (event) {
     }
 };
 // 初始状态设置
-// fsm.replaceState(new MenuState());
-fsm.replaceState(new LoadingState());
+fsm.replaceState(new CreateState());
+// fsm.replaceState(new LoadingState());

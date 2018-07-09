@@ -133,7 +133,7 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-    monster: Monster = new Monster(0, "1", 3, 4, 5, 6);
+    monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7);
     monsterOriginHp: number;
 
     constructor(monster: Monster) {
@@ -167,7 +167,7 @@ class FightCommand extends Command {
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {
             batteUIContainer.deleteAll();
-            // this.monster.hp = this.monsterOriginHp;
+            this.monster.hp = this.monsterOriginHp;
         })
 
 
