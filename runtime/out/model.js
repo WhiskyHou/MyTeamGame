@@ -36,6 +36,7 @@ var User = /** @class */ (function (_super) {
         _this._suitDefensePer = 0;
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
+        _this._needEXP = 20;
         // 以下测试用
         var eq0 = new Equipment(1, '【毁天灭地】武器', 3, 0, 0, 3, 5);
         var eq1 = new Equipment(2, '【毁天灭地】衣服', 3, 1, 3, 0, 0);
@@ -65,6 +66,7 @@ var User = /** @class */ (function (_super) {
         _this.skill.push(skillEmpty);
         _this.skill.push(skillSabi);
         _this.skill.push(skillCaihua);
+        _this.addEventListener('updateUserInfo', function () { return _this.calProperty(); });
         return _this;
     }
     Object.defineProperty(User.prototype, "level", {
@@ -221,6 +223,17 @@ var User = /** @class */ (function (_super) {
                 this.suitAttackPer += this.mounthedEquipment[i].suitAttackPer;
                 this._suitCriticalPer += this.mounthedEquipment[i].suitCriticalPer;
             }
+        }
+    };
+    User.prototype.calProperty = function () {
+        if (this._currentEXP >= this._needEXP) {
+            this._level += 1;
+            this._currentEXP = 0;
+            this._needEXP = Math.floor(20 * 1.2 * this._level);
+            this._originHealth += 2;
+            this._originAttack += 6;
+            this.changeEquipments();
+            console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
         }
     };
     // private _httpaaa: number

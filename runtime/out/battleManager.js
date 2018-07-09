@@ -39,6 +39,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
+                this.expGetter(enemy);
             }
         }
         if (skillType == 1) {
@@ -51,14 +52,15 @@ var battleManager = /** @class */ (function (_super) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
-                player.currentEXP += enemy.exp;
-                player.coin += enemy.coin;
-                if (player.currentEXP >= player.needEXP) {
-                    player.level++;
-                    //TODO升级提升血量 攻击力
-                    player.currentEXP -= player.needEXP;
-                    player.needEXP = Math.floor(player.needEXP * 1.2);
-                }
+                //     player.currentEXP += enemy.exp;
+                //     player.coin += enemy.coin;
+                //     if (player.currentEXP >= player.needEXP) {
+                //         player.level++;
+                //         //TODO升级提升血量 攻击力
+                //         player.currentEXP -= player.needEXP;
+                //         player.needEXP = Math.floor(player.needEXP * 1.2);
+                //     }
+                this.expGetter(enemy);
             }
         }
         if (skillType == 3) {
@@ -70,6 +72,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
+                this.expGetter(enemy);
             }
         }
         if (enemy.hp > 0) {
@@ -92,6 +95,11 @@ var battleManager = /** @class */ (function (_super) {
     };
     battleManager.prototype.playerNormalDamage = function () {
         return this.damageFlow(player._attack * (1 + player.suitAttackPer));
+    };
+    battleManager.prototype.expGetter = function (enemy) {
+        player._currentEXP += enemy.exp;
+        console.log(player._currentEXP);
+        player.dispatchEvent('updateUserInfo', null);
     };
     return battleManager;
 }(EventDispatcher));
