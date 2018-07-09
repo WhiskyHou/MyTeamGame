@@ -133,7 +133,7 @@ var FightCommand = /** @class */ (function (_super) {
     __extends(FightCommand, _super);
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
-        _this.monster = new Monster(0, "1", 3, 4, 5, 6);
+        _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7);
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
         return _this;
@@ -159,7 +159,7 @@ var FightCommand = /** @class */ (function (_super) {
         });
         batManager.addEventListener('backSceneLose', function (eventData) {
             batteUIContainer.deleteAll();
-            // this.monster.hp = this.monsterOriginHp;
+            _this.monster.hp = _this.monsterOriginHp;
         });
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);

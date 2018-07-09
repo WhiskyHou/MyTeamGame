@@ -68,6 +68,7 @@ class User extends EventDispatcher {
         this.skill.push(skillEmpty);
         this.skill.push(skillSabi);
         this.skill.push(skillCaihua);
+        this.addEventListener('updateUserInfo', () => this.calProperty());
     }
 
     _level: number;
@@ -78,7 +79,7 @@ class User extends EventDispatcher {
         this._level = level;
         this.dispatchEvent('updateUserInfo', null);
     }
-    _needEXP: number;
+    _needEXP: number = 20;
     _currentEXP: number;
     get needEXP() {
         return this._needEXP;
@@ -230,7 +231,18 @@ class User extends EventDispatcher {
 
     }
 
+    calProperty() {
+        if (this._currentEXP >= this._needEXP) {
+            this._level += 1;
+            this._currentEXP = 0;
+            this._needEXP = Math.floor(20 * 1.2 * this._level);
+            this._originHealth += 2;
+            this._originAttack += 6;
+            this.changeEquipments();
+            console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
 
+        }
+    }
 
     // private _httpaaa: number
     // public get aaa(){
@@ -460,19 +472,21 @@ class Monster extends EventDispatcher {
     dropTime = 3;//掉落次数
     exp: number = 0;
     coin: number = 0;
+    level: number = 0;
 
-    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number) {
         super();
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.attack = attack;
         this.exp = exp;
-        this.coin = coin
+        this.coin = coin;
+        this.level = level;
     }
 
     toString() {
-        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}, coin:${this.coin}]`
+        return `[Monster ~ id:${this.id}, name:${this.name}, hp:${this.hp}, attack:${this.attack}, exp:${this.exp}, coin:${this.coin}, level:${this.level}]`
     }
 
     private die() {

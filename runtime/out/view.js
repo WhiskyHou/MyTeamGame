@@ -316,6 +316,8 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButtonGroup.push(_this.skillButton1);
         _this.skillButtonGroup.push(_this.skillButton2);
         _this.skillButtonGroup.push(_this.skillButton3);
+        _this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
+        _this.itemButton = new Bitmap(475, 420, battleItemImg);
         for (var i = 0; i < _this.player.skill.length; i++) {
             switch (player.skill[i].id) {
                 case 1:
@@ -347,6 +349,8 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.skillButton1);
         _this.addChild(_this.skillButton2);
         _this.addChild(_this.skillButton3);
+        _this.addChild(_this.escapeButton);
+        _this.addChild(_this.itemButton);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy, 0); //普通攻击ID为0
         });
@@ -362,6 +366,18 @@ var battleUI = /** @class */ (function (_super) {
             console.log(_this.skillIDGroup[2]);
             batManager.fightOneTime(player, _this.enemy, _this.skillIDGroup[2]);
         });
+        _this.escapeButton.addEventListener('onClick', function (eventData) {
+            var ran = Math.random() * 100;
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+                batManager.dispatchEvent("backSceneLose", null);
+            }
+            else {
+                batManager.dispatchEvent('playerDealDamage', 0);
+                batManager.fightOneTime(player, _this.enemy, 100); //此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
+            }
+        });
+        _this.itemButton.addEventListener('onClick', function (eventData) {
+        });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
         });
@@ -374,6 +390,12 @@ var battleUI = /** @class */ (function (_super) {
         });
         batManager.addEventListener('playerDealDamage', function (damage) {
             var textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            if (damage == 0) {
+                textField = new TextField(_this.player.name + " 逃跑失败辣！", 0, _this.index * 20, 15);
+            }
+            else {
+                textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
+            }
             _this.enemyHpText.text = '' + _this.enemy.hp;
             _this.textGroup.addChild(textField);
             _this.index++;
@@ -438,7 +460,7 @@ var battleEndWinUI = /** @class */ (function (_super) {
     __extends(battleEndWinUI, _super);
     function battleEndWinUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.dropTextGroup = new DisplayObjectContainer(400, 240);
+        _this.dropTextGroup = new DisplayObjectContainer(310, 270);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndBGImg);
         _this.backButton = new Bitmap(500, 353, backButtonImg);
