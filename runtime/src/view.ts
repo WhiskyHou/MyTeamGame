@@ -495,7 +495,7 @@ class battleEndWinUI extends DisplayObjectContainer {
 
     expText: TextField;
 
-    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(400, 240);
+    dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(310, 270);
 
     constructor(x: number, y: number) {
         super(x, y);
