@@ -82,10 +82,20 @@ let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 let skillEmptyImg = new Image();
 skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+
 let skillSabiImg = new Image();
-skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+skillSabiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 let skillCaihuaImg = new Image();
-skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+skillCaihuaImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+let skillBusiImg = new Image();
+skillBusiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 不死.png';
+let skillGuolaiImg = new Image();
+skillGuolaiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 过来.png';
+let skillQishangImg = new Image();
+skillQishangImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 七伤.png';
+let skillXixingImg = new Image();
+skillXixingImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 吸星.png';
+
 let battleEscapeImg = new Image();
 battleEscapeImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 逃跑.png';
 let battleItemImg = new Image();
@@ -129,9 +139,25 @@ var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 
 let skillBoxBGImg = new Image();
-skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+skillBoxBGImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能界面底.png';
 let skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+
+let skillSabiDesImg = new Image();
+skillSabiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 撒币大法.png';
+let skillCaihuaDesImg = new Image();
+skillCaihuaDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 菜花宝典.png';
+let skillBusiDesImg = new Image();
+skillBusiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 英雄不死.png';
+let skillGuolaiDesImg = new Image();
+skillGuolaiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 你过来啊.png';
+let skillQishangDesImg = new Image();
+skillQishangDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 七伤拳.png';
+let skillXixingDesImg = new Image();
+skillXixingDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 吸星大法.png';
+let skillEmptyDesImg = new Image();
+skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
+
 
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
@@ -195,18 +221,31 @@ npcManager.init(() => {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
-let skillAttack = new Skill(0, '攻击');//攻击预留
-skillAttack.description = '没有技能';
+let skillAttack = new Skill(0, '攻击', 0);//攻击预留
+skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
-let skillEmpty = new Skill(1, '空');//空
-skillEmpty.description = '没有技能';
+let skillEmpty = new Skill(1, '空', 0);//空
+skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
-let skillSabi = new Skill(2, '撒币');
-skillSabi.description = '撒币150%伤害';
-skillArray.push(skillSabi);
-let skillCaihua = new Skill(3, '菜花');
-skillCaihua.description = '菜花80%伤害吸血';
+let skillCaihua = new Skill(2, '菜花宝典', 30);
+skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
 skillArray.push(skillCaihua);
+let skillSabi = new Skill(3, '撒币大法', 20);
+skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
+skillArray.push(skillSabi);
+let skillBusi = new Skill(4, '英雄不死', 40);
+skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
+skillArray.push(skillBusi);
+let skillGuolai = new Skill(5, '你过来啊', 65);
+skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
+skillArray.push(skillGuolai);
+let skillQishang = new Skill(6, '七伤拳', 50);
+skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
+skillArray.push(skillQishang);
+let skillXixing = new Skill(7, '吸星大法', 45);
+skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
+skillArray.push(skillXixing);
+
 
 /**
  * 载入状态
@@ -356,35 +395,35 @@ class CreateState extends State {
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player._hp += 5;
+                player._originHealth += 5;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player._hp;
+            this.playerHpText.text = "" + player._originHealth;
         });
         this.hpMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._hp > 60) {
-                player._hp -= 5;
+            if (this.canAssignPoint < 5 && player._originHealth > 60) {
+                player._originHealth -= 5;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerHpText.text = "" + player._hp;
+            this.playerHpText.text = "" + player._originHealth;
         });
         this.attackAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
-                player._attack += 1;
+                player._originAttack += 1;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerAttackText.text = "" + player._attack;
+            this.playerAttackText.text = "" + player._originAttack;
         });
         this.attackMinusButton.addEventListener("onClick", () => {
             if (this.canAssignPoint < 5 && player._attack > 10) {
-                player._attack -= 1;
+                player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
-            this.playerAttackText.text = "" + player._attack;
+            this.playerAttackText.text = "" + player._originAttack;
         });
     }
 
@@ -491,8 +530,6 @@ class PlayingState extends State {
     battleUI: battleUI;
     baggUI: bagUI;
 
-
-
     constructor() {
         super();
 
@@ -513,7 +550,7 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
 
         skillBoxContainer = new DisplayObjectContainer(16, 16);
-        missionBoxContainer = new DisplayObjectContainer(16,16);
+        missionBoxContainer = new DisplayObjectContainer(16, 16);
 
     }
 

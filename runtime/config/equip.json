@@ -2,170 +2,171 @@
 	"equip": [
 		{
 			"id": "0",
-			"name": "橙色·啊啊之剑",
-			"quality": "5",
+			"name": "犬牙",
+			"quality": "1",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "3",
+			"criticalPer": "0",
+			"charm": "0"
 		},
 		{
 			"id": "1",
-			"name": "橙色·你马之剑",
-			"quality": "5",
+			"name": "大狗牙",
+			"quality": "1",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "7",
+			"criticalPer": "5"
 		},
 		{
 			"id": "2",
-			"name": "橙色·xx之剑",
-			"quality": "5",
+			"name": "扫把",
+			"quality": "2",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "12",
+			"criticalPer": "10"
 		},
 		{
 			"id": "3",
-			"name": "紫色·few之剑",
-			"quality": "4",
+			"name": "肥宅的游戏机",
+			"quality": "3",
 			"posID": "0",
 			"health": "0",
 			"attack": "1000",
-			"criticalPer": "20"
+			"criticalPer": "15"
 		},
 		{
 			"id": "4",
-			"name": "紫色·fexwf之剑",
+			"name": "真·肉包子",
 			"quality": "4",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
+			"attack": "30",
 			"criticalPer": "20"
 		},
 		{
 			"id": "5",
-			"name": "紫色·啊dqd啊之剑",
-			"quality": "4",
+			"name": "迷你甩棍",
+			"quality": "5",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
+			"attack": "30",
 			"criticalPer": "20"
 		},
 		{
 			"id": "6",
-			"name": "蓝色·feffqw之剑",
-			"quality": "3",
+			"name": "真·金砖",
+			"quality": "5",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "50",
+			"criticalPer": "30"
 		},
 		{
 			"id": "7",
-			"name": "蓝色·fe1231xwf之剑",
-			"quality": "3",
+			"name": "石头",
+			"quality": "1",
 			"posID": "0",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "5",
+			"criticalPer": "0"
 		},
 		{
 			"id": "8",
-			"name": "蓝色·啊dqd啊之剑",
-			"quality": "3",
-			"posID": "0",
-			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"name": "时尚狗装（上）",
+			"quality": "1",
+			"posID": "1",
+			"health": "6",
+			"attack": "0",
+			"criticalPer": "0"
 		},
 		{
 			"id": "9",
-			"name": "绿色·feffqw之剑",
-			"quality": "2",
-			"posID": "0",
-			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"name": "时尚狗装（下）",
+			"quality": "1",
+			"posID": "3",
+			"health": "5",
+			"attack": "0",
+			"criticalPer": "0"
 		},
 		{
 			"id": "10",
-			"name": "绿色·fe1231xwf之剑",
+			"name": "时尚狗鞋",
 			"quality": "2",
-			"posID": "0",
+			"posID": "5",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "12",
+			"criticalPer": "0"
 		},
 		{
 			"id": "11",
-			"name": "绿色·啊dqd啊之剑",
-			"quality": "2",
-			"posID": "0",
+			"name": "宠物项圈",
+			"quality": "1",
+			"posID": "2",
 			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"attack": "5",
+			"criticalPer": "0"
 		},
 		{
 			"id": "12",
-			"name": "白色·feffqw之剑",
-			"quality": "1",
-			"posID": "0",
-			"health": "0",
-			"attack": "1000",
-			"criticalPer": "20"
+			"name": "宠物定位器",
+			"quality": "2",
+			"posID": "4",
+			"health": "10",
+			"attack": "0",
+			"criticalPer": "0"
 		},
 		{
 			"id": "13",
-			"name": "白色·fe1231xwf之剑",
-			"quality": "1",
-			"posID": "0",
-			"health": "0",
-			"attack": "1000",
+			"name": "丑男的T恤",
+			"quality": "3",
+			"posID": "1",
+			"health": "16",
+			"attack": "0",
 			"criticalPer": "20"
 		},
 		{
 			"id": "14",
-			"name": "白色·啊dqd啊之剑",
-			"quality": "1",
-			"posID": "0",
-			"health": "0",
-			"attack": "1000",
+			"name": "儿童手表",
+			"quality": "2",
+			"posID": "2",
+			"health": "10",
+			"attack": "0",
 			"criticalPer": "20"
 		},
 		{
 			"id": "15",
-			"name": "五级头",
-			"quality": "5",
-			"posID": "1",
-			"health": "1000",
+			"name": "大哥大",
+			"quality": "2",
+			"posID": "4",
+			"health": "12",
 			"attack": "0",
-			"criticalPer": "0"
+			"criticalPer": "30"
 		},
 		{
 			"id": "16",
-			"name": "橙色·【灭世绝魂】头盔",
-			"quality": "5",
+			"name": "大背心",
+			"quality": "3",
 			"posID": "1",
-			"health": "800",
+			"health": "12",
 			"attack": "0",
-			"criticalPer": "0"
+			"criticalPer": "30"
 		},
 		{
 			"id": "17",
-			"name": "橙色·【灭世绝魂】护肩",
-			"quality": "5",
-			"posID": "2",
-			"health": "800",
+			"name": "人字拖",
+			"quality": "3",
+			"posID": "25",
+			"health": "16",
 			"attack": "0",
-			"criticalPer": "0"
+			"criticalPer": "30"
 		},
 		{
 			"id": "18",
-			"name": "橙色·【灭世绝魂】战甲",
-			"quality": "5",
+			"name": "宽大的休闲裤",
+			"quality": "3",
 			"posID": "3",
 			"health": "800",
 			"attack": "0",
@@ -173,21 +174,129 @@
 		},
 		{
 			"id": "19",
-			"name": "橙色·【灭世绝魂】护腕",
-			"quality": "5",
-			"posID": "4",
+			"name": "女款手表",
+			"quality": "3",
+			"posID": "2",
 			"health": "800",
 			"attack": "0",
 			"criticalPer": "0"
 		},
 		{
 			"id": "20",
-			"name": "橙色·【灭世绝魂】腿甲",
+			"name": "诺基亚",
+			"quality": "3",
+			"posID": "4",
+			"health": "15",
+			"attack": "0",
+			"criticalPer": "30"
+		},
+		{
+			"id": "21",
+			"name": "智能手机",
+			"quality": "4",
+			"posID": "4",
+			"health": "22",
+			"attack": "0",
+			"criticalPer": "50"
+		},
+		{
+			"id": "22",
+			"name": "黑色风衣",
+			"quality": "4",
+			"posID": "1",
+			"health": "24",
+			"attack": "0",
+			"criticalPer": "50"
+		},
+		{
+			"id": "23",
+			"name": "运动鞋",
+			"quality": "4",
+			"posID": "5",
+			"health": "23",
+			"attack": "0",
+			"criticalPer": "50"
+		},
+		{
+			"id": "24",
+			"name": "机械手表",
+			"quality": "4",
+			"posID": "2",
+			"health": "21",
+			"attack": "0",
+			"criticalPer": "50"
+		},
+		{
+			"id": "25",
+			"name": "破洞牛仔裤",
+			"quality": "4",
+			"posID": "3",
+			"health": "22",
+			"attack": "0",
+			"criticalPer": "50"
+		},
+		{
+			"id": "26",
+			"name": "朋克上衣",
+			"quality": "4",
+			"posID": "1",
+			"health": "30",
+			"attack": "0",
+			"criticalPer": "60"
+		},
+		{
+			"id": "27",
+			"name": "最强跑鞋",
 			"quality": "5",
 			"posID": "5",
-			"health": "800",
+			"health": "38",
 			"attack": "0",
-			"criticalPer": "0"
+			"criticalPer": "80"
+		},
+		{
+			"id": "28",
+			"name": "【套】高级西服",
+			"quality": "5",
+			"posID": "1",
+			"health": "40",
+			"attack": "0",
+			"criticalPer": "100"
+		},
+		{
+			"id": "29",
+			"name": "【套】高级西裤",
+			"quality": "5",
+			"posID": "3",
+			"health": "40",
+			"attack": "0",
+			"criticalPer": "100"
+		},
+		{
+			"id": "30",
+			"name": "【套】高级手表",
+			"quality": "5",
+			"posID": "2",
+			"health": "40",
+			"attack": "0",
+			"criticalPer": "100"
+		},
+		{
+			"id": "31",
+			"name": "【套】高级手机",
+			"quality": "5",
+			"posID": "4",
+			"health": "40",
+			"attack": "0",
+			"criticalPer": "100"
+		},
+		{
+			"id": "32",
+			"name": "【套】高级皮鞋",
+			"quality": "5",
+			"posID": "5",
+			"health": "40",
+			"attack": "0",
+			"criticalPer": "100"
 		}
 	]
 }

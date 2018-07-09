@@ -33,7 +33,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bagButton = new Bitmap(750, 465, bagButton);
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
-        this.missionButton=new Bitmap(610,465,MissionButton);
+        this.missionButton = new Bitmap(610, 465, MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -69,7 +69,7 @@ class UserInfoUI extends DisplayObjectContainer {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
         });
-    
+
 
         player.addEventListener('updateUserInfo', (eventData: any) => {
             // if (player.currentEXP >= player.needEXP) {
@@ -89,8 +89,8 @@ class UserInfoUI extends DisplayObjectContainer {
             // }
             // this.userEquipment.text = '装备: ' + equipments;
         });
-        
-       
+
+
         // console.log(player);
     }
 }
@@ -137,18 +137,18 @@ class MissionInfoUI extends DisplayObjectContainer {
 
 class MissionUI extends DisplayObjectContainer {
 
-    MissionBackGround:Bitmap;
+    MissionBackGround: Bitmap;
     closeButton: Bitmap;
-    
+
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.MissionBackGround=new Bitmap(225, 25,missionImg);
+        this.MissionBackGround = new Bitmap(225, 25, missionImg);
         this.closeButton = new Bitmap(215, 15, missionCloseImg);
-      
+
         this.addChild(this.MissionBackGround);
         this.addChild(this.closeButton);
-       
+
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
         })
@@ -344,6 +344,7 @@ class bagUI extends DisplayObjectContainer {
     }
 
 }
+
 /**
  * 战斗UI
  */
@@ -369,8 +370,9 @@ class battleUI extends DisplayObjectContainer {
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
     playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
-    playerHpText = new TextField("" + player._hp, 175, 250, 20);
-    enemyHpText = new TextField("", 410, 250, 20);
+    playerHpText = new TextField("" + player._hp + " / " + this.player.maxHP, 175, 273, 20);
+    playerMpText = new TextField("" + this.player._mp + " / " + this.player.maxMp, 173, 313, 20);
+    enemyHpText = new TextField("", 410, 273, 20);
 
     //技能按钮
     skillButton1: Bitmap;
@@ -412,11 +414,27 @@ class battleUI extends DisplayObjectContainer {
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 2:
-                    this.skillButtonGroup[i].img = skillSabiImg;
+                    this.skillButtonGroup[i].img = skillCaihuaImg;
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
                 case 3:
-                    this.skillButtonGroup[i].img = skillCaihuaImg;
+                    this.skillButtonGroup[i].img = skillSabiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 4:
+                    this.skillButtonGroup[i].img = skillBusiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 5:
+                    this.skillButtonGroup[i].img = skillGuolaiImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 6:
+                    this.skillButtonGroup[i].img = skillQishangImg;
+                    this.skillIDGroup[i] = player.skill[i].id;
+                    break;
+                case 7:
+                    this.skillButtonGroup[i].img = skillXixingImg;
                     this.skillIDGroup[i] = player.skill[i].id;
                     break;
             }
@@ -434,6 +452,7 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.playerCriText);
         this.addChild(this.playerHpText);
         this.addChild(this.enemyHpText);
+        this.addChild(this.playerMpText);
         this.addChild(this.playerImg);
 
         this.addChild(this.skillButton1);
@@ -448,19 +467,45 @@ class battleUI extends DisplayObjectContainer {
         })
         this.skillButton1.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[0]);
-            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
+            if (player._mp > player.skill[0].mp) {
+                player._mp -= player.skill[0].mp;
+                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                batManager.fightOneTime(player, this.enemy, this.skillIDGroup[0]);
+            } else {
+                let textField = new TextField("当前MP值不足以施放 " + player.skill[0].name, 0, this.index * 20, 15);
+                this.textGroup.addChild(textField);
+                this.index++;
+            }
         })
         this.skillButton2.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[1]);
-            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
+            if (player._mp > player.skill[1].mp) {
+                player._mp -= player.skill[1].mp;
+                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                batManager.fightOneTime(player, this.enemy, this.skillIDGroup[1]);
+            } else {
+                let textField = new TextField("当前MP值不足以施放 " + player.skill[1].name, 0, this.index * 20, 15);
+                this.textGroup.addChild(textField);
+                this.index++;
+            }
         })
         this.skillButton3.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[2]);
-            batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
+            if (player._mp > player.skill[2].mp) {
+                player._mp -= player.skill[2].mp;
+                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                batManager.fightOneTime(player, this.enemy, this.skillIDGroup[2]);
+            } else {
+                let textField = new TextField("当前MP值不足以施放 " + player.skill[2].name, 0, this.index * 20, 15);
+                this.textGroup.addChild(textField);
+                this.index++;
+            }
         })
 
         this.escapeButton.addEventListener('onClick', (eventData: any) => {
             let ran = Math.random() * 100;
+            console.log(ran);
+
             if (ran <= 50 + player._level - this.enemy.level) {//逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             } else {
@@ -469,7 +514,7 @@ class battleUI extends DisplayObjectContainer {
             }
         })
         this.itemButton.addEventListener('onClick', (eventData: any) => {
-
+            console.log('弹出消耗品界面！');
         })
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
@@ -482,6 +527,10 @@ class battleUI extends DisplayObjectContainer {
             this.enemyHpText.text = '' + enemy.hp;
             this.addChild(this.enemyImg);
         })
+
+        // batManager.addEventListener('playerHpUpdate', () => {
+        //     this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
+        // })
 
         batManager.addEventListener('playerDealDamage', (damage: number) => {
             let textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
@@ -500,14 +549,14 @@ class battleUI extends DisplayObjectContainer {
             let textField = new TextField("", 0, this.index * 20, 15);
             if (damage > 0) {
                 textField = new TextField(this.enemy.name + " 对 " + this.player.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
-            } else {
+            } else if (damage < 0) {
                 textField.text = this.player.name + " 吸了 " + -damage + " 点血！";
             }
 
             if (player._hp <= 0) {
-                this.playerHpText.text = "0";
+                this.playerHpText.text = "0" + " / " + this.player.maxHP;
             } else {
-                this.playerHpText.text = "" + player._hp;
+                this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
             }
 
             this.textGroup.addChild(textField);
@@ -531,7 +580,6 @@ class battleUI extends DisplayObjectContainer {
                 this.skillButtonGroup[i].deleteAllEventListener();
             }
         })
-
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             let textField = new TextField(this.player.name + " 被 " + this.enemy.name + " 打飞辣！", 0, this.index * 20, 15);
@@ -561,7 +609,7 @@ class battleUI extends DisplayObjectContainer {
 class battleEndWinUI extends DisplayObjectContainer {
 
     backGround: Bitmap;
-    blackMask: Bitmap;  
+    blackMask: Bitmap;
     backButton: Bitmap;
 
     expText: TextField;
@@ -638,36 +686,123 @@ class skillBoxUI extends DisplayObjectContainer {
     skillText: TextField;
     skillTextGroup: DisplayObjectContainer;
 
-    descriptionText: TextField;
+    descriptionText: Bitmap;
 
+    mountedSkillText: TextField;
+    mountedSkillGroup: DisplayObjectContainer;
 
+    skillOnButton: Bitmap;
+    skillOffButton: Bitmap;
+
+    choosingSkillArrayNo: number = 0;
+    choosingMountedSkillArrayNo: number = 0;
+
+    nowChoice = 0;//1为技能栏中技能被选中，2为已装备技能被选中。
 
     constructor(x: number, y: number) {
         super(x, y);
 
         this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
-        this.skillTextGroup = new DisplayObjectContainer(395, 20);
+        this.skillTextGroup = new DisplayObjectContainer(375, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
-        this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
+        this.descriptionText = new Bitmap(508, 100, skillEmptyDesImg);
+        this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
+        this.skillOnButton = new Bitmap(510, 290, bagOnUI);
+        this.skillOffButton = new Bitmap(582, 290, bagOffUI);
 
         this.addChild(this.backGround);
         this.addChild(this.closeButton);
         this.addChild(this.skillTextGroup);
         this.addChild(this.descriptionText);
+        this.addChild(this.mountedSkillGroup);
+        this.addChild(this.skillOnButton);
+        this.addChild(this.skillOffButton);
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
         })
 
+        this.skillOnButton.addEventListener('onClick', () => {
+            if (this.nowChoice == 1) {
+                for (let i = 0; i < skillArray.length; i++) {
+                    if (this.choosingSkillArrayNo == skillArray[i].id) {
+                        for (let b = 0; b < player.skill.length; b++) {
+                            if (player.skill[b].id == 1) {
+                                player.skill.splice(b, 1, skillArray[i]);
+                                skillArray.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+                this.skillButtonUpdate();
+                this.mountedSkillUpdate();
+            }
+        })
+
+        this.skillOffButton.addEventListener('onClick', () => {
+            if (this.nowChoice == 2) {
+                for (let i = 0; i < player.skill.length; i++) {
+                    if (this.choosingMountedSkillArrayNo == player.skill[i].id) {
+                        if (player.skill[i].id != 1) {
+                            skillArray.push(player.skill[i]);
+                            player.skill.splice(i, 1);
+                            if (player.skill.length < 3) {
+                                player.skill.push(skillEmpty);
+                            }
+                        }
+                    }
+                }
+                this.skillButtonUpdate();
+                this.mountedSkillUpdate();
+            }
+
+        })
+
+        this.skillButtonUpdate();
+        this.mountedSkillUpdate();
+
+
+    }
+
+    skillButtonUpdate() {
+        this.skillTextGroup.deleteAll();
         for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
             this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this.skillText.addEventListener('onClick', () => {
-                this.descriptionText.text = skillArray[i].description;
+                this.nowChoice = 1;
+                this.descriptionText.img = skillArray[i].description.img;
+                this.choosingSkillArrayNo = skillArray[i].id;
+                console.log(this.choosingSkillArrayNo);
             })
             this.skillTextGroup.addChild(this.skillText);
         }
     }
+
+    mountedSkillUpdate() {
+        this.mountedSkillGroup.deleteAll();
+        for (let i = 0; i < player.skill.length; i++) {
+
+            this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
+            this.mountedSkillText.addEventListener('onClick', () => {
+                this.nowChoice = 2;
+                this.descriptionText.img = player.skill[i].description.img;
+                this.choosingMountedSkillArrayNo = player.skill[i].id;
+                console.log(this.choosingMountedSkillArrayNo);
+            })
+            this.mountedSkillGroup.addChild(this.mountedSkillText);
+        }
+    }
+
+    // returnSkillNo(id: number) {
+    //     for (let i = 0; i < skillArray.length; i++) {
+    //         if (id == skillArray[i].id) {
+    //             return i;
+    //         }
+    //     }
+    //     return 1;
+    // }
 }
 
 /**

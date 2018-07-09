@@ -15,22 +15,22 @@ class User extends EventDispatcher {
 
     public name: string;
     public diamond: number = 0;
-    private _originAttack = 10;
-    private _originHealth = 60;
+    _originAttack = 10;
+    _originHealth = 60;
+    _originMp = 110;
+    maxHP = this._originHealth;
+    maxMp = this._originMp;
 
     mounthedEquipment: Equipment[] = [];//已装备的装备
     packageEquipment: Equipment[] = [];//背包中的装备
 
     skill: Skill[] = [];
 
-    // skill: Skill[] = [];
-
-
     _attack = this._originAttack;
     _hp = this._originHealth
     _criticalPer = 0;
     _charm = 0;
-    _mp = 0;
+    _mp = this._originMp;
 
     _suitDefensePer = 0;
     suitAttackPer = 0;
@@ -66,8 +66,9 @@ class User extends EventDispatcher {
 
         //以下测试技能用
         this.skill.push(skillEmpty);
-        this.skill.push(skillSabi);
-        this.skill.push(skillCaihua);
+        this.skill.push(skillEmpty);
+        this.skill.push(skillEmpty);
+
         this.addEventListener('updateUserInfo', () => this.calProperty());
     }
 
@@ -178,14 +179,17 @@ class User extends EventDispatcher {
 
     //---------------------------------------------------------------
 
-
     public changeEquipments() {
+        // let currentHp = this._hp;
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
             this._hp += this.mounthedEquipment[i].health;
+            // currentHp += this.mounthedEquipment[i].health;
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
+        this.maxHP = this._hp;
+        // this._hp = currentHp;
         this.dispatchEvent("changeEquips", null);
         // this.checkSuit();
     }
@@ -238,9 +242,12 @@ class User extends EventDispatcher {
             this._needEXP = Math.floor(20 * 1.2 * this._level);
             this._originHealth += 2;
             this._originAttack += 6;
+            this._originMp += 10;
+            this._mp = this._originMp;
+            this.maxMp = this._originMp;
+            this.maxHP = this._originHealth;
             this.changeEquipments();
             console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
-
         }
     }
 
@@ -614,12 +621,23 @@ function equipSetInit(equipManager: EquipmentManager) {
 class Skill {
 
     id: number;
-    name: string;
-    description: string;
+    name: string = '[空]';
+    description: Bitmap;
+    // desImg: Bitmap;
     buttonView: Bitmap;
+    mp: number
 
-    constructor(id: number, name: string) {
+    constructor(id: number, name: string, mp: number) {
         this.id = id;
         this.name = name;
+        this.mp = mp;
+    }
+
+    searchSkillByID(id: number) {
+        for (let i = 0; i < skillArray.length; i++) {
+            if (id == skillArray[i].id) {
+                return skillArray[i];
+            }
+        }
     }
 }

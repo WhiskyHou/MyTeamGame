@@ -87,9 +87,17 @@ battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 var skillEmptyImg = new Image();
 skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
 var skillSabiImg = new Image();
-skillSabiImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
+skillSabiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 var skillCaihuaImg = new Image();
-skillCaihuaImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+skillCaihuaImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 菜花.png';
+var skillBusiImg = new Image();
+skillBusiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 不死.png';
+var skillGuolaiImg = new Image();
+skillGuolaiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 过来.png';
+var skillQishangImg = new Image();
+skillQishangImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 七伤.png';
+var skillXixingImg = new Image();
+skillXixingImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 吸星.png';
 var battleEscapeImg = new Image();
 battleEscapeImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 逃跑.png';
 var battleItemImg = new Image();
@@ -129,9 +137,23 @@ bagArmorUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 防
 var bagConsumableUI = new Image();
 bagConsumableUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包 消耗品.png';
 var skillBoxBGImg = new Image();
-skillBoxBGImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 技能界面底.png';
+skillBoxBGImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能界面底.png';
 var skillBoxCloseImg = new Image();
 skillBoxCloseImg.src = './assets/美术素材/UI/技能界面/UI 技能 PNG/UI 取消按钮.png';
+var skillSabiDesImg = new Image();
+skillSabiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 撒币大法.png';
+var skillCaihuaDesImg = new Image();
+skillCaihuaDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 菜花宝典.png';
+var skillBusiDesImg = new Image();
+skillBusiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 英雄不死.png';
+var skillGuolaiDesImg = new Image();
+skillGuolaiDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 你过来啊.png';
+var skillQishangDesImg = new Image();
+skillQishangDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 七伤拳.png';
+var skillXixingDesImg = new Image();
+skillXixingDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能介绍 吸星大法.png';
+var skillEmptyDesImg = new Image();
+skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
 var missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 var missionCloseImg = new Image();
@@ -183,18 +205,31 @@ npcManager.init(function () {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
-var skillAttack = new Skill(0, '攻击'); //攻击预留
-skillAttack.description = '没有技能';
+var skillAttack = new Skill(0, '攻击', 0); //攻击预留
+skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
-var skillEmpty = new Skill(1, '空'); //空
-skillEmpty.description = '没有技能';
+var skillEmpty = new Skill(1, '空', 0); //空
+skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
-var skillSabi = new Skill(2, '撒币');
-skillSabi.description = '撒币150%伤害';
-skillArray.push(skillSabi);
-var skillCaihua = new Skill(3, '菜花');
-skillCaihua.description = '菜花80%伤害吸血';
+var skillCaihua = new Skill(2, '菜花宝典', 30);
+skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
 skillArray.push(skillCaihua);
+var skillSabi = new Skill(3, '撒币大法', 20);
+skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
+skillArray.push(skillSabi);
+var skillBusi = new Skill(4, '英雄不死', 40);
+skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
+skillArray.push(skillBusi);
+var skillGuolai = new Skill(5, '你过来啊', 65);
+skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
+skillArray.push(skillGuolai);
+var skillQishang = new Skill(6, '七伤拳', 50);
+skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
+skillArray.push(skillQishang);
+var skillXixing = new Skill(7, '吸星大法', 45);
+skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
+;
+skillArray.push(skillXixing);
 /**
  * 载入状态
  */
@@ -311,35 +346,35 @@ var CreateState = /** @class */ (function (_super) {
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
-                player._hp += 5;
+                player._originHealth += 5;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerHpText.text = "" + player._hp;
+            _this.playerHpText.text = "" + player._originHealth;
         });
         _this.hpMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._hp > 60) {
-                player._hp -= 5;
+            if (_this.canAssignPoint < 5 && player._originHealth > 60) {
+                player._originHealth -= 5;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerHpText.text = "" + player._hp;
+            _this.playerHpText.text = "" + player._originHealth;
         });
         _this.attackAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
-                player._attack += 1;
+                player._originAttack += 1;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerAttackText.text = "" + player._attack;
+            _this.playerAttackText.text = "" + player._originAttack;
         });
         _this.attackMinusButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint < 5 && player._attack > 10) {
-                player._attack -= 1;
+                player._originAttack -= 1;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
-            _this.playerAttackText.text = "" + player._attack;
+            _this.playerAttackText.text = "" + player._originAttack;
         });
         return _this;
     }
