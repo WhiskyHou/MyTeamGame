@@ -513,7 +513,7 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
 
         skillBoxContainer = new DisplayObjectContainer(16, 16);
-        missionBoxContainer = new DisplayObjectContainer(16,16);
+        missionBoxContainer = new DisplayObjectContainer(16, 16);
 
     }
 

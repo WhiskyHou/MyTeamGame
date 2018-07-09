@@ -33,7 +33,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.bagButton = new Bitmap(750, 465, bagButton);
         this.EscButton = new Bitmap(820, 465, EscButton);
         this.SkillButton = new Bitmap(680, 465, SkillButton);
-        this.missionButton=new Bitmap(610,465,MissionButton);
+        this.missionButton = new Bitmap(610, 465, MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -69,7 +69,7 @@ class UserInfoUI extends DisplayObjectContainer {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
         });
-    
+
 
         player.addEventListener('updateUserInfo', (eventData: any) => {
             // if (player.currentEXP >= player.needEXP) {
@@ -89,8 +89,8 @@ class UserInfoUI extends DisplayObjectContainer {
             // }
             // this.userEquipment.text = '装备: ' + equipments;
         });
-        
-       
+
+
         // console.log(player);
     }
 }
@@ -137,18 +137,18 @@ class MissionInfoUI extends DisplayObjectContainer {
 
 class MissionUI extends DisplayObjectContainer {
 
-    MissionBackGround:Bitmap;
+    MissionBackGround: Bitmap;
     closeButton: Bitmap;
-    
+
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.MissionBackGround=new Bitmap(225, 25,missionImg);
+        this.MissionBackGround = new Bitmap(225, 25, missionImg);
         this.closeButton = new Bitmap(215, 15, missionCloseImg);
-      
+
         this.addChild(this.MissionBackGround);
         this.addChild(this.closeButton);
-       
+
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
         })
@@ -461,7 +461,7 @@ class battleUI extends DisplayObjectContainer {
             }
         })
         this.itemButton.addEventListener('onClick', (eventData: any) => {
-
+            console.log('弹出消耗品界面！');
         })
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
@@ -553,7 +553,7 @@ class battleUI extends DisplayObjectContainer {
 class battleEndWinUI extends DisplayObjectContainer {
 
     backGround: Bitmap;
-    blackMask: Bitmap;  
+    blackMask: Bitmap;
     backButton: Bitmap;
 
     expText: TextField;
@@ -632,7 +632,13 @@ class skillBoxUI extends DisplayObjectContainer {
 
     descriptionText: TextField;
 
+    mountedSkillText: TextField;
+    mountedSkillGroup: DisplayObjectContainer;
 
+    skillOnButton: Bitmap;
+    skillOffButton: Bitmap;
+
+    choosingSkillID: number;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -642,11 +648,17 @@ class skillBoxUI extends DisplayObjectContainer {
         this.skillTextGroup = new DisplayObjectContainer(395, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
         this.descriptionText = new TextField("", 525, 100, 20);//TODO 描述换行
+        this.mountedSkillGroup = new DisplayObjectContainer(520, 350);
+        this.skillOnButton = new Bitmap(510, 290, bagOnUI);
+        this.skillOffButton = new Bitmap(582, 290, bagOffUI);
 
         this.addChild(this.backGround);
         this.addChild(this.closeButton);
         this.addChild(this.skillTextGroup);
         this.addChild(this.descriptionText);
+        this.addChild(this.mountedSkillGroup);
+        this.addChild(this.skillOnButton);
+        this.addChild(this.skillOffButton);
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
@@ -658,6 +670,15 @@ class skillBoxUI extends DisplayObjectContainer {
                 this.descriptionText.text = skillArray[i].description;
             })
             this.skillTextGroup.addChild(this.skillText);
+        }
+
+        for (let i = 0; i < player.skill.length; i++) {
+
+            this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
+            this.mountedSkillText.addEventListener('onClick', () => {
+                this.descriptionText.text = player.skill[i].description;
+            })
+            this.mountedSkillGroup.addChild(this.mountedSkillText);
         }
     }
 }

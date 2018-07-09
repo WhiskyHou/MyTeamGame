@@ -614,7 +614,7 @@ function equipSetInit(equipManager: EquipmentManager) {
 class Skill {
 
     id: number;
-    name: string;
+    name: string = '[空]';
     description: string;
     buttonView: Bitmap;
 

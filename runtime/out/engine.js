@@ -389,10 +389,9 @@ var Animator = /** @class */ (function (_super) {
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
     function TextField(text, x, y, size, style, color) {
-        if (style === void 0) { style = 'Arial'; }
+        if (style === void 0) { style = 'KaiTi'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
-        _this.style = 'fantasy';
         _this.size = size;
         _this.text = text;
         _this.style = style;

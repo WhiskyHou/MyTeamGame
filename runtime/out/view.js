@@ -377,6 +377,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.itemButton.addEventListener('onClick', function (eventData) {
+            console.log('弹出消耗品界面！');
         });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
@@ -518,10 +519,16 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.skillTextGroup = new DisplayObjectContainer(395, 20);
         // this.backButton = new Bitmap(500, 325, backButtonImg);
         _this.descriptionText = new TextField("", 525, 100, 20); //TODO 描述换行
+        _this.mountedSkillGroup = new DisplayObjectContainer(520, 350);
+        _this.skillOnButton = new Bitmap(510, 290, bagOnUI);
+        _this.skillOffButton = new Bitmap(582, 290, bagOffUI);
         _this.addChild(_this.backGround);
         _this.addChild(_this.closeButton);
         _this.addChild(_this.skillTextGroup);
         _this.addChild(_this.descriptionText);
+        _this.addChild(_this.mountedSkillGroup);
+        _this.addChild(_this.skillOnButton);
+        _this.addChild(_this.skillOffButton);
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
         });
@@ -535,6 +542,17 @@ var skillBoxUI = /** @class */ (function (_super) {
         var this_1 = this;
         for (var i = 2; i < skillArray.length; i++) {
             _loop_1(i);
+        }
+        var _loop_2 = function (i) {
+            this_2.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
+            this_2.mountedSkillText.addEventListener('onClick', function () {
+                _this.descriptionText.text = player.skill[i].description;
+            });
+            this_2.mountedSkillGroup.addChild(this_2.mountedSkillText);
+        };
+        var this_2 = this;
+        for (var i = 0; i < player.skill.length; i++) {
+            _loop_2(i);
         }
         return _this;
     }
