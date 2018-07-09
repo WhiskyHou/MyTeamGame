@@ -29,7 +29,7 @@ class User extends EventDispatcher {
     _attack = this._originAttack;
     _hp = this._originHealth
     _criticalPer = 0;
-    _charm = 0; 
+    _charm = 0;
     _mp = 0;
 
     _suitDefensePer = 0;
@@ -63,6 +63,7 @@ class User extends EventDispatcher {
         this.packageEquipment.push(eq2)
         this.packageEquipment.push(eq3)
         this.packageEquipment.push(eq4)
+
         //以下测试技能用
         this.skill.push(skillEmpty);
         this.skill.push(skillSabi);
