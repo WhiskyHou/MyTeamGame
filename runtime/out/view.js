@@ -519,6 +519,7 @@ var battleEndWinUI = /** @class */ (function (_super) {
     function battleEndWinUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.dropTextGroup = new DisplayObjectContainer(310, 270);
+        _this.hasListener = false;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(254, 104, battleEndBGImg);
         _this.backButton = new Bitmap(500, 353, backButtonImg);
@@ -528,18 +529,22 @@ var battleEndWinUI = /** @class */ (function (_super) {
         _this.addChild(_this.backButton);
         _this.addChild(_this.expText);
         _this.addChild(_this.dropTextGroup);
+        // this.backButton.deleteAllEventListener();
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            batManager.dispatchEvent("backSceneWin", null);
+        });
         batManager.addEventListener("enemyDrop", function (dropBox) {
+            if (_this.hasListener) {
+                return;
+            }
             for (var i = 0; i < dropBox.length; i++) {
                 var equip = void 0;
                 equip = equipManager.getEquipByID(dropBox[i]);
                 var textField = new TextField(equip.name, 0, 30 * i, 20);
                 player.packageEquipment.push(equip);
                 _this.dropTextGroup.addChild(textField);
+                _this.hasListener = true;
             }
-        });
-        // this.backButton.deleteAllEventListener();
-        _this.backButton.addEventListener("onClick", function (eventData) {
-            batManager.dispatchEvent("backSceneWin", null);
         });
         return _this;
     }
