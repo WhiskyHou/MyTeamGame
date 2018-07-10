@@ -70,8 +70,18 @@ var GameMap = /** @class */ (function (_super) {
                         var img = new Image();
                         img.src = item;
                         var building = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, img);
-                        _this.grid.setWalkable(j, i, false);
+                        // this.grid.setWalkable(j, i, false);
                         _this.tileContainer.addChild(building);
+                    }
+                }
+            }
+            var mapWalkable = obj[0].walkable;
+            for (var i = 0; i < mapWalkable.length; i++) {
+                var row = mapWalkable[i];
+                for (var j = 0; j < row.length; j++) {
+                    var item = row[j];
+                    if (item == 1) {
+                        _this.grid.setWalkable(j, i, false);
                     }
                 }
             }
@@ -88,10 +98,10 @@ var GameMap = /** @class */ (function (_super) {
                             if (npc.id == id) {
                                 var npcView = npc.view;
                                 var npcHead = npc.head;
-                                npcView.x = TILE_SIZE * i;
-                                npcView.y = TILE_SIZE * j;
-                                npc.x = i;
-                                npc.y = j;
+                                npcView.x = TILE_SIZE * j;
+                                npcView.y = TILE_SIZE * i;
+                                npc.x = j;
+                                npc.y = i;
                                 var key = i + '_' + j;
                                 _this.npcConfig[key] = npc;
                                 _this.roleContainer.addChild(npcView);
@@ -106,29 +116,34 @@ var GameMap = /** @class */ (function (_super) {
                 for (var j = 0; j < row.length; j++) {
                     var id = row[j];
                     if (id == KILL_DARGON_KNIFE) {
-                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
+                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
                         var equipmentTiem = new Equipment(1, '2', 3, 4, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀';
                         equipmentTiem.attack = 35;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
                         var key = i + '_' + j;
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
                     }
                     else if (id == HP_BOTTLE) {
                         // TODO
-                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, hp_bottle);
+                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
                         var equipmentTiem = new Equipment(1, '2', 3, 4, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '扁鹊的药瓶';
                         equipmentTiem.attack = 0;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
                         var key = i + '_' + j;
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
+                    }
+                    else if (id == shop) {
+                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, Shop);
+                        _this.itemContainer.addChild(equipmentView);
+                        console.log("open shop");
                     }
                 }
             }

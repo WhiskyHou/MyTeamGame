@@ -99,19 +99,9 @@
                     ""
                 ],
                 [
-                    "assets/wall_left.png",
-                    "assets/wall_middle.png",
-                    "assets/wall_right.png",
                     "",
                     "",
                     "",
-                    "",
-                    ""
-                ],
-                [
-                    "",
-                    "",
-                    "assets/tree.png",
                     "",
                     "",
                     "",
@@ -121,18 +111,8 @@
                 [
                     "",
                     "",
-                    "assets/wall_left.png",
-                    "assets/wall_middle.png",
-                    "assets/wall_middle.png",
-                    "assets/wall_right.png",
-                    "",
-                    ""
-                ],
-                [
                     "",
                     "",
-                    "",
-                    "assets/tree.png",
                     "",
                     "",
                     "",
@@ -154,9 +134,29 @@
                     "",
                     "",
                     "",
-                    "assets/wall_left.png",
-                    "assets/wall_middle.png",
-                    "assets/wall_right.png"
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
                 ],
                 [
                     "",
@@ -193,7 +193,7 @@
                 [
                     0,
                     0,
-                    0,
+                    3,
                     0,
                     0,
                     0,
