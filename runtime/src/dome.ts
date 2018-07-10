@@ -14,10 +14,10 @@ class Demo extends State {
     onEnter() {
         this.text = new TextField("TextField", 200, 100, 30);
         this.text.centered();
-        stage.addChild(this.text)
+        Stage.instance.mainStage.addChild(this.text)
 
         this.text2 = new TextField("TextField", 200, 130, 30);
-        stage.addChild(this.text2)
+        Stage.instance.mainStage.addChild(this.text2)
 
         this.text.addEventListener("onClick", () => {
             console.log(this.text.x, this.text.y)
@@ -46,7 +46,7 @@ canvas.onclick = function (event) {
     const globalX = event.offsetX;
     const globalY = event.offsetY;
 
-    let hitResult = stage.hitTest(new math.Point(globalX, globalY));
+    let hitResult = Stage.instance.mainStage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {

@@ -145,19 +145,20 @@ class User extends EventDispatcher {
         var stepX = 0;
         var stepY = 0;
         if (Math.abs(targetX - player.view.x) > 2) {
-            stepX = TILE_SIZE * INTERVAL / PLAYER_WALK_SPEED;
+            stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
             player.view.x += stepX;
         } else {
             player.view.x = targetX;
         }
         if (Math.abs(targetY - player.view.y) > 2) {
-            stepY = TILE_SIZE * INTERVAL / PLAYER_WALK_SPEED;
+            stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
         } else {
             player.view.y = targetY;
         }
+
     }
 
     levelUp() {

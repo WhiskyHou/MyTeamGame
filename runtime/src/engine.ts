@@ -140,9 +140,11 @@ class CommandPool {
 
 abstract class Behaviour {
 
+    gameObject: DisplayObject;
+
     abstract onStart(): void;
 
-    abstract onUpdate(): void;
+    abstract onUpdate(delta: number): void;
 
     abstract onDestory(): void;
 
@@ -152,6 +154,104 @@ interface ComponentSystem {
 
     addComponent(instance: Behaviour): Behaviour;
     removeComponent(): void;
+}
+
+/**
+ * 组件池
+ */
+class ComponentPool {
+
+    private static _instance: ComponentPool
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new ComponentPool();
+        }
+        return this._instance;
+    }
+
+    private components: Behaviour[] = []
+
+    addComponent(value: Behaviour) {
+        this.components.push(value)
+        value.onStart();
+    }
+
+    update() {
+        for (let component of this.components) {
+            component.onUpdate(DELTA_TIME)
+        }
+    }
+}
+
+
+
+/**
+ * 相机
+ */
+class Camera extends Behaviour {
+
+    layer: number = 1
+
+    moveSpeed: number = 150
+
+    private isUpMove: boolean = false
+    private isDownMove: boolean = false
+    private isLeftMove: boolean = false
+    private isRightMove: boolean = false
+
+    onStart(): void {
+        this.gameObject.addEventListener("cameraMove", (eventData: any) => {
+            switch (eventData.dir) {
+                case "UP":
+                    this.isUpMove = true
+                    break;
+                case "DOWN":
+                    this.isDownMove = true
+                    break;
+                case "LEFT":
+                    this.isLeftMove = true
+                    break;
+                case "RIGHT":
+                    this.isRightMove = true
+                    break;
+            }
+        });
+
+        this.gameObject.addEventListener("cameraStop", (eventData: any) => {
+            switch (eventData.dir) {
+                case "UP":
+                    this.isUpMove = false
+                    break;
+                case "DOWN":
+                    this.isDownMove = false
+                    break;
+                case "LEFT":
+                    this.isLeftMove = false
+                    break;
+                case "RIGHT":
+                    this.isRightMove = false
+                    break;
+            }
+        });
+    }
+
+    onUpdate(delta: number): void {
+        if (this.isUpMove) {
+            stages[this.layer].y -= delta * this.moveSpeed;
+        } else if (this.isDownMove) {
+            stages[this.layer].y += delta * this.moveSpeed;
+        }
+
+        if (this.isLeftMove) {
+            stages[this.layer].x -= delta * this.moveSpeed;
+        } else if (this.isRightMove) {
+            stages[this.layer].x += delta * this.moveSpeed;
+        }
+    }
+
+    onDestory(): void {
+
+    }
 }
 
 
@@ -198,7 +298,8 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
     }
 
     addComponent(instance: Behaviour) {
-
+        instance.gameObject = this;
+        ComponentPool.instance.addComponent(instance)
         return instance;
     }
 
@@ -303,6 +404,17 @@ class DisplayObjectContainer extends DisplayObject {
             }
         }
         return hitTestResult;
+    }
+}
+
+
+class EmptyObject extends DisplayObject {
+
+    constructor(x: number, y: number) {
+        super(x, y);
+    }
+
+    render(context: CanvasRenderingContext2D): void {
     }
 }
 
@@ -537,6 +649,7 @@ class TextField extends DisplayObject {
         this.color = color;
     }
 }
+
 /**
  * 文本
  * 
@@ -657,10 +770,29 @@ class AudioPlay {
  * 
  * 继承 DisplayObjectContainer，初始化坐标为0，作为渲染树的根
  */
-class Stage extends DisplayObjectContainer {
-    constructor() {
-        super(0, 0);
+class Stage {
+
+    private static _instance: Stage
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new Stage()
+        }
+        return this._instance;
     }
+
+    public mainStage: DisplayObjectContainer
+    public stages: DisplayObjectContainer[]
+
+    constructor() {
+        this.mainStage = new DisplayObjectContainer(0, 0);
+
+        this.stages = [new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0)]
+
+        for (let stage of this.stages) {
+            this.mainStage.addChild(stage);
+        }
+    }
+
 }
 
 
@@ -679,9 +811,10 @@ class SaveAndLoad {
  */
 function onTicker(context: CanvasRenderingContext2D) {
     fsm.update();
+    ComponentPool.instance.update();
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
-    stage.draw(context);
+    Stage.instance.mainStage.draw(context);
     context.restore();
 }
 
@@ -689,9 +822,9 @@ function onTicker(context: CanvasRenderingContext2D) {
 /**
  * 主循环
  */
-var start: number | null = null;
-var lastTimestamp = 0;
-var INTERVAL = 0;
+let start: number | null = null;
+let lastTimestamp = 0;
+let DELTA_TIME = 0;
 function enterFrame(timestamp: number) {
     if (!context) {
         return;
@@ -702,7 +835,7 @@ function enterFrame(timestamp: number) {
         start = timestamp;
         lastTimestamp = timestamp;
     }
-    INTERVAL = timestamp - lastTimestamp;
+    DELTA_TIME = (timestamp - lastTimestamp) / 1000;
     lastTimestamp = timestamp;
 
     onTicker(context);
@@ -714,11 +847,8 @@ function enterFrame(timestamp: number) {
 var canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
 var context = canvas.getContext("2d");
 
-const stage = new Stage();
-const staticStage = new Stage()
-const dynamicStage = new Stage()
-stage.addChild(dynamicStage)
-stage.addChild(staticStage)
+const stages = Stage.instance.stages;
+
 
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
