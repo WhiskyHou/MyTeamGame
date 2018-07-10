@@ -161,6 +161,9 @@ skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI
 let Shop = new Image();
 Shop.src = './assets/美术素材/场景/其他/购物车.png';
 
+let bloodBar = new Image();
+bloodBar.src = './assets/血条.png';
+
 
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
