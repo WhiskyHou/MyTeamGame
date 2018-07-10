@@ -140,6 +140,10 @@ class GameMap extends DisplayObjectContainer {
                         const key = i + '_' + j;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
+                    } else if (id == shop) {
+                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, Shop);
+                        this.itemContainer.addChild(equipmentView);
+                        console.log("open shop");
                     }
                 }
             }
