@@ -171,7 +171,7 @@ missionCloseImg.src = './assets//UI 取消按钮.png';
  * 
  * TODO: 部分需要删除整合
  */
-const TILE_SIZE = 64;//TODO:还原为128
+const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
@@ -536,23 +536,23 @@ class PlayingState extends State {
         super();
 
         map = new GameMap();
-        talkUIContainer = new DisplayObjectContainer(16, 16);
+        talkUIContainer = new DisplayObjectContainer(0, 0);
 
-        this.mapContainer = new DisplayObjectContainer(16, 16);
-        this.userUIContainer = new DisplayObjectContainer(16, 16);
-        this.missionUIContainer = new DisplayObjectContainer(16, 16);
+        this.mapContainer = new DisplayObjectContainer(0, 0);
+        this.userUIContainer = new DisplayObjectContainer(0, 0);
+        this.missionUIContainer = new DisplayObjectContainer(0, 0);
 
         this.bg = new Bitmap(0, 0, bg);
         this.userInfoUI = new UserInfoUI(0, 0);
         this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
 
-        batteUIContainer = new DisplayObjectContainer(16, 16);
+        batteUIContainer = new DisplayObjectContainer(0, 0);
         this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         this.baggUI = new bagUI(0, 0);
 
-        skillBoxContainer = new DisplayObjectContainer(16, 16);
-        missionBoxContainer = new DisplayObjectContainer(16, 16);
+        skillBoxContainer = new DisplayObjectContainer(0, 0);
+        missionBoxContainer = new DisplayObjectContainer(0, 0);
 
     }
 
@@ -657,8 +657,8 @@ canvas.onclick = function (event) {
     const globalY = event.offsetY;
 
     //以下调UI位置用
-    const dingWeix = event.offsetX - 16;
-    const dingWeiy = event.offsetY - 16;
+    const dingWeix = event.offsetX - 0;
+    const dingWeiy = event.offsetY - 0;
     console.log(dingWeix + " , " + dingWeiy);
 
 
