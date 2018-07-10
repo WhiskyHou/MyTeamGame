@@ -423,7 +423,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -1134,7 +1134,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -1425,4 +1425,4 @@ var skillBoxUI = /** @class */ (function (_super) {
 //         return this._config;
 //     }
 // }
->>>>>>> 49a15fa9657b2be3ba1d6da4fa3899f2e3bbf133
+>>>>>>> 31db57ef87e237cfe65c4fd9cbb5d83fb5c0085b

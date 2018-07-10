@@ -389,13 +389,16 @@ var Animator = /** @class */ (function (_super) {
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
     function TextField(text, x, y, size, style, color) {
-        if (style === void 0) { style = 'LiSu'; }
+        if (style === void 0) { style = 'fantasy'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
+        _this.renderX = x;
+        _this.renderY = y;
         _this.size = size;
         _this.text = text;
         _this.style = style;
         _this.color = color;
+        _this.isCenter = false;
         return _this;
     }
     TextField.prototype.hitTest = function (point) {
@@ -411,14 +414,17 @@ var TextField = /** @class */ (function (_super) {
         }
     };
     TextField.prototype.render = function (context) {
-        context.fillStyle = 'black';
+        context.fillStyle = this.color;
         context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
         // 获取文本渲染的宽度
         this.width = context.measureText(this.text).width;
+        if (this.isCenter) {
+            this.x = this.renderX - this.width / 2;
+        }
     };
     TextField.prototype.centered = function () {
-        this.x -= this.width / 2;
+        this.isCenter = true;
     };
     TextField.prototype.setStyle = function (style) {
         this.style = style;

@@ -478,13 +478,21 @@ class TextField extends DisplayObject {
     width: number;
     style: string;
     color: string;
+    isCenter: boolean;
+    renderX: number;
+    renderY: number;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'LiSu', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'fantasy', color: string = 'black') {
         super(x, y);
+        this.renderX = x;
+        this.renderY = y;
+
         this.size = size;
         this.text = text;
         this.style = style;
         this.color = color;
+
+        this.isCenter = false;
     }
 
     hitTest(point: math.Point) {
@@ -502,15 +510,28 @@ class TextField extends DisplayObject {
     }
 
     render(context: CanvasRenderingContext2D) {
+<<<<<<< HEAD
+        // 获取文本渲染的宽度
+        this.width = context.measureText(this.text).width;
         context.fillStyle = 'black';
+        context.font = this.size.toString() + 'px ' + this.style;
+        context.fillText(this.text, 0, this.size);
+        
+=======
+        context.fillStyle = this.color;
         context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
         // 获取文本渲染的宽度
         this.width = context.measureText(this.text).width;
+
+        if (this.isCenter) {
+            this.x = this.renderX - this.width / 2
+        }
+>>>>>>> 31db57ef87e237cfe65c4fd9cbb5d83fb5c0085b
     }
 
     centered() {
-        this.x -= this.width / 2;
+        this.isCenter = true
     }
 
     setStyle(style: string) {
@@ -536,7 +557,7 @@ class MultiTextField extends DisplayObject {
     space: number;//行间距
     width: number;
 
-    constructor(text: Array<string>, x: number, y: number, size: number,space : number) {
+    constructor(text: Array<string>, x: number, y: number, size: number, space: number) {
         super(x, y);
         this.size = size;
         this.text = text;
@@ -548,7 +569,7 @@ class MultiTextField extends DisplayObject {
         const y = point.y;
 
         const width = this.width;
-        const height = this.size*this.text.length;
+        const height = this.size * this.text.length;
 
         if (x > 0 && x < width && y > 0 && y < height) {
             return this;
@@ -558,29 +579,29 @@ class MultiTextField extends DisplayObject {
     }
 
     render(context: CanvasRenderingContext2D) {
-     
+
         // 获取文本渲染的宽度,取所有宽度中最大值
-        this.width=0;
-        for(var i =0;i<this.text.length;i++){
-            if(this.width < context.measureText(this.text[i]).width){
+        this.width = 0;
+        for (var i = 0; i < this.text.length; i++) {
+            if (this.width < context.measureText(this.text[i]).width) {
                 this.width = context.measureText(this.text[i]).width
             }
         }
-        for(var i =0;i<this.text.length;i++){
+        for (var i = 0; i < this.text.length; i++) {
             let width = context.measureText(this.text[i]).width
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
             context.font = this.size.toString() + 'px lisu';
-            context.fillText(this.text[i], 0,i*(this.size+this.space), width);
+            context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     }
-    setStringByNumber(con : string ,num : number){//按照一行显示文字数换行
-        for(var i = 0 ; i < con.length ; i += num){
-            this.text.push(con.slice(i,i+num-1)) 
+    setStringByNumber(con: string, num: number) {//按照一行显示文字数换行
+        for (var i = 0; i < con.length; i += num) {
+            this.text.push(con.slice(i, i + num - 1))
         }
-        
+
     }
-    setStringByStr(con : string , str : string){//按照str的标记字符分割文本
+    setStringByStr(con: string, str: string) {//按照str的标记字符分割文本
         this.text = con.split(str)
     }
     centered() {
