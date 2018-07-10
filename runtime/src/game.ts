@@ -475,6 +475,8 @@ class CreateState extends State {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+
+        player.coin = 1000;//测试用
     }
 
     onStartClick = (eventData: any) => {
