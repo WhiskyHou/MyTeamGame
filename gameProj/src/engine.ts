@@ -173,6 +173,7 @@ class ComponentPool {
 
     addComponent(value: Behaviour) {
         this.components.push(value)
+        value.onStart();
     }
 
     update() {
@@ -189,25 +190,63 @@ class ComponentPool {
  */
 class Camera extends Behaviour {
 
+    layer: number = 1
+
     moveSpeed: number = 150
+
+    private isUpMove: boolean = false
+    private isDownMove: boolean = false
+    private isLeftMove: boolean = false
+    private isRightMove: boolean = false
 
     onStart(): void {
         this.gameObject.addEventListener("cameraMove", (eventData: any) => {
             switch (eventData.dir) {
                 case "UP":
+                    this.isUpMove = true
                     break;
                 case "DOWN":
+                    this.isDownMove = true
                     break;
                 case "LEFT":
+                    this.isLeftMove = true
                     break;
                 case "RIGHT":
+                    this.isRightMove = true
                     break;
             }
-        })
+        });
+
+        this.gameObject.addEventListener("cameraStop", (eventData: any) => {
+            switch (eventData.dir) {
+                case "UP":
+                    this.isUpMove = false
+                    break;
+                case "DOWN":
+                    this.isDownMove = false
+                    break;
+                case "LEFT":
+                    this.isLeftMove = false
+                    break;
+                case "RIGHT":
+                    this.isRightMove = false
+                    break;
+            }
+        });
     }
 
-    onUpdate(): void {
+    onUpdate(delta: number): void {
+        if (this.isUpMove) {
+            stages[this.layer].y -= delta * this.moveSpeed;
+        } else if (this.isDownMove) {
+            stages[this.layer].y += delta * this.moveSpeed;
+        }
 
+        if (this.isLeftMove) {
+            stages[this.layer].x -= delta * this.moveSpeed;
+        } else if (this.isRightMove) {
+            stages[this.layer].x += delta * this.moveSpeed;
+        }
     }
 
     onDestory(): void {
@@ -259,8 +298,8 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
     }
 
     addComponent(instance: Behaviour) {
-        ComponentPool.instance.addComponent(instance)
         instance.gameObject = this;
+        ComponentPool.instance.addComponent(instance)
         return instance;
     }
 
@@ -731,10 +770,29 @@ class AudioPlay {
  * 
  * 继承 DisplayObjectContainer，初始化坐标为0，作为渲染树的根
  */
-class Stage extends DisplayObjectContainer {
-    constructor() {
-        super(0, 0);
+class Stage {
+
+    private static _instance: Stage
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new Stage()
+        }
+        return this._instance;
     }
+
+    public mainStage: DisplayObjectContainer
+    public stages: DisplayObjectContainer[]
+
+    constructor() {
+        this.mainStage = new DisplayObjectContainer(0, 0);
+
+        this.stages = [new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0)]
+
+        for (let stage of this.stages) {
+            this.mainStage.addChild(stage);
+        }
+    }
+
 }
 
 
@@ -756,7 +814,7 @@ function onTicker(context: CanvasRenderingContext2D) {
     ComponentPool.instance.update();
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
-    stage.draw(context);
+    Stage.instance.mainStage.draw(context);
     context.restore();
 }
 
@@ -777,7 +835,7 @@ function enterFrame(timestamp: number) {
         start = timestamp;
         lastTimestamp = timestamp;
     }
-    DELTA_TIME = timestamp - lastTimestamp;
+    DELTA_TIME = (timestamp - lastTimestamp) / 1000;
     lastTimestamp = timestamp;
 
     onTicker(context);
@@ -789,11 +847,8 @@ function enterFrame(timestamp: number) {
 var canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
 var context = canvas.getContext("2d");
 
-const stage = new Stage();
-const staticStage = new Stage()
-const dynamicStage = new Stage()
-stage.addChild(dynamicStage)
-stage.addChild(staticStage)
+const stages = Stage.instance.stages;
+
 
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
