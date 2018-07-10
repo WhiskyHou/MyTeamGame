@@ -30,6 +30,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
         _this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         _this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
+        _this.bloodbar = new Bitmap(90, 35, bloodBar);
         _this.addChild(_this.userName);
         _this.addChild(_this.userLevel);
         // this.addChild(this.userAttack);
@@ -44,6 +45,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.userDiamond);
         _this.addChild(_this.currentEXP);
         _this.addChild(_this.needEXP);
+        _this.addChild(_this.bloodbar);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
         });
@@ -382,7 +384,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            if (player.skill[0].id == 6) { //七伤拳判断血量
+            if (player.skill[0].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -402,7 +404,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
-            if (player.skill[1].id == 6) { //七伤拳判断血量
+            if (player.skill[1].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -423,7 +425,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
-            if (player.skill[3].id == 6) { //七伤拳判断血量
+            if (player.skill[3].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[3].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -446,7 +448,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+            if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {

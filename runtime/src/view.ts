@@ -17,6 +17,7 @@ class UserInfoUI extends DisplayObjectContainer {
     missionButton: Bitmap;
     bloodUI: Bitmap;
     bloodUI2: Bitmap;
+    bloodbar: Bitmap;
 
     skillUI: skillBoxUI;
     missionUI: MissionUI;
@@ -40,6 +41,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
         this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
+        this.bloodbar = new Bitmap(90, 35, bloodBar);
 
         this.addChild(this.userName);
         this.addChild(this.userLevel);
@@ -55,6 +57,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
+        this.addChild(this.bloodbar);
 
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
