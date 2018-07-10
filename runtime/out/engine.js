@@ -142,6 +142,103 @@ var Behaviour = /** @class */ (function () {
     return Behaviour;
 }());
 /**
+ * 组件池
+ */
+var ComponentPool = /** @class */ (function () {
+    function ComponentPool() {
+        this.components = [];
+    }
+    Object.defineProperty(ComponentPool, "instance", {
+        get: function () {
+            if (!this._instance) {
+                this._instance = new ComponentPool();
+            }
+            return this._instance;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ComponentPool.prototype.addComponent = function (value) {
+        this.components.push(value);
+        value.onStart();
+    };
+    ComponentPool.prototype.update = function () {
+        for (var _i = 0, _a = this.components; _i < _a.length; _i++) {
+            var component = _a[_i];
+            component.onUpdate(DELTA_TIME);
+        }
+    };
+    return ComponentPool;
+}());
+/**
+ * 相机
+ */
+var Camera = /** @class */ (function (_super) {
+    __extends(Camera, _super);
+    function Camera() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.layer = 1;
+        _this.moveSpeed = 150;
+        _this.isUpMove = false;
+        _this.isDownMove = false;
+        _this.isLeftMove = false;
+        _this.isRightMove = false;
+        return _this;
+    }
+    Camera.prototype.onStart = function () {
+        var _this = this;
+        this.gameObject.addEventListener("cameraMove", function (eventData) {
+            switch (eventData.dir) {
+                case "UP":
+                    _this.isUpMove = true;
+                    break;
+                case "DOWN":
+                    _this.isDownMove = true;
+                    break;
+                case "LEFT":
+                    _this.isLeftMove = true;
+                    break;
+                case "RIGHT":
+                    _this.isRightMove = true;
+                    break;
+            }
+        });
+        this.gameObject.addEventListener("cameraStop", function (eventData) {
+            switch (eventData.dir) {
+                case "UP":
+                    _this.isUpMove = false;
+                    break;
+                case "DOWN":
+                    _this.isDownMove = false;
+                    break;
+                case "LEFT":
+                    _this.isLeftMove = false;
+                    break;
+                case "RIGHT":
+                    _this.isRightMove = false;
+                    break;
+            }
+        });
+    };
+    Camera.prototype.onUpdate = function (delta) {
+        if (this.isUpMove) {
+            stages[this.layer].y -= delta * this.moveSpeed;
+        }
+        else if (this.isDownMove) {
+            stages[this.layer].y += delta * this.moveSpeed;
+        }
+        if (this.isLeftMove) {
+            stages[this.layer].x -= delta * this.moveSpeed;
+        }
+        else if (this.isRightMove) {
+            stages[this.layer].x += delta * this.moveSpeed;
+        }
+    };
+    Camera.prototype.onDestory = function () {
+    };
+    return Camera;
+}(Behaviour));
+/**
  * 显示对象
  * —— 所有可以渲染的对象的基类
  *
@@ -172,6 +269,8 @@ var DisplayObject = /** @class */ (function (_super) {
         return _this;
     }
     DisplayObject.prototype.addComponent = function (instance) {
+        instance.gameObject = this;
+        ComponentPool.instance.addComponent(instance);
         return instance;
     };
     DisplayObject.prototype.removeComponent = function () {
@@ -265,6 +364,15 @@ var DisplayObjectContainer = /** @class */ (function (_super) {
         return hitTestResult;
     };
     return DisplayObjectContainer;
+}(DisplayObject));
+var EmptyObject = /** @class */ (function (_super) {
+    __extends(EmptyObject, _super);
+    function EmptyObject(x, y) {
+        return _super.call(this, x, y) || this;
+    }
+    EmptyObject.prototype.render = function (context) {
+    };
+    return EmptyObject;
 }(DisplayObject));
 /**
  * 图片
@@ -425,6 +533,7 @@ var TextField = /** @class */ (function (_super) {
     };
     TextField.prototype.centered = function () {
         this.isCenter = true;
+        return new TextField(this.text, this.x, this.y, this.size, this.style, this.color);
     };
     TextField.prototype.setStyle = function (style) {
         this.style = style;
@@ -543,13 +652,27 @@ var AudioPlay = /** @class */ (function () {
  *
  * 继承 DisplayObjectContainer，初始化坐标为0，作为渲染树的根
  */
-var Stage = /** @class */ (function (_super) {
-    __extends(Stage, _super);
+var Stage = /** @class */ (function () {
     function Stage() {
-        return _super.call(this, 0, 0) || this;
+        this.mainStage = new DisplayObjectContainer(0, 0);
+        this.stages = [new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0), new DisplayObjectContainer(0, 0)];
+        for (var _i = 0, _a = this.stages; _i < _a.length; _i++) {
+            var stage = _a[_i];
+            this.mainStage.addChild(stage);
+        }
     }
+    Object.defineProperty(Stage, "instance", {
+        get: function () {
+            if (!this._instance) {
+                this._instance = new Stage();
+            }
+            return this._instance;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Stage;
-}(DisplayObjectContainer));
+}());
 /**
  * 存取
  *
@@ -565,9 +688,10 @@ var SaveAndLoad = /** @class */ (function () {
  */
 function onTicker(context) {
     fsm.update();
+    ComponentPool.instance.update();
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
-    stage.draw(context);
+    Stage.instance.mainStage.draw(context);
     context.restore();
 }
 /**
@@ -575,7 +699,7 @@ function onTicker(context) {
  */
 var start = null;
 var lastTimestamp = 0;
-var INTERVAL = 0;
+var DELTA_TIME = 0;
 function enterFrame(timestamp) {
     if (!context) {
         return;
@@ -585,18 +709,14 @@ function enterFrame(timestamp) {
         start = timestamp;
         lastTimestamp = timestamp;
     }
-    INTERVAL = timestamp - lastTimestamp;
+    DELTA_TIME = (timestamp - lastTimestamp) / 1000;
     lastTimestamp = timestamp;
     onTicker(context);
     requestAnimationFrame(enterFrame);
 }
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
-var stage = new Stage();
-var staticStage = new Stage();
-var dynamicStage = new Stage();
-stage.addChild(dynamicStage);
-stage.addChild(staticStage);
+var stages = Stage.instance.stages;
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
 requestAnimationFrame(enterFrame);
