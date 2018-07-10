@@ -482,7 +482,7 @@ class TextField extends DisplayObject {
     renderX: number;
     renderY: number;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'LiSu', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'fantasy', color: string = 'black') {
         super(x, y);
         this.renderX = x;
         this.renderY = y;
