@@ -52,7 +52,7 @@ class WalkCommand extends Command {
                 return;
             }
             this.walk(path, callback);
-        }, PLAYER_WALK_SPEED);
+        }, 128000 / PLAYER_WALK_SPEED);
     }
 }
 
