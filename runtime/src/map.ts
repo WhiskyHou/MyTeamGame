@@ -95,10 +95,10 @@ class GameMap extends DisplayObjectContainer {
                         const id = item;
                         console.log(npcManager.npcList.length);
                         for (let npc of npcManager.npcList) {
-
                             if (npc.id == id) {
                                 const npcView = npc.view;
                                 const npcHead = npc.head;
+                                console.log(npcView.img.src)
                                 npcView.x = TILE_SIZE * j;
                                 npcView.y = TILE_SIZE * i;
                                 npc.x = j
@@ -119,7 +119,7 @@ class GameMap extends DisplayObjectContainer {
                     const id = row[j]
                     if (id == KILL_DARGON_KNIFE) {
                         const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
-                        const equipmentTiem = new Equipment(1, '2', 3, 4, 5, 6, 7);
+                        const equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀'
                         equipmentTiem.attack = 35;
@@ -131,7 +131,7 @@ class GameMap extends DisplayObjectContainer {
                     } else if (id == HP_BOTTLE) {
                         // TODO
                         const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
-                        const equipmentTiem = new Equipment(1, '2', 3, 4, 5, 6, 7);
+                        const equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '扁鹊的药瓶'
                         equipmentTiem.attack = 0;
@@ -140,10 +140,6 @@ class GameMap extends DisplayObjectContainer {
                         const key = i + '_' + j;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
-                    } else if (id == SHOP) {
-                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, Shop);
-                        this.itemContainer.addChild(equipmentView);
-                        console.log("open shop");
                     }
                 }
             }

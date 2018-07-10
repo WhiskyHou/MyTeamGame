@@ -160,6 +160,7 @@ var missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 var missionCloseImg = new Image();
 missionCloseImg.src = './assets//UI 取消按钮.png';
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店UI界面 底.png', 'shopUI');
 /**
  * 常量
  *
@@ -197,6 +198,7 @@ var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
+var shpManager = new shopManager();
 var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
@@ -462,6 +464,7 @@ var batEndUI = new battleEndWinUI(0, 0);
 var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
+var shopUIContainer;
 /**
  * 游戏状态
  */
@@ -481,6 +484,8 @@ var PlayingState = /** @class */ (function (_super) {
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
+        shopUIContainer = new DisplayObjectContainer(120, -50);
+        _this.shpUI = new shopUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
         return _this;
@@ -502,11 +507,24 @@ var PlayingState = /** @class */ (function (_super) {
         // batteUIContainer.addChild(this.battleUI);
         staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
+        staticStage.addChild(shopUIContainer);
         baManager.addEventListener('openBag', function (eventData) {
+            batteUIContainer.deleteChild(_this.battleUI);
+            shopUIContainer.deleteChild(_this.shpUI);
+            // missionBoxContainer.deleteChild(this.missionUI);
             bagUIContainer.addChild(_this.baggUI);
         });
         baManager.addEventListener('bagDown', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
+        });
+        shpManager.addEventListener('openShop', function (eventData) {
+            batteUIContainer.deleteChild(_this.battleUI);
+            shopUIContainer.deleteChild(_this.baggUI);
+            // missionBoxContainer.deleteChild(this.missionUI);
+            bagUIContainer.addChild(_this.shpUI);
+        });
+        shpManager.addEventListener('shopDown', function (eventData) {
+            bagUIContainer.deleteChild(_this.shpUI);
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
@@ -533,8 +551,13 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
-                    var talk = new TalkCommand(npcInfo);
-                    commandPool.addCommand(talk);
+                    if (npcInfo.id == 6) {
+                        shpManager.openShop();
+                    }
+                    else {
+                        var talk = new TalkCommand(npcInfo);
+                        commandPool.addCommand(talk);
+                    }
                 }
                 var monsterInfo = map.getMonsterInfo(row, col);
                 if (monsterInfo) {

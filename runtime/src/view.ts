@@ -229,8 +229,8 @@ class bagUI extends DisplayObjectContainer {
         this.attackText = new TextField(player._attack.toString(), 102, 453, 15)
         this.criticalPerText = new TextField(player._criticalPer.toString(), 183, 453, 15)
         this.charmText = new TextField(player._charm.toString(), 262, 453, 15)
-        this.hpText = new TextField(player._hp.toString(), 336, 453, 15)
-        this.mpText = new TextField(player._mp.toString(), 420, 453, 15)
+        this.hpText = new TextField(player.maxHP.toString(), 336, 453, 15)
+        this.mpText = new TextField(player.maxMp.toString(), 420, 453, 15)
 
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
@@ -341,6 +341,37 @@ class bagUI extends DisplayObjectContainer {
         this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
         this.addChild(this.equipmentMultiInfoText)
         this.dispatchEvent('updateBag', player)
+    }
+
+}
+/**
+ * 背包UI
+ */
+class shopUI extends DisplayObjectContainer {
+
+    player: User = player;
+
+    infoPanel: Bitmap;
+    shopDownButton: Bitmap;
+
+    // weaponText: TextField;
+
+    // equipmentMultiInfoText: MultiTextField;
+
+    constructor(x: number, y: number) {
+        //super(x, y);
+        super(58, 64);
+
+        this.infoPanel = new Bitmap(73,65,Resource.get('shopUI') as HTMLImageElement)
+        this.shopDownButton = new Bitmap(73, 142, bagArmorUI)
+        this.addChild(this.infoPanel);
+       
+        this.shopDownButton.addEventListener("onClick", (eventData: any) => {
+            shpManager.shopDown();
+        })
+    }
+    changeEquipmentInfo(equip: Equipment) {
+
     }
 
 }

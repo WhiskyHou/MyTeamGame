@@ -167,6 +167,8 @@ missionImg.src = './assets/UI 任务界面底.png';
 let missionCloseImg = new Image();
 missionCloseImg.src = './assets//UI 取消按钮.png';
 
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店UI界面 底.png', 'shopUI');
+
 /**
  * 常量
  * 
@@ -212,6 +214,7 @@ let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
+let shpManager = new shopManager();
 let skillArray: Skill[] = []
 
 npcManager.init(() => {
@@ -373,7 +376,6 @@ class CreateState extends State {
     //TODO: 角色名输入
     backGround: Bitmap;
     startButton: Bitmap;
-
     hpAddButton: Bitmap;
     hpMinusButton: Bitmap;
     attackAddButton: Bitmap;
@@ -531,6 +533,7 @@ const batEndUI = new battleEndWinUI(0, 0);
 let bagUIContainer: DisplayObjectContainer;
 let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;
+let shopUIContainer: DisplayObjectContainer;
 
 /**
  * 游戏状态
@@ -546,6 +549,7 @@ class PlayingState extends State {
 
     battleUI: battleUI;
     baggUI: bagUI;
+    shpUI: shopUI;
 
     constructor() {
         super();
@@ -565,6 +569,8 @@ class PlayingState extends State {
         this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         this.baggUI = new bagUI(0, 0);
+        shopUIContainer = new DisplayObjectContainer(120, -50);
+        this.shpUI = new shopUI(0, 0);
 
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
@@ -590,11 +596,24 @@ class PlayingState extends State {
         // batteUIContainer.addChild(this.battleUI);
         staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
+        staticStage.addChild(shopUIContainer)
         baManager.addEventListener('openBag', (eventData: any) => {
+            batteUIContainer.deleteChild(this.battleUI);
+            shopUIContainer.deleteChild(this.shpUI);
+            // missionBoxContainer.deleteChild(this.missionUI);
             bagUIContainer.addChild(this.baggUI);
         });
         baManager.addEventListener('bagDown', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
+        });
+        shpManager.addEventListener('openShop', (eventData: any) => {
+            batteUIContainer.deleteChild(this.battleUI);
+            shopUIContainer.deleteChild(this.baggUI);
+            // missionBoxContainer.deleteChild(this.missionUI);
+            bagUIContainer.addChild(this.shpUI);
+        });
+        shpManager.addEventListener('shopDown', (eventData: any) => {
+            bagUIContainer.deleteChild(this.shpUI);
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
@@ -625,8 +644,12 @@ class PlayingState extends State {
 
                 const npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
-                    const talk = new TalkCommand(npcInfo);
-                    commandPool.addCommand(talk)
+                    if(npcInfo.id == 6){
+                        shpManager.openShop()
+                    }else{
+                        const talk = new TalkCommand(npcInfo);
+                        commandPool.addCommand(talk)
+                    }
                 }
 
                 const monsterInfo = map.getMonsterInfo(row, col);

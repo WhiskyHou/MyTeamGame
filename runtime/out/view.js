@@ -174,8 +174,8 @@ var bagUI = /** @class */ (function (_super) {
         _this.attackText = new TextField(player._attack.toString(), 102, 453, 15);
         _this.criticalPerText = new TextField(player._criticalPer.toString(), 183, 453, 15);
         _this.charmText = new TextField(player._charm.toString(), 262, 453, 15);
-        _this.hpText = new TextField(player._hp.toString(), 336, 453, 15);
-        _this.mpText = new TextField(player._mp.toString(), 420, 453, 15);
+        _this.hpText = new TextField(player.maxHP.toString(), 336, 453, 15);
+        _this.mpText = new TextField(player.maxMp.toString(), 420, 453, 15);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -288,6 +288,30 @@ var bagUI = /** @class */ (function (_super) {
         this.dispatchEvent('updateBag', player);
     };
     return bagUI;
+}(DisplayObjectContainer));
+/**
+ * 背包UI
+ */
+var shopUI = /** @class */ (function (_super) {
+    __extends(shopUI, _super);
+    // weaponText: TextField;
+    // equipmentMultiInfoText: MultiTextField;
+    function shopUI(x, y) {
+        var _this = 
+        //super(x, y);
+        _super.call(this, 58, 64) || this;
+        _this.player = player;
+        _this.infoPanel = new Bitmap(73, 65, Resource.get('shopUI'));
+        _this.shopDownButton = new Bitmap(73, 142, bagArmorUI);
+        _this.addChild(_this.infoPanel);
+        _this.shopDownButton.addEventListener("onClick", function (eventData) {
+            shpManager.shopDown();
+        });
+        return _this;
+    }
+    shopUI.prototype.changeEquipmentInfo = function (equip) {
+    };
+    return shopUI;
 }(DisplayObjectContainer));
 /**
  * 战斗UI
