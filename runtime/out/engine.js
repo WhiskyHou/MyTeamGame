@@ -414,14 +414,10 @@ var TextField = /** @class */ (function (_super) {
         }
     };
     TextField.prototype.render = function (context) {
-        context.fillStyle = this.color;
+        this.width = context.measureText(this.text).width;
+        context.fillStyle = 'black';
         context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
-        // 获取文本渲染的宽度
-        this.width = context.measureText(this.text).width;
-        if (this.isCenter) {
-            this.x = this.renderX - this.width / 2;
-        }
     };
     TextField.prototype.centered = function () {
         this.isCenter = true;
