@@ -205,6 +205,15 @@ npcManager.init(function () {
         });
     });
 });
+batManager.addEventListener("enemyDrop", function (dropBox) {
+    for (var i = 0; i < dropBox.length; i++) {
+        var equip = void 0;
+        equip = equipManager.getEquipByID(dropBox[i]);
+        var textField = new TextField(equip.name, 0, 30 * i, 20);
+        player.packageEquipment.push(equip);
+        batEndUI.dropTextGroup.addChild(textField);
+    }
+});
 /**
  * 技能初始化(把这里当技能配置文件)
  */
@@ -449,6 +458,7 @@ var CreateState = /** @class */ (function (_super) {
 }(State));
 var talkUIContainer;
 var batteUIContainer;
+var batEndUI = new battleEndWinUI(0, 0);
 var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
