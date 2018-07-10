@@ -230,6 +230,7 @@ npcManager.init(() => {
 });
 
 batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+    batEndUI.dropTextGroup.deleteAll();
     for (let i = 0; i < dropBox.length; i++) {
         let equip: Equipment;
         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
@@ -237,6 +238,12 @@ batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
         player.packageEquipment.push(equip);
         batEndUI.dropTextGroup.addChild(textField);
     }
+    batEndUI.expText
+})
+
+batManager.addEventListener("enemyBattleStart", (enemy: Monster) => {
+    batEndUI.expText.text = '' + enemy.exp;
+    batEndUI.coinText.text = '' + enemy.coin;
 })
 
 /**
@@ -497,7 +504,7 @@ class CreateState extends State {
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
 
-        player.coin = 1000;//测试用
+        player.coin = 100000000;//测试用
     }
 
     onStartClick = (eventData: any) => {

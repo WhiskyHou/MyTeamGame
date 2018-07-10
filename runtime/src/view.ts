@@ -594,6 +594,7 @@ class battleUI extends DisplayObjectContainer {
             this.enemyImg.img = this.enemy.view.img;
             this.enemyHpText.text = '' + enemy.hp + ' / ' + this.enemyMaxHP;
             // this.addChild(this.enemyImg);
+
         })
 
         // batManager.addEventListener('playerHpUpdate', () => {
@@ -681,6 +682,7 @@ class battleEndWinUI extends DisplayObjectContainer {
     backButton: Bitmap;
 
     expText: TextField;
+    coinText: TextField;
 
     dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(310, 270);
     hasListener = false;
@@ -693,11 +695,13 @@ class battleEndWinUI extends DisplayObjectContainer {
         this.backGround = new Bitmap(254, 104, battleEndBGImg);
         this.backButton = new Bitmap(500, 353, backButtonImg);
         this.expText = new TextField('2333', 400, 207, 20);
+        this.coinText = new TextField('111', 500, 207, 20);
 
         // this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.backButton);
         this.addChild(this.expText);
+        this.addChild(this.coinText);
         this.addChild(this.dropTextGroup);
 
         // this.backButton.deleteAllEventListener();

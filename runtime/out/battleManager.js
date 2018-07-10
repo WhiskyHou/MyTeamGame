@@ -162,6 +162,7 @@ var battleManager = /** @class */ (function (_super) {
     battleManager.prototype.expGetter = function (enemy) {
         player._currentEXP += enemy.exp;
         console.log(player._currentEXP);
+        player._coin += enemy.coin;
         player.dispatchEvent('updateUserInfo', null);
     };
     return battleManager;
