@@ -30,6 +30,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
         _this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         _this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
+        _this.bloodbar = new Bitmap(90, 35, bloodBar);
         _this.addChild(_this.userName);
         _this.addChild(_this.userLevel);
         // this.addChild(this.userAttack);
@@ -44,6 +45,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.userDiamond);
         _this.addChild(_this.currentEXP);
         _this.addChild(_this.needEXP);
+        _this.addChild(_this.bloodbar);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
         });
