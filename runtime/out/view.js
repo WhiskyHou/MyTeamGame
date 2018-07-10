@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -141,9 +139,9 @@ var MissionUI = /** @class */ (function (_super) {
 var bagUI = /** @class */ (function (_super) {
     __extends(bagUI, _super);
     function bagUI(x, y) {
-        var _this = 
-        //super(x, y);
-        _super.call(this, 58, 64) || this;
+        var _this =
+            //super(x, y);
+            _super.call(this, 58, 64) || this;
         _this.player = player;
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
@@ -284,8 +282,8 @@ var bagUI = /** @class */ (function (_super) {
     bagUI.prototype.changeEquipmentInfo = function (equip) {
         this.deleteChild(this.equipmentMultiInfoText);
         var equipmentIfo = ['名称：' + equip.name, '品质：' + equip.quality,
-            '部位：' + equip.posID, '血量：+' + equip.health,
-            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        '部位：' + equip.posID, '血量：+' + equip.health,
+        '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
         this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
         this.addChild(this.equipmentMultiInfoText);
         this.dispatchEvent('updateBag', player);
@@ -716,8 +714,7 @@ var skillBoxUI = /** @class */ (function (_super) {
 //         return this._config;
 //     }
 // }
-=======
-<<<<<<< HEAD
+
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -858,9 +855,9 @@ var MissionUI = /** @class */ (function (_super) {
 var bagUI = /** @class */ (function (_super) {
     __extends(bagUI, _super);
     function bagUI(x, y) {
-        var _this = 
-        //super(x, y);
-        _super.call(this, 58, 64) || this;
+        var _this =
+            //super(x, y);
+            _super.call(this, 58, 64) || this;
         _this.player = player;
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
@@ -1001,8 +998,8 @@ var bagUI = /** @class */ (function (_super) {
     bagUI.prototype.changeEquipmentInfo = function (equip) {
         this.deleteChild(this.equipmentMultiInfoText);
         var equipmentIfo = ['名称：' + equip.name, '品质：' + equip.quality,
-            '部位：' + equip.posID, '血量：+' + equip.health,
-            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        '部位：' + equip.posID, '血量：+' + equip.health,
+        '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
         this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
         this.addChild(this.equipmentMultiInfoText);
         this.dispatchEvent('updateBag', player);
@@ -1428,8 +1425,6 @@ var skillBoxUI = /** @class */ (function (_super) {
 //         return this._config;
 //     }
 // }
-=======
->>>>>>> 5946568d913e3aa525ec284e470e72a955038863
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1570,9 +1565,9 @@ var MissionUI = /** @class */ (function (_super) {
 var bagUI = /** @class */ (function (_super) {
     __extends(bagUI, _super);
     function bagUI(x, y) {
-        var _this = 
-        //super(x, y);
-        _super.call(this, 58, 64) || this;
+        var _this =
+            //super(x, y);
+            _super.call(this, 58, 64) || this;
         _this.player = player;
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
@@ -1713,8 +1708,8 @@ var bagUI = /** @class */ (function (_super) {
     bagUI.prototype.changeEquipmentInfo = function (equip) {
         this.deleteChild(this.equipmentMultiInfoText);
         var equipmentIfo = ['名称：' + equip.name, '品质：' + equip.quality,
-            '部位：' + equip.posID, '血量：+' + equip.health,
-            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        '部位：' + equip.posID, '血量：+' + equip.health,
+        '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
         this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
         this.addChild(this.equipmentMultiInfoText);
         this.dispatchEvent('updateBag', player);
@@ -2145,8 +2140,4 @@ var skillBoxUI = /** @class */ (function (_super) {
 //         return this._config;
 //     }
 // }
-<<<<<<< HEAD
-=======
->>>>>>> 31db57ef87e237cfe65c4fd9cbb5d83fb5c0085b
->>>>>>> 86225b476aae99e5e95caaa99d93be6b4e20cb21
->>>>>>> 5946568d913e3aa525ec284e470e72a955038863
+
