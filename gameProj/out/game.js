@@ -18,6 +18,7 @@ var Demo = /** @class */ (function (_super) {
         Resource.load("assets/van_stand.png", "van");
         var img = new Bitmap(0, 0, Resource.get('van'));
         stage.addChild(img);
+        img.addComponent(new Camera());
     };
     Demo.prototype.onUpdate = function () {
     };
