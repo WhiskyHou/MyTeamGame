@@ -615,6 +615,7 @@ class battleEndWinUI extends DisplayObjectContainer {
     expText: TextField;
 
     dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(310, 270);
+    hasListener = false;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -631,22 +632,30 @@ class battleEndWinUI extends DisplayObjectContainer {
         this.addChild(this.expText);
         this.addChild(this.dropTextGroup);
 
+        // this.backButton.deleteAllEventListener();
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            batManager.dispatchEvent("backSceneWin", null);
+        })
+
+
         batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+            if (this.hasListener) {
+                return;
+            }
             for (let i = 0; i < dropBox.length; i++) {
                 let equip: Equipment;
                 equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
                 let textField = new TextField(equip.name, 0, 30 * i, 20);
                 player.packageEquipment.push(equip);
                 this.dropTextGroup.addChild(textField);
+                this.hasListener = true;
             }
         })
 
-        // this.backButton.deleteAllEventListener();
-        this.backButton.addEventListener("onClick", (eventData: any) => {
-            batManager.dispatchEvent("backSceneWin", null);
-        })
     }
 }
+
+
 
 /**
  * 战斗失败结算UI

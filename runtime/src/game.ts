@@ -673,6 +673,7 @@ canvas.onclick = function (event) {
 
 
 
+
 // 初始状态设置
 fsm.replaceState(new CreateState());
 // fsm.replaceState(new LoadingState());

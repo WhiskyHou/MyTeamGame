@@ -238,8 +238,8 @@ class User extends EventDispatcher {
     calProperty() {
         if (this._currentEXP >= this._needEXP) {
             this._level += 1;
-            this._currentEXP = 0;
-            this._needEXP = Math.floor(20 * 1.2 * this._level);
+            this._currentEXP = this._currentEXP - this._needEXP;
+            this._needEXP = Math.floor(this._needEXP * 1.2);
             this._originHealth += 2;
             this._originAttack += 6;
             this._originMp += 10;
