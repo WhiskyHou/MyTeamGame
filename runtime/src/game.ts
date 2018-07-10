@@ -557,8 +557,8 @@ class PlayingState extends State {
     }
 
     onEnter(): void {
-        staticStage.addChild(this.bg);
         dynamicStage.addChild(this.mapContainer);
+        // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
         staticStage.addChild(this.missionUIContainer);
         staticStage.addChild(talkUIContainer);

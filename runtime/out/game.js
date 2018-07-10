@@ -474,8 +474,8 @@ var PlayingState = /** @class */ (function (_super) {
     }
     PlayingState.prototype.onEnter = function () {
         var _this = this;
-        staticStage.addChild(this.bg);
         dynamicStage.addChild(this.mapContainer);
+        // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
         staticStage.addChild(this.missionUIContainer);
         staticStage.addChild(talkUIContainer);
