@@ -303,14 +303,19 @@ var battleUI = /** @class */ (function (_super) {
         _this.enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
         //战斗角色表现
         _this.playerImg = new Bitmap(120, 120, player.view.img);
+        _this.enemyImg = new Bitmap(355, 120, player.view.img);
         //战斗人物属性
         _this.playerAtkText = new TextField("" + player._attack, 150, 375, 30);
         _this.playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
         _this.playerHpText = new TextField("" + player._hp + " / " + _this.player.maxHP, 175, 273, 20);
-        _this.playerMpText = new TextField("" + _this.player._mp + " / " + _this.player.maxMp, 173, 313, 20);
-        _this.enemyHpText = new TextField("", 410, 273, 20);
+        _this.playerMpText = new TextField("" + _this.player._mp + " / " + _this.player.maxMp, 173, 314, 20);
+        _this.enemyHpText = new TextField("", 390, 273, 20);
+        _this.enemyMpText = new TextField("0 / 0", 390, 314, 20);
+        _this.enemyMaxHP = 0;
         _this.skillButtonGroup = [];
         _this.skillIDGroup = [];
+        //以下消耗品界面
+        _this.itemContainer = new DisplayObjectContainer(0, 0);
         _this.index = 0;
         _this.index = 0;
         // super(58, 64);
@@ -372,17 +377,20 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.enemyHpText);
         _this.addChild(_this.playerMpText);
         _this.addChild(_this.playerImg);
+        _this.addChild(_this.enemyMpText);
+        _this.addChild(_this.enemyImg);
         _this.addChild(_this.skillButton1);
         _this.addChild(_this.skillButton2);
         _this.addChild(_this.skillButton3);
         _this.addChild(_this.escapeButton);
         _this.addChild(_this.itemButton);
+        _this.addChild(_this.itemContainer);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy, 0); //普通攻击ID为0
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            if (player.skill[0].id == 6) { //七伤拳判断血量
+            if (player.skill[0].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -402,7 +410,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
-            if (player.skill[1].id == 6) { //七伤拳判断血量
+            if (player.skill[1].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -423,7 +431,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
-            if (player.skill[2].id == 6) { //七伤拳判断血量
+            if (player.skill[2].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -446,7 +454,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+            if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -455,6 +463,17 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.itemButton.addEventListener('onClick', function (eventData) {
+            _this.itemBg = new Bitmap(270, 70, Resource.get('battleItemBgImg'));
+            _this.itemContainer.addChild(_this.itemBg);
+            _this.itemUseButton = new Bitmap(470, 165, Resource.get('battleItemUseImg'));
+            _this.itemContainer.addChild(_this.itemUseButton);
+            _this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg'));
+            _this.itemContainer.addChild(_this.itemBackButton);
+            _this.itemUseButton.addEventListener('onClick', function () {
+            });
+            _this.itemBackButton.addEventListener('onClick', function () {
+                _this.itemContainer.deleteAll();
+            });
             console.log('弹出消耗品界面！');
         });
         batManager.addEventListener('playerBattleStart', function (player) {
@@ -462,10 +481,11 @@ var battleUI = /** @class */ (function (_super) {
         });
         batManager.addEventListener('enemyBattleStart', function (enemy) {
             _this.enemy = enemy;
+            _this.enemyMaxHP = enemy.hp;
             _this.enemyNameText.text = enemy.name;
-            _this.enemyImg = new Bitmap(355, 120, _this.enemy.view.img);
-            _this.enemyHpText.text = '' + enemy.hp;
-            _this.addChild(_this.enemyImg);
+            _this.enemyImg.img = _this.enemy.view.img;
+            _this.enemyHpText.text = '' + enemy.hp + ' / ' + _this.enemyMaxHP;
+            // this.addChild(this.enemyImg);
         });
         // batManager.addEventListener('playerHpUpdate', () => {
         //     this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
@@ -478,7 +498,7 @@ var battleUI = /** @class */ (function (_super) {
             else {
                 textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
             }
-            _this.enemyHpText.text = '' + _this.enemy.hp;
+            _this.enemyHpText.text = '' + _this.enemy.hp + ' / ' + _this.enemyMaxHP;
             _this.textGroup.addChild(textField);
             _this.index++;
         });

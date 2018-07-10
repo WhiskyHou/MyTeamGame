@@ -353,6 +353,7 @@ class battleUI extends DisplayObjectContainer {
     player: User = player;
     enemy: Monster;
 
+
     infoPanel: Bitmap;
     blackMask: Bitmap;
     backGround: Bitmap;
@@ -365,14 +366,16 @@ class battleUI extends DisplayObjectContainer {
 
     //战斗角色表现
     playerImg = new Bitmap(120, 120, player.view.img);
-    enemyImg: Bitmap;
+    enemyImg = new Bitmap(355, 120, player.view.img);
 
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
     playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
     playerHpText = new TextField("" + player._hp + " / " + this.player.maxHP, 175, 273, 20);
-    playerMpText = new TextField("" + this.player._mp + " / " + this.player.maxMp, 173, 313, 20);
-    enemyHpText = new TextField("", 410, 273, 20);
+    playerMpText = new TextField("" + this.player._mp + " / " + this.player.maxMp, 173, 314, 20);
+    enemyHpText = new TextField("", 390, 273, 20);
+    enemyMpText = new TextField("0 / 0", 390, 314, 20);
+    enemyMaxHP = 0;
 
     //技能按钮
     skillButton1: Bitmap;
@@ -383,6 +386,12 @@ class battleUI extends DisplayObjectContainer {
 
     escapeButton: Bitmap;
     itemButton: Bitmap;
+
+    //以下消耗品界面
+    itemContainer = new DisplayObjectContainer(0, 0);
+    itemBg: Bitmap;
+    itemUseButton: Bitmap;
+    itemBackButton: Bitmap;
 
     index = 0;
 
@@ -454,6 +463,8 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.enemyHpText);
         this.addChild(this.playerMpText);
         this.addChild(this.playerImg);
+        this.addChild(this.enemyMpText);
+        this.addChild(this.enemyImg);
 
         this.addChild(this.skillButton1);
         this.addChild(this.skillButton2);
@@ -461,6 +472,8 @@ class battleUI extends DisplayObjectContainer {
 
         this.addChild(this.escapeButton);
         this.addChild(this.itemButton);
+
+        this.addChild(this.itemContainer);
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
@@ -539,19 +552,38 @@ class battleUI extends DisplayObjectContainer {
                 batManager.fightOneTime(player, this.enemy, 100);//此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
             }
         })
+
         this.itemButton.addEventListener('onClick', (eventData: any) => {
+            this.itemBg = new Bitmap(270, 70, Resource.get('battleItemBgImg') as HTMLImageElement);
+            this.itemContainer.addChild(this.itemBg);
+            this.itemUseButton = new Bitmap(470, 165, Resource.get('battleItemUseImg') as HTMLImageElement);
+            this.itemContainer.addChild(this.itemUseButton);
+            this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg') as HTMLImageElement);
+            this.itemContainer.addChild(this.itemBackButton);
+
+            this.itemUseButton.addEventListener('onClick', () => {
+
+            })
+
+            this.itemBackButton.addEventListener('onClick', () => {
+                this.itemContainer.deleteAll();
+            })
+
             console.log('弹出消耗品界面！');
         })
+
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
             this.player = player;
         })
+
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
+            this.enemyMaxHP = enemy.hp;
             this.enemyNameText.text = enemy.name;
-            this.enemyImg = new Bitmap(355, 120, this.enemy.view.img);
-            this.enemyHpText.text = '' + enemy.hp;
-            this.addChild(this.enemyImg);
+            this.enemyImg.img = this.enemy.view.img;
+            this.enemyHpText.text = '' + enemy.hp + ' / ' + this.enemyMaxHP;
+            // this.addChild(this.enemyImg);
         })
 
         // batManager.addEventListener('playerHpUpdate', () => {
@@ -566,7 +598,7 @@ class battleUI extends DisplayObjectContainer {
                 textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
             }
 
-            this.enemyHpText.text = '' + this.enemy.hp;
+            this.enemyHpText.text = '' + this.enemy.hp + ' / ' + this.enemyMaxHP;
             this.textGroup.addChild(textField);
             this.index++;
 
