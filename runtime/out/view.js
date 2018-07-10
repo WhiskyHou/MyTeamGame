@@ -124,8 +124,8 @@ var MissionUI = /** @class */ (function (_super) {
     function MissionUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-        _this.MissionBackGround = new Bitmap(225, 25, missionImg);
-        _this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        _this.MissionBackGround = new Bitmap(225, 65, missionImg);
+        _this.closeButton = new Bitmap(215, 55, missionCloseImg);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.MissionBackGround);
         _this.addChild(_this.closeButton);

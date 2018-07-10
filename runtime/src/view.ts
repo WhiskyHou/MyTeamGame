@@ -148,8 +148,8 @@ class MissionUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.MissionBackGround = new Bitmap(225, 25, missionImg);
-        this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        this.MissionBackGround = new Bitmap(225, 65, missionImg);
+        this.closeButton = new Bitmap(215, 55, missionCloseImg);
 
         this.addChild(this.blackMask);
         this.addChild(this.MissionBackGround);
