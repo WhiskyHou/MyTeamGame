@@ -140,7 +140,7 @@ class GameMap extends DisplayObjectContainer {
                         const key = i + '_' + j;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
-                    } else if (id == shop) {
+                    } else if (id == SHOP) {
                         const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, Shop);
                         this.itemContainer.addChild(equipmentView);
                         console.log("open shop");
@@ -162,10 +162,10 @@ class GameMap extends DisplayObjectContainer {
                             if (monster.id == id) {
                                 const monsterView = monster.view;
                                 // const npcHead = npc.head;
-                                monsterView.x = TILE_SIZE * j;
-                                monsterView.y = TILE_SIZE * i;
-                                monster.x = j
-                                monster.y = i
+                                monsterView.x = TILE_SIZE * i;
+                                monsterView.y = TILE_SIZE * j;
+                                monster.x = i
+                                monster.y = j
                                 const key = i + '_' + j;
                                 this.monsterConfig[key] = monster;
                                 this.roleContainer.addChild(monsterView);
