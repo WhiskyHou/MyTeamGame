@@ -180,6 +180,7 @@ class User extends EventDispatcher {
 
     public changeEquipments() {
         // let currentHp = this._hp;
+        let subHP = this.maxHP - this._hp;
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
@@ -188,6 +189,7 @@ class User extends EventDispatcher {
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
         this.maxHP = this._hp;
+        this._hp -= subHP;
         // this._hp = currentHp;
         this.dispatchEvent("changeEquips", null);
         // this.checkSuit();
