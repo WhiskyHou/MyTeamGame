@@ -382,7 +382,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            if (player.skill[0].id == 6) { //七伤拳判断血量
+            if (player.skill[0].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -402,7 +402,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
-            if (player.skill[1].id == 6) { //七伤拳判断血量
+            if (player.skill[1].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -423,9 +423,9 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
-            if (player.skill[3].id == 6) { //七伤拳判断血量
+            if (player.skill[2].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
-                    var textField = new TextField("当前HP值不足以施放 " + player.skill[3].name, 0, _this.index * 20, 15);
+                    var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
                     _this.index++;
                     return;
@@ -446,7 +446,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+            if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -557,20 +557,20 @@ var battleEndWinUI = /** @class */ (function (_super) {
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
         });
-        batManager.addEventListener("enemyDrop", function (dropBox) {
-            if (_this.hasListener) {
-                return;
-            }
-            for (var i = 0; i < dropBox.length; i++) {
-                var equip = void 0;
-                equip = equipManager.getEquipByID(dropBox[i]);
-                var textField = new TextField(equip.name, 0, 30 * i, 20);
-                player.packageEquipment.push(equip);
-                _this.dropTextGroup.addChild(textField);
-                _this.hasListener = true;
-            }
-        });
         return _this;
+        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+        //     if (this.hasListener) {
+        //         return;
+        //     }
+        //     for (let i = 0; i < dropBox.length; i++) {
+        //         let equip: Equipment;
+        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
+        //         player.packageEquipment.push(equip);
+        //         this.dropTextGroup.addChild(textField);
+        //         this.hasListener = true;
+        //     }
+        // })
     }
     return battleEndWinUI;
 }(DisplayObjectContainer));

@@ -160,10 +160,10 @@ var GameMap = /** @class */ (function (_super) {
                             if (monster.id == id) {
                                 var monsterView = monster.view;
                                 // const npcHead = npc.head;
-                                monsterView.x = TILE_SIZE * i;
-                                monsterView.y = TILE_SIZE * j;
-                                monster.x = i;
-                                monster.y = j;
+                                monsterView.x = TILE_SIZE * j;
+                                monsterView.y = TILE_SIZE * i;
+                                monster.x = j;
+                                monster.y = i;
                                 var key = i + '_' + j;
                                 _this.monsterConfig[key] = monster;
                                 _this.roleContainer.addChild(monsterView);
