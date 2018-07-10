@@ -244,8 +244,8 @@ var LoadingState = /** @class */ (function (_super) {
         return _this;
     }
     LoadingState.prototype.onEnter = function () {
-        stage.addChild(this.loadBG);
-        stage.addChild(this.loadPercent);
+        staticStage.addChild(this.loadBG);
+        staticStage.addChild(this.loadPercent);
     };
     LoadingState.prototype.onUpdate = function () {
         if (this.count < 100 && this.waitTime == 0) {
@@ -265,8 +265,8 @@ var LoadingState = /** @class */ (function (_super) {
     };
     LoadingState.prototype.onExit = function () {
         console.log('Loading State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
     };
     return LoadingState;
 }(State));
@@ -293,11 +293,11 @@ var MenuState = /** @class */ (function (_super) {
         return _this;
     }
     MenuState.prototype.onEnter = function () {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.title);
-        stage.addChild(this.loadButton);
-        stage.addChild(this.workerButton);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.title);
+        staticStage.addChild(this.loadButton);
+        staticStage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
         var temp = new Audio();
         temp.src = "assets/van_pick_knife.mp3";
@@ -309,8 +309,8 @@ var MenuState = /** @class */ (function (_super) {
     };
     MenuState.prototype.onExit = function () {
         console.log('Menu State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
     };
     return MenuState;
 }(State));
@@ -379,17 +379,17 @@ var CreateState = /** @class */ (function (_super) {
         return _this;
     }
     CreateState.prototype.onEnter = function () {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.playerHpText);
-        stage.addChild(this.playerNameText);
-        stage.addChild(this.playerAttackText);
-        stage.addChild(this.canAssignPointText);
-        stage.addChild(this.tipsText);
-        stage.addChild(this.hpAddButton);
-        stage.addChild(this.hpMinusButton);
-        stage.addChild(this.attackAddButton);
-        stage.addChild(this.attackMinusButton);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.playerHpText);
+        staticStage.addChild(this.playerNameText);
+        staticStage.addChild(this.playerAttackText);
+        staticStage.addChild(this.canAssignPointText);
+        staticStage.addChild(this.tipsText);
+        staticStage.addChild(this.hpAddButton);
+        staticStage.addChild(this.hpMinusButton);
+        staticStage.addChild(this.attackAddButton);
+        staticStage.addChild(this.attackMinusButton);
         // stage.addEventListener("onClick", this.onClick);
     };
     CreateState.prototype.onUpdate = function () {
@@ -405,8 +405,8 @@ var CreateState = /** @class */ (function (_super) {
     };
     CreateState.prototype.onExit = function () {
         console.log('Create State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
         // this.onCreatePlayer();
     };
     CreateState.prototype.onCreatePlayer = function () {
@@ -474,20 +474,20 @@ var PlayingState = /** @class */ (function (_super) {
     }
     PlayingState.prototype.onEnter = function () {
         var _this = this;
-        stage.addChild(this.bg);
-        stage.addChild(this.mapContainer);
-        stage.addChild(this.userUIContainer);
-        stage.addChild(this.missionUIContainer);
-        stage.addChild(talkUIContainer);
-        stage.addChild(skillBoxContainer);
-        stage.addChild(missionBoxContainer);
+        dynamicStage.addChild(this.mapContainer);
+        // staticStage.addChild(this.bg);
+        staticStage.addChild(this.userUIContainer);
+        staticStage.addChild(this.missionUIContainer);
+        staticStage.addChild(talkUIContainer);
+        staticStage.addChild(skillBoxContainer);
+        staticStage.addChild(missionBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
-        stage.addChild(batteUIContainer);
+        staticStage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
-        stage.addChild(bagUIContainer);
+        staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
         baManager.addEventListener('openBag', function (eventData) {
             bagUIContainer.addChild(_this.baggUI);
@@ -541,7 +541,8 @@ var PlayingState = /** @class */ (function (_super) {
         missionManager.update();
     };
     PlayingState.prototype.onExit = function () {
-        stage.deleteAll();
+        staticStage.deleteAll();
+        dynamicStage.deleteAll();
         this.mapContainer.deleteAll();
     };
     // 角色原地动画
