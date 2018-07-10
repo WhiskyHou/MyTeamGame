@@ -189,7 +189,7 @@ const WALL_RIGHT = 5;
 
 const KILL_DARGON_KNIFE = 1;
 const HP_BOTTLE = 2;
-const shop = 3;
+const SHOP = 3;
 
 const NPC1 = 1;
 const NPC2 = 2;

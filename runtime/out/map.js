@@ -75,7 +75,7 @@ var GameMap = /** @class */ (function (_super) {
                     }
                 }
             }
-            var mapWalkable = obj[0].walkable;
+            var mapWalkable = obj.map[0].walkable;
             for (var i = 0; i < mapWalkable.length; i++) {
                 var row = mapWalkable[i];
                 for (var j = 0; j < row.length; j++) {
@@ -140,32 +140,13 @@ var GameMap = /** @class */ (function (_super) {
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
                     }
-                    else if (id == shop) {
+                    else if (id == SHOP) {
                         var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, Shop);
                         _this.itemContainer.addChild(equipmentView);
                         console.log("open shop");
                     }
                 }
             }
-            // const mapMonster = obj.map[0].monster as number[][]
-            // for (let i = 0; i < mapMonster.length; i++) {
-            //     const row = mapMonster[i];
-            //     for (let j = 0; j < row.length; j++) {
-            //         const id = row[j]
-            //         if (id) {
-            //             const monsterView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, captain);
-            //             const monsterItem = new Monster(1, '队长', 1200, 100);
-            //             monsterItem.name = '队长';
-            //             monsterItem.view = monsterView;
-            //             // monsterItem.hp = 120;
-            //             monsterItem.x = i;
-            //             monsterItem.y = j;
-            //             const key = i + '_' + j;
-            //             this.monsterConfig[key] = monsterItem;
-            //             this.roleContainer.addChild(monsterView);
-            //         }
-            //     }
-            // }
             var mapMonster = obj.map[0].monster;
             for (var i = 0; i < mapMonster.length; i++) {
                 var row = mapMonster[i];
