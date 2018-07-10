@@ -143,12 +143,15 @@ class MissionUI extends DisplayObjectContainer {
     MissionBackGround: Bitmap;
     closeButton: Bitmap;
 
+    blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
     constructor(x: number, y: number) {
         super(x, y);
 
         this.MissionBackGround = new Bitmap(225, 25, missionImg);
         this.closeButton = new Bitmap(215, 15, missionCloseImg);
 
+        this.addChild(this.blackMask);
         this.addChild(this.MissionBackGround);
         this.addChild(this.closeButton);
 
@@ -195,6 +198,9 @@ class bagUI extends DisplayObjectContainer {
     charmText: TextField;
     hpText: TextField;
     mpText: TextField;
+
+    blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
+
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
@@ -235,6 +241,7 @@ class bagUI extends DisplayObjectContainer {
         this.hpText = new TextField(player._hp.toString(), 336, 453, 15)
         this.mpText = new TextField(player._mp.toString(), 420, 453, 15)
 
+        this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
@@ -769,6 +776,8 @@ class skillBoxUI extends DisplayObjectContainer {
 
     nowChoice = 0;//1为技能栏中技能被选中，2为已装备技能被选中。
 
+    blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -781,6 +790,7 @@ class skillBoxUI extends DisplayObjectContainer {
         this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         this.skillOffButton = new Bitmap(582, 290, bagOffUI);
 
+        this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.closeButton);
         this.addChild(this.skillTextGroup);

@@ -123,8 +123,10 @@ var MissionUI = /** @class */ (function (_super) {
     __extends(MissionUI, _super);
     function MissionUI(x, y) {
         var _this = _super.call(this, x, y) || this;
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.MissionBackGround = new Bitmap(225, 25, missionImg);
         _this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.MissionBackGround);
         _this.addChild(_this.closeButton);
         _this.closeButton.addEventListener('onClick', function () {
@@ -144,6 +146,7 @@ var bagUI = /** @class */ (function (_super) {
         //super(x, y);
         _super.call(this, 58, 64) || this;
         _this.player = player;
+        _this.blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
         _this.bagOffButton = new Bitmap(398, 246, bagOffUI);
@@ -178,6 +181,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.charmText = new TextField(player._charm.toString(), 262, 453, 15);
         _this.hpText = new TextField(player._hp.toString(), 336, 453, 15);
         _this.mpText = new TextField(player._mp.toString(), 420, 453, 15);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -625,6 +629,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.choosingSkillArrayNo = 0;
         _this.choosingMountedSkillArrayNo = 0;
         _this.nowChoice = 0; //1为技能栏中技能被选中，2为已装备技能被选中。
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         _this.skillTextGroup = new DisplayObjectContainer(375, 20);
@@ -633,6 +638,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         _this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         _this.skillOffButton = new Bitmap(582, 290, bagOffUI);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.closeButton);
         _this.addChild(_this.skillTextGroup);
