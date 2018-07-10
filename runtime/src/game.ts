@@ -418,7 +418,7 @@ class CreateState extends State {
             this.playerAttackText.text = "" + player._originAttack;
         });
         this.attackMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._attack > 10) {
+            if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;

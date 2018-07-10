@@ -482,7 +482,7 @@ class TextField extends DisplayObject {
     renderX: number;
     renderY: number;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'LiSu', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'fantasy', color: string = 'black') {
         super(x, y);
         this.renderX = x;
         this.renderY = y;
@@ -510,6 +510,14 @@ class TextField extends DisplayObject {
     }
 
     render(context: CanvasRenderingContext2D) {
+<<<<<<< HEAD
+        // 获取文本渲染的宽度
+        this.width = context.measureText(this.text).width;
+        context.fillStyle = 'black';
+        context.font = this.size.toString() + 'px ' + this.style;
+        context.fillText(this.text, 0, this.size);
+        
+=======
         context.fillStyle = this.color;
         context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
@@ -519,6 +527,7 @@ class TextField extends DisplayObject {
         if (this.isCenter) {
             this.x = this.renderX - this.width / 2
         }
+>>>>>>> 31db57ef87e237cfe65c4fd9cbb5d83fb5c0085b
     }
 
     centered() {
