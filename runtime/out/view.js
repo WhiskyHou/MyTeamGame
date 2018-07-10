@@ -300,8 +300,6 @@ var bagUI = /** @class */ (function (_super) {
  */
 var shopUI = /** @class */ (function (_super) {
     __extends(shopUI, _super);
-    // weaponText: TextField;
-    // equipmentMultiInfoText: MultiTextField;
     function shopUI(x, y) {
         var _this = 
         //super(x, y);
@@ -316,6 +314,14 @@ var shopUI = /** @class */ (function (_super) {
         _this.shopR = new Bitmap(435, 260, Resource.get('shopUIR'));
         _this.shopL = new Bitmap(350, 260, Resource.get('shopUIL'));
         _this.shopBuy = new Bitmap(338, 300, Resource.get('shopUIbuy'));
+        _this.ShopText1 = new TextField('11111', 365, 83, 30);
+        _this.ShopText2 = new TextField('22222', 365, 116, 30);
+        _this.ShopText3 = new TextField('33333', 365, 149, 30);
+        _this.ShopText4 = new TextField('44444', 365, 182, 30);
+        _this.ShopText5 = new TextField('55555', 365, 215, 30);
+        _this.ShopPage = new TextField('1', 380, 250, 30);
+        //this.ShopMultiInfoText =new MultiTextField('',365,400,20,5);
+        _this.ShopCoin = new TextField('100', 438, 453, 20);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.shopDownButton);
         _this.addChild(_this.shopWQ);
@@ -325,6 +331,14 @@ var shopUI = /** @class */ (function (_super) {
         _this.addChild(_this.shopR);
         _this.addChild(_this.shopL);
         _this.addChild(_this.shopBuy);
+        _this.addChild(_this.ShopText1);
+        _this.addChild(_this.ShopText2);
+        _this.addChild(_this.ShopText3);
+        _this.addChild(_this.ShopText4);
+        _this.addChild(_this.ShopText5);
+        _this.addChild(_this.ShopPage);
+        //this.addChild(this.ShopMultiInfoText);
+        _this.addChild(_this.ShopCoin);
         _this.shopDownButton.addEventListener("onClick", function (eventData) {
             shpManager.shopDown();
         });
