@@ -25,7 +25,7 @@ class battleManager extends EventDispatcher {
 
     fightOneTime(player: User, enemy: Monster, skillType: number) {
         this.dispatchEvent('playerBattleStart', player);
-        this.dispatchEvent('enemyBattleStart', enemy);
+        // this.dispatchEvent('enemyBattleStart', enemy);
         console.log(enemy.hp + "  " + enemy.attack);
 
         let damage = this.playerDealDamage();
