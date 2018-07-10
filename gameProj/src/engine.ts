@@ -140,9 +140,11 @@ class CommandPool {
 
 abstract class Behaviour {
 
+    gameObject: DisplayObject;
+
     abstract onStart(): void;
 
-    abstract onUpdate(): void;
+    abstract onUpdate(delta: number): void;
 
     abstract onDestory(): void;
 
@@ -152,6 +154,65 @@ interface ComponentSystem {
 
     addComponent(instance: Behaviour): Behaviour;
     removeComponent(): void;
+}
+
+/**
+ * 组件池
+ */
+class ComponentPool {
+
+    private static _instance: ComponentPool
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new ComponentPool();
+        }
+        return this._instance;
+    }
+
+    private components: Behaviour[] = []
+
+    addComponent(value: Behaviour) {
+        this.components.push(value)
+    }
+
+    update() {
+        for (let component of this.components) {
+            component.onUpdate(DELTA_TIME)
+        }
+    }
+}
+
+
+
+/**
+ * 相机
+ */
+class Camera extends Behaviour {
+
+    moveSpeed: number = 150
+
+    onStart(): void {
+        this.gameObject.addEventListener("cameraMove", (eventData: any) => {
+            switch (eventData.dir) {
+                case "UP":
+                    break;
+                case "DOWN":
+                    break;
+                case "LEFT":
+                    break;
+                case "RIGHT":
+                    break;
+            }
+        })
+    }
+
+    onUpdate(): void {
+
+    }
+
+    onDestory(): void {
+
+    }
 }
 
 
@@ -198,7 +259,8 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
     }
 
     addComponent(instance: Behaviour) {
-
+        ComponentPool.instance.addComponent(instance)
+        instance.gameObject = this;
         return instance;
     }
 
@@ -303,6 +365,17 @@ class DisplayObjectContainer extends DisplayObject {
             }
         }
         return hitTestResult;
+    }
+}
+
+
+class EmptyObject extends DisplayObject {
+
+    constructor(x: number, y: number) {
+        super(x, y);
+    }
+
+    render(context: CanvasRenderingContext2D): void {
     }
 }
 
@@ -537,6 +610,7 @@ class TextField extends DisplayObject {
         this.color = color;
     }
 }
+
 /**
  * 文本
  * 
@@ -678,7 +752,8 @@ class SaveAndLoad {
  * 心跳控制器
  */
 function onTicker(context: CanvasRenderingContext2D) {
-    fsm.update();
+    // fsm.update();
+    ComponentPool.instance.update();
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
     stage.draw(context);
@@ -689,9 +764,9 @@ function onTicker(context: CanvasRenderingContext2D) {
 /**
  * 主循环
  */
-var start: number | null = null;
-var lastTimestamp = 0;
-var INTERVAL = 0;
+let start: number | null = null;
+let lastTimestamp = 0;
+let DELTA_TIME = 0;
 function enterFrame(timestamp: number) {
     if (!context) {
         return;
@@ -702,7 +777,7 @@ function enterFrame(timestamp: number) {
         start = timestamp;
         lastTimestamp = timestamp;
     }
-    INTERVAL = timestamp - lastTimestamp;
+    DELTA_TIME = timestamp - lastTimestamp;
     lastTimestamp = timestamp;
 
     onTicker(context);

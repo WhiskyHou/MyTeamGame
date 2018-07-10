@@ -389,7 +389,7 @@ var Animator = /** @class */ (function (_super) {
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
     function TextField(text, x, y, size, style, color) {
-        if (style === void 0) { style = 'LiSu'; }
+        if (style === void 0) { style = 'fantasy'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
         _this.renderX = x;
@@ -593,6 +593,10 @@ function enterFrame(timestamp) {
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 var stage = new Stage();
+var staticStage = new Stage();
+var dynamicStage = new Stage();
+stage.addChild(dynamicStage);
+stage.addChild(staticStage);
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
 requestAnimationFrame(enterFrame);

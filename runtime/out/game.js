@@ -165,7 +165,7 @@ missionCloseImg.src = './assets//UI 取消按钮.png';
  *
  * TODO: 部分需要删除整合
  */
-var TILE_SIZE = 64; //TODO:还原为128
+var TILE_SIZE = 128; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
 var COL_NUM = 8;
@@ -244,8 +244,8 @@ var LoadingState = /** @class */ (function (_super) {
         return _this;
     }
     LoadingState.prototype.onEnter = function () {
-        stage.addChild(this.loadBG);
-        stage.addChild(this.loadPercent);
+        staticStage.addChild(this.loadBG);
+        staticStage.addChild(this.loadPercent);
     };
     LoadingState.prototype.onUpdate = function () {
         if (this.count < 100 && this.waitTime == 0) {
@@ -265,8 +265,8 @@ var LoadingState = /** @class */ (function (_super) {
     };
     LoadingState.prototype.onExit = function () {
         console.log('Loading State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
     };
     return LoadingState;
 }(State));
@@ -293,11 +293,11 @@ var MenuState = /** @class */ (function (_super) {
         return _this;
     }
     MenuState.prototype.onEnter = function () {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.title);
-        stage.addChild(this.loadButton);
-        stage.addChild(this.workerButton);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.title);
+        staticStage.addChild(this.loadButton);
+        staticStage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
         var temp = new Audio();
         temp.src = "assets/van_pick_knife.mp3";
@@ -309,8 +309,8 @@ var MenuState = /** @class */ (function (_super) {
     };
     MenuState.prototype.onExit = function () {
         console.log('Menu State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
     };
     return MenuState;
 }(State));
@@ -369,7 +369,7 @@ var CreateState = /** @class */ (function (_super) {
             _this.playerAttackText.text = "" + player._originAttack;
         });
         _this.attackMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._attack > 10) {
+            if (_this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
@@ -379,17 +379,17 @@ var CreateState = /** @class */ (function (_super) {
         return _this;
     }
     CreateState.prototype.onEnter = function () {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.playerHpText);
-        stage.addChild(this.playerNameText);
-        stage.addChild(this.playerAttackText);
-        stage.addChild(this.canAssignPointText);
-        stage.addChild(this.tipsText);
-        stage.addChild(this.hpAddButton);
-        stage.addChild(this.hpMinusButton);
-        stage.addChild(this.attackAddButton);
-        stage.addChild(this.attackMinusButton);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.playerHpText);
+        staticStage.addChild(this.playerNameText);
+        staticStage.addChild(this.playerAttackText);
+        staticStage.addChild(this.canAssignPointText);
+        staticStage.addChild(this.tipsText);
+        staticStage.addChild(this.hpAddButton);
+        staticStage.addChild(this.hpMinusButton);
+        staticStage.addChild(this.attackAddButton);
+        staticStage.addChild(this.attackMinusButton);
         // stage.addEventListener("onClick", this.onClick);
     };
     CreateState.prototype.onUpdate = function () {
@@ -405,8 +405,8 @@ var CreateState = /** @class */ (function (_super) {
     };
     CreateState.prototype.onExit = function () {
         console.log('Create State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
         // this.onCreatePlayer();
     };
     CreateState.prototype.onCreatePlayer = function () {
@@ -420,6 +420,7 @@ var CreateState = /** @class */ (function (_super) {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+        player.coin = 1000; //测试用
     };
     CreateState.prototype.heartBeatEffect = function (bmp) {
         if (this.bigTag) {
@@ -456,37 +457,37 @@ var PlayingState = /** @class */ (function (_super) {
     function PlayingState() {
         var _this = _super.call(this) || this;
         map = new GameMap();
-        talkUIContainer = new DisplayObjectContainer(16, 16);
-        _this.mapContainer = new DisplayObjectContainer(16, 16);
-        _this.userUIContainer = new DisplayObjectContainer(16, 16);
-        _this.missionUIContainer = new DisplayObjectContainer(16, 16);
+        talkUIContainer = new DisplayObjectContainer(0, 0);
+        _this.mapContainer = new DisplayObjectContainer(0, 0);
+        _this.userUIContainer = new DisplayObjectContainer(0, 0);
+        _this.missionUIContainer = new DisplayObjectContainer(0, 0);
         _this.bg = new Bitmap(0, 0, bg);
         _this.userInfoUI = new UserInfoUI(0, 0);
         _this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
-        batteUIContainer = new DisplayObjectContainer(16, 16);
+        batteUIContainer = new DisplayObjectContainer(0, 0);
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
-        skillBoxContainer = new DisplayObjectContainer(16, 16);
-        missionBoxContainer = new DisplayObjectContainer(16, 16);
+        skillBoxContainer = new DisplayObjectContainer(0, 0);
+        missionBoxContainer = new DisplayObjectContainer(0, 0);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
         var _this = this;
-        stage.addChild(this.bg);
-        stage.addChild(this.mapContainer);
-        stage.addChild(this.userUIContainer);
-        stage.addChild(this.missionUIContainer);
-        stage.addChild(talkUIContainer);
-        stage.addChild(skillBoxContainer);
-        stage.addChild(missionBoxContainer);
+        dynamicStage.addChild(this.mapContainer);
+        // staticStage.addChild(this.bg);
+        staticStage.addChild(this.userUIContainer);
+        staticStage.addChild(this.missionUIContainer);
+        staticStage.addChild(talkUIContainer);
+        staticStage.addChild(skillBoxContainer);
+        staticStage.addChild(missionBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
-        stage.addChild(batteUIContainer);
+        staticStage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
-        stage.addChild(bagUIContainer);
+        staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
         baManager.addEventListener('openBag', function (eventData) {
             bagUIContainer.addChild(_this.baggUI);
@@ -540,7 +541,8 @@ var PlayingState = /** @class */ (function (_super) {
         missionManager.update();
     };
     PlayingState.prototype.onExit = function () {
-        stage.deleteAll();
+        staticStage.deleteAll();
+        dynamicStage.deleteAll();
         this.mapContainer.deleteAll();
     };
     // 角色原地动画
@@ -558,8 +560,8 @@ canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
     //以下调UI位置用
-    var dingWeix = event.offsetX - 16;
-    var dingWeiy = event.offsetY - 16;
+    var dingWeix = event.offsetX - 0;
+    var dingWeiy = event.offsetY - 0;
     console.log(dingWeix + " , " + dingWeiy);
     var hitResult = stage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {

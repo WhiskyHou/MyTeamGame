@@ -64,7 +64,6 @@ class User extends EventDispatcher {
         // this.packageEquipment.push(eq3)
         // this.packageEquipment.push(eq4)
 
-        //以下测试技能用
         this.skill.push(skillEmpty);
         this.skill.push(skillEmpty);
         this.skill.push(skillEmpty);
@@ -181,6 +180,7 @@ class User extends EventDispatcher {
 
     public changeEquipments() {
         // let currentHp = this._hp;
+        let subHP = this.maxHP - this._hp;
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
@@ -189,6 +189,7 @@ class User extends EventDispatcher {
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
         this.maxHP = this._hp;
+        this._hp -= subHP;
         // this._hp = currentHp;
         this.dispatchEvent("changeEquips", null);
         // this.checkSuit();

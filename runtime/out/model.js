@@ -64,7 +64,6 @@ var User = /** @class */ (function (_super) {
         // this.packageEquipment.push(eq2)
         // this.packageEquipment.push(eq3)
         // this.packageEquipment.push(eq4)
-        //以下测试技能用
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
@@ -181,6 +180,7 @@ var User = /** @class */ (function (_super) {
     //---------------------------------------------------------------
     User.prototype.changeEquipments = function () {
         // let currentHp = this._hp;
+        var subHP = this.maxHP - this._hp;
         this.initProperty();
         for (var i = 0; i < this.mounthedEquipment.length; i++) {
             this._attack += this.mounthedEquipment[i].attack;
@@ -189,6 +189,7 @@ var User = /** @class */ (function (_super) {
             this._criticalPer += this.mounthedEquipment[i].criticalPer;
         }
         this.maxHP = this._hp;
+        this._hp -= subHP;
         // this._hp = currentHp;
         this.dispatchEvent("changeEquips", null);
         // this.checkSuit();

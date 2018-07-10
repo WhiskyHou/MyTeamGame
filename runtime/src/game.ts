@@ -171,7 +171,7 @@ missionCloseImg.src = './assets//UI 取消按钮.png';
  * 
  * TODO: 部分需要删除整合
  */
-const TILE_SIZE = 64;//TODO:还原为128
+const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
 const ROW_NUM = 8;
@@ -263,8 +263,8 @@ class LoadingState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.loadBG);
-        stage.addChild(this.loadPercent);
+        staticStage.addChild(this.loadBG);
+        staticStage.addChild(this.loadPercent);
 
     }
     onUpdate(): void {
@@ -286,8 +286,8 @@ class LoadingState extends State {
     }
     onExit(): void {
         console.log('Loading State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
 
     }
 }
@@ -313,11 +313,11 @@ class MenuState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.title);
-        stage.addChild(this.loadButton);
-        stage.addChild(this.workerButton);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.title);
+        staticStage.addChild(this.loadButton);
+        staticStage.addChild(this.workerButton);
 
         this.startButton.addEventListener("onClick", this.onClick);
 
@@ -332,8 +332,8 @@ class MenuState extends State {
     }
     onExit(): void {
         console.log('Menu State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
 
 
     }
@@ -418,7 +418,7 @@ class CreateState extends State {
             this.playerAttackText.text = "" + player._originAttack;
         });
         this.attackMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._attack > 10) {
+            if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
@@ -428,18 +428,18 @@ class CreateState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.playerHpText);
-        stage.addChild(this.playerNameText);
-        stage.addChild(this.playerAttackText);
-        stage.addChild(this.canAssignPointText);
-        stage.addChild(this.tipsText);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.playerHpText);
+        staticStage.addChild(this.playerNameText);
+        staticStage.addChild(this.playerAttackText);
+        staticStage.addChild(this.canAssignPointText);
+        staticStage.addChild(this.tipsText);
 
-        stage.addChild(this.hpAddButton);
-        stage.addChild(this.hpMinusButton);
-        stage.addChild(this.attackAddButton);
-        stage.addChild(this.attackMinusButton);
+        staticStage.addChild(this.hpAddButton);
+        staticStage.addChild(this.hpMinusButton);
+        staticStage.addChild(this.attackAddButton);
+        staticStage.addChild(this.attackMinusButton);
 
 
         // stage.addEventListener("onClick", this.onClick);
@@ -459,8 +459,8 @@ class CreateState extends State {
     }
     onExit(): void {
         console.log('Create State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
         // this.onCreatePlayer();
     }
 
@@ -475,6 +475,8 @@ class CreateState extends State {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+
+        player.coin = 1000;//测试用
     }
 
     onStartClick = (eventData: any) => {
@@ -534,34 +536,34 @@ class PlayingState extends State {
         super();
 
         map = new GameMap();
-        talkUIContainer = new DisplayObjectContainer(16, 16);
+        talkUIContainer = new DisplayObjectContainer(0, 0);
 
-        this.mapContainer = new DisplayObjectContainer(16, 16);
-        this.userUIContainer = new DisplayObjectContainer(16, 16);
-        this.missionUIContainer = new DisplayObjectContainer(16, 16);
+        this.mapContainer = new DisplayObjectContainer(0, 0);
+        this.userUIContainer = new DisplayObjectContainer(0, 0);
+        this.missionUIContainer = new DisplayObjectContainer(0, 0);
 
         this.bg = new Bitmap(0, 0, bg);
         this.userInfoUI = new UserInfoUI(0, 0);
         this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
 
-        batteUIContainer = new DisplayObjectContainer(16, 16);
+        batteUIContainer = new DisplayObjectContainer(0, 0);
         this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         this.baggUI = new bagUI(0, 0);
 
-        skillBoxContainer = new DisplayObjectContainer(16, 16);
-        missionBoxContainer = new DisplayObjectContainer(16, 16);
+        skillBoxContainer = new DisplayObjectContainer(0, 0);
+        missionBoxContainer = new DisplayObjectContainer(0, 0);
 
     }
 
     onEnter(): void {
-        stage.addChild(this.bg);
-        stage.addChild(this.mapContainer);
-        stage.addChild(this.userUIContainer);
-        stage.addChild(this.missionUIContainer);
-        stage.addChild(talkUIContainer);
-        stage.addChild(skillBoxContainer);
-        stage.addChild(missionBoxContainer);
+        dynamicStage.addChild(this.mapContainer);
+        // staticStage.addChild(this.bg);
+        staticStage.addChild(this.userUIContainer);
+        staticStage.addChild(this.missionUIContainer);
+        staticStage.addChild(talkUIContainer);
+        staticStage.addChild(skillBoxContainer);
+        staticStage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
@@ -569,9 +571,9 @@ class PlayingState extends State {
         this.missionUIContainer.addChild(this.missionInfoUI);
 
 
-        stage.addChild(batteUIContainer);
+        staticStage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
-        stage.addChild(bagUIContainer);
+        staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
         baManager.addEventListener('openBag', (eventData: any) => {
             bagUIContainer.addChild(this.baggUI);
@@ -635,7 +637,8 @@ class PlayingState extends State {
         missionManager.update();
     }
     onExit(): void {
-        stage.deleteAll();
+        staticStage.deleteAll();
+        dynamicStage.deleteAll();
         this.mapContainer.deleteAll();
     }
 
@@ -655,8 +658,8 @@ canvas.onclick = function (event) {
     const globalY = event.offsetY;
 
     //以下调UI位置用
-    const dingWeix = event.offsetX - 16;
-    const dingWeiy = event.offsetY - 16;
+    const dingWeix = event.offsetX - 0;
+    const dingWeiy = event.offsetY - 0;
     console.log(dingWeix + " , " + dingWeiy);
 
 
