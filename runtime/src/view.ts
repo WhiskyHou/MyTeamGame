@@ -148,8 +148,8 @@ class MissionUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.MissionBackGround = new Bitmap(225, 25, missionImg);
-        this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        this.MissionBackGround = new Bitmap(225, 65, missionImg);
+        this.closeButton = new Bitmap(215, 55, missionCloseImg);
 
         this.addChild(this.blackMask);
         this.addChild(this.MissionBackGround);
@@ -238,8 +238,8 @@ class bagUI extends DisplayObjectContainer {
         this.attackText = new TextField(player._attack.toString(), 102, 453, 15)
         this.criticalPerText = new TextField(player._criticalPer.toString(), 183, 453, 15)
         this.charmText = new TextField(player._charm.toString(), 262, 453, 15)
-        this.hpText = new TextField(player._hp.toString(), 336, 453, 15)
-        this.mpText = new TextField(player._mp.toString(), 420, 453, 15)
+        this.hpText = new TextField(player.maxHP.toString(), 336, 453, 15)
+        this.mpText = new TextField(player.maxMp.toString(), 420, 453, 15)
 
         this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
@@ -351,6 +351,66 @@ class bagUI extends DisplayObjectContainer {
         this.equipmentMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
         this.addChild(this.equipmentMultiInfoText)
         this.dispatchEvent('updateBag', player)
+    }
+
+}
+/**
+ * 商店UI
+ */
+class shopUI extends DisplayObjectContainer {
+
+    player: User = player;
+
+    infoPanel: Bitmap;
+    shopDownButton: Bitmap;
+
+    shopWQ: Bitmap;
+    shopFJ: Bitmap;
+    shopXHP: Bitmap;
+    shopJN: Bitmap;
+
+
+    shopR: Bitmap;
+    shopL: Bitmap;
+    shopBuy: Bitmap;
+
+    // weaponText: TextField;
+
+    // equipmentMultiInfoText: MultiTextField;
+
+    constructor(x: number, y: number) {
+        //super(x, y);
+        super(58, 64);
+
+        this.infoPanel = new Bitmap(73,65,Resource.get('shopUI') as HTMLImageElement)
+        this.shopDownButton = new Bitmap(65, 50, Resource.get('shopcloseUI') as HTMLImageElement)
+       
+        this.shopWQ=new Bitmap(195,100,Resource.get('shopUIwq') as HTMLImageElement)
+        this.shopFJ=new Bitmap(195,170,Resource.get('shopUIfj') as HTMLImageElement)
+        this.shopXHP=new Bitmap(195,240,Resource.get('shopUIxhp') as HTMLImageElement)
+        this.shopJN=new Bitmap(195,310,Resource.get('shopUIjn') as HTMLImageElement)
+
+        this.shopR=new Bitmap(435,260,Resource.get('shopUIR') as HTMLImageElement)
+        this.shopL=new Bitmap(350,260,Resource.get('shopUIL') as HTMLImageElement)
+        this.shopBuy=new Bitmap(338,300,Resource.get('shopUIbuy') as HTMLImageElement)
+        
+
+        this.addChild(this.infoPanel);
+        this.addChild(this.shopDownButton);
+        this.addChild(this.shopWQ);
+        this.addChild(this.shopFJ);
+        this.addChild(this.shopXHP);
+        this.addChild(this.shopJN);
+        this.addChild(this.shopR);
+        this.addChild(this.shopL);
+        this.addChild(this.shopBuy);
+       
+        this.shopDownButton.addEventListener("onClick", (eventData: any) => {
+            shpManager.shopDown();
+        })
+    }
+    changeEquipmentInfo(equip: Equipment) {
+
     }
 
 }
@@ -695,7 +755,7 @@ class battleEndWinUI extends DisplayObjectContainer {
         this.backGround = new Bitmap(254, 104, battleEndBGImg);
         this.backButton = new Bitmap(500, 353, backButtonImg);
         this.expText = new TextField('2333', 400, 207, 20);
-        this.coinText = new TextField('111', 500, 207, 20);
+        this.coinText = new TextField('111', 520, 207, 20);
 
         // this.addChild(this.blackMask);
         this.addChild(this.backGround);

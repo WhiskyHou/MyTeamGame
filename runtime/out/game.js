@@ -166,6 +166,15 @@ var missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 var missionCloseImg = new Image();
 missionCloseImg.src = './assets//UI 取消按钮.png';
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店UI界面 底.png', 'shopUI');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 取消按钮.png', 'shopcloseUI');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 武器.png', 'shopUIwq');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 防具.png', 'shopUIfj');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 消耗品.png', 'shopUIxhp');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 技能.png', 'shopUIjn');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 /**
  * 常量
  *
@@ -205,6 +214,7 @@ var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
+var shpManager = new shopManager();
 var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
@@ -476,7 +486,7 @@ var CreateState = /** @class */ (function (_super) {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
-        player.coin = 100000000; //测试用
+        player.coin = 1000000; //测试用
     };
     CreateState.prototype.heartBeatEffect = function (bmp) {
         if (this.bigTag) {
@@ -506,6 +516,7 @@ var batEndUI = new battleEndWinUI(0, 0);
 var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
+var shopUIContainer;
 /**
  * 游戏状态
  */
@@ -525,6 +536,8 @@ var PlayingState = /** @class */ (function (_super) {
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
+        shopUIContainer = new DisplayObjectContainer(120, -50);
+        _this.shpUI = new shopUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
         return _this;
@@ -559,11 +572,24 @@ var PlayingState = /** @class */ (function (_super) {
         // batteUIContainer.addChild(this.battleUI);
         staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
+        staticStage.addChild(shopUIContainer);
         baManager.addEventListener('openBag', function (eventData) {
+            batteUIContainer.deleteChild(_this.battleUI);
+            shopUIContainer.deleteChild(_this.shpUI);
+            // missionBoxContainer.deleteChild(this.missionUI);
             bagUIContainer.addChild(_this.baggUI);
         });
         baManager.addEventListener('bagDown', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
+        });
+        shpManager.addEventListener('openShop', function (eventData) {
+            batteUIContainer.deleteChild(_this.battleUI);
+            shopUIContainer.deleteChild(_this.baggUI);
+            // missionBoxContainer.deleteChild(this.missionUI);
+            bagUIContainer.addChild(_this.shpUI);
+        });
+        shpManager.addEventListener('shopDown', function (eventData) {
+            bagUIContainer.deleteChild(_this.shpUI);
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
@@ -590,8 +616,13 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
-                    var talk = new TalkCommand(npcInfo);
-                    commandPool.addCommand(talk);
+                    if (npcInfo.id == 6) {
+                        shpManager.openShop();
+                    }
+                    else {
+                        var talk = new TalkCommand(npcInfo);
+                        commandPool.addCommand(talk);
+                    }
                 }
                 var monsterInfo = map.getMonsterInfo(row, col);
                 if (monsterInfo) {

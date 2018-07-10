@@ -88,6 +88,7 @@ class TalkCommand extends Command {
         super();
         this.npc = npc;
     }
+    
 
     execute(callback: Function): void {
         console.log(`开始和NPC：${this.npc.toString()}对话`)
