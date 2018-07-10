@@ -662,7 +662,7 @@ class MultiTextField extends DisplayObject {
     space: number;//行间距
     width: number;
 
-    constructor(text: Array<string>, x: number, y: number, size: number, space: number) {
+    constructor(text: Array<string> = [], x: number, y: number, size: number, space: number) {
         super(x, y);
         this.size = size;
         this.text = text;
@@ -700,14 +700,15 @@ class MultiTextField extends DisplayObject {
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     }
-    setStringByNumber(con: string, num: number) {//按照一行显示文字数换行
+    setStringByNumber(con: string, num: number) : MultiTextField {//按照一行显示文字数换行
         for (var i = 0; i < con.length; i += num) {
             this.text.push(con.slice(i, i + num - 1))
         }
-
+        return new MultiTextField(this.text,this.x,this.y,this.size,this.space)
     }
-    setStringByStr(con: string, str: string) {//按照str的标记字符分割文本
+    setStringByStr(con: string, str: string)  : MultiTextField {//按照str的标记字符分割文本
         this.text = con.split(str)
+        return new MultiTextField(this.text,this.x,this.y,this.size,this.space)
     }
     centered() {
         this.x -= this.width / 2;

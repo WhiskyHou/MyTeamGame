@@ -554,6 +554,7 @@ var TextField = /** @class */ (function (_super) {
 var MultiTextField = /** @class */ (function (_super) {
     __extends(MultiTextField, _super);
     function MultiTextField(text, x, y, size, space) {
+        if (text === void 0) { text = []; }
         var _this = _super.call(this, x, y) || this;
         _this.size = size;
         _this.text = text;
@@ -592,9 +593,11 @@ var MultiTextField = /** @class */ (function (_super) {
         for (var i = 0; i < con.length; i += num) {
             this.text.push(con.slice(i, i + num - 1));
         }
+        return new MultiTextField(this.text, this.x, this.y, this.size, this.space);
     };
     MultiTextField.prototype.setStringByStr = function (con, str) {
         this.text = con.split(str);
+        return new MultiTextField(this.text, this.x, this.y, this.size, this.space);
     };
     MultiTextField.prototype.centered = function () {
         this.x -= this.width / 2;
