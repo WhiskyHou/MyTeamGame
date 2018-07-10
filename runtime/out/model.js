@@ -435,16 +435,17 @@ var Npc = /** @class */ (function () {
  */
 var Monster = /** @class */ (function (_super) {
     __extends(Monster, _super);
-    function Monster(id, name, hp, attack, exp, coin, level) {
+    function Monster(id, name, hp, attack, exp, coin, level, dropType) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
         _this.id = 0;
         _this.name = '';
-        _this.dropTime = 3; //掉落次数
+        _this.dropTime = 2; //掉落次数
         _this.exp = 0;
         _this.coin = 0;
         _this.level = 0;
+        _this.dropType = 0; //0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
@@ -452,6 +453,7 @@ var Monster = /** @class */ (function (_super) {
         _this.exp = exp;
         _this.coin = coin;
         _this.level = level;
+        _this.dropType = dropType;
         return _this;
     }
     Monster.prototype.toString = function () {
@@ -478,12 +480,93 @@ var Monster = /** @class */ (function (_super) {
             return lv1Set.buildEquip();
         }
     };
+    Monster.prototype.equipDropLv1 = function () {
+        var ran = Math.random() * 100;
+        // lv2掉率45% lv1掉率55%
+        if (ran >= 45) {
+            return lv2Set.buildEquip();
+        }
+        else {
+            return lv1Set.buildEquip();
+        }
+    };
+    Monster.prototype.equipDropLv2 = function () {
+        var ran = Math.random() * 100;
+        // lv3掉率30% lv2掉率70% 
+        if (ran >= 70) {
+            return lv3Set.buildEquip();
+        }
+        else {
+            return lv2Set.buildEquip();
+        }
+    };
+    Monster.prototype.equipDropLv3 = function () {
+        var ran = Math.random() * 100;
+        // lv4掉率20% lv3掉率80% 
+        if (ran >= 80) {
+            return lv4Set.buildEquip();
+        }
+        else {
+            return lv3Set.buildEquip();
+        }
+    };
+    Monster.prototype.equipDropLv4 = function () {
+        var ran = Math.random() * 100;
+        // lv5掉率5% lv4掉率95% 
+        if (ran >= 95) {
+            return lv5Set.buildEquip();
+        }
+        else {
+            return lv4Set.buildEquip();
+        }
+    };
     Monster.prototype.makeDrop = function () {
         var equipBox = [];
-        for (var i = 0; i < this.dropTime; i++) {
-            equipBox.push(this.equipDrop());
+        switch (this.dropType) {
+            case 0:
+                for (var i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDrop());
+                }
+                return equipBox;
+            case 1:
+                equipBox.push(0); //掉犬牙
+                return equipBox;
+            case 2:
+                for (var i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv1());
+                }
+                return equipBox;
+            case 3:
+                equipBox.push(13); //掉丑男的T恤
+                return equipBox;
+            case 4:
+                equipBox.push(3); //肥宅的游戏机
+                return equipBox;
+            case 5:
+                for (var i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv2());
+                }
+                return equipBox;
+            case 6:
+                equipBox.push(4); //真·肉包子
+                return equipBox;
+            case 7:
+                for (var i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv3());
+                }
+                return equipBox;
+            case 8:
+                equipBox.push(26); //朋克上衣
+                return equipBox;
+            case 9:
+                equipBox.push(27); //最强跑鞋
+                return equipBox;
+            case 10:
+                for (var i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv4());
+                }
+                return equipBox;
         }
-        return equipBox;
     };
     return Monster;
 }(EventDispatcher));

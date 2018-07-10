@@ -8,7 +8,8 @@
 			"view": "assets/美术素材/角色/反派/128x128 恶狗.png",
 			"exp": "600",
 			"coin": "3000",
-			"level": "1"
+			"level": "1",
+			"dropType": 0
 		},
 		{
 			"id": "2",
@@ -18,7 +19,8 @@
 			"view": "assets/gaojianli.png",
 			"exp": "30",
 			"coin": "30",
-			"level": "1"
+			"level": "1",
+			"dropType": 0
 		},
 		{
 			"id": "3",
@@ -28,7 +30,8 @@
 			"view": "assets/gaojianli.png",
 			"exp": "30",
 			"coin": "30",
-			"level": "1"
+			"level": "1",
+			"dropType": 0
 		},
 		{
 			"id": "4",
@@ -38,7 +41,8 @@
 			"view": "assets/gaojianli.png",
 			"exp": "30",
 			"coin": "30",
-			"level": "1"
+			"level": "1",
+			"dropType": 0
 		},
 		{
 			"id": "5",
@@ -48,7 +52,8 @@
 			"view": "assets/美术素材/角色/反派/128x128肌肉男.png",
 			"exp": "30",
 			"coin": "30",
-			"level": "2"
+			"level": "2",
+			"dropType": 0
 		},
 		{
 			"id": "10",

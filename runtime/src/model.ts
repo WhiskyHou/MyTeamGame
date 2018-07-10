@@ -333,12 +333,12 @@ class Product {
     x: number = 0;
     y: number = 0;
     view: Bitmap
-    public productID : number;
-    public equipment : Equipment; 
-    public price : number;
-    public description : Bitmap;
+    public productID: number;
+    public equipment: Equipment;
+    public price: number;
+    public description: Bitmap;
 
-    constructor(productID : number, equipment : Equipment, price: number, description: Bitmap) {
+    constructor(productID: number, equipment: Equipment, price: number, description: Bitmap) {
         this.productID = productID;
         this.equipment = equipment;
         this.price = price;
@@ -502,12 +502,13 @@ class Monster extends EventDispatcher {
     hp: number;
     attack: number;
     curEquipSet: EquipmentSet;
-    dropTime = 3;//掉落次数
+    dropTime = 2;//掉落次数
     exp: number = 0;
     coin: number = 0;
     level: number = 0;
+    dropType = 0;//0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
 
-    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number, dropType: number) {
         super();
         this.id = id;
         this.name = name;
@@ -516,6 +517,7 @@ class Monster extends EventDispatcher {
         this.exp = exp;
         this.coin = coin;
         this.level = level;
+        this.dropType = dropType;
     }
 
     toString() {
@@ -528,7 +530,6 @@ class Monster extends EventDispatcher {
 
     private equipDrop(): number {
         let ran = Math.random() * 100;
-
         // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
         if (ran >= 98) {
             return lv5Set.buildEquip();
@@ -543,12 +544,93 @@ class Monster extends EventDispatcher {
         }
     }
 
+    private equipDropLv1(): number {
+        let ran = Math.random() * 100;
+        // lv2掉率45% lv1掉率55%
+        if (ran >= 45) {
+            return lv2Set.buildEquip();
+        } else {
+            return lv1Set.buildEquip();
+        }
+    }
+
+    private equipDropLv2(): number {
+        let ran = Math.random() * 100;
+        // lv3掉率30% lv2掉率70% 
+        if (ran >= 70) {
+            return lv3Set.buildEquip();
+        } else {
+            return lv2Set.buildEquip();
+        }
+    }
+
+    private equipDropLv3(): number {
+        let ran = Math.random() * 100;
+        // lv4掉率20% lv3掉率80% 
+        if (ran >= 80) {
+            return lv4Set.buildEquip();
+        } else {
+            return lv3Set.buildEquip();
+        }
+    }
+
+    private equipDropLv4(): number {
+        let ran = Math.random() * 100;
+        // lv5掉率5% lv4掉率95% 
+        if (ran >= 95) {
+            return lv5Set.buildEquip();
+        } else {
+            return lv4Set.buildEquip();
+        }
+    }
+
     public makeDrop() {
         let equipBox: number[] = [];
-        for (let i = 0; i < this.dropTime; i++) {
-            equipBox.push(this.equipDrop());
+        switch (this.dropType) {
+            case 0:
+                for (let i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDrop());
+                }
+                return equipBox;
+            case 1:
+                equipBox.push(0);//掉犬牙
+                return equipBox;
+            case 2:
+                for (let i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv1());
+                }
+                return equipBox;
+            case 3:
+                equipBox.push(13);//掉丑男的T恤
+                return equipBox;
+            case 4:
+                equipBox.push(3);//肥宅的游戏机
+                return equipBox;
+            case 5:
+                for (let i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv2());
+                }
+                return equipBox;
+            case 6:
+                equipBox.push(4);//真·肉包子
+                return equipBox;
+            case 7:
+                for (let i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv3());
+                }
+                return equipBox;
+            case 8:
+                equipBox.push(26);//朋克上衣
+                return equipBox;
+            case 9:
+                equipBox.push(27);//最强跑鞋
+                return equipBox;
+            case 10:
+                for (let i = 0; i < this.dropTime; i++) {
+                    equipBox.push(this.equipDropLv4());
+                }
+                return equipBox;
         }
-        return equipBox;
     }
 }
 
