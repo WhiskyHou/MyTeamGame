@@ -444,7 +444,7 @@ var CreateState = /** @class */ (function (_super) {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
-        player.coin = 100000000; //测试用
+        player.coin = 1000000; //测试用
     };
     CreateState.prototype.heartBeatEffect = function (bmp) {
         if (this.bigTag) {

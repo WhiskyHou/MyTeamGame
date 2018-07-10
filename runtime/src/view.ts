@@ -695,7 +695,7 @@ class battleEndWinUI extends DisplayObjectContainer {
         this.backGround = new Bitmap(254, 104, battleEndBGImg);
         this.backButton = new Bitmap(500, 353, backButtonImg);
         this.expText = new TextField('2333', 400, 207, 20);
-        this.coinText = new TextField('111', 500, 207, 20);
+        this.coinText = new TextField('111', 520, 207, 20);
 
         // this.addChild(this.blackMask);
         this.addChild(this.backGround);
