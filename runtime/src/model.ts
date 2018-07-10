@@ -145,19 +145,20 @@ class User extends EventDispatcher {
         var stepX = 0;
         var stepY = 0;
         if (Math.abs(targetX - player.view.x) > 2) {
-            stepX = TILE_SIZE * INTERVAL / PLAYER_WALK_SPEED;
+            stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
             player.view.x += stepX;
         } else {
             player.view.x = targetX;
         }
         if (Math.abs(targetY - player.view.y) > 2) {
-            stepY = TILE_SIZE * INTERVAL / PLAYER_WALK_SPEED;
+            stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
         } else {
             player.view.y = targetY;
         }
+
     }
 
     levelUp() {
@@ -322,6 +323,30 @@ class Equipment {
 
     toString() {
         return `[Equipment ~ name:${this.name}, attack:${this.attack}]`;
+    }
+}
+
+/**
+ * 商品
+ */
+class Product {
+    x: number = 0;
+    y: number = 0;
+    view: Bitmap
+    public productID : number;
+    public equipment : Equipment; 
+    public price : number;
+    public description : Bitmap;
+
+    constructor(productID : number, equipment : Equipment, price: number, description: Bitmap) {
+        this.productID = productID;
+        this.equipment = equipment;
+        this.price = price;
+        this.description = description;
+    }
+
+    toString() {
+        return `[Product ~ name:${this.equipment.name}, price:${this.price}]`;
     }
 }
 

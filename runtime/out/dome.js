@@ -28,9 +28,9 @@ var Demo = /** @class */ (function (_super) {
         var _this = this;
         this.text = new TextField("TextField", 200, 100, 30);
         this.text.centered();
-        stage.addChild(this.text);
+        Stage.instance.mainStage.addChild(this.text);
         this.text2 = new TextField("TextField", 200, 130, 30);
-        stage.addChild(this.text2);
+        Stage.instance.mainStage.addChild(this.text2);
         this.text.addEventListener("onClick", function () {
             console.log(_this.text.x, _this.text.y);
         });
@@ -49,7 +49,7 @@ fsm.replaceState(Demo.instance);
 canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
-    var hitResult = stage.hitTest(new math.Point(globalX, globalY));
+    var hitResult = Stage.instance.mainStage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {

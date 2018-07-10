@@ -57,7 +57,7 @@ var WalkCommand = /** @class */ (function (_super) {
                 return;
             }
             _this.walk(path, callback);
-        }, PLAYER_WALK_SPEED);
+        }, 128000 / PLAYER_WALK_SPEED);
     };
     return WalkCommand;
 }(Command));

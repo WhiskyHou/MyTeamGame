@@ -230,7 +230,7 @@ class bagUI extends DisplayObjectContainer {
         this.equipment5Text = new TextField(baManager.getNowEquipment(4), 174, 215, 15)
         this.pageText = new TextField((baManager.nowPage + 1).toString(), 220, 246, 26)
         //装备信息栏
-        let str: Array<string> = ['名称：', '品质:', '部位：', '加血：', '攻击力：', '暴击：'];
+        let str: Array<string> = ['名称：', '品质:', '部位：', '血量：', '攻击力：', '暴击：'];
         this.equipmentMultiInfoText = new MultiTextField(str, 327, 125, 12, 5)
 
         //人物属性显示
@@ -374,9 +374,15 @@ class shopUI extends DisplayObjectContainer {
     shopL: Bitmap;
     shopBuy: Bitmap;
 
-    // weaponText: TextField;
 
-    // equipmentMultiInfoText: MultiTextField;
+    ShopText1: TextField;
+    ShopText2: TextField;
+    ShopText3: TextField;
+    ShopText4: TextField;
+    ShopText5: TextField;
+    ShopPage: TextField;
+    ShopMultiInfoText: MultiTextField;
+    ShopCoin: TextField;
 
     constructor(x: number, y: number) {
         //super(x, y);
@@ -393,6 +399,15 @@ class shopUI extends DisplayObjectContainer {
         this.shopR=new Bitmap(435,260,Resource.get('shopUIR') as HTMLImageElement)
         this.shopL=new Bitmap(350,260,Resource.get('shopUIL') as HTMLImageElement)
         this.shopBuy=new Bitmap(338,300,Resource.get('shopUIbuy') as HTMLImageElement)
+
+        this.ShopText1 = new TextField('11111', 365, 83, 30);
+        this.ShopText2 = new TextField('22222', 365, 116, 30);
+        this.ShopText3 = new TextField('33333', 365, 149, 30);
+        this.ShopText4 = new TextField('44444', 365, 182, 30);
+        this.ShopText5 = new TextField('55555', 365, 215, 30);
+        this.ShopPage = new TextField('1',380,250,30);
+        //this.ShopMultiInfoText =new MultiTextField('',365,400,20,5);
+        this.ShopCoin = new TextField('100', 438, 453, 20);
         
 
         this.addChild(this.infoPanel);
@@ -404,6 +419,15 @@ class shopUI extends DisplayObjectContainer {
         this.addChild(this.shopR);
         this.addChild(this.shopL);
         this.addChild(this.shopBuy);
+
+        this.addChild(this.ShopText1);
+        this.addChild(this.ShopText2);
+        this.addChild(this.ShopText3);
+        this.addChild(this.ShopText4);
+        this.addChild(this.ShopText5);
+        this.addChild(this.ShopPage);
+        //this.addChild(this.ShopMultiInfoText);
+        this.addChild(this.ShopCoin);
        
         this.shopDownButton.addEventListener("onClick", (eventData: any) => {
             shpManager.shopDown();

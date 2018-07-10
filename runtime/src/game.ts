@@ -194,8 +194,8 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
-const ROW_NUM = 8;
-const COL_NUM = 8;
+const ROW_NUM = 15;
+const COL_NUM = 21;
 
 const GRASS_L = 0;
 const GRASS_D = 1;
@@ -219,6 +219,9 @@ const MONSTER = 1;
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 200;
+
+const staticStage = stages[1];
+const dynamicStage = stages[0];
 
 
 var player: User = new User();
@@ -290,6 +293,17 @@ skillArray.push(skillXixing);
  * 载入状态
  */
 class LoadingState extends State {
+
+    private static _instance: LoadingState
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new LoadingState()
+        }
+        return this._instance
+    }
+
+
+
     loadBG: Bitmap;
     loadPercent: TextField;
     count = 0;
@@ -320,7 +334,7 @@ class LoadingState extends State {
             this.loadPercent.text = this.count + " %";
         }
         if (this.waitTime >= 280) {
-            fsm.replaceState(new MenuState());
+            fsm.replaceState(MenuState.instance);
         }
     }
     onExit(): void {
@@ -335,6 +349,16 @@ class LoadingState extends State {
  * 菜单状态
  */
 class MenuState extends State {
+
+    private static _instance: MenuState
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new MenuState()
+        }
+        return this._instance
+    }
+
+
     title: TextField;
     backGround: Bitmap;
 
@@ -385,7 +409,7 @@ class MenuState extends State {
 
         missionManager.init();
         // npcManager.init();
-        fsm.replaceState(new CreateState());
+        fsm.replaceState(CreateState.instance);
     }
 }
 
@@ -394,6 +418,14 @@ class MenuState extends State {
  * 角色创建状态
  */
 class CreateState extends State {
+
+    private static _instance: CreateState
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new CreateState()
+        }
+        return this._instance
+    }
 
     //TODO: 角色名输入
     backGround: Bitmap;
@@ -520,7 +552,7 @@ class CreateState extends State {
     onStartClick = (eventData: any) => {
 
         if (this.canAssignPoint == 0) {
-            fsm.replaceState(new PlayingState());
+            fsm.replaceState(PlayingState.instance);
         } else {
             this.tipsText.text = " ← 加完点才能学习！"
         }
@@ -561,6 +593,15 @@ let shopUIContainer: DisplayObjectContainer;
  * 游戏状态
  */
 class PlayingState extends State {
+
+    private static _instance: PlayingState
+    public static get instance() {
+        if (!this._instance) {
+            this._instance = new PlayingState()
+        }
+        return this._instance
+    }
+
     bg: Bitmap;
     userInfoUI: UserInfoUI;
     missionInfoUI: MissionInfoUI;
@@ -572,6 +613,8 @@ class PlayingState extends State {
     battleUI: battleUI;
     baggUI: bagUI;
     shpUI: shopUI;
+
+    camera: EmptyObject
 
     constructor() {
         super();
@@ -600,6 +643,13 @@ class PlayingState extends State {
     }
 
     onEnter(): void {
+        this.camera = new EmptyObject(0, 0);
+
+        let camera = this.camera.addComponent(new Camera()) as Camera;
+
+        camera.layer = 0;
+
+
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
@@ -723,7 +773,7 @@ canvas.onclick = function (event) {
     console.log(dingWeix + " , " + dingWeiy);
 
 
-    let hitResult = stage.hitTest(new math.Point(globalX, globalY));
+    let hitResult = Stage.instance.mainStage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
@@ -733,10 +783,36 @@ canvas.onclick = function (event) {
         }
     }
 }
+window.onkeydown = (event: any) => {
+    let keyCode = event.keyCode ? event.keyCode : event.which;
+
+    if (keyCode === 87) {
+        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
+    } else if (keyCode === 83) {
+        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "DOWN" });
+    } else if (keyCode === 65) {
+        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "LEFT" });
+    } else if (keyCode === 68) {
+        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "RIGHT" });
+    }
+}
+window.onkeyup = (event: any) => {
+    let keyCode = event.keyCode ? event.keyCode : event.which;
+
+    if (keyCode === 87) {
+        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "UP" });
+    } else if (keyCode === 83) {
+        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "DOWN" });
+    } else if (keyCode === 65) {
+        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "LEFT" });
+    } else if (keyCode === 68) {
+        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "RIGHT" });
+    }
+}
 
 
 
 
 // 初始状态设置
-fsm.replaceState(new CreateState());
+fsm.replaceState(CreateState.instance);
 // fsm.replaceState(new LoadingState());

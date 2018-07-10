@@ -149,7 +149,7 @@ var User = /** @class */ (function (_super) {
         var stepX = 0;
         var stepY = 0;
         if (Math.abs(targetX - player.view.x) > 2) {
-            stepX = DELTA_TIME * PLAYER_WALK_SPEED;
+            stepX = TILE_SIZE * INTERVAL / PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
             player.view.x += stepX;
         }
@@ -157,7 +157,7 @@ var User = /** @class */ (function (_super) {
             player.view.x = targetX;
         }
         if (Math.abs(targetY - player.view.y) > 2) {
-            stepY = DELTA_TIME * PLAYER_WALK_SPEED;
+            stepY = TILE_SIZE * INTERVAL / PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
         }
@@ -296,23 +296,6 @@ var Equipment = /** @class */ (function () {
     };
     return Equipment;
 }());
-/**
- * 商品
- */
-var Product = /** @class */ (function () {
-    function Product(productID, equipment, price, description) {
-        this.x = 0;
-        this.y = 0;
-        this.productID = productID;
-        this.equipment = equipment;
-        this.price = price;
-        this.description = description;
-    }
-    Product.prototype.toString = function () {
-        return "[Product ~ name:" + this.equipment.name + ", price:" + this.price + "]";
-    };
-    return Product;
-}());
 // class Skill {
 //     x: number = 0;
 //     y: number = 0;
@@ -441,11 +424,10 @@ var Monster = /** @class */ (function (_super) {
         _this.y = 0;
         _this.id = 0;
         _this.name = '';
-        _this.dropTime = 2; //掉落次数
+        _this.dropTime = 3; //掉落次数
         _this.exp = 0;
         _this.coin = 0;
         _this.level = 0;
-        _this.dropType = 0; //0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
@@ -454,7 +436,6 @@ var Monster = /** @class */ (function (_super) {
         _this.coin = coin;
         _this.level = level;
         return _this;
-        // type
     }
     Monster.prototype.toString = function () {
         return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + ", level:" + this.level + "]";
@@ -480,120 +461,12 @@ var Monster = /** @class */ (function (_super) {
             return lv1Set.buildEquip();
         }
     };
-    Monster.prototype.equipDropLv1 = function () {
-        var ran = Math.random() * 100;
-        // lv2掉率10% lv1掉率90%
-        if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
-        else {
-            return lv1Set.buildEquip();
-        }
-    };
-    Monster.prototype.equipDropLv2 = function () {
-        var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        }
-        else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        }
-        else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        }
-        else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
-        else {
-            return lv1Set.buildEquip();
-        }
-    };
-    Monster.prototype.equipDropLv3 = function () {
-        var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        }
-        else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        }
-        else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        }
-        else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
-        else {
-            return lv1Set.buildEquip();
-        }
-    };
-    Monster.prototype.equipDropLv4 = function () {
-        var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        }
-        else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        }
-        else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        }
-        else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
-        else {
-            return lv1Set.buildEquip();
-        }
-    };
     Monster.prototype.makeDrop = function () {
         var equipBox = [];
-        switch (this.dropType) {
-            case 0:
-                for (var i = 0; i < this.dropTime; i++) {
-                    equipBox.push(this.equipDrop());
-                }
-                return equipBox;
-            case 1:
-                equipBox.push(0); //掉犬牙
-                return equipBox;
-            case 2:
-                for (var i = 0; i < this.dropTime; i++) {
-                    equipBox.push(this.equipDropLv1());
-                }
-                return equipBox;
-            case 3:
-                equipBox.push(13); //掉丑男的T恤
-                return equipBox;
-            case 4:
-                equipBox.push(3); //肥宅的游戏机
-                return equipBox;
-            case 5:
-                for (var i = 0; i < this.dropTime; i++) {
-                    equipBox.push(this.equipDropLv2());
-                }
-                return equipBox;
-            case 6:
-                equipBox.push(4); //真·肉包子
-                return equipBox;
-            case 7:
-                for (var i = 0; i < this.dropTime; i++) {
-                    equipBox.push(this.equipDropLv3());
-                }
-                return equipBox;
-            case 8:
-                equipBox.push(26); //朋克上衣
-                return equipBox;
-            case 9:
-                equipBox.push(27); //最强跑鞋
-                return equipBox;
-            case 10:
-                for (var i = 0; i < this.dropTime; i++) {
-                    equipBox.push(this.equipDropLv4());
-                }
-                return equipBox;
+        for (var i = 0; i < this.dropTime; i++) {
+            equipBox.push(this.equipDrop());
         }
+        return equipBox;
     };
     return Monster;
 }(EventDispatcher));
