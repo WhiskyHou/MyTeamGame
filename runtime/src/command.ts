@@ -136,6 +136,7 @@ class FightCommand extends Command {
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7);
     monsterOriginHp: number;
 
+
     constructor(monster: Monster) {
         super();
         this.monster = monster;
@@ -145,7 +146,7 @@ class FightCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
         const batUI = new battleUI(0, 0);
-        const batEndUI = new battleEndWinUI(0, 0);
+
         const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);
@@ -182,3 +183,4 @@ class FightCommand extends Command {
         callback();
     }
 }
+

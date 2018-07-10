@@ -488,6 +488,7 @@ class battleUI extends DisplayObjectContainer {
                 this.index++;
             }
         })
+
         this.skillButton2.addEventListener("onClick", (eventData: any) => {
             if (player.skill[1].id == 6) {//七伤拳判断血量
                 if (player._hp < this.player._attack * 0.3) {
@@ -508,10 +509,11 @@ class battleUI extends DisplayObjectContainer {
                 this.index++;
             }
         })
+
         this.skillButton3.addEventListener("onClick", (eventData: any) => {
-            if (player.skill[3].id == 6) {//七伤拳判断血量
+            if (player.skill[2].id == 6) {//七伤拳判断血量
                 if (player._hp < this.player._attack * 0.3) {
-                    let textField = new TextField("当前HP值不足以施放 " + player.skill[3].name, 0, this.index * 20, 15);
+                    let textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, this.index * 20, 15);
                     this.textGroup.addChild(textField);
                     this.index++;
                     return;
@@ -665,19 +667,19 @@ class battleEndWinUI extends DisplayObjectContainer {
         })
 
 
-        batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-            if (this.hasListener) {
-                return;
-            }
-            for (let i = 0; i < dropBox.length; i++) {
-                let equip: Equipment;
-                equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-                let textField = new TextField(equip.name, 0, 30 * i, 20);
-                player.packageEquipment.push(equip);
-                this.dropTextGroup.addChild(textField);
-                this.hasListener = true;
-            }
-        })
+        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+        //     if (this.hasListener) {
+        //         return;
+        //     }
+        //     for (let i = 0; i < dropBox.length; i++) {
+        //         let equip: Equipment;
+        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
+        //         player.packageEquipment.push(equip);
+        //         this.dropTextGroup.addChild(textField);
+        //         this.hasListener = true;
+        //     }
+        // })
 
     }
 }

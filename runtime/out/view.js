@@ -425,9 +425,9 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
-            if (player.skill[3].id == 6) {
+            if (player.skill[2].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
-                    var textField = new TextField("当前HP值不足以施放 " + player.skill[3].name, 0, _this.index * 20, 15);
+                    var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
                     _this.index++;
                     return;
@@ -559,20 +559,20 @@ var battleEndWinUI = /** @class */ (function (_super) {
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
         });
-        batManager.addEventListener("enemyDrop", function (dropBox) {
-            if (_this.hasListener) {
-                return;
-            }
-            for (var i = 0; i < dropBox.length; i++) {
-                var equip = void 0;
-                equip = equipManager.getEquipByID(dropBox[i]);
-                var textField = new TextField(equip.name, 0, 30 * i, 20);
-                player.packageEquipment.push(equip);
-                _this.dropTextGroup.addChild(textField);
-                _this.hasListener = true;
-            }
-        });
         return _this;
+        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+        //     if (this.hasListener) {
+        //         return;
+        //     }
+        //     for (let i = 0; i < dropBox.length; i++) {
+        //         let equip: Equipment;
+        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
+        //         player.packageEquipment.push(equip);
+        //         this.dropTextGroup.addChild(textField);
+        //         this.hasListener = true;
+        //     }
+        // })
     }
     return battleEndWinUI;
 }(DisplayObjectContainer));
