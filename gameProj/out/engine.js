@@ -180,6 +180,18 @@ var Camera = /** @class */ (function (_super) {
         return _this;
     }
     Camera.prototype.onStart = function () {
+        this.gameObject.addEventListener("cameraMove", function (eventData) {
+            switch (eventData.dir) {
+                case "UP":
+                    break;
+                case "DOWN":
+                    break;
+                case "LEFT":
+                    break;
+                case "RIGHT":
+                    break;
+            }
+        });
     };
     Camera.prototype.onUpdate = function () {
     };
@@ -219,6 +231,7 @@ var DisplayObject = /** @class */ (function (_super) {
     }
     DisplayObject.prototype.addComponent = function (instance) {
         ComponentPool.instance.addComponent(instance);
+        instance.gameObject = this;
         return instance;
     };
     DisplayObject.prototype.removeComponent = function () {
@@ -650,6 +663,10 @@ function enterFrame(timestamp) {
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 var stage = new Stage();
+var staticStage = new Stage();
+var dynamicStage = new Stage();
+stage.addChild(dynamicStage);
+stage.addChild(staticStage);
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
 requestAnimationFrame(enterFrame);

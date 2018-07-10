@@ -382,6 +382,14 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
+            if (player.skill[0].id == 6) {
+                if (player._hp < _this.player._attack * 0.3) {
+                    var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
+                    _this.textGroup.addChild(textField);
+                    _this.index++;
+                    return;
+                }
+            }
             if (player._mp >= player.skill[0].mp) {
                 player._mp -= player.skill[0].mp;
                 _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
@@ -394,6 +402,14 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
+            if (player.skill[1].id == 6) {
+                if (player._hp < _this.player._attack * 0.3) {
+                    var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
+                    _this.textGroup.addChild(textField);
+                    _this.index++;
+                    return;
+                }
+            }
             console.log(_this.skillIDGroup[1]);
             if (player._mp >= player.skill[1].mp) {
                 player._mp -= player.skill[1].mp;
@@ -407,6 +423,14 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
+            if (player.skill[3].id == 6) {
+                if (player._hp < _this.player._attack * 0.3) {
+                    var textField = new TextField("当前HP值不足以施放 " + player.skill[3].name, 0, _this.index * 20, 15);
+                    _this.textGroup.addChild(textField);
+                    _this.index++;
+                    return;
+                }
+            }
             console.log(_this.skillIDGroup[2]);
             if (player._mp >= player.skill[2].mp) {
                 player._mp -= player.skill[2].mp;

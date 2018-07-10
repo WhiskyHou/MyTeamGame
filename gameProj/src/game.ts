@@ -5,7 +5,7 @@ class Demo extends State {
 
         stage.addChild(img);
 
-
+        img.addComponent(new Camera())
     }
 
     onUpdate(): void {

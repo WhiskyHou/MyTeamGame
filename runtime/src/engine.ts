@@ -717,8 +717,8 @@ var context = canvas.getContext("2d");
 const stage = new Stage();
 const staticStage = new Stage()
 const dynamicStage = new Stage()
-stage.addChild(staticStage)
 stage.addChild(dynamicStage)
+stage.addChild(staticStage)
 
 var fsm = new StateMachine();
 var commandPool = new CommandPool();

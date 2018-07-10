@@ -140,6 +140,8 @@ class CommandPool {
 
 abstract class Behaviour {
 
+    gameObject: DisplayObject;
+
     abstract onStart(): void;
 
     abstract onUpdate(delta: number): void;
@@ -190,7 +192,18 @@ class Camera extends Behaviour {
     moveSpeed: number = 150
 
     onStart(): void {
-
+        this.gameObject.addEventListener("cameraMove", (eventData: any) => {
+            switch (eventData.dir) {
+                case "UP":
+                    break;
+                case "DOWN":
+                    break;
+                case "LEFT":
+                    break;
+                case "RIGHT":
+                    break;
+            }
+        })
     }
 
     onUpdate(): void {
@@ -247,6 +260,7 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
 
     addComponent(instance: Behaviour) {
         ComponentPool.instance.addComponent(instance)
+        instance.gameObject = this;
         return instance;
     }
 
@@ -776,6 +790,11 @@ var canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
 var context = canvas.getContext("2d");
 
 const stage = new Stage();
+const staticStage = new Stage()
+const dynamicStage = new Stage()
+stage.addChild(dynamicStage)
+stage.addChild(staticStage)
+
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
 

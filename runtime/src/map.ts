@@ -69,8 +69,19 @@ class GameMap extends DisplayObjectContainer {
                         const img = new Image();
                         img.src = item;
                         const building = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, img);
-                        this.grid.setWalkable(j, i, false);
+                        // this.grid.setWalkable(j, i, false);
                         this.tileContainer.addChild(building);
+                    }
+                }
+            }
+
+            const mapWalkable = obj[0].walkable as number[][]
+            for (let i = 0; i < mapWalkable.length; i++) {
+                const row = mapWalkable[i]
+                for (let j = 0; j < row.length; j++) {
+                    const item = row[j];
+                    if (item == 1) {
+                        this.grid.setWalkable(j, i, false)
                     }
                 }
             }
@@ -88,10 +99,10 @@ class GameMap extends DisplayObjectContainer {
                             if (npc.id == id) {
                                 const npcView = npc.view;
                                 const npcHead = npc.head;
-                                npcView.x = TILE_SIZE * i;
-                                npcView.y = TILE_SIZE * j;
-                                npc.x = i
-                                npc.y = j
+                                npcView.x = TILE_SIZE * j;
+                                npcView.y = TILE_SIZE * i;
+                                npc.x = j
+                                npc.y = i
                                 const key = i + '_' + j;
                                 this.npcConfig[key] = npc;
                                 this.roleContainer.addChild(npcView);
@@ -107,25 +118,25 @@ class GameMap extends DisplayObjectContainer {
                 for (let j = 0; j < row.length; j++) {
                     const id = row[j]
                     if (id == KILL_DARGON_KNIFE) {
-                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
+                        const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
                         const equipmentTiem = new Equipment(1, '2', 3, 4, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀'
                         equipmentTiem.attack = 35;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
                         const key = i + '_' + j;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
                     } else if (id == HP_BOTTLE) {
                         // TODO
-                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, hp_bottle);
+                        const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
                         const equipmentTiem = new Equipment(1, '2', 3, 4, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '扁鹊的药瓶'
                         equipmentTiem.attack = 0;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
                         const key = i + '_' + j;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
