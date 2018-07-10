@@ -263,8 +263,8 @@ class LoadingState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.loadBG);
-        stage.addChild(this.loadPercent);
+        staticStage.addChild(this.loadBG);
+        staticStage.addChild(this.loadPercent);
 
     }
     onUpdate(): void {
@@ -286,8 +286,8 @@ class LoadingState extends State {
     }
     onExit(): void {
         console.log('Loading State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
 
     }
 }
@@ -313,11 +313,11 @@ class MenuState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.title);
-        stage.addChild(this.loadButton);
-        stage.addChild(this.workerButton);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.title);
+        staticStage.addChild(this.loadButton);
+        staticStage.addChild(this.workerButton);
 
         this.startButton.addEventListener("onClick", this.onClick);
 
@@ -332,8 +332,8 @@ class MenuState extends State {
     }
     onExit(): void {
         console.log('Menu State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
 
 
     }
@@ -428,18 +428,18 @@ class CreateState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.backGround);
-        stage.addChild(this.startButton);
-        stage.addChild(this.playerHpText);
-        stage.addChild(this.playerNameText);
-        stage.addChild(this.playerAttackText);
-        stage.addChild(this.canAssignPointText);
-        stage.addChild(this.tipsText);
+        staticStage.addChild(this.backGround);
+        staticStage.addChild(this.startButton);
+        staticStage.addChild(this.playerHpText);
+        staticStage.addChild(this.playerNameText);
+        staticStage.addChild(this.playerAttackText);
+        staticStage.addChild(this.canAssignPointText);
+        staticStage.addChild(this.tipsText);
 
-        stage.addChild(this.hpAddButton);
-        stage.addChild(this.hpMinusButton);
-        stage.addChild(this.attackAddButton);
-        stage.addChild(this.attackMinusButton);
+        staticStage.addChild(this.hpAddButton);
+        staticStage.addChild(this.hpMinusButton);
+        staticStage.addChild(this.attackAddButton);
+        staticStage.addChild(this.attackMinusButton);
 
 
         // stage.addEventListener("onClick", this.onClick);
@@ -459,8 +459,8 @@ class CreateState extends State {
     }
     onExit(): void {
         console.log('Create State onExit');
-        stage.deleteAllEventListener();
-        stage.deleteAll();
+        staticStage.deleteAllEventListener();
+        staticStage.deleteAll();
         // this.onCreatePlayer();
     }
 
@@ -557,13 +557,13 @@ class PlayingState extends State {
     }
 
     onEnter(): void {
-        stage.addChild(this.bg);
-        stage.addChild(this.mapContainer);
-        stage.addChild(this.userUIContainer);
-        stage.addChild(this.missionUIContainer);
-        stage.addChild(talkUIContainer);
-        stage.addChild(skillBoxContainer);
-        stage.addChild(missionBoxContainer);
+        staticStage.addChild(this.bg);
+        dynamicStage.addChild(this.mapContainer);
+        staticStage.addChild(this.userUIContainer);
+        staticStage.addChild(this.missionUIContainer);
+        staticStage.addChild(talkUIContainer);
+        staticStage.addChild(skillBoxContainer);
+        staticStage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
@@ -571,9 +571,9 @@ class PlayingState extends State {
         this.missionUIContainer.addChild(this.missionInfoUI);
 
 
-        stage.addChild(batteUIContainer);
+        staticStage.addChild(batteUIContainer);
         // batteUIContainer.addChild(this.battleUI);
-        stage.addChild(bagUIContainer);
+        staticStage.addChild(bagUIContainer);
         //bagUIContainer.addChild(this.baggUI);
         baManager.addEventListener('openBag', (eventData: any) => {
             bagUIContainer.addChild(this.baggUI);
@@ -637,7 +637,8 @@ class PlayingState extends State {
         missionManager.update();
     }
     onExit(): void {
-        stage.deleteAll();
+        staticStage.deleteAll();
+        dynamicStage.deleteAll();
         this.mapContainer.deleteAll();
     }
 
