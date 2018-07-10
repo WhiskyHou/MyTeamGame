@@ -449,7 +449,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -469,7 +469,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -490,7 +490,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -513,7 +513,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.escapeButton.addEventListener('onClick', function (eventData) {
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {

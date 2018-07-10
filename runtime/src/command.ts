@@ -88,7 +88,7 @@ class TalkCommand extends Command {
         super();
         this.npc = npc;
     }
-    
+
 
     execute(callback: Function): void {
         console.log(`开始和NPC：${this.npc.toString()}对话`)
@@ -134,7 +134,7 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-    monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7);
+    monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
 
 

@@ -133,7 +133,7 @@ var FightCommand = /** @class */ (function (_super) {
     __extends(FightCommand, _super);
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
-        _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7);
+        _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
         return _this;

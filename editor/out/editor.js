@@ -5,7 +5,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
     result["default"] = mod;
     return result;
-}
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 var path = __importStar(require("path"));
@@ -164,14 +164,14 @@ var PropertyEditor = /** @class */ (function () {
                 }
             }
             _this.data.push(newObject);
-            _this.updata();
+            _this.update();
             // this.saveAndReload();
         };
         this.removeButton.onclick = function () {
             var index = _this.data.indexOf(_this.currentEditObject);
             if (index >= 0) {
                 _this.data.splice(index, 1);
-                _this.updata();
+                _this.update();
             }
             // this.saveAndReload();
         };
@@ -181,7 +181,7 @@ var PropertyEditor = /** @class */ (function () {
      *
      * 重新加载编辑器
      */
-    PropertyEditor.prototype.updata = function () {
+    PropertyEditor.prototype.update = function () {
         // 重新加载选择栏
         this.propertyEditorChoice.innerText = '';
         for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
