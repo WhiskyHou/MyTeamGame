@@ -333,12 +333,12 @@ class Product {
     x: number = 0;
     y: number = 0;
     view: Bitmap
-    public productID : number;
-    public equipment : Equipment; 
-    public price : number;
-    public description : Bitmap;
+    public productID: number;
+    public equipment: Equipment;
+    public price: number;
+    public description: Bitmap;
 
-    constructor(productID : number, equipment : Equipment, price: number, description: Bitmap) {
+    constructor(productID: number, equipment: Equipment, price: number, description: Bitmap) {
         this.productID = productID;
         this.equipment = equipment;
         this.price = price;
@@ -508,7 +508,7 @@ class Monster extends EventDispatcher {
     level: number = 0;
     dropType = 0;//0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
 
-    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number) {
+    constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number, dropType: number) {
         super();
         this.id = id;
         this.name = name;
@@ -517,7 +517,7 @@ class Monster extends EventDispatcher {
         this.exp = exp;
         this.coin = coin;
         this.level = level;
-        // type
+        this.dropType = dropType;
     }
 
     toString() {
@@ -546,8 +546,8 @@ class Monster extends EventDispatcher {
 
     private equipDropLv1(): number {
         let ran = Math.random() * 100;
-        // lv2掉率10% lv1掉率90%
-        if (ran < 68 && ran >= 40) {
+        // lv2掉率45% lv1掉率55%
+        if (ran >= 45) {
             return lv2Set.buildEquip();
         } else {
             return lv1Set.buildEquip();
@@ -556,49 +556,31 @@ class Monster extends EventDispatcher {
 
     private equipDropLv2(): number {
         let ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        } else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        } else if (ran < 88 && ran >= 68) {
+        // lv3掉率30% lv2掉率70% 
+        if (ran >= 70) {
             return lv3Set.buildEquip();
-        } else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
         } else {
-            return lv1Set.buildEquip();
+            return lv2Set.buildEquip();
         }
     }
 
     private equipDropLv3(): number {
         let ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        } else if (ran < 98 && ran >= 88) {
+        // lv4掉率20% lv3掉率80% 
+        if (ran >= 80) {
             return lv4Set.buildEquip();
-        } else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        } else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
         } else {
-            return lv1Set.buildEquip();
+            return lv3Set.buildEquip();
         }
     }
 
     private equipDropLv4(): number {
         let ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
+        // lv5掉率5% lv4掉率95% 
+        if (ran >= 95) {
             return lv5Set.buildEquip();
-        } else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        } else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        } else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
         } else {
-            return lv1Set.buildEquip();
+            return lv4Set.buildEquip();
         }
     }
 

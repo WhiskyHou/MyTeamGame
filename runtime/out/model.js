@@ -435,7 +435,7 @@ var Npc = /** @class */ (function () {
  */
 var Monster = /** @class */ (function (_super) {
     __extends(Monster, _super);
-    function Monster(id, name, hp, attack, exp, coin, level) {
+    function Monster(id, name, hp, attack, exp, coin, level, dropType) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
@@ -453,8 +453,8 @@ var Monster = /** @class */ (function (_super) {
         _this.exp = exp;
         _this.coin = coin;
         _this.level = level;
+        _this.dropType = dropType;
         return _this;
-        // type
     }
     Monster.prototype.toString = function () {
         return "[Monster ~ id:" + this.id + ", name:" + this.name + ", hp:" + this.hp + ", attack:" + this.attack + ", exp:" + this.exp + ", coin:" + this.coin + ", level:" + this.level + "]";
@@ -482,8 +482,8 @@ var Monster = /** @class */ (function (_super) {
     };
     Monster.prototype.equipDropLv1 = function () {
         var ran = Math.random() * 100;
-        // lv2掉率10% lv1掉率90%
-        if (ran < 68 && ran >= 40) {
+        // lv2掉率45% lv1掉率55%
+        if (ran >= 45) {
             return lv2Set.buildEquip();
         }
         else {
@@ -492,59 +492,32 @@ var Monster = /** @class */ (function (_super) {
     };
     Monster.prototype.equipDropLv2 = function () {
         var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        }
-        else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        }
-        else if (ran < 88 && ran >= 68) {
+        // lv3掉率30% lv2掉率70% 
+        if (ran >= 70) {
             return lv3Set.buildEquip();
         }
-        else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
         else {
-            return lv1Set.buildEquip();
+            return lv2Set.buildEquip();
         }
     };
     Monster.prototype.equipDropLv3 = function () {
         var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
-            return lv5Set.buildEquip();
-        }
-        else if (ran < 98 && ran >= 88) {
+        // lv4掉率20% lv3掉率80% 
+        if (ran >= 80) {
             return lv4Set.buildEquip();
         }
-        else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        }
-        else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
         else {
-            return lv1Set.buildEquip();
+            return lv3Set.buildEquip();
         }
     };
     Monster.prototype.equipDropLv4 = function () {
         var ran = Math.random() * 100;
-        // lv5掉率2% lv4掉率10% lv3掉率20% lv2掉率28% lv1掉率40%
-        if (ran >= 98) {
+        // lv5掉率5% lv4掉率95% 
+        if (ran >= 95) {
             return lv5Set.buildEquip();
         }
-        else if (ran < 98 && ran >= 88) {
-            return lv4Set.buildEquip();
-        }
-        else if (ran < 88 && ran >= 68) {
-            return lv3Set.buildEquip();
-        }
-        else if (ran < 68 && ran >= 40) {
-            return lv2Set.buildEquip();
-        }
         else {
-            return lv1Set.buildEquip();
+            return lv4Set.buildEquip();
         }
     };
     Monster.prototype.makeDrop = function () {
