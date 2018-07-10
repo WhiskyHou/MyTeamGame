@@ -30,10 +30,10 @@ var battleManager = /** @class */ (function (_super) {
     };
     battleManager.prototype.fightOneTime = function (player, enemy, skillType) {
         this.dispatchEvent('playerBattleStart', player);
-        this.dispatchEvent('enemyBattleStart', enemy);
+        // this.dispatchEvent('enemyBattleStart', enemy);
         console.log(enemy.hp + "  " + enemy.attack);
         var damage = this.playerDealDamage();
-        if (skillType == 0) { //普通攻击
+        if (skillType == 0) {
             enemy.hp -= damage;
             this.dispatchEvent('playerDealDamage', damage);
             if (enemy.hp <= 0 && enemy != null) {
@@ -43,10 +43,10 @@ var battleManager = /** @class */ (function (_super) {
                 this.expGetter(enemy);
             }
         }
-        if (skillType == 1) { //空
+        if (skillType == 1) {
             return;
         }
-        if (skillType == 2) { //菜花宝典
+        if (skillType == 2) {
             var skillDamage = Math.floor(damage * 1.2); //菜花宝典技能伤害系数为1.2
             enemy.hp -= skillDamage;
             this.dispatchEvent('playerDealDamage', skillDamage);
@@ -57,7 +57,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.expGetter(enemy);
             }
         }
-        if (skillType == 3) { //撒币大法
+        if (skillType == 3) {
             var ran = Math.random() * 100;
             var skillDamage = Math.floor(this.damageFlow(player._coin * 0.3));
             player._coin -= 0.1 * player._coin;
@@ -76,7 +76,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.expGetter(enemy);
             }
         }
-        if (skillType == 4) { //英雄不死
+        if (skillType == 4) {
             var skillDamage = -Math.floor(damage * 1.2); //英雄不死技能伤害系数为1.2，为恢复技能
             player._hp -= skillDamage;
             if (player._hp > player.maxHP) {
@@ -92,7 +92,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.expGetter(enemy);
             }
         }
-        if (skillType == 5) { //你过来啊
+        if (skillType == 5) {
             var skillDamage = Math.floor(damage * 2); //你过来啊技能伤害系数为2
             enemy.hp -= skillDamage;
             this.dispatchEvent('playerDealDamage', skillDamage);
@@ -103,7 +103,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.expGetter(enemy);
             }
         }
-        if (skillType == 6) { //七伤拳
+        if (skillType == 6) {
             var skillDamage = Math.floor(damage * 1.8); //七伤拳技能伤害系数为1.8
             enemy.hp -= skillDamage;
             player._hp -= Math.floor(damage * 0.6);
@@ -120,7 +120,7 @@ var battleManager = /** @class */ (function (_super) {
                 this.expGetter(enemy);
             }
         }
-        if (skillType == 7) { //吸星大法
+        if (skillType == 7) {
             var restore = -Math.floor(damage * 0.25);
             player._hp -= restore;
             if (player._hp > player.maxHP) {
@@ -162,6 +162,7 @@ var battleManager = /** @class */ (function (_super) {
     battleManager.prototype.expGetter = function (enemy) {
         player._currentEXP += enemy.exp;
         console.log(player._currentEXP);
+        player._coin += enemy.coin;
         player.dispatchEvent('updateUserInfo', null);
     };
     return battleManager;

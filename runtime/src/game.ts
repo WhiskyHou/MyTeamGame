@@ -9,7 +9,7 @@ var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
-
+let loadingBmp = new Bitmap(0, 0, Resource.get('loging') as HTMLImageElement);
 
 var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
@@ -82,6 +82,10 @@ let battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 let skillEmptyImg = new Image();
 skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+Resource.load('./assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗 物品栏 底.png', 'battleItemBgImg');
+Resource.load('./assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品栏 返回.png', 'battleItemBackImg');
+Resource.load('./assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品栏 使用.png', 'battleItemUseImg');
+
 
 let skillSabiImg = new Image();
 skillSabiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
@@ -161,6 +165,9 @@ skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI
 let Shop = new Image();
 Shop.src = './assets/美术素材/场景/其他/购物车.png';
 
+let bloodBar = new Image();
+bloodBar.src = './assets/血条.png';
+
 
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
@@ -226,6 +233,7 @@ npcManager.init(() => {
 });
 
 batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+    batEndUI.dropTextGroup.deleteAll();
     for (let i = 0; i < dropBox.length; i++) {
         let equip: Equipment;
         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
@@ -233,6 +241,12 @@ batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
         player.packageEquipment.push(equip);
         batEndUI.dropTextGroup.addChild(textField);
     }
+    batEndUI.expText
+})
+
+batManager.addEventListener("enemyBattleStart", (enemy: Monster) => {
+    batEndUI.expText.text = '' + enemy.exp;
+    batEndUI.coinText.text = '' + enemy.coin;
 })
 
 /**
@@ -492,7 +506,7 @@ class CreateState extends State {
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
 
-        player.coin = 1000;//测试用
+        player.coin = 1000000;//测试用
     }
 
     onStartClick = (eventData: any) => {

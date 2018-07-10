@@ -18,6 +18,7 @@ var van_pick_knife = document.getElementById('van_pick_knife');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
+var loadingBmp = new Bitmap(0, 0, Resource.get('loging'));
 var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
 var titleStartImg = new Image();
@@ -86,6 +87,9 @@ var battleEndLoseBGImg = new Image();
 battleEndLoseBGImg.src = './assets/battlePanel/战斗结算ui 失败.png';
 var skillEmptyImg = new Image();
 skillEmptyImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 空.png';
+Resource.load('./assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗 物品栏 底.png', 'battleItemBgImg');
+Resource.load('./assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品栏 返回.png', 'battleItemBackImg');
+Resource.load('./assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品栏 使用.png', 'battleItemUseImg');
 var skillSabiImg = new Image();
 skillSabiImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 技能栏 撒币.png';
 var skillCaihuaImg = new Image();
@@ -156,6 +160,8 @@ var skillEmptyDesImg = new Image();
 skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
 var Shop = new Image();
 Shop.src = './assets/美术素材/场景/其他/购物车.png';
+var bloodBar = new Image();
+bloodBar.src = './assets/血条.png';
 var missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 var missionCloseImg = new Image();
@@ -208,6 +214,7 @@ npcManager.init(function () {
     });
 });
 batManager.addEventListener("enemyDrop", function (dropBox) {
+    batEndUI.dropTextGroup.deleteAll();
     for (var i = 0; i < dropBox.length; i++) {
         var equip = void 0;
         equip = equipManager.getEquipByID(dropBox[i]);
@@ -215,6 +222,11 @@ batManager.addEventListener("enemyDrop", function (dropBox) {
         player.packageEquipment.push(equip);
         batEndUI.dropTextGroup.addChild(textField);
     }
+    batEndUI.expText;
+});
+batManager.addEventListener("enemyBattleStart", function (enemy) {
+    batEndUI.expText.text = '' + enemy.exp;
+    batEndUI.coinText.text = '' + enemy.coin;
 });
 /**
  * 技能初始化(把这里当技能配置文件)
@@ -434,7 +446,7 @@ var CreateState = /** @class */ (function (_super) {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
-        player.coin = 1000; //测试用
+        player.coin = 1000000; //测试用
     };
     CreateState.prototype.heartBeatEffect = function (bmp) {
         if (this.bigTag) {

@@ -17,6 +17,7 @@ class UserInfoUI extends DisplayObjectContainer {
     missionButton: Bitmap;
     bloodUI: Bitmap;
     bloodUI2: Bitmap;
+    bloodbar: Bitmap;
 
     skillUI: skillBoxUI;
     missionUI: MissionUI;
@@ -40,6 +41,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
         this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
+        this.bloodbar = new Bitmap(90, 35, bloodBar);
 
         this.addChild(this.userName);
         this.addChild(this.userLevel);
@@ -55,6 +57,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
+        this.addChild(this.bloodbar);
 
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
@@ -140,12 +143,15 @@ class MissionUI extends DisplayObjectContainer {
     MissionBackGround: Bitmap;
     closeButton: Bitmap;
 
+    blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
     constructor(x: number, y: number) {
         super(x, y);
 
         this.MissionBackGround = new Bitmap(225, 25, missionImg);
         this.closeButton = new Bitmap(215, 15, missionCloseImg);
 
+        this.addChild(this.blackMask);
         this.addChild(this.MissionBackGround);
         this.addChild(this.closeButton);
 
@@ -192,6 +198,9 @@ class bagUI extends DisplayObjectContainer {
     charmText: TextField;
     hpText: TextField;
     mpText: TextField;
+
+    blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
+
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
@@ -232,6 +241,7 @@ class bagUI extends DisplayObjectContainer {
         this.hpText = new TextField(player.maxHP.toString(), 336, 453, 15)
         this.mpText = new TextField(player.maxMp.toString(), 420, 453, 15)
 
+        this.addChild(this.blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.bagOnButton);
         this.addChild(this.bagOffButton);
@@ -384,6 +394,7 @@ class battleUI extends DisplayObjectContainer {
     player: User = player;
     enemy: Monster;
 
+
     infoPanel: Bitmap;
     blackMask: Bitmap;
     backGround: Bitmap;
@@ -396,14 +407,16 @@ class battleUI extends DisplayObjectContainer {
 
     //战斗角色表现
     playerImg = new Bitmap(120, 120, player.view.img);
-    enemyImg: Bitmap;
+    enemyImg = new Bitmap(355, 120, player.view.img);
 
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
     playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
     playerHpText = new TextField("" + player._hp + " / " + this.player.maxHP, 175, 273, 20);
-    playerMpText = new TextField("" + this.player._mp + " / " + this.player.maxMp, 173, 313, 20);
-    enemyHpText = new TextField("", 410, 273, 20);
+    playerMpText = new TextField("" + this.player._mp + " / " + this.player.maxMp, 173, 314, 20);
+    enemyHpText = new TextField("", 390, 273, 20);
+    enemyMpText = new TextField("0 / 0", 390, 314, 20);
+    enemyMaxHP = 0;
 
     //技能按钮
     skillButton1: Bitmap;
@@ -414,6 +427,12 @@ class battleUI extends DisplayObjectContainer {
 
     escapeButton: Bitmap;
     itemButton: Bitmap;
+
+    //以下消耗品界面
+    itemContainer = new DisplayObjectContainer(0, 0);
+    itemBg: Bitmap;
+    itemUseButton: Bitmap;
+    itemBackButton: Bitmap;
 
     index = 0;
 
@@ -485,6 +504,8 @@ class battleUI extends DisplayObjectContainer {
         this.addChild(this.enemyHpText);
         this.addChild(this.playerMpText);
         this.addChild(this.playerImg);
+        this.addChild(this.enemyMpText);
+        this.addChild(this.enemyImg);
 
         this.addChild(this.skillButton1);
         this.addChild(this.skillButton2);
@@ -492,6 +513,8 @@ class battleUI extends DisplayObjectContainer {
 
         this.addChild(this.escapeButton);
         this.addChild(this.itemButton);
+
+        this.addChild(this.itemContainer);
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
@@ -570,19 +593,39 @@ class battleUI extends DisplayObjectContainer {
                 batManager.fightOneTime(player, this.enemy, 100);//此处逃跑逻辑实现为不提供对应技能类型，因此不造成伤害。
             }
         })
+
         this.itemButton.addEventListener('onClick', (eventData: any) => {
+            this.itemBg = new Bitmap(270, 70, Resource.get('battleItemBgImg') as HTMLImageElement);
+            this.itemContainer.addChild(this.itemBg);
+            this.itemUseButton = new Bitmap(470, 165, Resource.get('battleItemUseImg') as HTMLImageElement);
+            this.itemContainer.addChild(this.itemUseButton);
+            this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg') as HTMLImageElement);
+            this.itemContainer.addChild(this.itemBackButton);
+
+            this.itemUseButton.addEventListener('onClick', () => {
+
+            })
+
+            this.itemBackButton.addEventListener('onClick', () => {
+                this.itemContainer.deleteAll();
+            })
+
             console.log('弹出消耗品界面！');
         })
+
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
             this.player = player;
         })
+
         batManager.addEventListener('enemyBattleStart', (enemy: Monster) => {
             this.enemy = enemy;
+            this.enemyMaxHP = enemy.hp;
             this.enemyNameText.text = enemy.name;
-            this.enemyImg = new Bitmap(355, 120, this.enemy.view.img);
-            this.enemyHpText.text = '' + enemy.hp;
-            this.addChild(this.enemyImg);
+            this.enemyImg.img = this.enemy.view.img;
+            this.enemyHpText.text = '' + enemy.hp + ' / ' + this.enemyMaxHP;
+            // this.addChild(this.enemyImg);
+
         })
 
         // batManager.addEventListener('playerHpUpdate', () => {
@@ -597,7 +640,7 @@ class battleUI extends DisplayObjectContainer {
                 textField = new TextField(this.player.name + " 对 " + this.enemy.name + " 造成 " + damage + " 点伤害！", 0, this.index * 20, 15);
             }
 
-            this.enemyHpText.text = '' + this.enemy.hp;
+            this.enemyHpText.text = '' + this.enemy.hp + ' / ' + this.enemyMaxHP;
             this.textGroup.addChild(textField);
             this.index++;
 
@@ -670,6 +713,7 @@ class battleEndWinUI extends DisplayObjectContainer {
     backButton: Bitmap;
 
     expText: TextField;
+    coinText: TextField;
 
     dropTextGroup: DisplayObjectContainer = new DisplayObjectContainer(310, 270);
     hasListener = false;
@@ -682,11 +726,13 @@ class battleEndWinUI extends DisplayObjectContainer {
         this.backGround = new Bitmap(254, 104, battleEndBGImg);
         this.backButton = new Bitmap(500, 353, backButtonImg);
         this.expText = new TextField('2333', 400, 207, 20);
+        this.coinText = new TextField('111', 520, 207, 20);
 
         // this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.backButton);
         this.addChild(this.expText);
+        this.addChild(this.coinText);
         this.addChild(this.dropTextGroup);
 
         // this.backButton.deleteAllEventListener();
@@ -765,6 +811,8 @@ class skillBoxUI extends DisplayObjectContainer {
 
     nowChoice = 0;//1为技能栏中技能被选中，2为已装备技能被选中。
 
+    blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -777,6 +825,7 @@ class skillBoxUI extends DisplayObjectContainer {
         this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         this.skillOffButton = new Bitmap(582, 290, bagOffUI);
 
+        this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.closeButton);
         this.addChild(this.skillTextGroup);
