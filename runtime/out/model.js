@@ -300,12 +300,16 @@ var Equipment = /** @class */ (function () {
  * 商品
  */
 var Product = /** @class */ (function () {
-    function Product(id, name, quality, posID, health, attack, criticalPer) {
+    function Product(productID, equipment, price, description) {
         this.x = 0;
         this.y = 0;
+        this.productID = productID;
+        this.equipment = equipment;
+        this.price = price;
+        this.description = description;
     }
     Product.prototype.toString = function () {
-        // return `[Product ~ name:${this.name}, price:${this.price}]`;
+        return "[Product ~ name:" + this.equipment.name + ", price:" + this.price + "]";
     };
     return Product;
 }());

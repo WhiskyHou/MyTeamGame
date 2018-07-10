@@ -332,16 +332,20 @@ class Product {
     x: number = 0;
     y: number = 0;
     view: Bitmap
-
+    public productID : number;
+    public equipment : Equipment; 
     public price : number;
-    public description : string;
+    public description : Bitmap;
 
-    constructor(id: number, name: string, quality: number, posID: number, health: number, attack: number, criticalPer: number) {
-
+    constructor(productID : number, equipment : Equipment, price: number, description: Bitmap) {
+        this.productID = productID;
+        this.equipment = equipment;
+        this.price = price;
+        this.description = description;
     }
 
     toString() {
-        // return `[Product ~ name:${this.name}, price:${this.price}]`;
+        return `[Product ~ name:${this.equipment.name}, price:${this.price}]`;
     }
 }
 
