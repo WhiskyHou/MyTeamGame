@@ -123,8 +123,10 @@ var MissionUI = /** @class */ (function (_super) {
     __extends(MissionUI, _super);
     function MissionUI(x, y) {
         var _this = _super.call(this, x, y) || this;
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.MissionBackGround = new Bitmap(225, 25, missionImg);
         _this.closeButton = new Bitmap(215, 15, missionCloseImg);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.MissionBackGround);
         _this.addChild(_this.closeButton);
         _this.closeButton.addEventListener('onClick', function () {
@@ -144,6 +146,7 @@ var bagUI = /** @class */ (function (_super) {
         //super(x, y);
         _super.call(this, 58, 64) || this;
         _this.player = player;
+        _this.blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, bagWindowsUI);
         _this.bagOnButton = new Bitmap(327, 246, bagOnUI);
         _this.bagOffButton = new Bitmap(398, 246, bagOffUI);
@@ -178,6 +181,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.charmText = new TextField(player._charm.toString(), 262, 453, 15);
         _this.hpText = new TextField(player._hp.toString(), 336, 453, 15);
         _this.mpText = new TextField(player._mp.toString(), 420, 453, 15);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.bagOnButton);
         _this.addChild(_this.bagOffButton);
@@ -305,14 +309,19 @@ var battleUI = /** @class */ (function (_super) {
         _this.enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
         //战斗角色表现
         _this.playerImg = new Bitmap(120, 120, player.view.img);
+        _this.enemyImg = new Bitmap(355, 120, player.view.img);
         //战斗人物属性
         _this.playerAtkText = new TextField("" + player._attack, 150, 375, 30);
         _this.playerCriText = new TextField("" + player._criticalPer, 150, 420, 30);
         _this.playerHpText = new TextField("" + player._hp + " / " + _this.player.maxHP, 175, 273, 20);
-        _this.playerMpText = new TextField("" + _this.player._mp + " / " + _this.player.maxMp, 173, 313, 20);
-        _this.enemyHpText = new TextField("", 410, 273, 20);
+        _this.playerMpText = new TextField("" + _this.player._mp + " / " + _this.player.maxMp, 173, 314, 20);
+        _this.enemyHpText = new TextField("", 390, 273, 20);
+        _this.enemyMpText = new TextField("0 / 0", 390, 314, 20);
+        _this.enemyMaxHP = 0;
         _this.skillButtonGroup = [];
         _this.skillIDGroup = [];
+        //以下消耗品界面
+        _this.itemContainer = new DisplayObjectContainer(0, 0);
         _this.index = 0;
         _this.index = 0;
         // super(58, 64);
@@ -374,11 +383,14 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.enemyHpText);
         _this.addChild(_this.playerMpText);
         _this.addChild(_this.playerImg);
+        _this.addChild(_this.enemyMpText);
+        _this.addChild(_this.enemyImg);
         _this.addChild(_this.skillButton1);
         _this.addChild(_this.skillButton2);
         _this.addChild(_this.skillButton3);
         _this.addChild(_this.escapeButton);
         _this.addChild(_this.itemButton);
+        _this.addChild(_this.itemContainer);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy, 0); //普通攻击ID为0
         });
@@ -457,6 +469,17 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.itemButton.addEventListener('onClick', function (eventData) {
+            _this.itemBg = new Bitmap(270, 70, Resource.get('battleItemBgImg'));
+            _this.itemContainer.addChild(_this.itemBg);
+            _this.itemUseButton = new Bitmap(470, 165, Resource.get('battleItemUseImg'));
+            _this.itemContainer.addChild(_this.itemUseButton);
+            _this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg'));
+            _this.itemContainer.addChild(_this.itemBackButton);
+            _this.itemUseButton.addEventListener('onClick', function () {
+            });
+            _this.itemBackButton.addEventListener('onClick', function () {
+                _this.itemContainer.deleteAll();
+            });
             console.log('弹出消耗品界面！');
         });
         batManager.addEventListener('playerBattleStart', function (player) {
@@ -464,10 +487,11 @@ var battleUI = /** @class */ (function (_super) {
         });
         batManager.addEventListener('enemyBattleStart', function (enemy) {
             _this.enemy = enemy;
+            _this.enemyMaxHP = enemy.hp;
             _this.enemyNameText.text = enemy.name;
-            _this.enemyImg = new Bitmap(355, 120, _this.enemy.view.img);
-            _this.enemyHpText.text = '' + enemy.hp;
-            _this.addChild(_this.enemyImg);
+            _this.enemyImg.img = _this.enemy.view.img;
+            _this.enemyHpText.text = '' + enemy.hp + ' / ' + _this.enemyMaxHP;
+            // this.addChild(this.enemyImg);
         });
         // batManager.addEventListener('playerHpUpdate', () => {
         //     this.playerHpText.text = "" + player._hp + " / " + this.player.maxHP;
@@ -480,7 +504,7 @@ var battleUI = /** @class */ (function (_super) {
             else {
                 textField = new TextField(_this.player.name + " 对 " + _this.enemy.name + " 造成 " + damage + " 点伤害！", 0, _this.index * 20, 15);
             }
-            _this.enemyHpText.text = '' + _this.enemy.hp;
+            _this.enemyHpText.text = '' + _this.enemy.hp + ' / ' + _this.enemyMaxHP;
             _this.textGroup.addChild(textField);
             _this.index++;
         });
@@ -605,6 +629,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.choosingSkillArrayNo = 0;
         _this.choosingMountedSkillArrayNo = 0;
         _this.nowChoice = 0; //1为技能栏中技能被选中，2为已装备技能被选中。
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         _this.skillTextGroup = new DisplayObjectContainer(375, 20);
@@ -613,6 +638,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.mountedSkillGroup = new DisplayObjectContainer(485, 350);
         _this.skillOnButton = new Bitmap(510, 290, bagOnUI);
         _this.skillOffButton = new Bitmap(582, 290, bagOffUI);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.closeButton);
         _this.addChild(_this.skillTextGroup);

@@ -30,7 +30,7 @@ var battleManager = /** @class */ (function (_super) {
     };
     battleManager.prototype.fightOneTime = function (player, enemy, skillType) {
         this.dispatchEvent('playerBattleStart', player);
-        this.dispatchEvent('enemyBattleStart', enemy);
+        // this.dispatchEvent('enemyBattleStart', enemy);
         console.log(enemy.hp + "  " + enemy.attack);
         var damage = this.playerDealDamage();
         if (skillType == 0) {
