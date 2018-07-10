@@ -355,7 +355,7 @@ class bagUI extends DisplayObjectContainer {
 
 }
 /**
- * 背包UI
+ * 商店UI
  */
 class shopUI extends DisplayObjectContainer {
 
@@ -363,6 +363,16 @@ class shopUI extends DisplayObjectContainer {
 
     infoPanel: Bitmap;
     shopDownButton: Bitmap;
+
+    shopWQ: Bitmap;
+    shopFJ: Bitmap;
+    shopXHP: Bitmap;
+    shopJN: Bitmap;
+
+
+    shopR: Bitmap;
+    shopL: Bitmap;
+    shopBuy: Bitmap;
 
     // weaponText: TextField;
 
@@ -373,8 +383,27 @@ class shopUI extends DisplayObjectContainer {
         super(58, 64);
 
         this.infoPanel = new Bitmap(73,65,Resource.get('shopUI') as HTMLImageElement)
-        this.shopDownButton = new Bitmap(73, 142, bagArmorUI)
+        this.shopDownButton = new Bitmap(65, 50, Resource.get('shopcloseUI') as HTMLImageElement)
+       
+        this.shopWQ=new Bitmap(195,100,Resource.get('shopUIwq') as HTMLImageElement)
+        this.shopFJ=new Bitmap(195,170,Resource.get('shopUIfj') as HTMLImageElement)
+        this.shopXHP=new Bitmap(195,240,Resource.get('shopUIxhp') as HTMLImageElement)
+        this.shopJN=new Bitmap(195,310,Resource.get('shopUIjn') as HTMLImageElement)
+
+        this.shopR=new Bitmap(435,260,Resource.get('shopUIR') as HTMLImageElement)
+        this.shopL=new Bitmap(350,260,Resource.get('shopUIL') as HTMLImageElement)
+        this.shopBuy=new Bitmap(338,300,Resource.get('shopUIbuy') as HTMLImageElement)
+        
+
         this.addChild(this.infoPanel);
+        this.addChild(this.shopDownButton);
+        this.addChild(this.shopWQ);
+        this.addChild(this.shopFJ);
+        this.addChild(this.shopXHP);
+        this.addChild(this.shopJN);
+        this.addChild(this.shopR);
+        this.addChild(this.shopL);
+        this.addChild(this.shopBuy);
        
         this.shopDownButton.addEventListener("onClick", (eventData: any) => {
             shpManager.shopDown();

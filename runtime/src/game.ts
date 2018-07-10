@@ -175,6 +175,14 @@ let missionCloseImg = new Image();
 missionCloseImg.src = './assets//UI 取消按钮.png';
 
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店UI界面 底.png', 'shopUI');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 取消按钮.png', 'shopcloseUI');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 武器.png', 'shopUIwq');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 防具.png', 'shopUIfj');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 消耗品.png', 'shopUIxhp');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 分类选项 技能.png', 'shopUIjn');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
+Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 
 /**
  * 常量

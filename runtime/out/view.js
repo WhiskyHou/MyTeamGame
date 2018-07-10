@@ -296,7 +296,7 @@ var bagUI = /** @class */ (function (_super) {
     return bagUI;
 }(DisplayObjectContainer));
 /**
- * 背包UI
+ * 商店UI
  */
 var shopUI = /** @class */ (function (_super) {
     __extends(shopUI, _super);
@@ -308,8 +308,23 @@ var shopUI = /** @class */ (function (_super) {
         _super.call(this, 58, 64) || this;
         _this.player = player;
         _this.infoPanel = new Bitmap(73, 65, Resource.get('shopUI'));
-        _this.shopDownButton = new Bitmap(73, 142, bagArmorUI);
+        _this.shopDownButton = new Bitmap(65, 50, Resource.get('shopcloseUI'));
+        _this.shopWQ = new Bitmap(195, 100, Resource.get('shopUIwq'));
+        _this.shopFJ = new Bitmap(195, 170, Resource.get('shopUIfj'));
+        _this.shopXHP = new Bitmap(195, 240, Resource.get('shopUIxhp'));
+        _this.shopJN = new Bitmap(195, 310, Resource.get('shopUIjn'));
+        _this.shopR = new Bitmap(435, 260, Resource.get('shopUIR'));
+        _this.shopL = new Bitmap(350, 260, Resource.get('shopUIL'));
+        _this.shopBuy = new Bitmap(338, 300, Resource.get('shopUIbuy'));
         _this.addChild(_this.infoPanel);
+        _this.addChild(_this.shopDownButton);
+        _this.addChild(_this.shopWQ);
+        _this.addChild(_this.shopFJ);
+        _this.addChild(_this.shopXHP);
+        _this.addChild(_this.shopJN);
+        _this.addChild(_this.shopR);
+        _this.addChild(_this.shopL);
+        _this.addChild(_this.shopBuy);
         _this.shopDownButton.addEventListener("onClick", function (eventData) {
             shpManager.shopDown();
         });
