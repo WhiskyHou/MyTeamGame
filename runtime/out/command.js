@@ -142,7 +142,6 @@ var FightCommand = /** @class */ (function (_super) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
         var batUI = new battleUI(0, 0);
-        var batEndUI = new battleEndWinUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         batteUIContainer.addChild(batUI);

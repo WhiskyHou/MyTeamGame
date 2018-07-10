@@ -189,7 +189,7 @@ const WALL_RIGHT = 5;
 
 const KILL_DARGON_KNIFE = 1;
 const HP_BOTTLE = 2;
-const shop = 3;
+const SHOP = 3;
 
 const NPC1 = 1;
 const NPC2 = 2;
@@ -221,6 +221,16 @@ npcManager.init(() => {
         });
     })
 });
+
+batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
+    for (let i = 0; i < dropBox.length; i++) {
+        let equip: Equipment;
+        equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
+        let textField = new TextField(equip.name, 0, 30 * i, 20);
+        player.packageEquipment.push(equip);
+        batEndUI.dropTextGroup.addChild(textField);
+    }
+})
 
 /**
  * 技能初始化(把这里当技能配置文件)
@@ -517,6 +527,7 @@ class CreateState extends State {
 
 var talkUIContainer: DisplayObjectContainer;
 let batteUIContainer: DisplayObjectContainer;
+const batEndUI = new battleEndWinUI(0, 0);
 let bagUIContainer: DisplayObjectContainer;
 let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;

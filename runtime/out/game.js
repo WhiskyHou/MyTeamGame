@@ -179,7 +179,7 @@ var WALL_MIDDLE = 4;
 var WALL_RIGHT = 5;
 var KILL_DARGON_KNIFE = 1;
 var HP_BOTTLE = 2;
-var shop = 3;
+var SHOP = 3;
 var NPC1 = 1;
 var NPC2 = 2;
 var NPC3 = 3;
@@ -204,6 +204,15 @@ npcManager.init(function () {
             equipSetInit(equipManager);
         });
     });
+});
+batManager.addEventListener("enemyDrop", function (dropBox) {
+    for (var i = 0; i < dropBox.length; i++) {
+        var equip = void 0;
+        equip = equipManager.getEquipByID(dropBox[i]);
+        var textField = new TextField(equip.name, 0, 30 * i, 20);
+        player.packageEquipment.push(equip);
+        batEndUI.dropTextGroup.addChild(textField);
+    }
 });
 /**
  * 技能初始化(把这里当技能配置文件)
@@ -449,6 +458,7 @@ var CreateState = /** @class */ (function (_super) {
 }(State));
 var talkUIContainer;
 var batteUIContainer;
+var batEndUI = new battleEndWinUI(0, 0);
 var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
