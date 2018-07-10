@@ -414,10 +414,14 @@ var TextField = /** @class */ (function (_super) {
         }
     };
     TextField.prototype.render = function (context) {
-        this.width = context.measureText(this.text).width;
-        context.fillStyle = 'black';
+        context.fillStyle = this.color;
         context.font = this.size.toString() + 'px ' + this.style;
         context.fillText(this.text, 0, this.size);
+        // 获取文本渲染的宽度
+        this.width = context.measureText(this.text).width;
+        if (this.isCenter) {
+            this.x = this.renderX - this.width / 2;
+        }
     };
     TextField.prototype.centered = function () {
         this.isCenter = true;
@@ -589,6 +593,10 @@ function enterFrame(timestamp) {
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 var stage = new Stage();
+var staticStage = new Stage();
+var dynamicStage = new Stage();
+stage.addChild(staticStage);
+stage.addChild(dynamicStage);
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
 requestAnimationFrame(enterFrame);

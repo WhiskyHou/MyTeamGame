@@ -19,7 +19,8 @@ class battleManager extends EventDispatcher {
             val = -1;
         }
 
-        return Math.floor(damage * (1 + 2 * val * Math.random() / 10)); //伤害浮动幅度为0.8~1.2，向下取整
+        let flowNum = Math.floor(damage * (1 + 2 * val * Math.random() / 10))
+        return flowNum; //伤害浮动幅度为0.8~1.2，向下取整
     }
 
     fightOneTime(player: User, enemy: Monster, skillType: number) {
@@ -54,8 +55,16 @@ class battleManager extends EventDispatcher {
             }
         }
         if (skillType == 3) {//撒币大法
-            let skillDamage = Math.floor(damage * 1.5);//撒币大法技能伤害系数为1.5
-            enemy.hp -= skillDamage;
+            let ran = Math.random() * 100;
+            let skillDamage = Math.floor(this.damageFlow(player._coin * 0.3));
+            player._coin -= 0.1 * player._coin;
+            if (ran <= player._criticalPer) {
+                this.dispatchEvent('criticalHit', null);
+                enemy.hp -= skillDamage * 2;
+            } else {
+                enemy.hp -= skillDamage;
+            }
+
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
                 this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
@@ -163,4 +172,22 @@ class battleManager extends EventDispatcher {
         console.log(player._currentEXP);
         player.dispatchEvent('updateUserInfo', null);
     }
+
+}
+
+function fmoney(s: string, n: number) {
+    /*
+     * 参数说明：
+     * s：要格式化的数字
+     * n：保留几位小数
+     * */
+    n = n > 0 && n <= 20 ? n : 2;
+    s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+    var l = s.split(".")[0].split("").reverse(),
+        r = s.split(".")[1];
+    let t = "";
+    for (let i = 0; i < l.length; i++) {
+        t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+    }
+    return t.split("").reverse().join("") + "." + r;
 }

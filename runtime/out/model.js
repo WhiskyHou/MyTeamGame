@@ -64,7 +64,6 @@ var User = /** @class */ (function (_super) {
         // this.packageEquipment.push(eq2)
         // this.packageEquipment.push(eq3)
         // this.packageEquipment.push(eq4)
-        //以下测试技能用
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);

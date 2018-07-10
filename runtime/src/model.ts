@@ -64,7 +64,6 @@ class User extends EventDispatcher {
         // this.packageEquipment.push(eq3)
         // this.packageEquipment.push(eq4)
 
-        //以下测试技能用
         this.skill.push(skillEmpty);
         this.skill.push(skillEmpty);
         this.skill.push(skillEmpty);
