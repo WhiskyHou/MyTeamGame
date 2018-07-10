@@ -633,8 +633,9 @@ class TextField extends DisplayObject {
         }
     }
 
-    centered() {
+    centered() :TextField {
         this.isCenter = true
+        return new TextField(this.text,this.x,this.y,this.size,this.style,this.color);
     }
 
     setStyle(style: string) {

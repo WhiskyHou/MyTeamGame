@@ -533,6 +533,7 @@ var TextField = /** @class */ (function (_super) {
     };
     TextField.prototype.centered = function () {
         this.isCenter = true;
+        return new TextField(this.text, this.x, this.y, this.size, this.style, this.color);
     };
     TextField.prototype.setStyle = function (style) {
         this.style = style;
