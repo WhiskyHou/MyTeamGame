@@ -355,6 +355,17 @@ class DisplayObjectContainer extends DisplayObject {
 }
 
 
+class EmptyObject extends DisplayObject {
+
+    constructor(x: number, y: number) {
+        super(x, y);
+    }
+
+    render(context: CanvasRenderingContext2D): void {
+    }
+}
+
+
 /**
  * 图片
  * 

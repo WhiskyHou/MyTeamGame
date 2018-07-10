@@ -313,6 +313,15 @@ var DisplayObjectContainer = /** @class */ (function (_super) {
     };
     return DisplayObjectContainer;
 }(DisplayObject));
+var EmptyObject = /** @class */ (function (_super) {
+    __extends(EmptyObject, _super);
+    function EmptyObject(x, y) {
+        return _super.call(this, x, y) || this;
+    }
+    EmptyObject.prototype.render = function (context) {
+    };
+    return EmptyObject;
+}(DisplayObject));
 /**
  * 图片
  *
