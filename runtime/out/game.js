@@ -369,7 +369,7 @@ var CreateState = /** @class */ (function (_super) {
             _this.playerAttackText.text = "" + player._originAttack;
         });
         _this.attackMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._attack > 10) {
+            if (_this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
