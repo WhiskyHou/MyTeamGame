@@ -296,6 +296,19 @@ var Equipment = /** @class */ (function () {
     };
     return Equipment;
 }());
+/**
+ * 商品
+ */
+var Product = /** @class */ (function () {
+    function Product(id, name, quality, posID, health, attack, criticalPer) {
+        this.x = 0;
+        this.y = 0;
+    }
+    Product.prototype.toString = function () {
+        // return `[Product ~ name:${this.name}, price:${this.price}]`;
+    };
+    return Product;
+}());
 // class Skill {
 //     x: number = 0;
 //     y: number = 0;

@@ -325,6 +325,26 @@ class Equipment {
     }
 }
 
+/**
+ * 商品
+ */
+class Product {
+    x: number = 0;
+    y: number = 0;
+    view: Bitmap
+
+    public price : number;
+    public description : string;
+
+    constructor(id: number, name: string, quality: number, posID: number, health: number, attack: number, criticalPer: number) {
+
+    }
+
+    toString() {
+        // return `[Product ~ name:${this.name}, price:${this.price}]`;
+    }
+}
+
 // class Skill {
 //     x: number = 0;
 //     y: number = 0;
