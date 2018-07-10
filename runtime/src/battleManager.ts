@@ -170,6 +170,7 @@ class battleManager extends EventDispatcher {
     expGetter(enemy: Monster) {
         player._currentEXP += enemy.exp;
         console.log(player._currentEXP);
+        player._coin += enemy.coin;
         player.dispatchEvent('updateUserInfo', null);
     }
 

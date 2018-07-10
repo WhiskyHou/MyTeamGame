@@ -212,6 +212,7 @@ npcManager.init(function () {
     });
 });
 batManager.addEventListener("enemyDrop", function (dropBox) {
+    batEndUI.dropTextGroup.deleteAll();
     for (var i = 0; i < dropBox.length; i++) {
         var equip = void 0;
         equip = equipManager.getEquipByID(dropBox[i]);
@@ -219,6 +220,11 @@ batManager.addEventListener("enemyDrop", function (dropBox) {
         player.packageEquipment.push(equip);
         batEndUI.dropTextGroup.addChild(textField);
     }
+    batEndUI.expText;
+});
+batManager.addEventListener("enemyBattleStart", function (enemy) {
+    batEndUI.expText.text = '' + enemy.exp;
+    batEndUI.coinText.text = '' + enemy.coin;
 });
 /**
  * 技能初始化(把这里当技能配置文件)
@@ -438,7 +444,7 @@ var CreateState = /** @class */ (function (_super) {
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
-        player.coin = 1000; //测试用
+        player.coin = 100000000; //测试用
     };
     CreateState.prototype.heartBeatEffect = function (bmp) {
         if (this.bigTag) {

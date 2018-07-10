@@ -574,10 +574,12 @@ var battleEndWinUI = /** @class */ (function (_super) {
         _this.backGround = new Bitmap(254, 104, battleEndBGImg);
         _this.backButton = new Bitmap(500, 353, backButtonImg);
         _this.expText = new TextField('2333', 400, 207, 20);
+        _this.coinText = new TextField('111', 500, 207, 20);
         // this.addChild(this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.backButton);
         _this.addChild(_this.expText);
+        _this.addChild(_this.coinText);
         _this.addChild(_this.dropTextGroup);
         // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
