@@ -593,6 +593,10 @@ function enterFrame(timestamp) {
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 var stage = new Stage();
+var staticStage = new Stage();
+var dynamicStage = new Stage();
+stage.addChild(staticStage);
+stage.addChild(dynamicStage);
 var fsm = new StateMachine();
 var commandPool = new CommandPool();
 requestAnimationFrame(enterFrame);

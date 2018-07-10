@@ -165,7 +165,7 @@ missionCloseImg.src = './assets//UI 取消按钮.png';
  *
  * TODO: 部分需要删除整合
  */
-var TILE_SIZE = 64; //TODO:还原为128
+var TILE_SIZE = 128; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
 var ROW_NUM = 8;
 var COL_NUM = 8;
@@ -457,19 +457,19 @@ var PlayingState = /** @class */ (function (_super) {
     function PlayingState() {
         var _this = _super.call(this) || this;
         map = new GameMap();
-        talkUIContainer = new DisplayObjectContainer(16, 16);
-        _this.mapContainer = new DisplayObjectContainer(16, 16);
-        _this.userUIContainer = new DisplayObjectContainer(16, 16);
-        _this.missionUIContainer = new DisplayObjectContainer(16, 16);
+        talkUIContainer = new DisplayObjectContainer(0, 0);
+        _this.mapContainer = new DisplayObjectContainer(0, 0);
+        _this.userUIContainer = new DisplayObjectContainer(0, 0);
+        _this.missionUIContainer = new DisplayObjectContainer(0, 0);
         _this.bg = new Bitmap(0, 0, bg);
         _this.userInfoUI = new UserInfoUI(0, 0);
         _this.missionInfoUI = new MissionInfoUI(TILE_SIZE * COL_NUM, TILE_SIZE * 2);
-        batteUIContainer = new DisplayObjectContainer(16, 16);
+        batteUIContainer = new DisplayObjectContainer(0, 0);
         _this.battleUI = new battleUI(0, 0);
         bagUIContainer = new DisplayObjectContainer(120, -50);
         _this.baggUI = new bagUI(0, 0);
-        skillBoxContainer = new DisplayObjectContainer(16, 16);
-        missionBoxContainer = new DisplayObjectContainer(16, 16);
+        skillBoxContainer = new DisplayObjectContainer(0, 0);
+        missionBoxContainer = new DisplayObjectContainer(0, 0);
         return _this;
     }
     PlayingState.prototype.onEnter = function () {
@@ -559,8 +559,8 @@ canvas.onclick = function (event) {
     var globalX = event.offsetX;
     var globalY = event.offsetY;
     //以下调UI位置用
-    var dingWeix = event.offsetX - 16;
-    var dingWeiy = event.offsetY - 16;
+    var dingWeix = event.offsetX - 0;
+    var dingWeiy = event.offsetY - 0;
     console.log(dingWeix + " , " + dingWeiy);
     var hitResult = stage.hitTest(new math.Point(globalX, globalY));
     if (hitResult) {
