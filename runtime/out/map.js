@@ -130,6 +130,11 @@ var GameMap = /** @class */ (function (_super) {
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
                     }
+                    else if (id == shop) {
+                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, Shop);
+                        _this.itemContainer.addChild(equipmentView);
+                        console.log("open shop");
+                    }
                 }
             }
             // const mapMonster = obj.map[0].monster as number[][]

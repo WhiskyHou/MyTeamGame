@@ -158,6 +158,9 @@ skillXixingDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/U
 let skillEmptyDesImg = new Image();
 skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
 
+let Shop = new Image();
+Shop.src = './assets/美术素材/场景/其他/购物车.png';
+
 
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
@@ -186,6 +189,7 @@ const WALL_RIGHT = 5;
 
 const KILL_DARGON_KNIFE = 1;
 const HP_BOTTLE = 2;
+const shop = 3;
 
 const NPC1 = 1;
 const NPC2 = 2;
