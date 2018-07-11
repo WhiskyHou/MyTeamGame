@@ -239,6 +239,9 @@ npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
+            shpManager.init(() => {
+    
+            });
         });
     })
 });

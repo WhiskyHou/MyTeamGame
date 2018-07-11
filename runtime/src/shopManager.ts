@@ -6,7 +6,6 @@ class shopManager extends EventDispatcher {
     storeEquipment : Array<Array<any>> = [];//产品二维数组
     constructor() {
         super();
-        this.getProductList()
     }
     openShop(){
         console.log('你打开商店');
@@ -33,11 +32,38 @@ class shopManager extends EventDispatcher {
     }
     getProductList(){
         //id,name,quality,posID,hp,attack,critical,
-        this.storeEquipment = [
-            [   new Equipment(0,"",0,0,0,0,0),
-                new Equipment(0,"",0,0,0,0,0),
-            ],
-            []
-        ]
+        // this.storeEquipment = [
+        //     [   new Equipment(0,"",0,0,0,0,0),
+        //         new Equipment(0,"",0,0,0,0,0),
+        //     ],
+        //     []
+        // ]
+    }
+
+    init(callback: Function) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('get', 'config/product.json');
+        xhr.send();
+        xhr.onload = () => {
+            const obj = JSON.parse(xhr.response)
+            this.parseFromConfig(obj);
+            callback();
+        }
+    }
+    parseFromConfig(config: any) {
+        let productList : Array<any> = []
+        for (let item of config.product) {
+            const price = parseInt(item.price);
+            const productID = parseInt(item.productID);
+            const equipmentID = parseInt(item.equipmentID);
+            const equipment = equipManager.equipList[equipmentID]
+            const descriptionPath = item.description;
+            let descriptionImg = new Image();
+            descriptionImg.src = descriptionPath;
+            const description = new Bitmap(0, 0, descriptionImg);
+            let product = new Product(productID, equipment,price,description);
+            productList.push(product);
+            console.log(product.toString())
+        }
     }
 }

@@ -220,6 +220,8 @@ npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
+            shpManager.init(function () {
+            });
         });
     });
 });
