@@ -48,6 +48,9 @@ var NpcManager = /** @class */ (function (_super) {
             var npc = new Npc(id, name_1);
             npc.view = view;
             npc.head = head;
+            if (item.uselessTalks) {
+                npc.uselessTalks = item.uselessTalks;
+            }
             this.npcList.push(npc);
         }
     };

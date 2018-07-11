@@ -779,6 +779,7 @@ class AudioPlay {
 
     end() {
         this.audio.pause();
+        this.audio.currentTime=0.0;
     }
 }
 

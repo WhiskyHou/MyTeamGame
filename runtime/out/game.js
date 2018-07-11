@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -185,10 +186,22 @@ var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var CreateAudio = new Audio();
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+var BattleAudio = new Audio();
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3";
+var SucceedAudio = new Audio();
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
+var FailAudio = new Audio();
+FailAudio.src = "assets/音效/常规/战斗失败.mp3";
 var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
+var battleaudio = new AudioPlay(BattleAudio);
+var succeedaudio = new AudioPlay(SucceedAudio);
+var failaudio = new AudioPlay(FailAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
+battleaudio.playOnlyOnce = false;
+succeedaudio.playOnlyOnce = true;
+failaudio.playOnlyOnce = true;
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
 //mainaudio.end();
@@ -221,8 +234,9 @@ var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 500;
-var staticStage = stages[1];
-var dynamicStage = stages[0];
+var staticStage = stages[2];
+var dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
 var player = new User();
 var map;
 var missionManager = new MissionManager();
@@ -558,7 +572,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 0;
+        camera.layer = 1;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);

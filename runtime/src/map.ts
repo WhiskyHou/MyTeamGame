@@ -90,11 +90,11 @@ class GameMap extends DisplayObjectContainer {
                                 const npcView = npc.view;
                                 const npcHead = npc.head;
                                 console.log(npcView.img.src)
-                                npcView.x = TILE_SIZE * i;
-                                npcView.y = TILE_SIZE * j;
-                                npc.x = i
-                                npc.y = j
-                                const key = i + '_' + j;
+                                npcView.x = TILE_SIZE * j;
+                                npcView.y = TILE_SIZE * i;
+                                npc.x = j
+                                npc.y = i
+                                const key = j + '_' + i;
                                 this.npcConfig[key] = npc;
                                 this.roleContainer.addChild(npcView);
                             }
@@ -109,26 +109,26 @@ class GameMap extends DisplayObjectContainer {
                 for (let j = 0; j < row.length; j++) {
                     const id = row[j]
                     if (id == KILL_DARGON_KNIFE) {
-                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
+                        const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
                         const equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀'
                         equipmentTiem.attack = 35;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
-                        const key = i + '_' + j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
+                        const key = j + '_' + i;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
                     } else if (id == HP_BOTTLE) {
                         // TODO
-                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, hp_bottle);
+                        const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
                         const equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '扁鹊的药瓶'
                         equipmentTiem.attack = 0;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
-                        const key = i + '_' + j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
+                        const key = j + '_' + i;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);
                     }
@@ -149,16 +149,24 @@ class GameMap extends DisplayObjectContainer {
                             if (monster.id == id) {
                                 const monsterView = monster.view;
                                 // const npcHead = npc.head;
-                                monsterView.x = TILE_SIZE * i;
-                                monsterView.y = TILE_SIZE * j;
-                                monster.x = i
-                                monster.y = j
-                                const key = i + '_' + j;
+                                monsterView.x = TILE_SIZE * j;
+                                monsterView.y = TILE_SIZE * i;
+                                monster.x = j
+                                monster.y = i
+                                const key = j + '_' + i;
                                 this.monsterConfig[key] = monster;
                                 this.roleContainer.addChild(monsterView);
                             }
                         }
                     }
+                }
+            }
+
+            const mapPortal = obj.map[0].portal as number[][];
+            for (let i = 0; i < mapPortal.length; i++) {
+                const row = mapPortal[i]
+                for (let j = 0; j < row.length; j++) {
+
                 }
             }
 

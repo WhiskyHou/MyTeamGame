@@ -5,6 +5,9 @@
  */
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
+
+Resource.load('./assets/美术素材/框.png', 'bgPaper')
+
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -196,11 +199,25 @@ StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const CreateAudio = new Audio()
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
 
+const BattleAudio = new Audio()
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
+const SucceedAudio = new Audio()
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
+const FailAudio = new Audio()
+FailAudio.src = "assets/音效/常规/战斗失败.mp3"
+
 const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
+
+const battleaudio = new AudioPlay(BattleAudio)
+const succeedaudio = new AudioPlay(SucceedAudio)
+const failaudio = new AudioPlay(FailAudio)
+
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
-
+battleaudio.playOnlyOnce = false;
+succeedaudio.playOnlyOnce = true;
+failaudio.playOnlyOnce = true;
 
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
@@ -243,8 +260,9 @@ const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 500;
 
-const staticStage = stages[1];
-const dynamicStage = stages[0];
+const staticStage = stages[2];
+const dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement))
 
 
 var player: User = new User();
@@ -673,7 +691,7 @@ class PlayingState extends State {
 
         let camera = this.camera.addComponent(new Camera()) as Camera;
 
-        camera.layer = 0;
+        camera.layer = 1;
 
 
         dynamicStage.addChild(this.mapContainer);
@@ -728,7 +746,7 @@ class PlayingState extends State {
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
-                
+
                 clickaudio.play();
 
                 const globalX = eventData.globalX;
@@ -804,7 +822,7 @@ class PlayingState extends State {
 
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
-    
+
     //clickaudio.play();
 
     const globalX = event.offsetX;

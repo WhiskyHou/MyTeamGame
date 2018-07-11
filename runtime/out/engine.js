@@ -662,6 +662,7 @@ var AudioPlay = /** @class */ (function () {
     };
     AudioPlay.prototype.end = function () {
         this.audio.pause();
+        this.audio.currentTime = 0.0;
     };
     return AudioPlay;
 }());
