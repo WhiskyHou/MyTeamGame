@@ -70,6 +70,182 @@
 				"2333333……"
 			],
 			"changeTypeID": "5"
+		},
+		{
+			"id": "10",
+			"name": "李老师",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128 老师1.png",
+			"head": "./assets/美术素材/角色/npc/128x128 老师1.png",
+			"uselessTalks": [
+				"学生啊，还是要以学习为己任。",
+				"老师，我肚子疼，我先走了···",
+				"等等，英语单词背了么？"
+			]
+		},
+		{
+			"id": "11",
+			"name": "小美",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128女神.png",
+			"head": "./assets/美术素材/角色/npc/128x128女神.png",
+			"uselessTalks": [
+				"你有什么事么？",
+				"没···没事。"
+			]
+		},
+		{
+			"id": "12",
+			"name": "小美",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128女神.png",
+			"head": "./assets/美术素材/角色/npc/128x128女神.png",
+			"uselessTalks": [
+				"呼···我要休息一下！",
+				"小美，你要注意身体啊。"
+			]
+		},
+		{
+			"id": "13",
+			"name": "小美",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128女神.png",
+			"head": "./assets/美术素材/角色/npc/128x128女神.png",
+			"uselessTalks": [
+				"狗狗不咬人的时候还是很可爱的~",
+				"那你也要小心别被咬到了啊。"
+			]
+		},
+		{
+			"id": "14",
+			"name": "呆萌恶犬",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128 恶狗.png",
+			"head": "./assets/美术素材/角色/反派/128x128 恶狗.png",
+			"uselessTalks": [
+				"汪汪~",
+				"狗狗乖，去边上玩。"
+			],
+			"changeTypeID": "10"
+		},
+		{
+			"id": "15",
+			"name": "邋遢鬼",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128丑男.png",
+			"head": "./assets/美术素材/角色/反派/128x128丑男.png",
+			"uselessTalks": [
+				"不睡觉，不洗澡，天天邋遢乐逍遥~",
+				"没···没救了···"
+			],
+			"changeTypeID": "13"
+		},
+		{
+			"id": "16",
+			"name": "快乐肥宅",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128肥宅.png",
+			"head": "./assets/美术素材/角色/反派/128x128肥宅.png",
+			"uselessTalks": [
+				"睡醒了，就可以玩游戏了~",
+				"你···好好玩游戏吧。"
+			],
+			"changeTypeID": "14"
+		},
+		{
+			"id": "17",
+			"name": "大吃货",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128保安.png",
+			"head": "./assets/美术素材/角色/反派/128x128保安.png",
+			"uselessTalks": [
+				"吃吃喝喝，天天快乐~",
+				"我劝你还是少吃点吧···"
+			],
+			"changeTypeID": "17"
+		},
+		{
+			"id": "18",
+			"name": "不良少年",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128不良少年.png",
+			"head": "./assets/美术素材/角色/反派/128x128不良少年.png",
+			"uselessTalks": [
+				"抽烟的姿势多帅啊~",
+				"（小朋友请勿模仿）"
+			],
+			"changeTypeID": "20"
+		},
+		{
+			"id": "19",
+			"name": "校园恶霸",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128班主任.png",
+			"head": "./assets/美术素材/角色/反派/128x128班主任.png",
+			"uselessTalks": [
+				"看什么看，想打架？",
+				"切，不就是长的高一点么。"
+			],
+			"changeTypeID": "21"
+		},
+		{
+			"id": "20",
+			"name": "帅策划",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128 帅策划.png",
+			"head": "./assets/美术素材/角色/npc/128x128 帅策划.png",
+			"uselessTalks": [
+				"这个游戏的策划是不是特别帅？",
+				"是是是，你说的都对。"
+			],
+			"changeTypeID": "24"
+		},
+		{
+			"id": "21",
+			"name": "基友甲",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128好友.png",
+			"head": "./assets/美术素材/角色/npc/128x128好友.png",
+			"uselessTalks": [
+				"放心，你干啥我都支持你！",
+				"呜呜呜，太谢谢你了！"
+			]
+		},
+		{
+			"id": "22",
+			"name": "小花",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128女神闺蜜.png",
+			"head": "./assets/美术素材/角色/npc/128x128女神闺蜜.png",
+			"uselessTalks": [
+				"要天天开心啊！",
+				"嗯嗯，我会的！"
+			]
+		},
+		{
+			"id": "2",
+			"name": "智者",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/npc/128x128老教授.png",
+			"head": "./assets/美术素材/角色/npc/128x128老教授.png",
+			"uselessTalks": [
+				"要多学习啊，以后来找我，我会帮你的。",
+				"哎，要等到什么时候呢。"
+			]
 		}
 	]
 }
