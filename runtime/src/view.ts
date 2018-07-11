@@ -292,7 +292,7 @@ class bagUI extends DisplayObjectContainer {
         })
         this.bagLeftButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagLeft();
-    
+
         })
         this.bagOtherButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOther();
@@ -411,27 +411,27 @@ class shopUI extends DisplayObjectContainer {
         //super(x, y);
         super(58, 64);
 
-        this.infoPanel = new Bitmap(73,65,Resource.get('shopUI') as HTMLImageElement)
+        this.infoPanel = new Bitmap(73, 65, Resource.get('shopUI') as HTMLImageElement)
         this.shopDownButton = new Bitmap(65, 50, Resource.get('shopcloseUI') as HTMLImageElement)
-       
-        this.shopWQ=new Bitmap(195,100,Resource.get('shopUIwq') as HTMLImageElement)
-        this.shopFJ=new Bitmap(195,170,Resource.get('shopUIfj') as HTMLImageElement)
-        this.shopXHP=new Bitmap(195,240,Resource.get('shopUIxhp') as HTMLImageElement)
-        this.shopJN=new Bitmap(195,310,Resource.get('shopUIjn') as HTMLImageElement)
 
-        this.shopR=new Bitmap(435,260,Resource.get('shopUIR') as HTMLImageElement)
-        this.shopL=new Bitmap(350,260,Resource.get('shopUIL') as HTMLImageElement)
-        this.shopBuy=new Bitmap(338,300,Resource.get('shopUIbuy') as HTMLImageElement)
+        this.shopWQ = new Bitmap(195, 100, Resource.get('shopUIwq') as HTMLImageElement)
+        this.shopFJ = new Bitmap(195, 170, Resource.get('shopUIfj') as HTMLImageElement)
+        this.shopXHP = new Bitmap(195, 240, Resource.get('shopUIxhp') as HTMLImageElement)
+        this.shopJN = new Bitmap(195, 310, Resource.get('shopUIjn') as HTMLImageElement)
+
+        this.shopR = new Bitmap(435, 260, Resource.get('shopUIR') as HTMLImageElement)
+        this.shopL = new Bitmap(350, 260, Resource.get('shopUIL') as HTMLImageElement)
+        this.shopBuy = new Bitmap(338, 300, Resource.get('shopUIbuy') as HTMLImageElement)
 
         this.ShopText1 = new TextField('11111', 365, 83, 30);
         this.ShopText2 = new TextField('22222', 365, 116, 30);
         this.ShopText3 = new TextField('33333', 365, 149, 30);
         this.ShopText4 = new TextField('44444', 365, 182, 30);
         this.ShopText5 = new TextField('55555', 365, 215, 30);
-        this.ShopPage = new TextField('1',380,250,30);
+        this.ShopPage = new TextField('1', 380, 250, 30);
         //this.ShopMultiInfoText =new MultiTextField('',365,400,20,5);
         this.ShopCoin = new TextField('100', 438, 453, 20);
-        
+
 
         this.addChild(this.infoPanel);
         this.addChild(this.shopDownButton);
@@ -472,8 +472,6 @@ class shopUI extends DisplayObjectContainer {
         })
         this.shopR.addEventListener("onClick", (eventData: any) => {
             shpManager.shopRight()
-<<<<<<< HEAD
-=======
         })
         this.shopBuy.addEventListener("onClick", (eventData: any) => {
             shpManager.shopBuy()
@@ -489,7 +487,6 @@ class shopUI extends DisplayObjectContainer {
         })
         this.ShopText4.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowProduct(3)
->>>>>>> 386088464c2c91c2c6e493540bde6e1ff11a5af3
         })
     }
     changeEquipmentInfo(equip: Equipment) {
@@ -699,7 +696,7 @@ class battleUI extends DisplayObjectContainer {
         })
 
         this.escapeButton.addEventListener('onClick', (eventData: any) => {
-            
+
             clickaudio.play();
 
             let ran = Math.random() * 100;
