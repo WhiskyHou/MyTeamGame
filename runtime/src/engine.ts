@@ -775,6 +775,7 @@ class AudioPlay {
         this.audio.hidden = true;
         this.audio.controls = true;
         this.audio.loop = false;
+       
     }
 
     set playOnlyOnce(v: boolean) {
@@ -783,11 +784,11 @@ class AudioPlay {
 
     play() {
         this.audio.play()
+        this.audio.currentTime = 0.0;
     }
 
     end() {
         this.audio.pause();
-        this.audio.currentTime = 0.0;
     }
 }
 
