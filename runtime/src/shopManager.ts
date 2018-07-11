@@ -3,7 +3,7 @@ class shopManager extends EventDispatcher {
     nowPage : number = 0;
     nowNumber : number = 0;
     nowEquipment : Equipment;//背包里的选中装备
-    storeEquipment : Array<Array<any>> = [];//产品二维数组
+    storeEquipment : Array<Array<any>> = [[],[],[],[]];//储存装备的
     constructor() {
         super();
     }
@@ -20,26 +20,30 @@ class shopManager extends EventDispatcher {
         console.log('你关闭了窗口');
     }
     changeNowProduct(num : number){
-        // this.nowNumber = num;
-        // if(this.nowGroupEquipment[5*this.nowPage+this.nowNumber]){
-        //     this.nowEquipment = this.nowGroupEquipment[this.nowPage*5+this.nowNumber]
+        this.nowNumber = num;
+        if(this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]){
+            this.nowEquipment = this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]
+        }
     }
     shopRight(){
         console.log('你点击了右键');
+        let MaxPage=(this.storeEquipment[this.nowGroup].length/5)-1;
+        console.log(MaxPage);
+        if(this.nowPage< MaxPage){
+           this.nowPage++; 
+        }
+        this.shopUpdate()
     }
     shopLeft(){
         console.log('你点击了左键');
+        if(this.nowPage > 0){
+            this.nowPage--; 
+         }
+        this.shopUpdate()
     }
-    getProductList(){
-        //id,name,quality,posID,hp,attack,critical,
-        // this.storeEquipment = [
-        //     [   new Equipment(0,"",0,0,0,0,0),
-        //         new Equipment(0,"",0,0,0,0,0),
-        //     ],
-        //     []
-        // ]
+    shopUpdate(){
+        this.dispatchEvent('updateShop',this.storeEquipment)
     }
-
     init(callback: Function) {
         const xhr = new XMLHttpRequest();
         xhr.open('get', 'config/product.json');
@@ -65,5 +69,29 @@ class shopManager extends EventDispatcher {
             productList.push(product);
             console.log(product.toString())
         }
+        this.Equipment1TO2(productList)
     }
+    Equipment1TO2(productList : Array<any>) {//[I][J] I表示第几组，J表示第几个
+        //准备好当前选中类别的装备
+        for(let item of productList){
+            let Group = this.posTOgroup(item.equipment.posID)
+            this.storeEquipment[Group].push(item)
+        }
+        // this.nowPage = 0;
+        // this.nowNumber = 0;
+    }
+    posTOgroup(pos : number): number {//posID转分栏信息
+        if(pos == 0){//武器
+            return 0
+        }else if(pos > 0 && pos < 7){//防具
+            return 1
+        }else if(pos == 7){//消耗品
+            return 2
+        }else if(pos == 8){//其他
+            return 3
+        }else{
+            return 4
+        }
+    }
+    
 }

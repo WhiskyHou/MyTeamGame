@@ -239,13 +239,10 @@ npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
-<<<<<<< HEAD
             shpManager.init(() => {
     
             });
-=======
             missionManager.init();
->>>>>>> 6810dc613adc3b3522c8315be2ada0a40305339b
         });
     })
 });
@@ -724,10 +721,7 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
-<<<<<<< HEAD
                     // console.log('npc Info');
-=======
->>>>>>> 12ce30f4ff2865e626d9ef394556ae0145f0b27f
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {
