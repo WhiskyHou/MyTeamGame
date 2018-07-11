@@ -316,8 +316,14 @@ var Consumable = /** @class */ (function (_super) {
         return _this;
     }
     Consumable.prototype.use = function (callback) {
-        player._hp += (this.addHP / 100) * player.maxHP;
-        player._mp += (this.addMP / 100) * player.maxHP;
+        player._hp += Math.ceil((this.addHP / 100) * player.maxHP);
+        if (player._hp > player.maxHP) {
+            player._hp = player.maxHP;
+        }
+        player._mp += Math.ceil((this.addMP / 100) * player.maxMp);
+        if (player._mp > player.maxMp) {
+            player._hp = player.maxMp;
+        }
         player._charm += this.addCharm;
         callback();
     };

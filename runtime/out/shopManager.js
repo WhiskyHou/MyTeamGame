@@ -17,6 +17,7 @@ var shopManager = /** @class */ (function (_super) {
         _this.nowPage = 0;
         _this.nowNumber = -1;
         _this.storeProduct = [[], [], [], []]; //储存装备的
+        _this.buyaudio = new AudioPlay(BuyAudio);
         return _this;
     }
     shopManager.prototype.openShop = function () {
@@ -29,13 +30,14 @@ var shopManager = /** @class */ (function (_super) {
     };
     shopManager.prototype.shopBuy = function () {
         if (this.nowNumber > -1 && this.nowNumber < 100) {
+            this.buyaudio.play();
             var product = this.storeProduct[this.nowGroup][5 * this.nowPage + this.nowNumber];
             var price = product.price;
             var equipment = product.equipment;
             player.coin -= price;
             player.packageEquipment.push(equipment);
             console.log('你购买了商品');
-            this.nowNumber = -1;
+            // this.nowNumber = -1
             this.shopUpdate();
         }
     };
@@ -55,6 +57,7 @@ var shopManager = /** @class */ (function (_super) {
         var MaxPage = (this.storeProduct[this.nowGroup].length / 5) - 1;
         console.log(MaxPage);
         if (this.nowPage < MaxPage) {
+            clickaudio.play();
             this.nowNumber = 100;
             this.nowPage++;
         }
@@ -63,6 +66,7 @@ var shopManager = /** @class */ (function (_super) {
     shopManager.prototype.shopLeft = function () {
         console.log('你点击了左键');
         if (this.nowPage > 0) {
+            clickaudio.play();
             this.nowNumber = -1;
             this.nowPage--;
         }
@@ -111,16 +115,16 @@ var shopManager = /** @class */ (function (_super) {
         this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {

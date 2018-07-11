@@ -665,10 +665,10 @@ var AudioPlay = /** @class */ (function () {
     });
     AudioPlay.prototype.play = function () {
         this.audio.play();
+        this.audio.currentTime = 0.0;
     };
     AudioPlay.prototype.end = function () {
         this.audio.pause();
-        this.audio.currentTime = 0.0;
     };
     return AudioPlay;
 }());
