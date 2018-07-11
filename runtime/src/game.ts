@@ -677,7 +677,7 @@ class PlayingState extends State {
 
         let camera = this.camera.addComponent(new Camera()) as Camera;
 
-        camera.layer = 0;
+        camera.layer = 1;
 
 
         dynamicStage.addChild(this.mapContainer);

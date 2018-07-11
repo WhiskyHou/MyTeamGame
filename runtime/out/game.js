@@ -560,7 +560,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 0;
+        camera.layer = 1;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
