@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
-Resource.load('./assets/灰尘.png', "dust");
+Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
@@ -231,7 +231,7 @@ var NPC5 = 5;
 var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
-var PLAYER_WALK_SPEED = 500;
+var PLAYER_WALK_SPEED = 200;
 var staticStage = stages[2];
 var dynamicStage = stages[1];
 stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
@@ -533,6 +533,12 @@ var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
 var shopUIContainer;
+// anim测试
+var animTemp;
+// anim测试
+animTemp = new DisplayObjectContainer(0, 0);
+var anim = animTemp.addComponent(new PlayerAnimTest());
+//anim.play();
 /**
  * 游戏状态
  */
@@ -581,7 +587,8 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(skillBoxContainer);
         staticStage.addChild(missionBoxContainer);
         this.mapContainer.addChild(map);
-        this.mapContainer.addChild(player.view);
+        //this.mapContainer.addChild(player.view);
+        this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
         staticStage.addChild(batteUIContainer);

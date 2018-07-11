@@ -492,6 +492,12 @@ var Animator = /** @class */ (function (_super) {
         this.isPlaying = true;
         this.visible = true;
     };
+    Animator.prototype.end = function () {
+        this.isPlaying = false;
+        this.visible = true;
+        this.index = 0;
+        this.duringTiem = this.delta;
+    };
     Animator.prototype.reset = function () {
         this.isPlaying = this.isLooping;
         this.visible = this.isLooping;

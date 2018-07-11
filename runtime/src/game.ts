@@ -6,7 +6,7 @@
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
 
-Resource.load('./assets/灰尘.png', "dust");
+Resource.load('./assets/正面动画.png', "dust");
 
 
 Resource.load('./assets/美术素材/框.png', 'bgPaper')
@@ -256,7 +256,7 @@ const MONSTER = 1;
 
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
-const PLAYER_WALK_SPEED = 500;
+const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
 const dynamicStage = stages[1];
@@ -418,9 +418,6 @@ class MenuState extends State {
     workerButton: Bitmap;
 
     startaudio: AudioPlay;
-
-    animTemp: DisplayObjectContainer;
-
 
     constructor() {
         super();
@@ -640,6 +637,13 @@ let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
 
+// anim测试
+let animTemp: DisplayObjectContainer;
+// anim测试
+animTemp = new DisplayObjectContainer(0,0 );
+const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+//anim.play();
+
 /**
  * 游戏状态
  */
@@ -666,6 +670,8 @@ class PlayingState extends State {
     shpUI: shopUI;
 
     camera: EmptyObject
+
+
 
     constructor() {
         super();
@@ -710,7 +716,9 @@ class PlayingState extends State {
         staticStage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
-        this.mapContainer.addChild(player.view);
+        //this.mapContainer.addChild(player.view);
+        this.mapContainer.addChild(animTemp);
+
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
 
@@ -810,6 +818,7 @@ class PlayingState extends State {
         // this.playerViewMove();
         player.update();
         missionManager.update();
+
     }
     onExit(): void {
         staticStage.deleteAll();

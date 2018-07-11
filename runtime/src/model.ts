@@ -149,16 +149,20 @@ class User extends EventDispatcher {
         if (Math.abs(targetX - player.view.x) > 5) {
             stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
-            player.view.x += stepX;
+            player.view.x += stepX; 
+            animTemp.x=player.view.x;///
         } else {
             player.view.x = targetX;
+            animTemp.x=player.view.x;///
         }
         if (Math.abs(targetY - player.view.y) > 5) {
             stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
+            animTemp.y=player.view.y;///
         } else {
             player.view.y = targetY;
+            animTemp.y=player.view.y;///
         }
 
     }

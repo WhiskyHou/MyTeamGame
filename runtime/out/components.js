@@ -21,6 +21,7 @@ var PlayerAnimTest = /** @class */ (function (_super) {
         this.anim = new Animator(0, 0, Resource.get('dust'), 128, 5, 0.2);
         this.gameObject.addChild(this.anim);
         this.anim.isLooping = true;
+        this.anim.visible = true;
     };
     PlayerAnimTest.prototype.onUpdate = function (delta) {
         this.anim.update(delta);
@@ -29,6 +30,9 @@ var PlayerAnimTest = /** @class */ (function (_super) {
     };
     PlayerAnimTest.prototype.play = function () {
         this.anim.play();
+    };
+    PlayerAnimTest.prototype.end = function () {
+        this.anim.end();
     };
     return PlayerAnimTest;
 }(Behaviour));
