@@ -305,9 +305,9 @@ class PropertyEditor {
     set saveState(save: boolean) {
         this.hasSaved = save;
         if (this.hasSaved) {
-            menu.changeTitle('Engine');
+            menu.changeTitle('黑鹰引擎 Pro');
         } else {
-            menu.changeTitle('尚未保存 *');
+            menu.changeTitle('黑鹰引擎 Pro - 尚未保存');
         }
     }
 }
