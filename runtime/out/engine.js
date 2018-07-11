@@ -473,8 +473,6 @@ var Animator = /** @class */ (function (_super) {
         _this.isLooping = false;
         return _this;
     }
-    Animator.prototype.onStart = function () {
-    };
     Animator.prototype.update = function (delta) {
         if (this.isPlaying) {
             if (this.index == this.count - 1) {

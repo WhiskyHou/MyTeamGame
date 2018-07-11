@@ -559,10 +559,6 @@ class Animator extends DisplayObject {
         this.isLooping = false
     }
 
-    onStart() {
-
-    }
-
     update(delta: number) {
         if (this.isPlaying) {
             if (this.index == this.count - 1) {
