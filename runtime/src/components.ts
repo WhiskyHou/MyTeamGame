@@ -1,3 +1,9 @@
+
+
+
+/**
+ * 创建角色时的按钮
+ */
 class CreatePlayerButtonScript extends Behaviour {
 
     canAssignPoint: number = 5

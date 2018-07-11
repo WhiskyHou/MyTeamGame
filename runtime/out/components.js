@@ -9,6 +9,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * 创建角色时的按钮
+ */
 var CreatePlayerButtonScript = /** @class */ (function (_super) {
     __extends(CreatePlayerButtonScript, _super);
     function CreatePlayerButtonScript() {

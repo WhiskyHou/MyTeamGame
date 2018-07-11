@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -233,8 +234,9 @@ var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 500;
-var staticStage = stages[1];
-var dynamicStage = stages[0];
+var staticStage = stages[2];
+var dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
 var player = new User();
 var map;
 var missionManager = new MissionManager();
@@ -570,7 +572,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 0;
+        camera.layer = 1;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
@@ -598,17 +600,22 @@ var PlayingState = /** @class */ (function (_super) {
         });
         shpManager.addEventListener('openShop', function (eventData) {
             batteUIContainer.deleteChild(_this.battleUI);
-            shopUIContainer.deleteChild(_this.baggUI);
+            bagUIContainer.deleteChild(_this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
-            bagUIContainer.addChild(_this.shpUI);
+            shopUIContainer.addChild(_this.shpUI);
         });
         shpManager.addEventListener('shopDown', function (eventData) {
-            bagUIContainer.deleteChild(_this.shpUI);
+            shopUIContainer.deleteChild(_this.shpUI);
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
             _this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(_this.baggUI);
+        });
+        baManager.addEventListener('updateShop', function (eventData) {
+            shopUIContainer.deleteChild(_this.shpUI);
+            _this.shpUI = new shopUI(0, 0);
+            shopUIContainer.addChild(_this.shpUI);
         });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
