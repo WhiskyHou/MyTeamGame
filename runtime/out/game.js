@@ -600,11 +600,11 @@ var PlayingState = /** @class */ (function (_super) {
             bagUIContainer.deleteChild(_this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
             shopUIContainer.addChild(_this.shpUI);
-            shpManager.shopUpdate();
         });
         shpManager.addEventListener('shopDown', function (eventData) {
             shopUIContainer.deleteChild(_this.shpUI);
-            shpManager.shopUpdate();
+            shopUIContainer.deleteAll();
+            console.log("真关闭", shopUIContainer.toString());
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);

@@ -422,15 +422,14 @@ class shopUI extends DisplayObjectContainer {
         this.shopR = new Bitmap(435, 260, Resource.get('shopUIR') as HTMLImageElement)
         this.shopL = new Bitmap(350, 260, Resource.get('shopUIL') as HTMLImageElement)
         this.shopBuy = new Bitmap(338, 300, Resource.get('shopUIbuy') as HTMLImageElement)
-
         this.ShopText1 = new TextField(shpManager.getNowProduct(0), 352, 88, 20).centered();
         this.ShopText2 = new TextField(shpManager.getNowProduct(1), 352, 120, 20).centered();
         this.ShopText3 = new TextField(shpManager.getNowProduct(2), 352, 154, 20).centered();
         this.ShopText4 = new TextField(shpManager.getNowProduct(3), 352, 187, 20).centered();
         this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
-
-        this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
-        this.productMultiInfoText = new MultiTextField([], 280, 400, 20, 5).setStringByNumber('12345678910', 5);
+      
+        this.ShopPage = new TextField((shpManager.nowPage+1).toString(),380,250,30);
+        this.productMultiInfoText =new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber),200,430,15,5)
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
 
