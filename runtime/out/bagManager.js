@@ -39,7 +39,6 @@ var bagManager = /** @class */ (function (_super) {
                 this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
                 this.changeNowEquipment(this.nowNumber);
                 this.exportCheckedEquipment(false);
-                this.bagUpdate();
                 this.nowNumber = -1;
             }
             else if (pos < 8) {
@@ -50,6 +49,7 @@ var bagManager = /** @class */ (function (_super) {
                 var con = this.nowEquipment;
                 con.use(function () { });
             }
+            this.bagUpdate();
         }
     };
     bagManager.prototype.bagOff = function () {
