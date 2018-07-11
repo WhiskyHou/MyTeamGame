@@ -19,6 +19,7 @@ var bagManager = /** @class */ (function (_super) {
         _this.nowPage = 0;
         _this.nowGroup = 0;
         _this.nowNumber = -1;
+        _this.hpmpaudio = new AudioPlay(HPMPAudio);
         return _this;
     }
     bagManager.prototype.openBag = function () {
@@ -45,6 +46,8 @@ var bagManager = /** @class */ (function (_super) {
             else if (pos < 8) {
                 var con = this.nowEquipment;
                 con.use(function () {
+                    console.log('zhixinglehuidiaohanshu');
+                    _this.hpmpaudio.play();
                     _this.deletePackageEquipment(_this.nowGroup, _this.nowPage, _this.nowNumber);
                     _this.changeNowEquipment(_this.nowNumber);
                     _this.exportCheckedEquipment(false);

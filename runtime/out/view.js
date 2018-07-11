@@ -367,15 +367,19 @@ var shopUI = /** @class */ (function (_super) {
         });
         _this.shopWQ.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(0);
+            clickaudio.play();
         });
         _this.shopFJ.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(1);
+            clickaudio.play();
         });
         _this.shopXHP.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(2);
+            clickaudio.play();
         });
         _this.shopJN.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(3);
+            clickaudio.play();
         });
         _this.shopL.addEventListener("onClick", function (eventData) {
             shpManager.shopLeft();
@@ -388,15 +392,19 @@ var shopUI = /** @class */ (function (_super) {
         });
         _this.ShopText1.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(0);
+            clickaudio.play();
         });
         _this.ShopText2.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(1);
+            clickaudio.play();
         });
         _this.ShopText3.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(2);
+            clickaudio.play();
         });
         _this.ShopText4.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(3);
+            clickaudio.play();
         });
         return _this;
     }

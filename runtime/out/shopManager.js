@@ -17,6 +17,7 @@ var shopManager = /** @class */ (function (_super) {
         _this.nowPage = 0;
         _this.nowNumber = -1;
         _this.storeProduct = [[], [], [], []]; //储存装备的
+        _this.buyaudio = new AudioPlay(BuyAudio);
         return _this;
     }
     shopManager.prototype.openShop = function () {
@@ -29,6 +30,7 @@ var shopManager = /** @class */ (function (_super) {
     };
     shopManager.prototype.shopBuy = function () {
         if (this.nowNumber > -1 && this.nowNumber < 100) {
+            this.buyaudio.play();
             var product = this.storeProduct[this.nowGroup][5 * this.nowPage + this.nowNumber];
             var price = product.price;
             var equipment = product.equipment;
@@ -55,6 +57,7 @@ var shopManager = /** @class */ (function (_super) {
         var MaxPage = (this.storeProduct[this.nowGroup].length / 5) - 1;
         console.log(MaxPage);
         if (this.nowPage < MaxPage) {
+            clickaudio.play();
             this.nowNumber = 100;
             this.nowPage++;
         }
@@ -63,6 +66,7 @@ var shopManager = /** @class */ (function (_super) {
     shopManager.prototype.shopLeft = function () {
         console.log('你点击了左键');
         if (this.nowPage > 0) {
+            clickaudio.play();
             this.nowNumber = -1;
             this.nowPage--;
         }

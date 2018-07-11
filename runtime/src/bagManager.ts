@@ -7,9 +7,12 @@ class bagManager extends EventDispatcher {
     nowNumber : number = -1;
     nowEquipment : Equipment;//背包里的选中装备
     nowMounthedEquipment : Equipment;//身上的选中装备
+
+    hpmpaudio:AudioPlay;
+
     constructor() {
         super();
-
+        this.hpmpaudio=new AudioPlay(HPMPAudio);
     }
     openBag(){
         console.log('你打开背包');
@@ -33,6 +36,8 @@ class bagManager extends EventDispatcher {
             }else if (pos < 8){
                 let con = this.nowEquipment as Consumable
                 con.use( () => {
+                    console.log('zhixinglehuidiaohanshu')
+                    this.hpmpaudio.play();
                     this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
                     this.changeNowEquipment(this.nowNumber)
                     this.exportCheckedEquipment(false);
