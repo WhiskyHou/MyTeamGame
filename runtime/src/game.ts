@@ -725,16 +725,18 @@ class PlayingState extends State {
             bagUIContainer.deleteChild(this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
             shopUIContainer.addChild(this.shpUI);
+            shpManager.shopUpdate()
         });
         shpManager.addEventListener('shopDown', (eventData: any) => {
             shopUIContainer.deleteChild(this.shpUI);
+            shpManager.shopUpdate()
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
             this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(this.baggUI);
         });
-        baManager.addEventListener('updateShop', (eventData: any) => {
+        shpManager.addEventListener('updateShop', (eventData: any) => {
             shopUIContainer.deleteChild(this.shpUI);
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
@@ -871,5 +873,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());

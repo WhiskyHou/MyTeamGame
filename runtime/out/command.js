@@ -123,6 +123,15 @@ var TalkCommand = /** @class */ (function (_super) {
             });
         }
         else {
+            if (this.npc.uselessTalks.length != 0) {
+                var uselessTalkWindow = new UselessTalkWindow(100, 150);
+                talkUIContainer.addChild(uselessTalkWindow);
+                uselessTalkWindow.setNpc(this.npc);
+                uselessTalkWindow.update();
+                uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
+                    talkUIContainer.deleteAll();
+                });
+            }
             callback();
         }
     };
@@ -136,6 +145,7 @@ var FightCommand = /** @class */ (function (_super) {
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
         _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
+        _this.hasUselessTalk = false;
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
         _this.battleaudio = new AudioPlay(BattleAudio);
@@ -154,7 +164,9 @@ var FightCommand = /** @class */ (function (_super) {
         var batUI = new battleUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
-        batteUIContainer.addChild(batUI);
+        if (!this.hasUselessTalk) {
+            batteUIContainer.addChild(batUI);
+        }
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(_this.monster);
@@ -180,14 +192,6 @@ var FightCommand = /** @class */ (function (_super) {
             _this.battleaudio.end();
             mainaudio.play();
         });
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
-        // this.monster.hp -= player.attack;
-        // player._hp -= this.monster.attack;
-        // if (this.monster.hp <= 0) {
-        //     player.fight(this.monster);
-        //     map.deleteMonster(this.monster);
-        // }
         callback();
     };
     return FightCommand;

@@ -90,10 +90,10 @@ class GameMap extends DisplayObjectContainer {
                                 const npcView = npc.view;
                                 const npcHead = npc.head;
                                 console.log(npcView.img.src)
-                                npcView.x = TILE_SIZE * i;
-                                npcView.y = TILE_SIZE * j;
-                                npc.x = i
-                                npc.y = j
+                                npcView.x = TILE_SIZE * j;
+                                npcView.y = TILE_SIZE * i;
+                                npc.x = j
+                                npc.y = i
                                 const key = j + '_' + i;
                                 this.npcConfig[key] = npc;
                                 this.roleContainer.addChild(npcView);
@@ -159,6 +159,14 @@ class GameMap extends DisplayObjectContainer {
                             }
                         }
                     }
+                }
+            }
+
+            const mapPortal = obj.map[0].portal as number[][];
+            for (let i = 0; i < mapPortal.length; i++) {
+                const row = mapPortal[i]
+                for (let j = 0; j < row.length; j++) {
+
                 }
             }
 

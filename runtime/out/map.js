@@ -90,10 +90,10 @@ var GameMap = /** @class */ (function (_super) {
                                 var npcView = npc.view;
                                 var npcHead = npc.head;
                                 console.log(npcView.img.src);
-                                npcView.x = TILE_SIZE * i;
-                                npcView.y = TILE_SIZE * j;
-                                npc.x = i;
-                                npc.y = j;
+                                npcView.x = TILE_SIZE * j;
+                                npcView.y = TILE_SIZE * i;
+                                npc.x = j;
+                                npc.y = i;
                                 var key = j + '_' + i;
                                 _this.npcConfig[key] = npc;
                                 _this.roleContainer.addChild(npcView);
@@ -157,6 +157,12 @@ var GameMap = /** @class */ (function (_super) {
                             }
                         }
                     }
+                }
+            }
+            var mapPortal = obj.map[0].portal;
+            for (var i = 0; i < mapPortal.length; i++) {
+                var row = mapPortal[i];
+                for (var j = 0; j < row.length; j++) {
                 }
             }
         };

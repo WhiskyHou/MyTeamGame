@@ -30,6 +30,7 @@ class shopManager extends EventDispatcher {
     }
     changeNowGroup(num : number){
         this.nowGroup = num;
+        console.log('当前组',this.nowGroup);
         this.shopUpdate()
     }
     shopRight(){
@@ -101,5 +102,11 @@ class shopManager extends EventDispatcher {
             return 4
         }
     }
-    
+    getNowProduct(num : number) : string{
+        if(shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num]){
+            return shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name
+        }else{
+            return ''
+        }   
+    }
 }

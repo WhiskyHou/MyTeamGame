@@ -461,6 +461,8 @@ class Npc {
     canAcceptMissions: Mission[] = []
     canSubmitMissions: Mission[] = []
 
+    uselessTalks: string[] = [];
+
     constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
@@ -499,6 +501,7 @@ class Monster extends EventDispatcher {
     x: number = 0;
     y: number = 0;
     view: Bitmap;
+    head = new Bitmap(0, 0, backButtonImg);
     id: number = 0;
     name: string = '';
     hp: number;
@@ -509,6 +512,8 @@ class Monster extends EventDispatcher {
     coin: number = 0;
     level: number = 0;
     dropType = 0;//0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
+
+    uselessTalks: string[] = [];
 
     constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number, dropType: number) {
         super();
@@ -749,5 +754,112 @@ class Skill {
                 return skillArray[i];
             }
         }
+    }
+}
+
+/**
+ * 废话窗口
+ */
+class UselessTalkWindow extends DisplayObjectContainer {
+    view: Bitmap;
+    head: Bitmap;
+
+    name: TextField;
+    text: TextField;
+
+    npc: Npc;
+    monster: Monster;
+
+    playerView: Bitmap;
+    playerNameText: TextField;
+
+    count: number = 0;
+
+    isNpc = true;
+
+
+    constructor(x: number, y: number) {
+
+
+        super(x, y);
+
+        this.view = new Bitmap(0, 0, talk_window);
+        this.text = new TextField("", 190, 100, 24);
+
+        this.addChild(this.view);
+        this.addChild(this.text);
+
+        this.addEventListener("onClick", (eventData: any) => {
+            switch (this.count % 2) {
+                case 0:
+                    this.text.y = 220;
+                    break;
+                case 1:
+                    this.text.y = 100;
+                    break;
+            }
+            this.count++;
+            this.update();
+        });
+    }
+
+    update() {
+
+        let contents: string[] = [];
+        if (this.isNpc) {
+            contents = this.npc.uselessTalks;
+        } else {
+            contents = this.monster.uselessTalks;
+        }
+
+        if (this.count >= contents.length) {
+            this.dispatchEvent("uselessTalkWiondowClose", null);
+        } else {
+            this.text.text = contents[this.count];
+        }
+    }
+
+    initNpcInfo() {
+        if (this.isNpc) {
+            this.head = this.npc.head;
+        } else {
+            this.head = this.monster.head;
+        }
+
+        this.head.x = 400;
+        this.head.y = 60;
+        if (this.isNpc) {
+
+            this.name = new TextField(this.npc.name, 445, 35, 20);
+        } else {
+
+            this.name = new TextField(this.monster.name, 445, 35, 20);
+        }
+
+
+        this.playerView = player.head;
+        this.playerView.x = 50;
+        this.playerView.y = 170;
+        this.playerNameText = new TextField(player.name, 90, 140, 24);
+
+        this.addChild(this.head);
+        this.addChild(this.name);
+        this.addChild(this.playerView);
+        this.addChild(this.playerNameText);
+    }
+
+    setNpc(npc: Npc) {
+        this.npc = npc;
+        this.isNpc = true;
+        this.initNpcInfo();
+
+
+    }
+
+    setMonster(monster: Monster) {
+        this.monster = monster;
+        this.isNpc = false;
+        this.initNpcInfo();
+
     }
 }

@@ -34,6 +34,10 @@ var monsterManager = /** @class */ (function () {
             viewImg.src = viewPath;
             var view = new Bitmap(0, 0, viewImg);
             monster.view = view;
+            if (item.uselessTalks) {
+                monster.head.img = viewImg;
+                monster.uselessTalks = item.uselessTalks;
+            }
             this.monsterList.push(monster);
         }
     };
