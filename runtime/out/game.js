@@ -588,17 +588,22 @@ var PlayingState = /** @class */ (function (_super) {
         });
         shpManager.addEventListener('openShop', function (eventData) {
             batteUIContainer.deleteChild(_this.battleUI);
-            shopUIContainer.deleteChild(_this.baggUI);
+            bagUIContainer.deleteChild(_this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
-            bagUIContainer.addChild(_this.shpUI);
+            shopUIContainer.addChild(_this.shpUI);
         });
         shpManager.addEventListener('shopDown', function (eventData) {
-            bagUIContainer.deleteChild(_this.shpUI);
+            shopUIContainer.deleteChild(_this.shpUI);
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
             _this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(_this.baggUI);
+        });
+        baManager.addEventListener('updateShop', function (eventData) {
+            shopUIContainer.deleteChild(_this.shpUI);
+            _this.shpUI = new shopUI(0, 0);
+            shopUIContainer.addChild(_this.shpUI);
         });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {

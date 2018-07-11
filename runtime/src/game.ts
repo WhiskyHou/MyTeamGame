@@ -709,17 +709,22 @@ class PlayingState extends State {
         });
         shpManager.addEventListener('openShop', (eventData: any) => {
             batteUIContainer.deleteChild(this.battleUI);
-            shopUIContainer.deleteChild(this.baggUI);
+            bagUIContainer.deleteChild(this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
-            bagUIContainer.addChild(this.shpUI);
+            shopUIContainer.addChild(this.shpUI);
         });
         shpManager.addEventListener('shopDown', (eventData: any) => {
-            bagUIContainer.deleteChild(this.shpUI);
+            shopUIContainer.deleteChild(this.shpUI);
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
             this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(this.baggUI);
+        });
+        baManager.addEventListener('updateShop', (eventData: any) => {
+            shopUIContainer.deleteChild(this.shpUI);
+            this.shpUI = new shopUI(0, 0);
+            shopUIContainer.addChild(this.shpUI);
         });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
