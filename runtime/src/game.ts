@@ -234,7 +234,7 @@ const MONSTER = 1;
 
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
-const PLAYER_WALK_SPEED = 5000;
+const PLAYER_WALK_SPEED = 500;
 
 const staticStage = stages[1];
 const dynamicStage = stages[0];
