@@ -37,6 +37,9 @@ var shopManager = /** @class */ (function (_super) {
             this.nowEquipment = this.storeEquipment[this.nowGroup][5 * this.nowPage + this.nowNumber];
         }
     };
+    shopManager.prototype.changeNowGroup = function (num) {
+        this.nowGroup = num;
+    };
     shopManager.prototype.shopRight = function () {
         console.log('你点击了右键');
         var MaxPage = (this.storeEquipment[this.nowGroup].length / 5) - 1;

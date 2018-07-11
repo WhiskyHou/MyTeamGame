@@ -25,6 +25,9 @@ class shopManager extends EventDispatcher {
             this.nowEquipment = this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]
         }
     }
+    changeNowGroup(num : number){
+        this.nowGroup = num;
+    }
     shopRight(){
         console.log('你点击了右键');
         let MaxPage=(this.storeEquipment[this.nowGroup].length/5)-1;

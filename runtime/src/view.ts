@@ -428,9 +428,26 @@ class shopUI extends DisplayObjectContainer {
         this.addChild(this.ShopPage);
         //this.addChild(this.ShopMultiInfoText);
         this.addChild(this.ShopCoin);
-       
         this.shopDownButton.addEventListener("onClick", (eventData: any) => {
             shpManager.shopDown();
+        })
+        this.shopWQ.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(0)
+        })
+        this.shopFJ.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(1)
+        })
+        this.shopXHP.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(2)
+        })
+        this.shopJN.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(3)
+        })
+        this.shopL.addEventListener("onClick", (eventData: any) => {
+            shpManager.shopLeft()
+        })
+        this.shopR.addEventListener("onClick", (eventData: any) => {
+            shpManager.shopRight()
         })
     }
     changeEquipmentInfo(equip: Equipment) {
