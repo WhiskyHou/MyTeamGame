@@ -641,6 +641,7 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
+                    // console.log('npc Info');
                     if (npcInfo.id == 6) {
                         shpManager.openShop();
                     }
