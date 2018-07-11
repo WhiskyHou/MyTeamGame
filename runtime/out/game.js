@@ -215,7 +215,7 @@ var NPC5 = 5;
 var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
-var PLAYER_WALK_SPEED = 200;
+var PLAYER_WALK_SPEED = 5000;
 var staticStage = stages[1];
 var dynamicStage = stages[0];
 var player = new User();
@@ -232,6 +232,7 @@ npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
+            missionManager.init();
         });
     });
 });
@@ -650,6 +651,7 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var monsterInfo = map.getMonsterInfo(row, col);
                 if (monsterInfo) {
+                    // console.log('monster Info');
                     var fight = new FightCommand(monsterInfo);
                     commandPool.addCommand(fight);
                 }

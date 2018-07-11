@@ -17,6 +17,8 @@ class TalkWindow extends DisplayObjectContainer {
     count: number = 0;
 
     constructor(x: number, y: number) {
+
+
         super(x, y);
 
         this.view = new Bitmap(0, 0, talk_window);

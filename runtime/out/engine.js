@@ -178,7 +178,7 @@ var Camera = /** @class */ (function (_super) {
     function Camera() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.layer = 1;
-        _this.moveSpeed = 150;
+        _this.moveSpeed = 1500;
         _this.isUpMove = false;
         _this.isDownMove = false;
         _this.isLeftMove = false;
@@ -222,16 +222,16 @@ var Camera = /** @class */ (function (_super) {
     };
     Camera.prototype.onUpdate = function (delta) {
         if (this.isUpMove) {
-            stages[this.layer].y -= delta * this.moveSpeed;
-        }
-        else if (this.isDownMove) {
             stages[this.layer].y += delta * this.moveSpeed;
         }
+        else if (this.isDownMove) {
+            stages[this.layer].y -= delta * this.moveSpeed;
+        }
         if (this.isLeftMove) {
-            stages[this.layer].x -= delta * this.moveSpeed;
+            stages[this.layer].x += delta * this.moveSpeed;
         }
         else if (this.isRightMove) {
-            stages[this.layer].x += delta * this.moveSpeed;
+            stages[this.layer].x -= delta * this.moveSpeed;
         }
     };
     Camera.prototype.onDestory = function () {
