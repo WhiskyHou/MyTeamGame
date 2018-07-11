@@ -315,8 +315,6 @@ skillArray.push(skillXixing);
  */
 class LoadingState extends State {
 
-
-
     private static _instance: LoadingState
     public static get instance() {
         if (!this._instance) {
@@ -324,8 +322,6 @@ class LoadingState extends State {
         }
         return this._instance
     }
-
-
 
     loadBG: Bitmap;
     loadPercent: TextField;
