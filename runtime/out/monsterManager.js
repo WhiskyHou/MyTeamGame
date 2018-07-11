@@ -28,10 +28,6 @@ var monsterManager = /** @class */ (function () {
             var coin = parseInt(item.coin);
             var level = parseInt(item.level);
             var dropType = parseInt(item.dropType);
-            var headPath = item.head;
-            var headImg = new Image();
-            headImg.src = headPath;
-            var head = new Bitmap(0, 0, headImg);
             var monster = new Monster(id, name_1, hp, attack, exp, coin, level, dropType);
             var viewPath = item.view;
             var viewImg = new Image();
@@ -39,7 +35,7 @@ var monsterManager = /** @class */ (function () {
             var view = new Bitmap(0, 0, viewImg);
             monster.view = view;
             if (item.uselessTalks) {
-                monster.head = head;
+                monster.head = view;
                 monster.uselessTalks = item.uselessTalks;
             }
             this.monsterList.push(monster);

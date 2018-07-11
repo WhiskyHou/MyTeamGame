@@ -32,10 +32,7 @@ class monsterManager {
             const level = parseInt(item.level);
             const dropType = parseInt(item.dropType);
 
-            const headPath = item.head;
-            let headImg = new Image();
-            headImg.src = headPath;
-            const head = new Bitmap(0, 0, headImg);
+
 
             let monster = new Monster(id, name, hp, attack, exp, coin, level, dropType);
 
@@ -45,7 +42,7 @@ class monsterManager {
             const view = new Bitmap(0, 0, viewImg);
             monster.view = view;
             if (item.uselessTalks) {
-                monster.head = head;
+                monster.head = view;
                 monster.uselessTalks = item.uselessTalks;
             }
 
