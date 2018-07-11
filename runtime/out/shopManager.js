@@ -15,7 +15,7 @@ var shopManager = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.nowGroup = 0;
         _this.nowPage = 0;
-        _this.nowNumber = 0;
+        _this.nowNumber = -1;
         _this.storeEquipment = [[], [], [], []]; //储存装备的
         return _this;
     }

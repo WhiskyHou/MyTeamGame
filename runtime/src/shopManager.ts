@@ -1,7 +1,7 @@
 class shopManager extends EventDispatcher {
     nowGroup : number = 0;
     nowPage : number = 0;
-    nowNumber : number = 0;
+    nowNumber : number = -1;
     nowEquipment : Equipment;//背包里的选中装备
     storeEquipment : Array<Array<any>> = [[],[],[],[]];//储存装备的
     constructor() {

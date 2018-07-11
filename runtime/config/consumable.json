@@ -1,0 +1,52 @@
+{
+	"equip": [
+		{
+			"id": "0",
+			"name": "万能·红药",
+			"posID": "7",
+			"addHP": "20",
+			"addMP": "0",
+			"addCharm": "0"
+		},
+		{
+			"id": "1",
+			"name": "万能·蓝药",
+			"posID": "7",
+			"addHP": "0",
+			"addMP": "20",
+			"addCharm": "0"
+		},
+		{
+			"id": "2",
+			"name": "男士香水",
+			"posID": "7",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "100"
+        },
+		{
+			"id": "3",
+			"name": "撒币大法技能书",
+			"posID": "8",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0"
+        },
+		{
+			"id": "4",
+			"name": "菜花宝典技能书",
+			"posID": "8",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0"
+		},
+		{
+			"id": "5",
+			"name": "吸星大法技能书",
+			"posID": "8",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0"
+		}
+	]
+}
