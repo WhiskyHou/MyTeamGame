@@ -249,6 +249,7 @@ var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
+var inputManager = new InputManager();
 var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
@@ -713,6 +714,7 @@ canvas.onclick = function (event) {
 };
 window.onkeydown = function (event) {
     var keyCode = event.keyCode ? event.keyCode : event.which;
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     }

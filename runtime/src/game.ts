@@ -280,6 +280,7 @@ let equipManager = new EquipmentManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
+let inputManager = new InputManager();
 let skillArray: Skill[] = []
 
 
@@ -700,7 +701,6 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
         shopUIContainer = new DisplayObjectContainer(120, -50);
         this.shpUI = new shopUI(0, 0);
-
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
 
@@ -765,6 +765,7 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
+   
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
@@ -869,7 +870,7 @@ canvas.onclick = function (event) {
 }
 window.onkeydown = (event: any) => {
     let keyCode = event.keyCode ? event.keyCode : event.which;
-
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     } else if (keyCode === 83) {

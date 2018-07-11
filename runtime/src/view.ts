@@ -22,7 +22,7 @@ class UserInfoUI extends DisplayObjectContainer {
     skillUI: skillBoxUI;
     missionUI: MissionUI;
 
-
+    inputText : TextField;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -44,6 +44,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
         this.bloodbar = new Bitmap(90, 35, bloodBar);
 
+        this.inputText = new TextField('输入玩家姓名' , 350, 100, 60);
+        this.addChild(this.inputText);
+
         this.addChild(this.userName);
         this.addChild(this.userLevel);
         // this.addChild(this.userAttack);
@@ -62,7 +65,18 @@ class UserInfoUI extends DisplayObjectContainer {
 
 
       
-
+        inputManager.addEventListener('inputChanged', (eventData: any) =>{
+            this.deleteChild(this.inputText);
+            this.inputText = new TextField(eventData , 350, 300, 60);
+            this.addChild(this.inputText);
+        })
+        inputManager.addEventListener('inputOver', (eventData: any) =>{
+            player.name = eventData;
+            this.deleteChild(this.userName);
+            this.userName = new TextField(player.name, 130, 5, 20);
+            this.addChild(this.userName);
+            this.deleteChild(this.inputText);
+        })
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
             clickaudio.play();
