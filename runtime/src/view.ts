@@ -404,7 +404,7 @@ class shopUI extends DisplayObjectContainer {
     ShopText4: TextField;
     ShopText5: TextField;
     ShopPage: TextField;
-    ShopMultiInfoText: MultiTextField;
+    productMultiInfoText: MultiTextField;
     ShopCoin: TextField;
 
     constructor(x: number, y: number) {
@@ -428,8 +428,13 @@ class shopUI extends DisplayObjectContainer {
         this.ShopText3 = new TextField('33333', 365, 149, 30);
         this.ShopText4 = new TextField('44444', 365, 182, 30);
         this.ShopText5 = new TextField('55555', 365, 215, 30);
+<<<<<<< HEAD
+        this.ShopPage = new TextField('1',380,250,30);
+        this.productMultiInfoText =new MultiTextField([],365,400,20,5).setStringByNumber('12345678910',5);
+=======
         this.ShopPage = new TextField('1', 380, 250, 30);
         //this.ShopMultiInfoText =new MultiTextField('',365,400,20,5);
+>>>>>>> fdedc95b6d55fb205f101a1402c27732e0dee65f
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
 
@@ -490,7 +495,13 @@ class shopUI extends DisplayObjectContainer {
         })
     }
     changeEquipmentInfo(equip: Equipment) {
-
+        this.deleteChild(this.productMultiInfoText)
+        let equipmentIfo: Array<string> = ['名称：' + equip.name, '品质：' + equip.quality,
+        '部位：' + equip.posID, '血量：+' + equip.health,
+        '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        this.productMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
+        this.addChild(this.productMultiInfoText)
+        this.dispatchEvent('updateBag', player)
     }
 
 }
