@@ -2,6 +2,9 @@ class battleManager extends EventDispatcher {
 
     originHp: number;
 
+    attack1audio : AudioPlay;
+    attack2audio : AudioPlay;
+
     constructor() {
         super();
         this.originHp = player._hp;
@@ -9,6 +12,8 @@ class battleManager extends EventDispatcher {
             this.originHp = player._hp;
         });
 
+        this.attack1audio = new AudioPlay(Attack1Audio)
+        this.attack2audio = new AudioPlay(Attack2Audio)
     }
 
 
@@ -157,13 +162,17 @@ class battleManager extends EventDispatcher {
     playerDealDamage(): number {
         let ran = Math.random() * 100;
         if (ran <= player._criticalPer) {
+            this.attack2audio.play();/////////////
             this.dispatchEvent('criticalHit', null);
-            return this.playerNormalDamage() * 2;
+            return this.damageFlow(player._attack * (1 + player.suitAttackPer)) * 2;
         }
-        return this.playerNormalDamage();
+        else{
+            return this.playerNormalDamage();
+        }
     }
 
     playerNormalDamage(): number {
+        this.attack1audio.play();/////////////
         return this.damageFlow(player._attack * (1 + player.suitAttackPer));
     }
 

@@ -146,7 +146,12 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
+    
 
+    battleaudio :AudioPlay
+    succeedaudio :AudioPlay
+    failaudio :AudioPlay
+    
 
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
@@ -157,6 +162,13 @@ class FightCommand extends Command {
         super();
         this.monster = monster;
         this.monsterOriginHp = this.monster.hp;
+
+        this.battleaudio = new AudioPlay(BattleAudio)
+        this.succeedaudio = new AudioPlay(SucceedAudio)
+        this.failaudio = new AudioPlay(FailAudio)
+        this.battleaudio.playOnlyOnce = false;
+        this.succeedaudio.playOnlyOnce = true;
+        this.failaudio.playOnlyOnce = true;
         if (monster.uselessTalks.length != 0) {
             this.hasUselessTalk = true;
         }
@@ -164,6 +176,9 @@ class FightCommand extends Command {
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
+        
+        mainaudio.end();
+        this.battleaudio.play();
 
         if (this.hasUselessTalk) {
             const uselessTalkWindow = new UselessTalkWindow(100, 150);
@@ -187,29 +202,34 @@ class FightCommand extends Command {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(this.monster);
 
-            battleaudio.end();
-            succeedaudio.play();
+            this.battleaudio.end();
+            this.succeedaudio.play();
+             mainaudio.play();  
         })
 
         batManager.addEventListener('backSceneWin', (eventData: any) => {
 
-            batteUIContainer.deleteAll();
-            mainaudio.play();
+            batteUIContainer.deleteAll(); 
+            
+            this.battleaudio.end();
+            mainaudio.play();  
 
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             this.monster.hp = this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
-
-            battleaudio.end();
-            failaudio.play();
+           
+            this.battleaudio.end();
+            this.failaudio.play();
+            mainaudio.play();
 
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {
             batteUIContainer.deleteAll();
             this.monster.hp = this.monsterOriginHp;
 
+            this.battleaudio.end();
             mainaudio.play();
         })
 

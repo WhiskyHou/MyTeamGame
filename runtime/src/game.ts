@@ -188,12 +188,7 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 
-
-const MainAudio = new Audio()
-MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
-const ClickAudio = new Audio()
-ClickAudio.src = "assets/音效/常规/单击.mp3"
-
+//局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const CreateAudio = new Audio()
@@ -206,22 +201,22 @@ SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
 const FailAudio = new Audio()
 FailAudio.src = "assets/音效/常规/战斗失败.mp3"
 
+const Attack1Audio = new Audio()
+Attack1Audio.src = "assets/音效/dnf/暴击1.mp3"
+const Attack2Audio = new Audio()
+Attack2Audio.src = "assets/音效/dnf/暴击2.mp3"
+//全局音乐控制
+const MainAudio = new Audio()
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
+const ClickAudio = new Audio()
+ClickAudio.src = "assets/音效/常规/单击.mp3"
+
 const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
 
-const battleaudio = new AudioPlay(BattleAudio)
-const succeedaudio = new AudioPlay(SucceedAudio)
-const failaudio = new AudioPlay(FailAudio)
-
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
-battleaudio.playOnlyOnce = false;
-succeedaudio.playOnlyOnce = true;
-failaudio.playOnlyOnce = true;
 
-//mainaudio.playOnlyOnce = true
-//mainaudioo.play()
-//mainaudio.end();
 
 
 /**
@@ -416,7 +411,7 @@ class MenuState extends State {
     loadButton: Bitmap;
     workerButton: Bitmap;
 
-    startaudio = new AudioPlay(StartAudio);
+    startaudio: AudioPlay;
 
 
     constructor() {
@@ -426,6 +421,7 @@ class MenuState extends State {
         this.title = new TextField('', 100, 300, 20);
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
         this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        this.startaudio = new AudioPlay(StartAudio);
     }
 
     onEnter(): void {
@@ -492,7 +488,7 @@ class CreateState extends State {
     canAssignPointText: TextField;
     tipsText: TextField;
 
-    createaudio = new AudioPlay(CreateAudio);
+    createaudio:AudioPlay;
 
     canAssignPoint = 5;
 
@@ -514,6 +510,8 @@ class CreateState extends State {
 
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
+
+        this.createaudio = new AudioPlay(CreateAudio);
 
         this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
