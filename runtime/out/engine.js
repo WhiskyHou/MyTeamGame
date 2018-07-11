@@ -222,16 +222,16 @@ var Camera = /** @class */ (function (_super) {
     };
     Camera.prototype.onUpdate = function (delta) {
         if (this.isUpMove) {
-            stages[this.layer].y -= delta * this.moveSpeed;
-        }
-        else if (this.isDownMove) {
             stages[this.layer].y += delta * this.moveSpeed;
         }
+        else if (this.isDownMove) {
+            stages[this.layer].y -= delta * this.moveSpeed;
+        }
         if (this.isLeftMove) {
-            stages[this.layer].x -= delta * this.moveSpeed;
+            stages[this.layer].x += delta * this.moveSpeed;
         }
         else if (this.isRightMove) {
-            stages[this.layer].x += delta * this.moveSpeed;
+            stages[this.layer].x -= delta * this.moveSpeed;
         }
     };
     Camera.prototype.onDestory = function () {

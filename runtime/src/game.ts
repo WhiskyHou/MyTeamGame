@@ -716,9 +716,9 @@ class PlayingState extends State {
 
                 const npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
-                    if(npcInfo.id == 6){
+                    if (npcInfo.id == 6) {
                         shpManager.openShop()
-                    }else{
+                    } else {
                         const talk = new TalkCommand(npcInfo);
                         commandPool.addCommand(talk)
                     }
