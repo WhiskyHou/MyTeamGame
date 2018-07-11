@@ -764,6 +764,10 @@ class AudioPlay {
     play() {
         this.audio.play()
     }
+
+    end() {
+        this.audio.pause();
+    }
 }
 
 

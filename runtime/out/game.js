@@ -175,6 +175,18 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
+var MainAudio = new Audio();
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
+var StartAudio = new Audio();
+StartAudio.src = "assets/音效/常规/创建角色.mp3";
+var ClickAudio = new Audio();
+ClickAudio.src = "assets/音效/常规/单击.mp3";
+var CreateAudio = new Audio();
+CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+var mainaudio = new AudioPlay(MainAudio);
+//mainaudio.playOnlyOnce = true
+//mainaudioo.play()
+//mainaudio.end();
 /**
  * 常量
  *
@@ -271,6 +283,7 @@ skillArray.push(skillXixing);
  */
 var LoadingState = /** @class */ (function (_super) {
     __extends(LoadingState, _super);
+    //loadingaudio = new AudioPlay(MainAudio);
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
@@ -292,6 +305,7 @@ var LoadingState = /** @class */ (function (_super) {
     LoadingState.prototype.onEnter = function () {
         staticStage.addChild(this.loadBG);
         staticStage.addChild(this.loadPercent);
+        mainaudio.play();
     };
     LoadingState.prototype.onUpdate = function () {
         if (this.count < 100 && this.waitTime == 0) {
@@ -323,10 +337,13 @@ var MenuState = /** @class */ (function (_super) {
     __extends(MenuState, _super);
     function MenuState() {
         var _this = _super.call(this) || this;
+        _this.startaudio = new AudioPlay(StartAudio);
         _this.onClick = function (eventData) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
             // this.onExit();
+            _this.startaudio.playOnlyOnce = true;
+            _this.startaudio.play();
             missionManager.init();
             // npcManager.init();
             fsm.replaceState(CreateState.instance);
@@ -355,11 +372,6 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
-        var temp = new Audio();
-        temp.src = "assets/van_pick_knife.mp3";
-        var audio = new AudioPlay(temp);
-        audio.playOnlyOnce = true;
-        audio.play();
     };
     MenuState.prototype.onUpdate = function () {
     };
@@ -377,11 +389,15 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
+        _this.clickaudio = new AudioPlay(ClickAudio);
+        _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
         _this.bigTag = true;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
                 fsm.replaceState(PlayingState.instance);
+                _this.createaudio.playOnlyOnce = true;
+                _this.createaudio.play();
             }
             else {
                 _this.tipsText.text = " ← 加完点才能学习！";
@@ -405,6 +421,8 @@ var CreateState = /** @class */ (function (_super) {
                 player._originHealth += 5;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -413,6 +431,8 @@ var CreateState = /** @class */ (function (_super) {
                 player._originHealth -= 5;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -421,6 +441,8 @@ var CreateState = /** @class */ (function (_super) {
                 player._originAttack += 1;
                 _this.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -429,6 +451,8 @@ var CreateState = /** @class */ (function (_super) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -705,5 +729,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());

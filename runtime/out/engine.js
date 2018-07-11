@@ -648,6 +648,9 @@ var AudioPlay = /** @class */ (function () {
     AudioPlay.prototype.play = function () {
         this.audio.play();
     };
+    AudioPlay.prototype.end = function () {
+        this.audio.pause();
+    };
     return AudioPlay;
 }());
 /**

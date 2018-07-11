@@ -184,6 +184,22 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 
+
+const MainAudio = new Audio()
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
+const StartAudio = new Audio() 
+StartAudio.src = "assets/音效/常规/创建角色.mp3"
+const ClickAudio = new Audio()
+ClickAudio.src = "assets/音效/常规/单击.mp3"
+const CreateAudio = new Audio()
+CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
+
+const mainaudio = new AudioPlay(MainAudio);
+//mainaudio.playOnlyOnce = true
+//mainaudioo.play()
+//mainaudio.end();
+
+
 /**
  * 常量
  * 
@@ -294,6 +310,8 @@ skillArray.push(skillXixing);
  */
 class LoadingState extends State {
 
+
+    
     private static _instance: LoadingState
     public static get instance() {
         if (!this._instance) {
@@ -309,6 +327,8 @@ class LoadingState extends State {
     count = 0;
     waitTime = 0;
 
+    //loadingaudio = new AudioPlay(MainAudio);
+
     constructor() {
         super();
         this.loadBG = new Bitmap(0, 0, Resource.get('loging') as HTMLImageElement);
@@ -317,7 +337,9 @@ class LoadingState extends State {
 
     onEnter(): void {
         staticStage.addChild(this.loadBG);
-        staticStage.addChild(this.loadPercent);
+        staticStage.addChild(this.loadPercent);       
+        
+        mainaudio.play()
 
     }
     onUpdate(): void {
@@ -341,6 +363,9 @@ class LoadingState extends State {
         console.log('Loading State onExit');
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
+
+      
+        
 
     }
 }
@@ -366,6 +391,9 @@ class MenuState extends State {
     loadButton: Bitmap;
     workerButton: Bitmap;
 
+    startaudio = new AudioPlay(StartAudio);
+
+
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, titleBGImg);
@@ -382,13 +410,9 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
 
-        this.startButton.addEventListener("onClick", this.onClick);
+        this.startButton.addEventListener("onClick", this.onClick)
 
-        const temp = new Audio()
-        temp.src = "assets/van_pick_knife.mp3"
-        const audio = new AudioPlay(temp);
-        audio.playOnlyOnce = true
-        audio.play()
+
     }
     onUpdate(): void {
 
@@ -406,6 +430,9 @@ class MenuState extends State {
         // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
         // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
         // this.onExit();
+
+        this.startaudio.playOnlyOnce=true;
+        this.startaudio.play();
 
         missionManager.init();
         // npcManager.init();
@@ -441,9 +468,13 @@ class CreateState extends State {
     canAssignPointText: TextField;
     tipsText: TextField;
 
+    clickaudio = new AudioPlay(ClickAudio);
+    createaudio = new AudioPlay(CreateAudio);
+
     canAssignPoint = 5;
     bigTag = true;
 
+     
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, createBGImg);
@@ -468,6 +499,9 @@ class CreateState extends State {
                 player._originHealth += 5;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
+                
+                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
         });
@@ -476,6 +510,9 @@ class CreateState extends State {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
+
+                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
         });
@@ -484,6 +521,9 @@ class CreateState extends State {
                 player._originAttack += 1;
                 this.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
+
+                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
@@ -492,6 +532,9 @@ class CreateState extends State {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
+
+                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
@@ -513,6 +556,8 @@ class CreateState extends State {
 
 
         // stage.addEventListener("onClick", this.onClick);
+
+       
 
 
     }
@@ -553,6 +598,9 @@ class CreateState extends State {
 
         if (this.canAssignPoint == 0) {
             fsm.replaceState(PlayingState.instance);
+
+            this.createaudio.playOnlyOnce=true;
+            this.createaudio.play();
         } else {
             this.tipsText.text = " ← 加完点才能学习！"
         }
@@ -814,5 +862,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());
