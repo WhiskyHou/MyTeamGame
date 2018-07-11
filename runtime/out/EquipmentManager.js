@@ -30,6 +30,17 @@ var EquipmentManager = /** @class */ (function () {
             var equip = new Equipment(id, name_1, quality, posID, health, attack, criticalPer);
             this.equipList.push(equip);
         }
+        for (var _b = 0, _c = config.consumable; _b < _c.length; _b++) {
+            var item = _c[_b];
+            var id = parseInt(item.id);
+            var name_2 = item.name;
+            var posID = parseInt(item.posID);
+            var addHP = parseInt(item.addHP);
+            var addMP = parseInt(item.addMP);
+            var addCharm = parseInt(item.addCharm);
+            var consum = new Consumable(id, name_2, posID, addHP, addMP, addCharm);
+            this.equipList.push(consum);
+        }
     };
     EquipmentManager.prototype.getEquipByID = function (id) {
         for (var i = 0; i < equipManager.equipList.length; i++) {
