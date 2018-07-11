@@ -589,16 +589,18 @@ var PlayingState = /** @class */ (function (_super) {
             bagUIContainer.deleteChild(_this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
             shopUIContainer.addChild(_this.shpUI);
+            shpManager.shopUpdate();
         });
         shpManager.addEventListener('shopDown', function (eventData) {
             shopUIContainer.deleteChild(_this.shpUI);
+            shpManager.shopUpdate();
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
             _this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(_this.baggUI);
         });
-        baManager.addEventListener('updateShop', function (eventData) {
+        shpManager.addEventListener('updateShop', function (eventData) {
             shopUIContainer.deleteChild(_this.shpUI);
             _this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(_this.shpUI);
@@ -715,5 +717,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());

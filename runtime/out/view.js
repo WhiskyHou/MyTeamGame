@@ -336,13 +336,13 @@ var shopUI = /** @class */ (function (_super) {
         _this.shopR = new Bitmap(435, 260, Resource.get('shopUIR'));
         _this.shopL = new Bitmap(350, 260, Resource.get('shopUIL'));
         _this.shopBuy = new Bitmap(338, 300, Resource.get('shopUIbuy'));
-        _this.ShopText1 = new TextField('11111', 365, 83, 30);
-        _this.ShopText2 = new TextField('22222', 365, 116, 30);
-        _this.ShopText3 = new TextField('33333', 365, 149, 30);
-        _this.ShopText4 = new TextField('44444', 365, 182, 30);
-        _this.ShopText5 = new TextField('55555', 365, 215, 30);
-        _this.ShopPage = new TextField('1', 380, 250, 30);
-        _this.productMultiInfoText = new MultiTextField([], 365, 400, 20, 5).setStringByNumber('12345678910', 5);
+        _this.ShopText1 = new TextField(shpManager.getNowProduct(0), 352, 88, 20).centered();
+        _this.ShopText2 = new TextField(shpManager.getNowProduct(1), 352, 120, 20).centered();
+        _this.ShopText3 = new TextField(shpManager.getNowProduct(2), 352, 154, 20).centered();
+        _this.ShopText4 = new TextField(shpManager.getNowProduct(3), 352, 187, 20).centered();
+        _this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
+        _this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
+        _this.productMultiInfoText = new MultiTextField([], 280, 400, 20, 5).setStringByNumber('12345678910', 5);
         _this.ShopCoin = new TextField('100', 438, 453, 20);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.shopDownButton);
@@ -359,7 +359,7 @@ var shopUI = /** @class */ (function (_super) {
         _this.addChild(_this.ShopText4);
         _this.addChild(_this.ShopText5);
         _this.addChild(_this.ShopPage);
-        //this.addChild(this.ShopMultiInfoText);
+        _this.addChild(_this.productMultiInfoText);
         _this.addChild(_this.ShopCoin);
         _this.shopDownButton.addEventListener("onClick", function (eventData) {
             shpManager.shopDown();
@@ -401,13 +401,13 @@ var shopUI = /** @class */ (function (_super) {
         return _this;
     }
     shopUI.prototype.changeEquipmentInfo = function (equip) {
-        this.deleteChild(this.productMultiInfoText);
-        var equipmentIfo = ['名称：' + equip.name, '品质：' + equip.quality,
-            '部位：' + equip.posID, '血量：+' + equip.health,
-            '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
-        this.productMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5);
-        this.addChild(this.productMultiInfoText);
-        this.dispatchEvent('updateBag', player);
+        // this.deleteChild(this.productMultiInfoText)
+        // let equipmentIfo: Array<string> = ['名称：' + equip.name, '品质：' + equip.quality,
+        // '部位：' + equip.posID, '血量：+' + equip.health,
+        // '攻击力：+' + equip.attack, '暴击：+' + equip.criticalPer + '%'];
+        // this.productMultiInfoText = new MultiTextField(equipmentIfo, 327, 125, 12, 5)
+        // this.addChild(this.productMultiInfoText)
+        // this.dispatchEvent('updateBag', player)
     };
     return shopUI;
 }(DisplayObjectContainer));

@@ -42,6 +42,7 @@ var shopManager = /** @class */ (function (_super) {
     };
     shopManager.prototype.changeNowGroup = function (num) {
         this.nowGroup = num;
+        console.log('当前组', this.nowGroup);
         this.shopUpdate();
     };
     shopManager.prototype.shopRight = function () {
@@ -118,6 +119,14 @@ var shopManager = /** @class */ (function (_super) {
         }
         else {
             return 4;
+        }
+    };
+    shopManager.prototype.getNowProduct = function (num) {
+        if (shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num]) {
+            return shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num].equipment.name;
+        }
+        else {
+            return '';
         }
     };
     return shopManager;
