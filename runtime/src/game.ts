@@ -265,6 +265,7 @@ stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement)
 
 var player: User = new User();
 var map: GameMap;
+let mapManager = new MapManager()
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let monsManager = new monsterManager();
@@ -274,6 +275,7 @@ let baManager = new bagManager();
 let shpManager = new shopManager();
 let skillArray: Skill[] = []
 
+
 npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
@@ -282,6 +284,7 @@ npcManager.init(() => {
 
             });
             missionManager.init();
+            mapManager.init();
         });
     })
 });
@@ -436,12 +439,6 @@ class MenuState extends State {
         staticStage.addChild(this.title);
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
-
-        // anim测试
-        this.animTemp = new DisplayObjectContainer(100, 100);
-        staticStage.addChild(this.animTemp);
-        const anim = this.animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
-        anim.play();
 
         this.startButton.addEventListener("onClick", this.onClick)
 
@@ -673,7 +670,7 @@ class PlayingState extends State {
     constructor() {
         super();
 
-        map = new GameMap();
+        map = mapManager.getMap(0) as GameMap;
         talkUIContainer = new DisplayObjectContainer(0, 0);
 
         this.mapContainer = new DisplayObjectContainer(0, 0);
@@ -848,7 +845,7 @@ canvas.onclick = function (event) {
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
-            // console.log(hitResult);
+            console.log(hitResult);
             hitResult = hitResult.parent;
             hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         }
