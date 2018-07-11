@@ -250,6 +250,7 @@ class User extends EventDispatcher {
             this._mp = this._originMp;
             this.maxMp = this._originMp;
             this.maxHP = this._originHealth;
+            this._hp = this.maxHP;
             this.changeEquipments();
             console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
         }
