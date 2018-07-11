@@ -755,10 +755,6 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
-<<<<<<< HEAD
-                    // console.log('npc Info');
-=======
->>>>>>> 8eaf7fd3e4adc92029821d2258d053c76312610a
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {
