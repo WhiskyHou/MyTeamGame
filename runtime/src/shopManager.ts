@@ -2,8 +2,7 @@ class shopManager extends EventDispatcher {
     nowGroup : number = 0;
     nowPage : number = 0;
     nowNumber : number = -1;
-    nowEquipment : Equipment;//背包里的选中装备
-    storeEquipment : Array<Array<any>> = [[],[],[],[]];//储存装备的
+    storeProduct : Array<Array<any>> = [[],[],[],[]];//储存装备的
     constructor() {
         super();
     }
@@ -16,18 +15,20 @@ class shopManager extends EventDispatcher {
         console.log('你关闭了窗口');
     }
     shopBuy(){
-        player.packageEquipment.push(shpManager.getEquipment(1000))
-        player.packageEquipment.push(shpManager.getEquipment(1001))
-        player.packageEquipment.push(shpManager.getEquipment(1002))
-        player.packageEquipment.push(shpManager.getEquipment(1003))
-        console.log('你关闭了窗口');
-        this.shopUpdate()
+        if(this.nowNumber>-1 && this.nowNumber < 100){
+            let product = this.storeProduct[this.nowGroup][5*this.nowPage+this.nowNumber]
+            let price = product.price
+            let equipment = product.equipment
+            player.coin -= price
+            player.packageEquipment.push(equipment)
+            console.log('你购买了商品');
+            this.nowNumber = -1
+            this.shopUpdate()
+        }
+        
     }
     changeNowProduct(num : number){
         this.nowNumber = num;
-        if(this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]){
-            this.nowEquipment = this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]
-        }
         this.shopUpdate()
     }
     changeNowGroup(num : number){
@@ -39,7 +40,7 @@ class shopManager extends EventDispatcher {
     }
     shopRight(){
         console.log('你点击了右键');
-        let MaxPage=(this.storeEquipment[this.nowGroup].length/5)-1;
+        let MaxPage=(this.storeProduct[this.nowGroup].length/5)-1;
         console.log(MaxPage);
         if(this.nowPage< MaxPage){
             this.nowNumber = 100
@@ -56,7 +57,7 @@ class shopManager extends EventDispatcher {
         this.shopUpdate()
     }
     shopUpdate(){
-        this.dispatchEvent('updateShop',this.storeEquipment)
+        this.dispatchEvent('updateShop',this.storeProduct)
     }
     init(callback: Function) {
         const xhr = new XMLHttpRequest();
@@ -90,10 +91,8 @@ class shopManager extends EventDispatcher {
         //准备好当前选中类别的装备
         for(let item of productList){
             let Group = this.posTOgroup(item.equipment.posID)
-            this.storeEquipment[Group].push(item)
+            this.storeProduct[Group].push(item)
         }
-        // this.nowPage = 0;
-        // this.nowNumber = 0;
         this.shopUpdate()
     }
     posTOgroup(pos : number): number {//posID转分栏信息
@@ -110,17 +109,17 @@ class shopManager extends EventDispatcher {
         }
     }
     getNowProduct(num : number) : string{
-        if(shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num]){
-            return shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name
+        if(shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num]){
+            return shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name
         }else{
             return ''
         }   
     }
     getNowProductInfo(num : number) : Array<string>{
-        if(shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num]){
+        if(shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num]){
             let nowProductInfo : string [] =
-            ["商品名称："+shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name,
-             "商品价格："+shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].price.toString()+'金币'
+            ["商品名称："+shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name,
+             "商品价格："+shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num].price.toString()+'金币'
             ]
             return nowProductInfo
         }else{

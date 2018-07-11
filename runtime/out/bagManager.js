@@ -27,6 +27,7 @@ var bagManager = /** @class */ (function (_super) {
         this.bagWeapon();
     };
     bagManager.prototype.bagOn = function () {
+        var _this = this;
         console.log('你穿上了装备');
         if (this.nowNumber > -1) {
             var pos = this.nowEquipment.posID;
@@ -43,7 +44,13 @@ var bagManager = /** @class */ (function (_super) {
             }
             else if (pos < 8) {
                 var con = this.nowEquipment;
-                con.use(function () { });
+                con.use(function () {
+                    console.log('zhixinglehuidiaohanshu');
+                    _this.deletePackageEquipment(_this.nowGroup, _this.nowPage, _this.nowNumber);
+                    _this.changeNowEquipment(_this.nowNumber);
+                    _this.exportCheckedEquipment(false);
+                    _this.nowNumber = -1;
+                });
             }
             else {
                 var con = this.nowEquipment;

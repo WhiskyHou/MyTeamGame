@@ -32,7 +32,13 @@ class bagManager extends EventDispatcher {
                 this.nowNumber = -1
             }else if (pos < 8){
                 let con = this.nowEquipment as Consumable
-                con.use( () => {})
+                con.use( () => {
+                    console.log('zhixinglehuidiaohanshu')
+                    this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
+                    this.changeNowEquipment(this.nowNumber)
+                    this.exportCheckedEquipment(false);
+                    this.nowNumber = -1
+                })
             }
             else{
                 let con = this.nowEquipment as Consumable
