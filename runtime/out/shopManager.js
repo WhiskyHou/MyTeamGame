@@ -16,7 +16,7 @@ var shopManager = /** @class */ (function (_super) {
         _this.nowGroup = 0;
         _this.nowPage = 0;
         _this.nowNumber = -1;
-        _this.storeEquipment = [[], [], [], []]; //储存装备的
+        _this.storeProduct = [[], [], [], []]; //储存装备的
         return _this;
     }
     shopManager.prototype.openShop = function () {
@@ -28,18 +28,24 @@ var shopManager = /** @class */ (function (_super) {
         console.log('你关闭了窗口');
     };
     shopManager.prototype.shopBuy = function () {
-        player.packageEquipment.push(shpManager.getEquipment(1000));
-        player.packageEquipment.push(shpManager.getEquipment(1001));
-        player.packageEquipment.push(shpManager.getEquipment(1002));
-        player.packageEquipment.push(shpManager.getEquipment(1003));
-        console.log('你关闭了窗口');
-        this.shopUpdate();
+        //一下为测试代码
+        // player.packageEquipment.push(shpManager.getEquipment(1000))
+        // player.packageEquipment.push(shpManager.getEquipment(1001))
+        // player.packageEquipment.push(shpManager.getEquipment(1002))
+        // player.packageEquipment.push(shpManager.getEquipment(1003))
+        if (this.nowNumber > -1 && this.nowNumber < 100) {
+            var product = this.storeProduct[this.nowGroup][5 * this.nowPage + this.nowNumber];
+            var price = product.price;
+            var equipment = product.equipment;
+            player.coin -= price;
+            player.packageEquipment.push(equipment);
+            console.log('你购买了商品');
+            this.nowNumber = -1;
+            this.shopUpdate();
+        }
     };
     shopManager.prototype.changeNowProduct = function (num) {
         this.nowNumber = num;
-        if (this.storeEquipment[this.nowGroup][5 * this.nowPage + this.nowNumber]) {
-            this.nowEquipment = this.storeEquipment[this.nowGroup][5 * this.nowPage + this.nowNumber];
-        }
         this.shopUpdate();
     };
     shopManager.prototype.changeNowGroup = function (num) {
@@ -51,7 +57,7 @@ var shopManager = /** @class */ (function (_super) {
     };
     shopManager.prototype.shopRight = function () {
         console.log('你点击了右键');
-        var MaxPage = (this.storeEquipment[this.nowGroup].length / 5) - 1;
+        var MaxPage = (this.storeProduct[this.nowGroup].length / 5) - 1;
         console.log(MaxPage);
         if (this.nowPage < MaxPage) {
             this.nowNumber = 100;
@@ -68,7 +74,7 @@ var shopManager = /** @class */ (function (_super) {
         this.shopUpdate();
     };
     shopManager.prototype.shopUpdate = function () {
-        this.dispatchEvent('updateShop', this.storeEquipment);
+        this.dispatchEvent('updateShop', this.storeProduct);
     };
     shopManager.prototype.init = function (callback) {
         var _this = this;
@@ -105,10 +111,8 @@ var shopManager = /** @class */ (function (_super) {
         for (var _i = 0, productList_1 = productList; _i < productList_1.length; _i++) {
             var item = productList_1[_i];
             var Group = this.posTOgroup(item.equipment.posID);
-            this.storeEquipment[Group].push(item);
+            this.storeProduct[Group].push(item);
         }
-        // this.nowPage = 0;
-        // this.nowNumber = 0;
         this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
@@ -129,17 +133,17 @@ var shopManager = /** @class */ (function (_super) {
         }
     };
     shopManager.prototype.getNowProduct = function (num) {
-        if (shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num]) {
-            return shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num].equipment.name;
+        if (shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num]) {
+            return shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num].equipment.name;
         }
         else {
             return '';
         }
     };
     shopManager.prototype.getNowProductInfo = function (num) {
-        if (shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num]) {
-            var nowProductInfo = ["商品名称：" + shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num].equipment.name,
-                "商品价格：" + shpManager.storeEquipment[shpManager.nowGroup][5 * shpManager.nowPage + num].price.toString() + '金币'
+        if (shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num]) {
+            var nowProductInfo = ["商品名称：" + shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num].equipment.name,
+                "商品价格：" + shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num].price.toString() + '金币'
             ];
             return nowProductInfo;
         }
