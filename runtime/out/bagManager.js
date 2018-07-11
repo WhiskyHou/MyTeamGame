@@ -18,7 +18,7 @@ var bagManager = /** @class */ (function (_super) {
         _this.nowGroupEquipment = []; //当前组的装备数组
         _this.nowPage = 0;
         _this.nowGroup = 0;
-        _this.nowNumber = 0;
+        _this.nowNumber = -1;
         return _this;
     }
     bagManager.prototype.openBag = function () {

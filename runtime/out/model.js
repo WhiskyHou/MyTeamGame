@@ -58,7 +58,6 @@ var User = /** @class */ (function (_super) {
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq2)

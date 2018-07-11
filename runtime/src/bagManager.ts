@@ -4,7 +4,7 @@ class bagManager extends EventDispatcher {
     nowGroupEquipment : Equipment[] = [];//当前组的装备数组
     nowPage : number = 0;
     nowGroup : number = 0;
-    nowNumber : number = 0;
+    nowNumber : number = -1;
     nowEquipment : Equipment;//背包里的选中装备
     nowMounthedEquipment : Equipment;//身上的选中装备
     constructor() {

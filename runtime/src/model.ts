@@ -58,7 +58,6 @@ class User extends EventDispatcher {
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq2)

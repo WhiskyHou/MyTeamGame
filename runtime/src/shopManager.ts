@@ -16,7 +16,10 @@ class shopManager extends EventDispatcher {
         console.log('你关闭了窗口');
     }
     shopBuy(){
-        this.dispatchEvent('shopDown', player);
+        player.packageEquipment.push(shpManager.getEquipment(1000))
+        player.packageEquipment.push(shpManager.getEquipment(1001))
+        player.packageEquipment.push(shpManager.getEquipment(1002))
+        player.packageEquipment.push(shpManager.getEquipment(1003))
         console.log('你关闭了窗口');
         this.shopUpdate()
     }
