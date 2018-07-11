@@ -18,10 +18,24 @@ var TalkWindow = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.count = 0;
         _this.view = new Bitmap(0, 0, talk_window);
-        _this.text = new TextField("", 100, 200, 24);
+        _this.text = new TextField("", 190, 100, 24);
+        // this.playerView.img = player.view.img;
+        // this.playerView.x = 50;
+        // this.playerView.y = 50;
+        // this.playerNameText = new TextField(player.name, 200, 200, 24);
         _this.addChild(_this.view);
         _this.addChild(_this.text);
+        // this.addChild(this.playerView);
+        // this.addChild(this.playerNameText);
         _this.addEventListener("onClick", function (eventData) {
+            switch (_this.count % 2) {
+                case 0:
+                    _this.text.y = 220;
+                    break;
+                case 1:
+                    _this.text.y = 100;
+                    break;
+            }
             _this.count++;
             _this.update();
         });
@@ -44,11 +58,17 @@ var TalkWindow = /** @class */ (function (_super) {
     };
     TalkWindow.prototype.initNpcInfo = function () {
         this.head = this.npc.head;
-        this.head.x = 60;
+        this.head.x = 400;
         this.head.y = 60;
-        this.name = new TextField(this.npc.name, 180, 100, 20);
+        this.name = new TextField(this.npc.name, 445, 35, 20);
+        this.playerView = player.head;
+        this.playerView.x = 50;
+        this.playerView.y = 170;
+        this.playerNameText = new TextField(player.name, 90, 140, 24);
         this.addChild(this.head);
         this.addChild(this.name);
+        this.addChild(this.playerView);
+        this.addChild(this.playerNameText);
     };
     TalkWindow.prototype.setNpc = function (npc) {
         this.npc = npc;

@@ -233,10 +233,10 @@ var PropertyEditor = /** @class */ (function () {
         set: function (save) {
             this.hasSaved = save;
             if (this.hasSaved) {
-                menu.changeTitle('Engine');
+                menu.changeTitle('黑鹰引擎 Pro');
             }
             else {
-                menu.changeTitle('尚未保存 *');
+                menu.changeTitle('黑鹰引擎 Pro - 尚未保存');
             }
         },
         enumerable: true,

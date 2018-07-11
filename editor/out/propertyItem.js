@@ -15,7 +15,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
     result["default"] = mod;
     return result;
-}
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 var electron = __importStar(require("electron"));
@@ -220,6 +220,10 @@ var GameMapTilePropertyItem = /** @class */ (function (_super) {
         return view;
     };
     GameMapTilePropertyItem.prototype.updateView = function (value) {
+        if (value) {
+            var root = project_1.project.projectRoot;
+            var src = path.join(root, value);
+        }
     };
     return GameMapTilePropertyItem;
 }(PropertyItem));

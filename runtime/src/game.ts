@@ -64,7 +64,7 @@ yingzheng_head.src = './assets/yingzheng_head.png';
 var captain = new Image();
 captain.src = './assets/monster.png';
 var talk_window = new Image();
-talk_window.src = './assets/talkWindow.png';
+talk_window.src = './assets/美术素材/UI/3 对话框/UI 对话框界面 PNG/ui对话框.png  ';
 
 let battlePanelBgImg = new Image();
 battlePanelBgImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版1.png';
@@ -167,7 +167,8 @@ Shop.src = './assets/美术素材/场景/边缘/商店.png';
 
 let bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
-
+let playerHeadImg = new Image();
+playerHeadImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
@@ -261,6 +262,9 @@ npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
+            shpManager.init(() => {
+
+            });
             missionManager.init();
         });
     })
@@ -477,9 +481,8 @@ class CreateState extends State {
     createaudio = new AudioPlay(CreateAudio);
 
     canAssignPoint = 5;
-    bigTag = true;
 
-    createPlayerButton: CreatePlayerButton;
+    createPlayerButtonScript: CreatePlayerButtonScript;
 
     constructor() {
         super();
@@ -498,7 +501,7 @@ class CreateState extends State {
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
 
-        this.createPlayerButton = this.startButton.addComponent(new CreatePlayerButton()) as CreatePlayerButton;
+        this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
         this.startButton.addEventListener("onClick", this.onStartClick);
 
@@ -506,7 +509,7 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 this.canAssignPoint--;
-                this.createPlayerButton.canAssignPoint--;
+                this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 clickaudio.play();
@@ -517,7 +520,7 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
-                this.createPlayerButton.canAssignPoint++;
+                this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 clickaudio.play();
@@ -528,7 +531,7 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 this.canAssignPoint--;
-                this.createPlayerButton.canAssignPoint--;
+                this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 clickaudio.play();
@@ -539,7 +542,7 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
-                this.createPlayerButton.canAssignPoint++;
+                this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 clickaudio.play();
@@ -747,6 +750,10 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
+<<<<<<< HEAD
+                    // console.log('npc Info');
+=======
+>>>>>>> 8eaf7fd3e4adc92029821d2258d053c76312610a
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {

@@ -70,7 +70,7 @@ yingzheng_head.src = './assets/yingzheng_head.png';
 var captain = new Image();
 captain.src = './assets/monster.png';
 var talk_window = new Image();
-talk_window.src = './assets/talkWindow.png';
+talk_window.src = './assets/美术素材/UI/3 对话框/UI 对话框界面 PNG/ui对话框.png  ';
 var battlePanelBgImg = new Image();
 battlePanelBgImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版1.png';
 var battlePanelBlackMask = new Image();
@@ -162,6 +162,8 @@ var Shop = new Image();
 Shop.src = './assets/美术素材/场景/边缘/商店.png';
 var bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
+var playerHeadImg = new Image();
+playerHeadImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 var missionCloseImg = new Image();
@@ -235,6 +237,8 @@ npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
+            shpManager.init(function () {
+            });
             missionManager.init();
         });
     });
@@ -395,7 +399,6 @@ var CreateState = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
-        _this.bigTag = true;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
                 fsm.replaceState(PlayingState.instance);
@@ -418,13 +421,13 @@ var CreateState = /** @class */ (function (_super) {
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
-        _this.createPlayerButton = _this.startButton.addComponent(new CreatePlayerButton());
+        _this.createPlayerButtonScript = _this.startButton.addComponent(new CreatePlayerButtonScript());
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 _this.canAssignPoint--;
-                _this.createPlayerButton.canAssignPoint--;
+                _this.createPlayerButtonScript.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 clickaudio.play();
             }
@@ -434,7 +437,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 _this.canAssignPoint++;
-                _this.createPlayerButton.canAssignPoint++;
+                _this.createPlayerButtonScript.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 clickaudio.play();
             }
@@ -444,7 +447,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 _this.canAssignPoint--;
-                _this.createPlayerButton.canAssignPoint--;
+                _this.createPlayerButtonScript.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 clickaudio.play();
             }
@@ -454,7 +457,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
-                _this.createPlayerButton.canAssignPoint++;
+                _this.createPlayerButtonScript.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 clickaudio.play();
             }
