@@ -10,12 +10,10 @@ class shopManager extends EventDispatcher {
     openShop(){
         console.log('你打开商店');
         this.dispatchEvent('openShop', player);
-        this.shopUpdate()
     }
     shopDown(){
         this.dispatchEvent('shopDown', player);
         console.log('你关闭了窗口');
-        this.shopUpdate()
     }
     shopBuy(){
         this.dispatchEvent('shopDown', player);
@@ -31,6 +29,8 @@ class shopManager extends EventDispatcher {
     changeNowGroup(num : number){
         this.nowGroup = num;
         console.log('当前组',this.nowGroup);
+        this.nowNumber = -1
+        this.nowPage = 0
         this.shopUpdate()
     }
     shopRight(){
@@ -107,6 +107,17 @@ class shopManager extends EventDispatcher {
             return shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name
         }else{
             return ''
+        }   
+    }
+    getNowProductInfo(num : number) : Array<string>{
+        if(shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num]){
+            let nowProductInfo : string [] =
+            ["商品名称："+shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name,
+             "商品价格："+shpManager.storeEquipment[shpManager.nowGroup][5*shpManager.nowPage+num].price.toString()+'金币'
+            ]
+            return nowProductInfo
+        }else{
+            return []
         }   
     }
 }

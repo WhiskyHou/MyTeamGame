@@ -714,7 +714,7 @@ class MultiTextField extends DisplayObject {
     }
     setStringByNumber(con: string, num: number): MultiTextField {//按照一行显示文字数换行
         for (var i = 0; i < con.length; i += num) {
-            this.text.push(con.slice(i, i + num - 1))
+            this.text.push(con.slice(i, i + num))
         }
         return new MultiTextField(this.text, this.x, this.y, this.size, this.space)
     }

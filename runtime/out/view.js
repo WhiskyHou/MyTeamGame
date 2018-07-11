@@ -342,7 +342,7 @@ var shopUI = /** @class */ (function (_super) {
         _this.ShopText4 = new TextField(shpManager.getNowProduct(3), 352, 187, 20).centered();
         _this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
         _this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
-        _this.productMultiInfoText = new MultiTextField([], 280, 400, 20, 5).setStringByNumber('12345678910', 5);
+        _this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5);
         _this.ShopCoin = new TextField('100', 438, 453, 20);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.shopDownButton);

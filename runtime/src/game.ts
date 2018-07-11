@@ -727,11 +727,11 @@ class PlayingState extends State {
             bagUIContainer.deleteChild(this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
             shopUIContainer.addChild(this.shpUI);
-            shpManager.shopUpdate()
         });
         shpManager.addEventListener('shopDown', (eventData: any) => {
             shopUIContainer.deleteChild(this.shpUI);
-            shpManager.shopUpdate()
+            shopUIContainer.deleteAll()
+            console.log("真关闭",shopUIContainer.toString())
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
