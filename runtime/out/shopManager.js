@@ -28,11 +28,6 @@ var shopManager = /** @class */ (function (_super) {
         console.log('你关闭了窗口');
     };
     shopManager.prototype.shopBuy = function () {
-        //一下为测试代码
-        // player.packageEquipment.push(shpManager.getEquipment(1000))
-        // player.packageEquipment.push(shpManager.getEquipment(1001))
-        // player.packageEquipment.push(shpManager.getEquipment(1002))
-        // player.packageEquipment.push(shpManager.getEquipment(1003))
         if (this.nowNumber > -1 && this.nowNumber < 100) {
             var product = this.storeProduct[this.nowGroup][5 * this.nowPage + this.nowNumber];
             var price = product.price;
