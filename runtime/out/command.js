@@ -91,6 +91,7 @@ var TalkCommand = /** @class */ (function (_super) {
         return _this;
     }
     TalkCommand.prototype.execute = function (callback) {
+        var _this = this;
         console.log("\u5F00\u59CB\u548CNPC\uFF1A" + this.npc.toString() + "\u5BF9\u8BDD");
         player.talk(this.npc);
         var mission = null;
@@ -118,6 +119,7 @@ var TalkCommand = /** @class */ (function (_super) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
                         missionManager.submit(mission);
                     }
+                    _this.npc.changeType(); //测试换类型！！！
                     callback();
                 }
             });
@@ -184,6 +186,7 @@ var FightCommand = /** @class */ (function (_super) {
         }
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
+            _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);
             _this.battleaudio.end();
             _this.succeedaudio.play();

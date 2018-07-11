@@ -200,5 +200,10 @@ var GameMap = /** @class */ (function (_super) {
         delete this.monsterConfig[key];
         this.roleContainer.deleteChild(monster.view);
     };
+    GameMap.prototype.deleteNpc = function (npc) {
+        var key = npc.x + '_' + npc.y;
+        delete this.npcConfig[key];
+        this.roleContainer.deleteChild(npc.view);
+    };
     return GameMap;
 }(DisplayObjectContainer));

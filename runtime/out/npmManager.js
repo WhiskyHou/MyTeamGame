@@ -51,6 +51,9 @@ var NpcManager = /** @class */ (function (_super) {
             if (item.uselessTalks) {
                 npc.uselessTalks = item.uselessTalks;
             }
+            if (item.changeTypeID) {
+                npc.changeTypeID = item.changeTypeID;
+            }
             this.npcList.push(npc);
         }
     };

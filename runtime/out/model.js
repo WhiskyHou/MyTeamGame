@@ -406,6 +406,7 @@ var Npc = /** @class */ (function () {
         this.y = 0;
         this.id = 0;
         this.name = '';
+        this.changeTypeID = 0; //要转变成的怪物的ID
         this.canAcceptMissions = [];
         this.canSubmitMissions = [];
         this.uselessTalks = [];
@@ -431,6 +432,29 @@ var Npc = /** @class */ (function () {
     Npc.prototype.toString = function () {
         return "[NPC ~ id:" + this.id + ", name:" + this.name + "]";
     };
+    Npc.prototype.changeType = function () {
+        // map.deleteMonster(this)
+        var tempX = this.x;
+        var tempY = this.y;
+        map.deleteNpc(this);
+        for (var i = 0; i < monsManager.monsterList.length; i++) {
+            if (monsManager.monsterList[i].id == this.changeTypeID) {
+                var mons = monsManager.monsterList[i];
+                mons.x = tempX;
+                mons.y = tempY;
+                var monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+                var monsterItem = monsManager.monsterList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                monsterItem.x = tempX;
+                monsterItem.y = tempY;
+                var key = tempX + '_' + tempY;
+                map.monsterConfig[key] = monsterItem;
+                map.roleContainer.addChild(monsterView);
+            }
+        }
+    };
     return Npc;
 }());
 /**
@@ -450,6 +474,7 @@ var Monster = /** @class */ (function (_super) {
         _this.coin = 0;
         _this.level = 0;
         _this.dropType = 0; //0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
+        _this.changeTypeID = 0; //要转变成的NPC的ID
         _this.uselessTalks = [];
         _this.id = id;
         _this.name = name;
@@ -573,6 +598,46 @@ var Monster = /** @class */ (function (_super) {
                 return equipBox;
         }
     };
+    Monster.prototype.changeType = function () {
+        // map.deleteMonster(this)
+        var tempX = this.x;
+        var tempY = this.y;
+        map.deleteMonster(this);
+        for (var i = 0; i < npcManager.npcList.length; i++) {
+            if (npcManager.npcList[i].id == this.changeTypeID) {
+                var npc = npcManager.npcList[i];
+                npc.x = tempX;
+                npc.y = tempY;
+                var npcView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, npcManager.npcList[i].view.img);
+                var npcItem = npcManager.npcList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                npcItem.x = tempX;
+                npcItem.y = tempY;
+                var key = tempX + '_' + tempY;
+                map.npcConfig[key] = npcItem;
+                map.roleContainer.addChild(npcView);
+            }
+        }
+        for (var i = 0; i < monsManager.monsterList.length; i++) {
+            if (monsManager.monsterList[i].id == this.changeTypeID) {
+                var mons = monsManager.monsterList[i];
+                mons.x = tempX;
+                mons.y = tempY;
+                var monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+                var monsterItem = monsManager.monsterList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                monsterItem.x = tempX;
+                monsterItem.y = tempY;
+                var key = tempX + '_' + tempY;
+                map.monsterConfig[key] = monsterItem;
+                map.roleContainer.addChild(monsterView);
+            }
+        }
+    };
     return Monster;
 }(EventDispatcher));
 /**
@@ -692,6 +757,8 @@ var UselessTalkWindow = /** @class */ (function (_super) {
         _this.isNpc = true;
         _this.view = new Bitmap(0, 0, talk_window);
         _this.text = new TextField("", 190, 100, 24);
+        _this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.view);
         _this.addChild(_this.text);
         _this.addEventListener("onClick", function (eventData) {
