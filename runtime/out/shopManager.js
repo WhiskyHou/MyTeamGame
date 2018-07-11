@@ -22,20 +22,27 @@ var shopManager = /** @class */ (function (_super) {
     shopManager.prototype.openShop = function () {
         console.log('你打开商店');
         this.dispatchEvent('openShop', player);
+        this.shopUpdate();
     };
     shopManager.prototype.shopDown = function () {
         this.dispatchEvent('shopDown', player);
         console.log('你关闭了窗口');
+        this.shopUpdate();
     };
     shopManager.prototype.shopBuy = function () {
         this.dispatchEvent('shopDown', player);
         console.log('你关闭了窗口');
+        this.shopUpdate();
     };
     shopManager.prototype.changeNowProduct = function (num) {
         this.nowNumber = num;
         if (this.storeEquipment[this.nowGroup][5 * this.nowPage + this.nowNumber]) {
             this.nowEquipment = this.storeEquipment[this.nowGroup][5 * this.nowPage + this.nowNumber];
         }
+    };
+    shopManager.prototype.changeNowGroup = function (num) {
+        this.nowGroup = num;
+        this.shopUpdate();
     };
     shopManager.prototype.shopRight = function () {
         console.log('你点击了右键');
@@ -94,6 +101,7 @@ var shopManager = /** @class */ (function (_super) {
         }
         // this.nowPage = 0;
         // this.nowNumber = 0;
+        this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
         if (pos == 0) {

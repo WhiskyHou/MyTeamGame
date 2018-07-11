@@ -188,14 +188,20 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 
 const MainAudio = new Audio()
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
-const StartAudio = new Audio()
-StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const ClickAudio = new Audio()
 ClickAudio.src = "assets/音效/常规/单击.mp3"
+
+const StartAudio = new Audio()
+StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const CreateAudio = new Audio()
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
 
 const mainaudio = new AudioPlay(MainAudio);
+const clickaudio = new AudioPlay(ClickAudio);
+mainaudio.playOnlyOnce = false;
+clickaudio.playOnlyOnce = true;
+
+
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
 //mainaudio.end();
@@ -257,7 +263,7 @@ npcManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
             shpManager.init(() => {
-    
+
             });
             missionManager.init();
         });
@@ -472,13 +478,11 @@ class CreateState extends State {
     canAssignPointText: TextField;
     tipsText: TextField;
 
-    clickaudio = new AudioPlay(ClickAudio);
     createaudio = new AudioPlay(CreateAudio);
 
     canAssignPoint = 5;
-    bigTag = true;
 
-    createPlayerButton: CreatePlayerButton;
+    createPlayerButtonScript: CreatePlayerButtonScript;
 
     constructor() {
         super();
@@ -497,7 +501,7 @@ class CreateState extends State {
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
 
-        this.createPlayerButton = this.startButton.addComponent(new CreatePlayerButton()) as CreatePlayerButton;
+        this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
         this.startButton.addEventListener("onClick", this.onStartClick);
 
@@ -505,11 +509,10 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 this.canAssignPoint--;
-                this.createPlayerButton.canAssignPoint--;
+                this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
         });
@@ -517,11 +520,10 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
-                this.createPlayerButton.canAssignPoint++;
+                this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
         });
@@ -529,11 +531,10 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 this.canAssignPoint--;
-                this.createPlayerButton.canAssignPoint--;
+                this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
@@ -541,11 +542,10 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
-                this.createPlayerButton.canAssignPoint++;
+                this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
@@ -710,21 +710,29 @@ class PlayingState extends State {
         });
         shpManager.addEventListener('openShop', (eventData: any) => {
             batteUIContainer.deleteChild(this.battleUI);
-            shopUIContainer.deleteChild(this.baggUI);
+            bagUIContainer.deleteChild(this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
-            bagUIContainer.addChild(this.shpUI);
+            shopUIContainer.addChild(this.shpUI);
         });
         shpManager.addEventListener('shopDown', (eventData: any) => {
-            bagUIContainer.deleteChild(this.shpUI);
+            shopUIContainer.deleteChild(this.shpUI);
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
             this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(this.baggUI);
         });
+        baManager.addEventListener('updateShop', (eventData: any) => {
+            shopUIContainer.deleteChild(this.shpUI);
+            this.shpUI = new shopUI(0, 0);
+            shopUIContainer.addChild(this.shpUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
+                
+                clickaudio.play();
+
                 const globalX = eventData.globalX;
                 const globalY = eventData.globalY;
                 const localPos = map.getLocalPos(new math.Point(globalX, globalY));
@@ -747,10 +755,6 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
-<<<<<<< HEAD
-                    // console.log('npc Info');
-=======
->>>>>>> e492f206c7d68e460ec80f69f2e90ef84c700d85
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {
@@ -802,6 +806,9 @@ class PlayingState extends State {
 
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
+    
+    //clickaudio.play();
+
     const globalX = event.offsetX;
     const globalY = event.offsetY;
 

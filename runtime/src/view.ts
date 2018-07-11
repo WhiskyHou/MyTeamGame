@@ -61,16 +61,19 @@ class UserInfoUI extends DisplayObjectContainer {
 
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
+            clickaudio.play();
         });
 
         this.SkillButton.addEventListener('onClick', (eventData: any) => {
             this.skillUI = new skillBoxUI(0, 0);
             skillBoxContainer.addChild(this.skillUI);
+            clickaudio.play();
         });
 
         this.missionButton.addEventListener('onClick', (eventData: any) => {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
+            clickaudio.play();
         });
 
 
@@ -157,6 +160,7 @@ class MissionUI extends DisplayObjectContainer {
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
+            clickaudio.play();
         })
     }
 }
@@ -273,74 +277,93 @@ class bagUI extends DisplayObjectContainer {
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
             baManager.getNowEquipment(0)
+            clickaudio.play();
         })
         this.bagOffButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOff();
+            clickaudio.play();
         })
         this.bagDownButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagDown();
+            clickaudio.play();
         })
         this.bagRightButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagRight();
         })
         this.bagLeftButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagLeft();
+    
         })
         this.bagOtherButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOther();
+            clickaudio.play();
         })
         this.bagWeaponButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagWeapon();
+            clickaudio.play();
         })
         this.bagArmorButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagArmor();
+            clickaudio.play();
         })
         this.bagConsumableButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagConsumable();
+            clickaudio.play();
         })
         this.equipment1Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(0)
             this.changeEquipmentInfo(baManager.nowEquipment)
+            clickaudio.play();
         })
         this.equipment2Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(1)
             this.changeEquipmentInfo(baManager.nowEquipment)
+            clickaudio.play();
         })
         this.equipment3Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(2)
             this.changeEquipmentInfo(baManager.nowEquipment)
+            clickaudio.play();
         })
         this.equipment4Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(3)
             this.changeEquipmentInfo(baManager.nowEquipment)
+            clickaudio.play();
         })
         this.equipment5Text.addEventListener("onClick", (eventData: any) => {
             baManager.changeNowEquipment(4)
             this.changeEquipmentInfo(baManager.nowEquipment)
+            clickaudio.play();
         })
         this.weaponText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(0)
             this.changeEquipmentInfo(baManager.nowMounthedEquipment)
+            clickaudio.play();
         })
         this.clothText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(1)
             this.changeEquipmentInfo(baManager.nowMounthedEquipment)
+            clickaudio.play();
         })
         this.watchText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(2)
             this.changeEquipmentInfo(baManager.nowMounthedEquipment)
+            clickaudio.play();
         })
         this.trousersText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(3)
             this.changeEquipmentInfo(baManager.nowMounthedEquipment)
+            clickaudio.play();
         })
         this.phoneText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(4)
             this.changeEquipmentInfo(baManager.nowMounthedEquipment)
+            clickaudio.play();
         })
         this.shoesText.addEventListener("onClick", (ecentData: any) => {
             baManager.changeNowMounthedEquipment(5)
             this.changeEquipmentInfo(baManager.nowMounthedEquipment)
+            clickaudio.play();
         })
     }
     changeEquipmentInfo(equip: Equipment) {
@@ -428,9 +451,27 @@ class shopUI extends DisplayObjectContainer {
         this.addChild(this.ShopPage);
         //this.addChild(this.ShopMultiInfoText);
         this.addChild(this.ShopCoin);
-       
         this.shopDownButton.addEventListener("onClick", (eventData: any) => {
             shpManager.shopDown();
+            clickaudio.play();
+        })
+        this.shopWQ.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(0)
+        })
+        this.shopFJ.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(1)
+        })
+        this.shopXHP.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(2)
+        })
+        this.shopJN.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowGroup(3)
+        })
+        this.shopL.addEventListener("onClick", (eventData: any) => {
+            shpManager.shopLeft()
+        })
+        this.shopR.addEventListener("onClick", (eventData: any) => {
+            shpManager.shopRight()
         })
     }
     changeEquipmentInfo(equip: Equipment) {
@@ -571,9 +612,11 @@ class battleUI extends DisplayObjectContainer {
 
         this.attackButton.addEventListener("onClick", (eventData: any) => {
             batManager.fightOneTime(player, this.enemy, 0);//普通攻击ID为0
+            clickaudio.play();
         })
         this.skillButton1.addEventListener("onClick", (eventData: any) => {
             console.log(this.skillIDGroup[0]);
+            clickaudio.play();
             if (player.skill[0].id == 6) {//七伤拳判断血量
                 if (player._hp < this.player._attack * 0.3) {
                     let textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, this.index * 20, 15);
@@ -594,6 +637,7 @@ class battleUI extends DisplayObjectContainer {
         })
 
         this.skillButton2.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
             if (player.skill[1].id == 6) {//七伤拳判断血量
                 if (player._hp < this.player._attack * 0.3) {
                     let textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, this.index * 20, 15);
@@ -615,6 +659,7 @@ class battleUI extends DisplayObjectContainer {
         })
 
         this.skillButton3.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
             if (player.skill[2].id == 6) {//七伤拳判断血量
                 if (player._hp < this.player._attack * 0.3) {
                     let textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, this.index * 20, 15);
@@ -636,6 +681,9 @@ class battleUI extends DisplayObjectContainer {
         })
 
         this.escapeButton.addEventListener('onClick', (eventData: any) => {
+            
+            clickaudio.play();
+
             let ran = Math.random() * 100;
             console.log(ran);
 
@@ -648,6 +696,7 @@ class battleUI extends DisplayObjectContainer {
         })
 
         this.itemButton.addEventListener('onClick', (eventData: any) => {
+            clickaudio.play();
             this.itemBg = new Bitmap(270, 70, Resource.get('battleItemBgImg') as HTMLImageElement);
             this.itemContainer.addChild(this.itemBg);
             this.itemUseButton = new Bitmap(470, 165, Resource.get('battleItemUseImg') as HTMLImageElement);
@@ -656,10 +705,11 @@ class battleUI extends DisplayObjectContainer {
             this.itemContainer.addChild(this.itemBackButton);
 
             this.itemUseButton.addEventListener('onClick', () => {
-
+                clickaudio.play();
             })
 
             this.itemBackButton.addEventListener('onClick', () => {
+                clickaudio.play();
                 this.itemContainer.deleteAll();
             })
 
@@ -791,6 +841,7 @@ class battleEndWinUI extends DisplayObjectContainer {
         // this.backButton.deleteAllEventListener();
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneWin", null);
+            clickaudio.play();
         })
 
 
@@ -834,6 +885,7 @@ class battleEndLoseUI extends DisplayObjectContainer {
 
         this.backButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneLose", null);
+            clickaudio.play();
         })
     }
 }
@@ -889,10 +941,12 @@ class skillBoxUI extends DisplayObjectContainer {
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
+            clickaudio.play();
         })
 
         this.skillOnButton.addEventListener('onClick', () => {
             if (this.nowChoice == 1) {
+                clickaudio.play();
                 for (let i = 0; i < skillArray.length; i++) {
                     if (this.choosingSkillArrayNo == skillArray[i].id) {
                         for (let b = 0; b < player.skill.length; b++) {
@@ -911,6 +965,7 @@ class skillBoxUI extends DisplayObjectContainer {
 
         this.skillOffButton.addEventListener('onClick', () => {
             if (this.nowChoice == 2) {
+                clickaudio.play();
                 for (let i = 0; i < player.skill.length; i++) {
                     if (this.choosingMountedSkillArrayNo == player.skill[i].id) {
                         if (player.skill[i].id != 1) {
@@ -939,6 +994,7 @@ class skillBoxUI extends DisplayObjectContainer {
         for (let i = 2; i < skillArray.length; i++) {//0为普通攻击 1为空
             this.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this.skillText.addEventListener('onClick', () => {
+                clickaudio.play();
                 this.nowChoice = 1;
                 this.descriptionText.img = skillArray[i].description.img;
                 this.choosingSkillArrayNo = skillArray[i].id;
@@ -954,6 +1010,7 @@ class skillBoxUI extends DisplayObjectContainer {
 
             this.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this.mountedSkillText.addEventListener('onClick', () => {
+                clickaudio.play();
                 this.nowChoice = 2;
                 this.descriptionText.img = player.skill[i].description.img;
                 this.choosingMountedSkillArrayNo = player.skill[i].id;

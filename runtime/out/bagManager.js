@@ -69,6 +69,7 @@ var bagManager = /** @class */ (function (_super) {
         var MaxPage = (this.nowGroupEquipment.length / 5) - 1;
         console.log(MaxPage);
         if (this.nowPage < MaxPage) {
+            clickaudio.play();
             this.nowPage++;
         }
         this.bagUpdate();
@@ -76,6 +77,7 @@ var bagManager = /** @class */ (function (_super) {
     bagManager.prototype.bagLeft = function () {
         console.log('你点击了左键');
         if (this.nowPage > 0) {
+            clickaudio.play();
             this.nowPage--;
         }
         this.bagUpdate();
