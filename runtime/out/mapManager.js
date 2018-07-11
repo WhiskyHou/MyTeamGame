@@ -28,6 +28,9 @@ var MapManager = /** @class */ (function (_super) {
         };
     };
     MapManager.prototype.parseFromConfig = function (obj) {
+        for (var _i = 0, _a = obj.map; _i < _a.length; _i++) {
+            var item = _a[_i];
+        }
     };
     return MapManager;
 }(EventDispatcher));

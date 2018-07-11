@@ -10,6 +10,29 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /**
+ *
+ */
+var PlayerAnimTest = /** @class */ (function (_super) {
+    __extends(PlayerAnimTest, _super);
+    function PlayerAnimTest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    PlayerAnimTest.prototype.onStart = function () {
+        this.anim = new Animator(0, 0, Resource.get('dust'), 128, 5, 0.2);
+        this.gameObject.addChild(this.anim);
+        this.anim.isLooping = true;
+    };
+    PlayerAnimTest.prototype.onUpdate = function (delta) {
+        this.anim.update(delta);
+    };
+    PlayerAnimTest.prototype.onDestory = function () {
+    };
+    PlayerAnimTest.prototype.play = function () {
+        this.anim.play();
+    };
+    return PlayerAnimTest;
+}(Behaviour));
+/**
  * 创建角色时的按钮
  */
 var CreatePlayerButtonScript = /** @class */ (function (_super) {

@@ -1,4 +1,26 @@
+/**
+ * 
+ */
+class PlayerAnimTest extends Behaviour {
 
+    anim: Animator
+
+    onStart(): void {
+        this.anim = new Animator(0, 0, Resource.get('dust') as HTMLImageElement, 128, 5, 0.2);
+        (this.gameObject as DisplayObjectContainer).addChild(this.anim)
+        this.anim.isLooping = true
+    }
+    onUpdate(delta: number): void {
+        this.anim.update(delta);
+    }
+    onDestory(): void {
+
+    }
+
+    play() {
+        this.anim.play()
+    }
+}
 
 
 /**

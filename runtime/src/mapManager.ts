@@ -18,6 +18,8 @@ class MapManager extends EventDispatcher {
     }
 
     parseFromConfig(obj: any) {
+        for (let item of obj.map) {
 
+        }
     }
 }
