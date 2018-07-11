@@ -178,7 +178,7 @@ var Camera = /** @class */ (function (_super) {
     function Camera() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.layer = 1;
-        _this.moveSpeed = 150;
+        _this.moveSpeed = 1500;
         _this.isUpMove = false;
         _this.isDownMove = false;
         _this.isLeftMove = false;

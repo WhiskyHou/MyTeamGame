@@ -218,7 +218,7 @@ const MONSTER = 1;
 
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
-const PLAYER_WALK_SPEED = 200;
+const PLAYER_WALK_SPEED = 5000;
 
 const staticStage = stages[1];
 const dynamicStage = stages[0];
@@ -239,6 +239,7 @@ npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
+            missionManager.init();
         });
     })
 });
@@ -407,7 +408,7 @@ class MenuState extends State {
         // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
         // this.onExit();
 
-        missionManager.init();
+
         // npcManager.init();
         fsm.replaceState(CreateState.instance);
     }
@@ -715,17 +716,22 @@ class PlayingState extends State {
                 }
 
                 const npcInfo = map.getNpcInfo(row, col);
+
                 if (npcInfo) {
-                    if(npcInfo.id == 6){
+                    // console.log('npc Info');
+                    if (npcInfo.id == 6) {
                         shpManager.openShop()
-                    }else{
+                    } else {
                         const talk = new TalkCommand(npcInfo);
                         commandPool.addCommand(talk)
                     }
                 }
 
                 const monsterInfo = map.getMonsterInfo(row, col);
+
+
                 if (monsterInfo) {
+                    // console.log('monster Info');
                     const fight = new FightCommand(monsterInfo);
                     commandPool.addCommand(fight);
                 }

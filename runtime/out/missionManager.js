@@ -73,6 +73,7 @@ var MissionManager = /** @class */ (function (_super) {
             mission.canAcceptContent = item.canAcceptConfig;
             mission.canSubmitContent = item.canSubmitConfig;
             mission.status = MissionStatus.UNACCEPT;
+            console.log('任务名' + mission.name);
             this_1.missions.push(mission);
         };
         var this_1 = this;

@@ -103,9 +103,12 @@ class TalkCommand extends Command {
             mission = this.npc.canSubmitMissions[0];
         }
 
+        console.log(mission);
+        // console.log('任务长度' + missionManager.missions.length);
 
 
         if (mission) {
+
             const talkWindow = new TalkWindow(100, 150);
             talkUIContainer.addChild(talkWindow);
             talkWindow.setMission(mission);

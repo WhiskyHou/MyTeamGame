@@ -192,7 +192,7 @@ class Camera extends Behaviour {
 
     layer: number = 1
 
-    moveSpeed: number = 150
+    moveSpeed: number = 1500
 
     private isUpMove: boolean = false
     private isDownMove: boolean = false
@@ -633,9 +633,9 @@ class TextField extends DisplayObject {
         }
     }
 
-    centered() :TextField {
+    centered(): TextField {
         this.isCenter = true
-        return new TextField(this.text,this.x,this.y,this.size,this.style,this.color);
+        return new TextField(this.text, this.x, this.y, this.size, this.style, this.color);
     }
 
     setStyle(style: string) {
@@ -700,15 +700,15 @@ class MultiTextField extends DisplayObject {
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     }
-    setStringByNumber(con: string, num: number) : MultiTextField {//按照一行显示文字数换行
+    setStringByNumber(con: string, num: number): MultiTextField {//按照一行显示文字数换行
         for (var i = 0; i < con.length; i += num) {
             this.text.push(con.slice(i, i + num - 1))
         }
-        return new MultiTextField(this.text,this.x,this.y,this.size,this.space)
+        return new MultiTextField(this.text, this.x, this.y, this.size, this.space)
     }
-    setStringByStr(con: string, str: string)  : MultiTextField {//按照str的标记字符分割文本
+    setStringByStr(con: string, str: string): MultiTextField {//按照str的标记字符分割文本
         this.text = con.split(str)
-        return new MultiTextField(this.text,this.x,this.y,this.size,this.space)
+        return new MultiTextField(this.text, this.x, this.y, this.size, this.space)
     }
     centered() {
         this.x -= this.width / 2;
