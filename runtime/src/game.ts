@@ -163,7 +163,7 @@ let skillEmptyDesImg = new Image();
 skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
 
 let Shop = new Image();
-Shop.src = './assets/美术素材/场景/其他/购物车.png';
+Shop.src = './assets/美术素材/场景/边缘/商店.png';
 
 let bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
@@ -716,9 +716,9 @@ class PlayingState extends State {
 
                 const npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
-                    if(npcInfo.id == 6){
+                    if (npcInfo.id == 6) {
                         shpManager.openShop()
-                    }else{
+                    } else {
                         const talk = new TalkCommand(npcInfo);
                         commandPool.addCommand(talk)
                     }
