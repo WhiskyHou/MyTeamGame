@@ -138,6 +138,10 @@ class CommandPool {
     }
 }
 
+
+/**
+ * 组件
+ */
 abstract class Behaviour {
 
     gameObject: DisplayObject;
@@ -763,6 +767,10 @@ class AudioPlay {
 
     play() {
         this.audio.play()
+    }
+
+    end() {
+        this.audio.pause();
     }
 }
 

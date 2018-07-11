@@ -109,13 +109,13 @@ class GameMap extends DisplayObjectContainer {
                 for (let j = 0; j < row.length; j++) {
                     const id = row[j]
                     if (id == KILL_DARGON_KNIFE) {
-                        const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
+                        const equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
                         const equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀'
                         equipmentTiem.attack = 35;
-                        equipmentTiem.x = j;
-                        equipmentTiem.y = i;
+                        equipmentTiem.x = i;
+                        equipmentTiem.y = j;
                         const key = i + '_' + j;
                         this.equipmentConfig[key] = equipmentTiem;
                         this.itemContainer.addChild(equipmentView);

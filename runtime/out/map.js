@@ -108,13 +108,13 @@ var GameMap = /** @class */ (function (_super) {
                 for (var j = 0; j < row.length; j++) {
                     var id = row[j];
                     if (id == KILL_DARGON_KNIFE) {
-                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
+                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
                         var equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀';
                         equipmentTiem.attack = 35;
-                        equipmentTiem.x = j;
-                        equipmentTiem.y = i;
+                        equipmentTiem.x = i;
+                        equipmentTiem.y = j;
                         var key = i + '_' + j;
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
