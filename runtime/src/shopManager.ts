@@ -1,7 +1,7 @@
 class shopManager extends EventDispatcher {
     nowGroup : number = 0;
     nowPage : number = 0;
-    nowNumber : number = 0;
+    nowNumber : number = -1;
     nowEquipment : Equipment;//背包里的选中装备
     storeEquipment : Array<Array<any>> = [[],[],[],[]];//储存装备的
     constructor() {
@@ -71,7 +71,8 @@ class shopManager extends EventDispatcher {
             const price = parseInt(item.price);
             const productID = parseInt(item.productID);
             const equipmentID = parseInt(item.equipmentID);
-            const equipment = equipManager.equipList[equipmentID]
+            // if(this.getEquipment(equipmentID).posID<10){ }
+            const equipment = this.getEquipment(equipmentID)
             const descriptionPath = item.description;
             let descriptionImg = new Image();
             descriptionImg.src = descriptionPath;
@@ -122,5 +123,12 @@ class shopManager extends EventDispatcher {
         }else{
             return []
         }   
+    }
+    getEquipment(equipID : number) : Equipment {
+        for(let item of equipManager.equipList){
+            if(equipID == item.id)
+            return item
+        }
+        return new Equipment(0,'',0,10,0,0,0)
     }
 }
