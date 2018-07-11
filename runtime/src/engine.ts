@@ -138,6 +138,10 @@ class CommandPool {
     }
 }
 
+
+/**
+ * 组件
+ */
 abstract class Behaviour {
 
     gameObject: DisplayObject;

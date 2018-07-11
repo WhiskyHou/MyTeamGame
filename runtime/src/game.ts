@@ -163,7 +163,7 @@ let skillEmptyDesImg = new Image();
 skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
 
 let Shop = new Image();
-Shop.src = './assets/美术素材/场景/其他/购物车.png';
+Shop.src = './assets/美术素材/场景/边缘/商店.png';
 
 let bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
@@ -187,7 +187,7 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 
 const MainAudio = new Audio()
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
-const StartAudio = new Audio() 
+const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const ClickAudio = new Audio()
 ClickAudio.src = "assets/音效/常规/单击.mp3"
@@ -234,7 +234,7 @@ const MONSTER = 1;
 
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
-const PLAYER_WALK_SPEED = 5000;
+const PLAYER_WALK_SPEED = 500;
 
 const staticStage = stages[1];
 const dynamicStage = stages[0];
@@ -312,7 +312,7 @@ skillArray.push(skillXixing);
 class LoadingState extends State {
 
 
-    
+
     private static _instance: LoadingState
     public static get instance() {
         if (!this._instance) {
@@ -338,8 +338,8 @@ class LoadingState extends State {
 
     onEnter(): void {
         staticStage.addChild(this.loadBG);
-        staticStage.addChild(this.loadPercent);       
-        
+        staticStage.addChild(this.loadPercent);
+
         mainaudio.play()
 
     }
@@ -365,8 +365,8 @@ class LoadingState extends State {
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
 
-      
-        
+
+
 
     }
 }
@@ -416,14 +416,11 @@ class MenuState extends State {
 
     }
     onUpdate(): void {
-
     }
     onExit(): void {
         console.log('Menu State onExit');
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
-
-
     }
 
 
@@ -433,7 +430,7 @@ class MenuState extends State {
         // this.onExit();
 
 
-        this.startaudio.playOnlyOnce=true;
+        this.startaudio.playOnlyOnce = true;
         this.startaudio.play();
 
         missionManager.init();
@@ -477,7 +474,8 @@ class CreateState extends State {
     canAssignPoint = 5;
     bigTag = true;
 
-     
+    createPlayerButton: CreatePlayerButton;
+
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, createBGImg);
@@ -495,15 +493,18 @@ class CreateState extends State {
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
 
+        this.createPlayerButton = this.startButton.addComponent(new CreatePlayerButton()) as CreatePlayerButton;
+
         this.startButton.addEventListener("onClick", this.onStartClick);
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 this.canAssignPoint--;
+                this.createPlayerButton.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
-                
-                this.clickaudio.playOnlyOnce=true;
+
+                this.clickaudio.playOnlyOnce = true;
                 this.clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
@@ -512,9 +513,10 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
+                this.createPlayerButton.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.playOnlyOnce = true;
                 this.clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
@@ -523,9 +525,10 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 this.canAssignPoint--;
+                this.createPlayerButton.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.playOnlyOnce = true;
                 this.clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
@@ -534,9 +537,10 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
+                this.createPlayerButton.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce=true;
+                this.clickaudio.playOnlyOnce = true;
                 this.clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
@@ -560,19 +564,11 @@ class CreateState extends State {
 
         // stage.addEventListener("onClick", this.onClick);
 
-       
+
 
 
     }
     onUpdate(): void {
-        if (this.canAssignPoint == 0) {
-            this.heartBeatEffect(this.startButton);
-        } else {
-            this.startButton.scaleX = 1;
-            this.startButton.scaleY = 1;
-            this.startButton.x = 350;
-            this.startButton.y = 430;
-        }
 
     }
     onExit(): void {
@@ -602,32 +598,11 @@ class CreateState extends State {
         if (this.canAssignPoint == 0) {
             fsm.replaceState(PlayingState.instance);
 
-            this.createaudio.playOnlyOnce=true;
+            this.createaudio.playOnlyOnce = true;
             this.createaudio.play();
         } else {
             this.tipsText.text = " ← 加完点才能学习！"
         }
-    }
-
-    heartBeatEffect(bmp: Bitmap) {
-        if (this.bigTag) {
-            bmp.scaleX += 0.08;
-            bmp.scaleY += 0.08;
-            bmp.x -= 5;
-            bmp.y -= 3;
-        } else {
-            bmp.scaleX -= 0.08;
-            bmp.scaleY -= 0.08;
-            bmp.x += 5;
-            bmp.y += 3;
-        }
-        if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
-            this.bigTag = false;
-        }
-        if (bmp.scaleX < 1 || bmp.scaleY < 1) {
-            this.bigTag = true;
-        }
-
     }
 }
 
@@ -768,9 +743,6 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
-
-                    // console.log('npc Info');
-
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {
