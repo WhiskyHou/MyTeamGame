@@ -138,13 +138,19 @@ var FightCommand = /** @class */ (function (_super) {
         _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
+        _this.battleaudio = new AudioPlay(BattleAudio);
+        _this.succeedaudio = new AudioPlay(SucceedAudio);
+        _this.failaudio = new AudioPlay(FailAudio);
+        _this.battleaudio.playOnlyOnce = false;
+        _this.succeedaudio.playOnlyOnce = true;
+        _this.failaudio.playOnlyOnce = true;
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
         mainaudio.end();
-        battleaudio.play();
+        this.battleaudio.play();
         var batUI = new battleUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
@@ -152,22 +158,26 @@ var FightCommand = /** @class */ (function (_super) {
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(_this.monster);
-            battleaudio.end();
-            succeedaudio.play();
+            _this.battleaudio.end();
+            _this.succeedaudio.play();
+            mainaudio.play();
         });
         batManager.addEventListener('backSceneWin', function (eventData) {
             batteUIContainer.deleteAll();
+            _this.battleaudio.end();
             mainaudio.play();
         });
         batManager.addEventListener('playerDie', function (eventData) {
             _this.monster.hp = _this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
-            battleaudio.end();
-            failaudio.play();
+            _this.battleaudio.end();
+            _this.failaudio.play();
+            mainaudio.play();
         });
         batManager.addEventListener('backSceneLose', function (eventData) {
             batteUIContainer.deleteAll();
             _this.monster.hp = _this.monsterOriginHp;
+            _this.battleaudio.end();
             mainaudio.play();
         });
         // stage.addChild(this.batteUIContainer);
