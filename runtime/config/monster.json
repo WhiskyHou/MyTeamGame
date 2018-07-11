@@ -72,7 +72,12 @@
 			"exp": "20",
 			"coin": "5",
 			"level": "1",
-			"dropType": "1"
+			"dropType": "1",
+			"uselessTalks": [
+				"汪汪汪！！！",
+				"······"
+			],
+			"changeTypeID": "14"
 		},
 		{
 			"id": "11",
@@ -83,7 +88,11 @@
 			"exp": "20",
 			"coin": "3",
 			"level": "2",
-			"dropType": "2"
+			"dropType": "2",
+			"uselessTalks": [
+				"汪汪汪！！！",
+				"······"
+			]
 		},
 		{
 			"id": "12",
@@ -94,7 +103,11 @@
 			"exp": "30",
 			"coin": "5",
 			"level": "3",
-			"dropType": "2"
+			"dropType": "2",
+			"uselessTalks": [
+				"嗷呜···········",
+				"这是狗，还是狼啊···"
+			]
 		},
 		{
 			"id": "13",
@@ -105,7 +118,12 @@
 			"exp": "50",
 			"coin": "12",
 			"level": "5",
-			"dropType": "3"
+			"dropType": "3",
+			"uselessTalks": [
+				"人不可貌相，海水不可斗量···",
+				"貌相你妹，先打了你再说！"
+			],
+			"changeTypeID": "16"
 		},
 		{
 			"id": "14",
@@ -116,7 +134,12 @@
 			"exp": "60",
 			"coin": "20",
 			"level": "8",
-			"dropType": "4"
+			"dropType": "4",
+			"uselessTalks": [
+				"我就要追小美。",
+				"哼！咱们用拳头来说话。"
+			],
+			"changeTypeID": "15"
 		},
 		{
 			"id": "15",
@@ -127,7 +150,11 @@
 			"exp": "35",
 			"coin": "7",
 			"level": "9",
-			"dropType": "5"
+			"dropType": "5",
+			"uselessTalks": [
+				"我已经半年没有洗澡了。",
+				"那我会不会被你丑死啊···"
+			]
 		},
 		{
 			"id": "16",
@@ -138,7 +165,12 @@
 			"exp": "50",
 			"coin": "12",
 			"level": "10",
-			"dropType": "5"
+			"dropType": "5",
+			"uselessTalks": [
+				"来一瓶肥宅快乐水，心情好好。",
+				"我也要喝！",
+				"你也想喝？那还是打一架来的实在。"
+			]
 		},
 		{
 			"id": "17",
@@ -149,7 +181,12 @@
 			"exp": "70",
 			"coin": "30",
 			"level": "11",
-			"dropType": "6"
+			"dropType": "6",
+			"uselessTalks": [
+				"肉包子真好吃。",
+				"哼，狗的东西你也抢？"
+			],
+			"changeTypeID": "17"
 		},
 		{
 			"id": "18",
@@ -160,7 +197,11 @@
 			"exp": "50",
 			"coin": "15",
 			"level": "12",
-			"dropType": "7"
+			"dropType": "7",
+			"uselessTalks": [
+				"吃吃喝喝，快乐生活~",
+				"少吃点吧，打架都打不过别人啦！"
+			]
 		},
 		{
 			"id": "19",
@@ -171,7 +212,12 @@
 			"exp": "280",
 			"coin": "40",
 			"level": "13",
-			"dropType": "7"
+			"dropType": "7",
+			"uselessTalks": [
+				"你看我帅么？",
+				"我···我看不下去了。"
+			],
+			"changeTypeID": "17"
 		},
 		{
 			"id": "20",
@@ -219,10 +265,10 @@
 		},
 		{
 			"id": "24",
-			"name": "狗策划",
+			"name": "帅策划",
 			"hp": "3000",
 			"attack": "120",
-			"view": "assets/美术素材/角色/反派/128x128 恶狗.png",
+			"view": "assets/美术素材/角色/npc/128x128 帅策划.png",
 			"exp": "0",
 			"coin": "0",
 			"level": "999",
