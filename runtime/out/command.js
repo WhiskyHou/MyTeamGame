@@ -123,6 +123,15 @@ var TalkCommand = /** @class */ (function (_super) {
             });
         }
         else {
+            if (this.npc.uselessTalks.length != 0) {
+                var uselessTalkWindow_1 = new UselessTalkWindow(100, 150);
+                talkUIContainer.addChild(uselessTalkWindow_1);
+                uselessTalkWindow_1.setNpc(this.npc);
+                uselessTalkWindow_1.update();
+                uselessTalkWindow_1.addEventListener("uselessTalkWiondowClose", function () {
+                    talkUIContainer.deleteChild(uselessTalkWindow_1);
+                });
+            }
             callback();
         }
     };
@@ -136,19 +145,33 @@ var FightCommand = /** @class */ (function (_super) {
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
         _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
+        _this.hasUselessTalk = false;
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
+        if (monster.uselessTalks.length != 0) {
+            _this.hasUselessTalk = true;
+        }
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
-        mainaudio.end();
-        battleaudio.play();
+        if (this.hasUselessTalk) {
+            var uselessTalkWindow_2 = new UselessTalkWindow(100, 150);
+            talkUIContainer.addChild(uselessTalkWindow_2);
+            uselessTalkWindow_2.setMonster(this.monster);
+            uselessTalkWindow_2.update();
+            uselessTalkWindow_2.addEventListener("uselessTalkWiondowClose", function () {
+                talkUIContainer.deleteChild(uselessTalkWindow_2);
+                batteUIContainer.addChild(batUI);
+            });
+        }
         var batUI = new battleUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
-        batteUIContainer.addChild(batUI);
+        if (!this.hasUselessTalk) {
+            batteUIContainer.addChild(batUI);
+        }
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(_this.monster);
@@ -170,14 +193,6 @@ var FightCommand = /** @class */ (function (_super) {
             _this.monster.hp = _this.monsterOriginHp;
             mainaudio.play();
         });
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
-        // this.monster.hp -= player.attack;
-        // player._hp -= this.monster.attack;
-        // if (this.monster.hp <= 0) {
-        //     player.fight(this.monster);
-        //     map.deleteMonster(this.monster);
-        // }
         callback();
     };
     return FightCommand;
