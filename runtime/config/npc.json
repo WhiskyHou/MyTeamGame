@@ -45,8 +45,21 @@
 			"name": "商店1",
 			"hp": "5",
 			"attack": "0",
+<<<<<<< HEAD
+			"view": "./assets/美术素材/场景/边缘/商店.png",
+			"head": "./assets/美术素材/场景/边缘/商店.png"
+=======
 			"view": "./assets/美术素材/场景/其他/购物车.png",
 			"head": "./assets/美术素材/场景/其他/购物车.png"
+		},
+		{
+			"id": "7",
+			"name": "测试啊",
+			"hp": "5",
+			"attack": "0",
+			"view": "./assets/美术素材/角色/反派/128x128肌肉男.png",
+			"head": "./assets/美术素材/角色/反派/128x128肌肉男.png"
+>>>>>>> 8b2a8b18e1d0c4c9deacef48ff071ebd6f84ec55
 		}
 	]
 }

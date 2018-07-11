@@ -196,7 +196,7 @@ class Camera extends Behaviour {
 
     layer: number = 1
 
-    moveSpeed: number = 150
+    moveSpeed: number = 1500
 
     private isUpMove: boolean = false
     private isDownMove: boolean = false
@@ -767,6 +767,10 @@ class AudioPlay {
 
     play() {
         this.audio.play()
+    }
+
+    end() {
+        this.audio.pause();
     }
 }
 

@@ -100,6 +100,8 @@ var TalkCommand = /** @class */ (function (_super) {
         if (this.npc.canSubmitMissions.length > 0) {
             mission = this.npc.canSubmitMissions[0];
         }
+        console.log(mission);
+        // console.log('任务长度' + missionManager.missions.length);
         if (mission) {
             var talkWindow_1 = new TalkWindow(100, 150);
             talkUIContainer.addChild(talkWindow_1);

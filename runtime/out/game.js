@@ -159,7 +159,7 @@ skillXixingDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/U
 var skillEmptyDesImg = new Image();
 skillEmptyDesImg.src = './assets/美术素材/UI/6 技能界面/UI 技能 PNG/UI 技能空白.png';
 var Shop = new Image();
-Shop.src = './assets/美术素材/场景/其他/购物车.png';
+Shop.src = './assets/美术素材/场景/边缘/商店.png';
 var bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
 var missionImg = new Image();
@@ -175,6 +175,18 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
+var MainAudio = new Audio();
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
+var StartAudio = new Audio();
+StartAudio.src = "assets/音效/常规/创建角色.mp3";
+var ClickAudio = new Audio();
+ClickAudio.src = "assets/音效/常规/单击.mp3";
+var CreateAudio = new Audio();
+CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+var mainaudio = new AudioPlay(MainAudio);
+//mainaudio.playOnlyOnce = true
+//mainaudioo.play()
+//mainaudio.end();
 /**
  * 常量
  *
@@ -203,7 +215,7 @@ var NPC5 = 5;
 var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
-var PLAYER_WALK_SPEED = 200;
+var PLAYER_WALK_SPEED = 5000;
 var staticStage = stages[1];
 var dynamicStage = stages[0];
 var player = new User();
@@ -220,6 +232,7 @@ npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
+            missionManager.init();
         });
     });
 });
@@ -271,6 +284,7 @@ skillArray.push(skillXixing);
  */
 var LoadingState = /** @class */ (function (_super) {
     __extends(LoadingState, _super);
+    //loadingaudio = new AudioPlay(MainAudio);
     function LoadingState() {
         var _this = _super.call(this) || this;
         _this.count = 0;
@@ -292,6 +306,7 @@ var LoadingState = /** @class */ (function (_super) {
     LoadingState.prototype.onEnter = function () {
         staticStage.addChild(this.loadBG);
         staticStage.addChild(this.loadPercent);
+        mainaudio.play();
     };
     LoadingState.prototype.onUpdate = function () {
         if (this.count < 100 && this.waitTime == 0) {
@@ -323,10 +338,13 @@ var MenuState = /** @class */ (function (_super) {
     __extends(MenuState, _super);
     function MenuState() {
         var _this = _super.call(this) || this;
+        _this.startaudio = new AudioPlay(StartAudio);
         _this.onClick = function (eventData) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
             // this.onExit();
+            _this.startaudio.playOnlyOnce = true;
+            _this.startaudio.play();
             missionManager.init();
             // npcManager.init();
             fsm.replaceState(CreateState.instance);
@@ -355,11 +373,6 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         this.startButton.addEventListener("onClick", this.onClick);
-        var temp = new Audio();
-        temp.src = "assets/van_pick_knife.mp3";
-        var audio = new AudioPlay(temp);
-        audio.playOnlyOnce = true;
-        audio.play();
     };
     MenuState.prototype.onUpdate = function () {
     };
@@ -377,11 +390,15 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
+        _this.clickaudio = new AudioPlay(ClickAudio);
+        _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
         _this.bigTag = true;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
                 fsm.replaceState(PlayingState.instance);
+                _this.createaudio.playOnlyOnce = true;
+                _this.createaudio.play();
             }
             else {
                 _this.tipsText.text = " ← 加完点才能学习！";
@@ -407,6 +424,8 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint--;
                 _this.createPlayerButton.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -416,6 +435,8 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint++;
                 _this.createPlayerButton.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -425,6 +446,8 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint--;
                 _this.createPlayerButton.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -434,6 +457,8 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint++;
                 _this.createPlayerButton.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
+                _this.clickaudio.playOnlyOnce = true;
+                _this.clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -602,6 +627,7 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var monsterInfo = map.getMonsterInfo(row, col);
                 if (monsterInfo) {
+                    // console.log('monster Info');
                     var fight = new FightCommand(monsterInfo);
                     commandPool.addCommand(fight);
                 }
@@ -681,5 +707,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());
