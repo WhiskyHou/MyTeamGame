@@ -146,12 +146,12 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-    
 
-    battleaudio :AudioPlay
-    succeedaudio :AudioPlay
-    failaudio :AudioPlay
-    
+
+    battleaudio: AudioPlay
+    succeedaudio: AudioPlay
+    failaudio: AudioPlay
+
 
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
@@ -176,9 +176,8 @@ class FightCommand extends Command {
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
-        
-        mainaudio.end();
-        this.battleaudio.play();
+
+
 
         if (this.hasUselessTalk) {
             const uselessTalkWindow = new UselessTalkWindow(100, 150);
@@ -188,6 +187,8 @@ class FightCommand extends Command {
             uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
                 talkUIContainer.deleteAll();
                 batteUIContainer.addChild(batUI);
+                mainaudio.end();
+                this.battleaudio.play();
             })
         }
 
@@ -197,6 +198,8 @@ class FightCommand extends Command {
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         if (!this.hasUselessTalk) {
             batteUIContainer.addChild(batUI);
+            mainaudio.end();
+            this.battleaudio.play();
         }
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
@@ -204,22 +207,22 @@ class FightCommand extends Command {
 
             this.battleaudio.end();
             this.succeedaudio.play();
-             mainaudio.play();  
+            mainaudio.play();
         })
 
         batManager.addEventListener('backSceneWin', (eventData: any) => {
 
-            batteUIContainer.deleteAll(); 
-            
+            batteUIContainer.deleteAll();
+
             this.battleaudio.end();
-            mainaudio.play();  
+            mainaudio.play();
 
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             this.monster.hp = this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
-           
+
             this.battleaudio.end();
             this.failaudio.play();
             mainaudio.play();
