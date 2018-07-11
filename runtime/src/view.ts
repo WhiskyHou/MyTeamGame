@@ -422,7 +422,6 @@ class shopUI extends DisplayObjectContainer {
         this.shopR = new Bitmap(435, 260, Resource.get('shopUIR') as HTMLImageElement)
         this.shopL = new Bitmap(350, 260, Resource.get('shopUIL') as HTMLImageElement)
         this.shopBuy = new Bitmap(338, 300, Resource.get('shopUIbuy') as HTMLImageElement)
-    
         this.ShopText1 = new TextField(shpManager.getNowProduct(0), 352, 88, 20).centered();
         this.ShopText2 = new TextField(shpManager.getNowProduct(1), 352, 120, 20).centered();
         this.ShopText3 = new TextField(shpManager.getNowProduct(2), 352, 154, 20).centered();
@@ -552,7 +551,7 @@ class battleUI extends DisplayObjectContainer {
 
     index = 0;
 
-   
+
 
     constructor(x: number, y: number) {
         super(x, y);

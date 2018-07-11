@@ -133,7 +133,7 @@ class TalkCommand extends Command {
                 uselessTalkWindow.setNpc(this.npc);
                 uselessTalkWindow.update();
                 uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
-                    talkUIContainer.deleteChild(uselessTalkWindow);
+                    talkUIContainer.deleteAll();
                 })
             }
             callback();
@@ -171,7 +171,7 @@ class FightCommand extends Command {
             uselessTalkWindow.setMonster(this.monster);
             uselessTalkWindow.update();
             uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
-                talkUIContainer.deleteChild(uselessTalkWindow);
+                talkUIContainer.deleteAll();
                 batteUIContainer.addChild(batUI);
             })
         }

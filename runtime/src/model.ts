@@ -501,7 +501,7 @@ class Monster extends EventDispatcher {
     x: number = 0;
     y: number = 0;
     view: Bitmap;
-    head: Bitmap;
+    head = new Bitmap(0, 0, backButtonImg);
     id: number = 0;
     name: string = '';
     hp: number;

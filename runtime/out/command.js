@@ -124,12 +124,12 @@ var TalkCommand = /** @class */ (function (_super) {
         }
         else {
             if (this.npc.uselessTalks.length != 0) {
-                var uselessTalkWindow_1 = new UselessTalkWindow(100, 150);
-                talkUIContainer.addChild(uselessTalkWindow_1);
-                uselessTalkWindow_1.setNpc(this.npc);
-                uselessTalkWindow_1.update();
-                uselessTalkWindow_1.addEventListener("uselessTalkWiondowClose", function () {
-                    talkUIContainer.deleteChild(uselessTalkWindow_1);
+                var uselessTalkWindow = new UselessTalkWindow(100, 150);
+                talkUIContainer.addChild(uselessTalkWindow);
+                uselessTalkWindow.setNpc(this.npc);
+                uselessTalkWindow.update();
+                uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
+                    talkUIContainer.deleteAll();
                 });
             }
             callback();
@@ -157,12 +157,12 @@ var FightCommand = /** @class */ (function (_super) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
         if (this.hasUselessTalk) {
-            var uselessTalkWindow_2 = new UselessTalkWindow(100, 150);
-            talkUIContainer.addChild(uselessTalkWindow_2);
-            uselessTalkWindow_2.setMonster(this.monster);
-            uselessTalkWindow_2.update();
-            uselessTalkWindow_2.addEventListener("uselessTalkWiondowClose", function () {
-                talkUIContainer.deleteChild(uselessTalkWindow_2);
+            var uselessTalkWindow = new UselessTalkWindow(100, 150);
+            talkUIContainer.addChild(uselessTalkWindow);
+            uselessTalkWindow.setMonster(this.monster);
+            uselessTalkWindow.update();
+            uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
+                talkUIContainer.deleteAll();
                 batteUIContainer.addChild(batUI);
             });
         }
