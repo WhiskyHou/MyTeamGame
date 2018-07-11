@@ -59,13 +59,15 @@ class bagManager extends EventDispatcher {
         let MaxPage=(this.nowGroupEquipment.length/5)-1;
         console.log(MaxPage);
         if(this.nowPage< MaxPage){
-           this.nowPage++; 
+            clickaudio.play();
+            this.nowPage++; 
         }
         this.bagUpdate()
     }
     bagLeft(){
         console.log('你点击了左键');
         if(this.nowPage > 0){
+            clickaudio.play();
             this.nowPage--; 
          }
         this.bagUpdate()
