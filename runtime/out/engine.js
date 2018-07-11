@@ -136,6 +136,9 @@ var CommandPool = /** @class */ (function () {
     };
     return CommandPool;
 }());
+/**
+ * 组件
+ */
 var Behaviour = /** @class */ (function () {
     function Behaviour() {
     }
@@ -647,6 +650,9 @@ var AudioPlay = /** @class */ (function () {
     });
     AudioPlay.prototype.play = function () {
         this.audio.play();
+    };
+    AudioPlay.prototype.end = function () {
+        this.audio.pause();
     };
     return AudioPlay;
 }());
