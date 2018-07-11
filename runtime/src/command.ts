@@ -127,6 +127,15 @@ class TalkCommand extends Command {
                 }
             })
         } else {
+            if (this.npc.uselessTalks.length != 0) {
+                const uselessTalkWindow = new UselessTalkWindow(100, 150);
+                talkUIContainer.addChild(uselessTalkWindow);
+                uselessTalkWindow.setNpc(this.npc);
+                uselessTalkWindow.update();
+                uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
+                    talkUIContainer.deleteChild(uselessTalkWindow);
+                })
+            }
             callback();
         }
     }
@@ -139,23 +148,40 @@ class TalkCommand extends Command {
 class FightCommand extends Command {
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
+    hasUselessTalk = false;
 
 
     constructor(monster: Monster) {
         super();
         this.monster = monster;
         this.monsterOriginHp = this.monster.hp;
+        if (monster.uselessTalks.length != 0) {
+            this.hasUselessTalk = true;
+        }
     }
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
+
+        if (this.hasUselessTalk) {
+            const uselessTalkWindow = new UselessTalkWindow(100, 150);
+            talkUIContainer.addChild(uselessTalkWindow);
+            uselessTalkWindow.setMonster(this.monster);
+            uselessTalkWindow.update();
+            uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
+                talkUIContainer.deleteChild(uselessTalkWindow);
+                batteUIContainer.addChild(batUI);
+            })
+        }
+
         const batUI = new battleUI(0, 0);
 
         const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
-        batteUIContainer.addChild(batUI);
+        if (!this.hasUselessTalk) {
+            batteUIContainer.addChild(batUI);
+        }
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
-
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(this.monster);
         })
@@ -176,14 +202,8 @@ class FightCommand extends Command {
         })
 
 
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
-        // this.monster.hp -= player.attack;
-        // player._hp -= this.monster.attack;
-        // if (this.monster.hp <= 0) {
-        //     player.fight(this.monster);
-        //     map.deleteMonster(this.monster);
-        // }
+
+
         callback();
     }
 }

@@ -621,6 +621,7 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
+                    // console.log('npc Info');
                     if (npcInfo.id == 6) {
                         shpManager.openShop();
                     }
@@ -711,5 +712,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());

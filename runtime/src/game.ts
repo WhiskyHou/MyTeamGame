@@ -257,7 +257,7 @@ npcManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
             shpManager.init(() => {
-    
+
             });
             missionManager.init();
         });
@@ -747,10 +747,7 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
-<<<<<<< HEAD
                     // console.log('npc Info');
-=======
->>>>>>> e492f206c7d68e460ec80f69f2e90ef84c700d85
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {
@@ -852,5 +849,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());
