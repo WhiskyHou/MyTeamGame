@@ -85,7 +85,8 @@ var shopManager = /** @class */ (function (_super) {
             var price = parseInt(item.price);
             var productID = parseInt(item.productID);
             var equipmentID = parseInt(item.equipmentID);
-            var equipment = equipManager.equipList[equipmentID];
+            // if(this.getEquipment(equipmentID).posID<10){ }
+            var equipment = this.getEquipment(equipmentID);
             var descriptionPath = item.description;
             var descriptionImg = new Image();
             descriptionImg.src = descriptionPath;
@@ -142,6 +143,14 @@ var shopManager = /** @class */ (function (_super) {
         else {
             return [];
         }
+    };
+    shopManager.prototype.getEquipment = function (equipID) {
+        for (var _i = 0, _a = equipManager.equipList; _i < _a.length; _i++) {
+            var item = _a[_i];
+            if (equipID == item.id)
+                return item;
+        }
+        return new Equipment(0, '', 0, 10, 0, 0, 0);
     };
     return shopManager;
 }(EventDispatcher));
