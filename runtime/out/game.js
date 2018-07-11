@@ -203,7 +203,7 @@ var NPC5 = 5;
 var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
-var PLAYER_WALK_SPEED = 200;
+var PLAYER_WALK_SPEED = 5000;
 var staticStage = stages[1];
 var dynamicStage = stages[0];
 var player = new User();
@@ -329,7 +329,6 @@ var MenuState = /** @class */ (function (_super) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
             // this.onExit();
-            missionManager.init();
             // npcManager.init();
             fsm.replaceState(CreateState.instance);
         };
@@ -628,6 +627,7 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var monsterInfo = map.getMonsterInfo(row, col);
                 if (monsterInfo) {
+                    // console.log('monster Info');
                     var fight = new FightCommand(monsterInfo);
                     commandPool.addCommand(fight);
                 }
