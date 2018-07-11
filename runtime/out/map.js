@@ -163,6 +163,9 @@ var GameMap = /** @class */ (function (_super) {
             for (var i = 0; i < mapPortal.length; i++) {
                 var row = mapPortal[i];
                 for (var j = 0; j < row.length; j++) {
+                    var item = row[j];
+                    if (item != 0) {
+                    }
                 }
             }
         };
@@ -196,6 +199,11 @@ var GameMap = /** @class */ (function (_super) {
         var key = monster.x + '_' + monster.y;
         delete this.monsterConfig[key];
         this.roleContainer.deleteChild(monster.view);
+    };
+    GameMap.prototype.deleteNpc = function (npc) {
+        var key = npc.x + '_' + npc.y;
+        delete this.npcConfig[key];
+        this.roleContainer.deleteChild(npc.view);
     };
     return GameMap;
 }(DisplayObjectContainer));

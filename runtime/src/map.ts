@@ -7,12 +7,12 @@ class GameMap extends DisplayObjectContainer {
     config = []
 
     private equipmentConfig: { [index: string]: Equipment } = {}
-    private npcConfig: { [index: string]: Npc } = {}
-    private monsterConfig: { [index: string]: Monster } = {}
+    npcConfig: { [index: string]: Npc } = {}
+    monsterConfig: { [index: string]: Monster } = {}
 
     private tileContainer = new DisplayObjectContainer(0, 0);
     private itemContainer = new DisplayObjectContainer(0, 0);
-    private roleContainer = new DisplayObjectContainer(0, 0);
+    roleContainer = new DisplayObjectContainer(0, 0);
 
 
 
@@ -166,7 +166,10 @@ class GameMap extends DisplayObjectContainer {
             for (let i = 0; i < mapPortal.length; i++) {
                 const row = mapPortal[i]
                 for (let j = 0; j < row.length; j++) {
+                    const item = row[j];
+                    if (item != 0) {
 
+                    }
                 }
             }
 
@@ -204,5 +207,10 @@ class GameMap extends DisplayObjectContainer {
         const key = monster.x + '_' + monster.y;
         delete this.monsterConfig[key];
         this.roleContainer.deleteChild(monster.view);
+    }
+    deleteNpc(npc: Npc) {
+        const key = npc.x + '_' + npc.y;
+        delete this.npcConfig[key];
+        this.roleContainer.deleteChild(npc.view);
     }
 }

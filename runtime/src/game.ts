@@ -6,6 +6,9 @@
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
 
+Resource.load('./assets/灰尘.png', "dust");
+
+
 Resource.load('./assets/美术素材/框.png', 'bgPaper')
 
 var loadingImg = new Image();
@@ -413,6 +416,8 @@ class MenuState extends State {
 
     startaudio: AudioPlay;
 
+    animTemp: DisplayObjectContainer;
+
 
     constructor() {
         super();
@@ -422,6 +427,7 @@ class MenuState extends State {
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
         this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         this.startaudio = new AudioPlay(StartAudio);
+
     }
 
     onEnter(): void {
@@ -430,6 +436,12 @@ class MenuState extends State {
         staticStage.addChild(this.title);
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
+
+        // anim测试
+        this.animTemp = new DisplayObjectContainer(100, 100);
+        staticStage.addChild(this.animTemp);
+        const anim = this.animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+        anim.play();
 
         this.startButton.addEventListener("onClick", this.onClick)
 
@@ -488,7 +500,7 @@ class CreateState extends State {
     canAssignPointText: TextField;
     tipsText: TextField;
 
-    createaudio:AudioPlay;
+    createaudio: AudioPlay;
 
     canAssignPoint = 5;
 
@@ -729,7 +741,7 @@ class PlayingState extends State {
         shpManager.addEventListener('shopDown', (eventData: any) => {
             shopUIContainer.deleteChild(this.shpUI);
             shopUIContainer.deleteAll()
-            console.log("真关闭",shopUIContainer.toString())
+            console.log("真关闭", shopUIContainer.toString())
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
@@ -873,5 +885,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
+fsm.replaceState(MenuState.instance);
 // fsm.replaceState(new LoadingState());

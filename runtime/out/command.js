@@ -91,6 +91,7 @@ var TalkCommand = /** @class */ (function (_super) {
         return _this;
     }
     TalkCommand.prototype.execute = function (callback) {
+        var _this = this;
         console.log("\u5F00\u59CB\u548CNPC\uFF1A" + this.npc.toString() + "\u5BF9\u8BDD");
         player.talk(this.npc);
         var mission = null;
@@ -118,6 +119,7 @@ var TalkCommand = /** @class */ (function (_super) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
                         missionManager.submit(mission);
                     }
+                    _this.npc.changeType(); //测试换类型！！！
                     callback();
                 }
             });
@@ -162,8 +164,6 @@ var FightCommand = /** @class */ (function (_super) {
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
-        mainaudio.end();
-        this.battleaudio.play();
         if (this.hasUselessTalk) {
             var uselessTalkWindow = new UselessTalkWindow(100, 150);
             talkUIContainer.addChild(uselessTalkWindow);
@@ -172,6 +172,8 @@ var FightCommand = /** @class */ (function (_super) {
             uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
                 talkUIContainer.deleteAll();
                 batteUIContainer.addChild(batUI);
+                mainaudio.end();
+                _this.battleaudio.play();
             });
         }
         var batUI = new battleUI(0, 0);
@@ -179,9 +181,12 @@ var FightCommand = /** @class */ (function (_super) {
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         if (!this.hasUselessTalk) {
             batteUIContainer.addChild(batUI);
+            mainaudio.end();
+            this.battleaudio.play();
         }
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
+            _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);
             _this.battleaudio.end();
             _this.succeedaudio.play();

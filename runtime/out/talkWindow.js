@@ -19,10 +19,8 @@ var TalkWindow = /** @class */ (function (_super) {
         _this.count = 0;
         _this.view = new Bitmap(0, 0, talk_window);
         _this.text = new TextField("", 190, 100, 24);
-        // this.playerView.img = player.view.img;
-        // this.playerView.x = 50;
-        // this.playerView.y = 50;
-        // this.playerNameText = new TextField(player.name, 200, 200, 24);
+        _this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
+        _this.addChild(_this.blackMask);
         _this.addChild(_this.view);
         _this.addChild(_this.text);
         // this.addChild(this.playerView);

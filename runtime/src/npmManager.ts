@@ -45,6 +45,10 @@ class NpcManager extends EventDispatcher {
             if (item.uselessTalks) {
                 npc.uselessTalks = item.uselessTalks;
             }
+            if (item.changeTypeID) {
+                npc.changeTypeID = item.changeTypeID;
+            }
+
 
             this.npcList.push(npc);
         }

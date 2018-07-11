@@ -27,6 +27,7 @@ class UserInfoUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
+
         this.userName = new TextField(player.name, 130, 5, 20);
         this.userLevel = new TextField('' + player.level, 52, 85, 20);
         this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
@@ -58,6 +59,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
         this.addChild(this.bloodbar);
+
+
+      
 
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
@@ -117,6 +121,8 @@ class MissionInfoUI extends DisplayObjectContainer {
     }
 
     update() {
+
+        
         this.deleteAll();
         let index = 0;
         for (let mission of missionManager.missions) {
@@ -427,9 +433,9 @@ class shopUI extends DisplayObjectContainer {
         this.ShopText3 = new TextField(shpManager.getNowProduct(2), 352, 154, 20).centered();
         this.ShopText4 = new TextField(shpManager.getNowProduct(3), 352, 187, 20).centered();
         this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
-      
-        this.ShopPage = new TextField((shpManager.nowPage+1).toString(),380,250,30);
-        this.productMultiInfoText =new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber),200,430,15,5)
+
+        this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
+        this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5)
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
 

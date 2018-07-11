@@ -250,6 +250,7 @@ class User extends EventDispatcher {
             this._mp = this._originMp;
             this.maxMp = this._originMp;
             this.maxHP = this._originHealth;
+            this._hp = this.maxHP;
             this.changeEquipments();
             console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
         }
@@ -480,6 +481,7 @@ class Npc {
     id = 0;
     name: string = ''
 
+    changeTypeID = 0;//要转变成的怪物的ID
 
     canAcceptMissions: Mission[] = []
     canSubmitMissions: Mission[] = []
@@ -512,6 +514,31 @@ class Npc {
         return `[NPC ~ id:${this.id}, name:${this.name}]`
     }
 
+    changeType() {
+        // map.deleteMonster(this)
+        let tempX = this.x;
+        let tempY = this.y;
+        map.deleteNpc(this);
+        for (let i = 0; i < monsManager.monsterList.length; i++) {
+            if (monsManager.monsterList[i].id == this.changeTypeID) {
+                let mons = monsManager.monsterList[i];
+                mons.x = tempX;
+                mons.y = tempY;
+
+                const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+                const monsterItem = monsManager.monsterList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                monsterItem.x = tempX;
+                monsterItem.y = tempY;
+                const key = tempX + '_' + tempY;
+                map.monsterConfig[key] = monsterItem;
+                map.roleContainer.addChild(monsterView);
+            }
+        }
+    }
+
 }
 
 
@@ -535,11 +562,13 @@ class Monster extends EventDispatcher {
     coin: number = 0;
     level: number = 0;
     dropType = 0;//0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
+    changeTypeID = 0;//要转变成的NPC的ID
 
     uselessTalks: string[] = [];
 
     constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number, dropType: number) {
         super();
+
         this.id = id;
         this.name = name;
         this.hp = hp;
@@ -660,6 +689,51 @@ class Monster extends EventDispatcher {
                     equipBox.push(this.equipDropLv4());
                 }
                 return equipBox;
+        }
+    }
+
+    changeType() {
+        // map.deleteMonster(this)
+        let tempX = this.x;
+        let tempY = this.y;
+        map.deleteMonster(this);
+
+        for (let i = 0; i < npcManager.npcList.length; i++) {
+            if (npcManager.npcList[i].id == this.changeTypeID) {
+                let npc = npcManager.npcList[i];
+                npc.x = tempX;
+                npc.y = tempY;
+
+                const npcView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, npcManager.npcList[i].view.img);
+                const npcItem = npcManager.npcList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                npcItem.x = tempX;
+                npcItem.y = tempY;
+                const key = tempX + '_' + tempY;
+                map.npcConfig[key] = npcItem;
+                map.roleContainer.addChild(npcView);
+            }
+        }
+
+        for (let i = 0; i < monsManager.monsterList.length; i++) {
+            if (monsManager.monsterList[i].id == this.changeTypeID) {
+                let mons = monsManager.monsterList[i];
+                mons.x = tempX;
+                mons.y = tempY;
+
+                const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+                const monsterItem = monsManager.monsterList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                monsterItem.x = tempX;
+                monsterItem.y = tempY;
+                const key = tempX + '_' + tempY;
+                map.monsterConfig[key] = monsterItem;
+                map.roleContainer.addChild(monsterView);
+            }
         }
     }
 }
@@ -786,6 +860,7 @@ class Skill {
 class UselessTalkWindow extends DisplayObjectContainer {
     view: Bitmap;
     head: Bitmap;
+    blackMask: Bitmap;
 
     name: TextField;
     text: TextField;
@@ -808,7 +883,9 @@ class UselessTalkWindow extends DisplayObjectContainer {
 
         this.view = new Bitmap(0, 0, talk_window);
         this.text = new TextField("", 190, 100, 24);
+        this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
 
+        this.addChild(this.blackMask);
         this.addChild(this.view);
         this.addChild(this.text);
 

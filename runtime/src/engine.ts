@@ -543,6 +543,8 @@ class Animator extends DisplayObject {
 
     size: number
 
+    isLooping: boolean
+
     constructor(x: number, y: number, image: HTMLImageElement, size: number, count: number, delta: number) {
         super(x, y);
         this.index = 0
@@ -554,16 +556,18 @@ class Animator extends DisplayObject {
 
         this.visible = false
         this.isPlaying = false
+        this.isLooping = false
     }
 
     onStart() {
 
     }
 
-    onUpdate(delta: number) {
+    update(delta: number) {
         if (this.isPlaying) {
-            if (this.index == this.count) {
+            if (this.index == this.count - 1) {
                 this.reset();
+                return;
             }
             if (this.duringTiem >= this.delta) {
                 this.index++;
@@ -579,8 +583,8 @@ class Animator extends DisplayObject {
     }
 
     reset() {
-        this.isPlaying = false
-        this.visible = false
+        this.isPlaying = this.isLooping
+        this.visible = this.isLooping;
         this.index = 0
         this.duringTiem = this.delta
     }
@@ -779,7 +783,7 @@ class AudioPlay {
 
     end() {
         this.audio.pause();
-        this.audio.currentTime=0.0;
+        this.audio.currentTime = 0.0;
     }
 }
 
