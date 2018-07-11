@@ -413,6 +413,7 @@ class shopUI extends DisplayObjectContainer {
     productMultiInfoText: MultiTextField;
     ShopCoin: TextField;
 
+
     constructor(x: number, y: number) {
         //super(x, y);
         super(58, 64);
@@ -438,7 +439,6 @@ class shopUI extends DisplayObjectContainer {
         this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5)
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
-
         this.addChild(this.infoPanel);
         this.addChild(this.shopDownButton);
         this.addChild(this.shopWQ);
@@ -463,15 +463,19 @@ class shopUI extends DisplayObjectContainer {
         })
         this.shopWQ.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowGroup(0)
+            clickaudio.play();
         })
         this.shopFJ.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowGroup(1)
+            clickaudio.play();
         })
         this.shopXHP.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowGroup(2)
+            clickaudio.play();
         })
         this.shopJN.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowGroup(3)
+            clickaudio.play();
         })
         this.shopL.addEventListener("onClick", (eventData: any) => {
             shpManager.shopLeft()
@@ -481,18 +485,23 @@ class shopUI extends DisplayObjectContainer {
         })
         this.shopBuy.addEventListener("onClick", (eventData: any) => {
             shpManager.shopBuy()
+           
         })
         this.ShopText1.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowProduct(0)
+            clickaudio.play();
         })
         this.ShopText2.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowProduct(1)
+            clickaudio.play();
         })
         this.ShopText3.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowProduct(2)
+            clickaudio.play();
         })
         this.ShopText4.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowProduct(3)
+            clickaudio.play();
         })
     }
     changeEquipmentInfo(equip: Equipment) {
