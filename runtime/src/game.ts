@@ -6,7 +6,7 @@
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
 
-Resource.load('./assets/灰尘.png', "dust");
+Resource.load('./assets/正面动画.png', "dust");
 
 
 Resource.load('./assets/美术素材/框.png', 'bgPaper')
@@ -256,7 +256,7 @@ const MONSTER = 1;
 
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
-const PLAYER_WALK_SPEED = 500;
+const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
 const dynamicStage = stages[1];
@@ -265,6 +265,7 @@ stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement)
 
 var player: User = new User();
 var map: GameMap;
+let mapManager = new MapManager()
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let monsManager = new monsterManager();
@@ -274,6 +275,7 @@ let baManager = new bagManager();
 let shpManager = new shopManager();
 let skillArray: Skill[] = []
 
+
 npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
@@ -282,6 +284,7 @@ npcManager.init(() => {
 
             });
             missionManager.init();
+            mapManager.init();
         });
     })
 });
@@ -416,9 +419,6 @@ class MenuState extends State {
 
     startaudio: AudioPlay;
 
-    animTemp: DisplayObjectContainer;
-
-
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, titleBGImg);
@@ -437,12 +437,10 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
 
-        // anim测试
-        this.animTemp = new DisplayObjectContainer(100, 100);
-        staticStage.addChild(this.animTemp);
-        const anim = this.animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
-        anim.play();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2c67b3740d7910ff9860e0f497396cd64947ef6d
         this.startButton.addEventListener("onClick", this.onClick)
 
 
@@ -643,6 +641,13 @@ let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
 
+// anim测试
+let animTemp: DisplayObjectContainer;
+// anim测试
+animTemp = new DisplayObjectContainer(0,0 );
+const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+//anim.play();
+
 /**
  * 游戏状态
  */
@@ -670,10 +675,12 @@ class PlayingState extends State {
 
     camera: EmptyObject
 
+
+
     constructor() {
         super();
 
-        map = new GameMap();
+        map = mapManager.getMap(0) as GameMap;
         talkUIContainer = new DisplayObjectContainer(0, 0);
 
         this.mapContainer = new DisplayObjectContainer(0, 0);
@@ -713,7 +720,9 @@ class PlayingState extends State {
         staticStage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
-        this.mapContainer.addChild(player.view);
+        //this.mapContainer.addChild(player.view);
+        this.mapContainer.addChild(animTemp);
+
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
 
@@ -813,6 +822,7 @@ class PlayingState extends State {
         // this.playerViewMove();
         player.update();
         missionManager.update();
+
     }
     onExit(): void {
         staticStage.deleteAll();
@@ -848,7 +858,7 @@ canvas.onclick = function (event) {
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
-            // console.log(hitResult);
+            console.log(hitResult);
             hitResult = hitResult.parent;
             hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         }

@@ -19,7 +19,7 @@ var MapManager = /** @class */ (function (_super) {
     MapManager.prototype.init = function () {
         var _this = this;
         var xhr = new XMLHttpRequest();
-        xhr.open("get", "config/mission.json");
+        xhr.open("get", "config/map.json");
         xhr.send();
         xhr.onload = function () {
             var obj = JSON.parse(xhr.response);
@@ -30,7 +30,15 @@ var MapManager = /** @class */ (function (_super) {
     MapManager.prototype.parseFromConfig = function (obj) {
         for (var _i = 0, _a = obj.map; _i < _a.length; _i++) {
             var item = _a[_i];
+            var map_1 = new GameMap(item);
+            this.maps.push(map_1);
         }
+    };
+    MapManager.prototype.getMap = function (index) {
+        if (index < this.maps.length) {
+            return this.maps[index];
+        }
+        return null;
     };
     return MapManager;
 }(EventDispatcher));

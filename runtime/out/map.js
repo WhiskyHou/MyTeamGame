@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
  */
 var GameMap = /** @class */ (function (_super) {
     __extends(GameMap, _super);
-    function GameMap() {
+    function GameMap(obj) {
         var _this = _super.call(this, 0, 0) || this;
         _this.config = [];
         _this.equipmentConfig = {};
@@ -26,149 +26,148 @@ var GameMap = /** @class */ (function (_super) {
         _this.addChild(_this.tileContainer);
         _this.addChild(_this.itemContainer);
         _this.addChild(_this.roleContainer);
-        _this.init();
+        _this.init(obj);
         return _this;
     }
     // 好像只调用了一次…… 初始化……
-    GameMap.prototype.init = function () {
-        var _this = this;
+    GameMap.prototype.init = function (obj) {
         this.grid = new astar.Grid(COL_NUM, ROW_NUM);
-        var xhr = new XMLHttpRequest();
-        xhr.open("get", "config/map.json");
-        xhr.send();
-        var obj;
-        xhr.onload = function () {
-            obj = JSON.parse(xhr.response);
-            _this.config = obj;
-            var mapTile = obj.map[0].tile;
-            for (var i = 0; i < mapTile.length; i++) {
-                var row = mapTile[i];
-                for (var j = 0; j < row.length; j++) {
-                    var item = row[j];
+        // const xhr = new XMLHttpRequest();
+        // xhr.open("get", "config/map.json")
+        // xhr.send();
+        // let obj: any;
+        // xhr.onload = () => {
+        // obj = JSON.parse(xhr.response);
+        this.config = obj;
+        var mapTile = obj.tile;
+        for (var i = 0; i < mapTile.length; i++) {
+            var row = mapTile[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                var img = new Image();
+                img.src = item;
+                var tile = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, img);
+                this.grid.setWalkable(j, i, true);
+                this.tileContainer.addChild(tile);
+            }
+        }
+        var mapItem = obj.item;
+        for (var i = 0; i < mapItem.length; i++) {
+            var row = mapItem[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                if (item) {
                     var img = new Image();
                     img.src = item;
-                    var tile = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, img);
-                    _this.grid.setWalkable(j, i, true);
-                    _this.tileContainer.addChild(tile);
+                    var building = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, img);
+                    // this.grid.setWalkable(j, i, false);
+                    this.tileContainer.addChild(building);
                 }
             }
-            var mapItem = obj.map[0].item;
-            for (var i = 0; i < mapItem.length; i++) {
-                var row = mapItem[i];
-                for (var j = 0; j < row.length; j++) {
-                    var item = row[j];
-                    if (item) {
-                        var img = new Image();
-                        img.src = item;
-                        var building = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, img);
-                        // this.grid.setWalkable(j, i, false);
-                        _this.tileContainer.addChild(building);
-                    }
+        }
+        var mapWalkable = obj.walkable;
+        for (var i = 0; i < mapWalkable.length; i++) {
+            var row = mapWalkable[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                if (item == 1) {
+                    this.grid.setWalkable(j, i, false);
                 }
             }
-            var mapWalkable = obj.map[0].walkable;
-            for (var i = 0; i < mapWalkable.length; i++) {
-                var row = mapWalkable[i];
-                for (var j = 0; j < row.length; j++) {
-                    var item = row[j];
-                    if (item == 1) {
-                        _this.grid.setWalkable(j, i, false);
-                    }
-                }
-            }
-            var mapNpc = obj.map[0].npc;
-            for (var i = 0; i < mapNpc.length; i++) {
-                var row = mapNpc[i];
-                for (var j = 0; j < row.length; j++) {
-                    var item = row[j];
-                    if (item != 0) {
-                        var id = item;
-                        console.log(npcManager.npcList.length);
-                        for (var _i = 0, _a = npcManager.npcList; _i < _a.length; _i++) {
-                            var npc = _a[_i];
-                            if (npc.id == id) {
-                                var npcView = npc.view;
-                                var npcHead = npc.head;
-                                console.log(npcView.img.src);
-                                npcView.x = TILE_SIZE * j;
-                                npcView.y = TILE_SIZE * i;
-                                npc.x = j;
-                                npc.y = i;
-                                var key = j + '_' + i;
-                                _this.npcConfig[key] = npc;
-                                _this.roleContainer.addChild(npcView);
-                            }
+        }
+        var mapNpc = obj.npc;
+        for (var i = 0; i < mapNpc.length; i++) {
+            var row = mapNpc[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                if (item != 0) {
+                    var id = item;
+                    console.log(npcManager.npcList.length);
+                    for (var _i = 0, _a = npcManager.npcList; _i < _a.length; _i++) {
+                        var npc = _a[_i];
+                        if (npc.id == id) {
+                            var npcView = npc.view;
+                            var npcHead = npc.head;
+                            console.log(npcView.img.src);
+                            npcView.x = TILE_SIZE * j;
+                            npcView.y = TILE_SIZE * i;
+                            npc.x = j;
+                            npc.y = i;
+                            var key = j + '_' + i;
+                            this.npcConfig[key] = npc;
+                            this.roleContainer.addChild(npcView);
                         }
                     }
                 }
             }
-            var mapEquip = obj.map[0].equipment;
-            for (var i = 0; i < mapEquip.length; i++) {
-                var row = mapEquip[i];
-                for (var j = 0; j < row.length; j++) {
-                    var id = row[j];
-                    if (id == KILL_DARGON_KNIFE) {
-                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
-                        var equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
-                        equipmentTiem.view = equipmentView;
-                        equipmentTiem.name = '屠龙刀';
-                        equipmentTiem.attack = 35;
-                        equipmentTiem.x = j;
-                        equipmentTiem.y = i;
-                        var key = j + '_' + i;
-                        _this.equipmentConfig[key] = equipmentTiem;
-                        _this.itemContainer.addChild(equipmentView);
-                    }
-                    else if (id == HP_BOTTLE) {
-                        // TODO
-                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
-                        var equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
-                        equipmentTiem.view = equipmentView;
-                        equipmentTiem.name = '扁鹊的药瓶';
-                        equipmentTiem.attack = 0;
-                        equipmentTiem.x = j;
-                        equipmentTiem.y = i;
-                        var key = j + '_' + i;
-                        _this.equipmentConfig[key] = equipmentTiem;
-                        _this.itemContainer.addChild(equipmentView);
-                    }
+        }
+        var mapEquip = obj.equipment;
+        for (var i = 0; i < mapEquip.length; i++) {
+            var row = mapEquip[i];
+            for (var j = 0; j < row.length; j++) {
+                var id = row[j];
+                if (id == KILL_DARGON_KNIFE) {
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
+                    var equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.name = '屠龙刀';
+                    equipmentTiem.attack = 35;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }
+                else if (id == HP_BOTTLE) {
+                    // TODO
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
+                    var equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.name = '扁鹊的药瓶';
+                    equipmentTiem.attack = 0;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
                 }
             }
-            var mapMonster = obj.map[0].monster;
-            for (var i = 0; i < mapMonster.length; i++) {
-                var row = mapMonster[i];
-                for (var j = 0; j < row.length; j++) {
-                    var item = row[j];
-                    if (item != 0) {
-                        var id = item;
-                        console.log(monsManager.monsterList.length);
-                        for (var _b = 0, _c = monsManager.monsterList; _b < _c.length; _b++) {
-                            var monster = _c[_b];
-                            if (monster.id == id) {
-                                var monsterView = monster.view;
-                                // const npcHead = npc.head;
-                                monsterView.x = TILE_SIZE * j;
-                                monsterView.y = TILE_SIZE * i;
-                                monster.x = j;
-                                monster.y = i;
-                                var key = j + '_' + i;
-                                _this.monsterConfig[key] = monster;
-                                _this.roleContainer.addChild(monsterView);
-                            }
+        }
+        var mapMonster = obj.monster;
+        for (var i = 0; i < mapMonster.length; i++) {
+            var row = mapMonster[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                if (item != 0) {
+                    var id = item;
+                    console.log(monsManager.monsterList.length);
+                    for (var _b = 0, _c = monsManager.monsterList; _b < _c.length; _b++) {
+                        var monster = _c[_b];
+                        if (monster.id == id) {
+                            var monsterView = monster.view;
+                            // const npcHead = npc.head;
+                            monsterView.x = TILE_SIZE * j;
+                            monsterView.y = TILE_SIZE * i;
+                            monster.x = j;
+                            monster.y = i;
+                            var key = j + '_' + i;
+                            this.monsterConfig[key] = monster;
+                            this.roleContainer.addChild(monsterView);
                         }
                     }
                 }
             }
-            var mapPortal = obj.map[0].portal;
-            for (var i = 0; i < mapPortal.length; i++) {
-                var row = mapPortal[i];
-                for (var j = 0; j < row.length; j++) {
-                    var item = row[j];
-                    if (item != 0) {
-                    }
+        }
+        var mapPortal = obj.portal;
+        for (var i = 0; i < mapPortal.length; i++) {
+            var row = mapPortal[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                if (item != 0) {
                 }
             }
-        };
+        }
+        // }// loadEnd
     };
     // getNodeInfo(row: number, col: number) {
     //     for (let item of this.config.map.) {
