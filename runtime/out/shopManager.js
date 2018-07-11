@@ -35,7 +35,7 @@ var shopManager = /** @class */ (function (_super) {
             player.coin -= price;
             player.packageEquipment.push(equipment);
             console.log('你购买了商品');
-            this.nowNumber = -1;
+            // this.nowNumber = -1
             this.shopUpdate();
         }
     };

@@ -22,7 +22,7 @@ class shopManager extends EventDispatcher {
             player.coin -= price
             player.packageEquipment.push(equipment)
             console.log('你购买了商品');
-            this.nowNumber = -1
+            // this.nowNumber = -1
             this.shopUpdate()
         }
         
