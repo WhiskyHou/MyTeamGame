@@ -25,13 +25,20 @@ class bagManager extends EventDispatcher {
                     this.nowMounthedEquipment = player.mounthedEquipment[pos]
                     this.bagOff()
                 }
-            player.mounthedEquipment[pos] = this.nowEquipment
-            this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
-            this.changeNowEquipment(this.nowNumber)
-            this.exportCheckedEquipment(false);
-            this.bagUpdate()
-            this.nowNumber = -1
-        }
+                player.mounthedEquipment[pos] = this.nowEquipment
+                this.deletePackageEquipment(this.nowGroup,this.nowPage,this.nowNumber)
+                this.changeNowEquipment(this.nowNumber)
+                this.exportCheckedEquipment(false);
+                this.bagUpdate()
+                this.nowNumber = -1
+            }else if (pos < 8){
+                let con = this.nowEquipment as Consumable
+                con.use( () => {})
+            }
+            else{
+                let con = this.nowEquipment as Consumable
+                con.use( () => {})
+            }
         }
     }
     bagOff(){

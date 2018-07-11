@@ -19,8 +19,6 @@ class EquipmentManager {
         }
     }
 
-
-
     parseFromConfig(config: any) {
         for (let item of config.equip) {
             const id = parseInt(item.id);
