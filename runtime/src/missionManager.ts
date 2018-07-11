@@ -67,7 +67,7 @@ class MissionManager extends EventDispatcher {
             mission.canAcceptContent = item.canAcceptConfig;
             mission.canSubmitContent = item.canSubmitConfig;
             mission.status = MissionStatus.UNACCEPT;
-            console.log('任务名' + mission.name);
+            // console.log('任务名' + mission.name);
             this.missions.push(mission);
         }
     }
