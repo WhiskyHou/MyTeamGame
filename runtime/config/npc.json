@@ -38,7 +38,14 @@
 			"hp": "5",
 			"attack": "0",
 			"view": "assets/bianque.png",
-			"head": "assets/bianque_head.png"
+			"head": "assets/bianque_head.png",
+			"uselessTalks": [
+				"嗯不错",
+				"小伙子有前途",
+				"你是不是以为我会奖励你升级",
+				"怎么可能呢，我要给你降一级",
+				"2333333……"
+			]
 		},
 		{
 			"id": "6",
@@ -54,7 +61,15 @@
 			"hp": "5",
 			"attack": "0",
 			"view": "./assets/美术素材/角色/反派/128x128肌肉男.png",
-			"head": "./assets/美术素材/角色/反派/128x128肌肉男.png"
+			"head": "./assets/美术素材/角色/反派/128x128肌肉男.png",
+			"uselessTalks": [
+				"嗯不错，我是NPC，跟你说废话",
+				"小伙子有前途",
+				"你是不是以为我会奖励你升级",
+				"怎么可能呢，我要给你降一级",
+				"2333333……"
+			],
+			"changeTypeID": "5"
 		}
 	]
 }

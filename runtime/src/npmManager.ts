@@ -42,6 +42,13 @@ class NpcManager extends EventDispatcher {
             let npc = new Npc(id, name);
             npc.view = view;
             npc.head = head;
+            if (item.uselessTalks) {
+                npc.uselessTalks = item.uselessTalks;
+            }
+            if (item.changeTypeID) {
+                npc.changeTypeID = item.changeTypeID;
+            }
+
 
             this.npcList.push(npc);
         }

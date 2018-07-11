@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -177,21 +178,30 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
-var MainAudio = new Audio();
-MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
-var ClickAudio = new Audio();
-ClickAudio.src = "assets/音效/常规/单击.mp3";
+//局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var CreateAudio = new Audio();
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+var BattleAudio = new Audio();
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3";
+var SucceedAudio = new Audio();
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
+var FailAudio = new Audio();
+FailAudio.src = "assets/音效/常规/战斗失败.mp3";
+var Attack1Audio = new Audio();
+Attack1Audio.src = "assets/音效/dnf/暴击1.mp3";
+var Attack2Audio = new Audio();
+Attack2Audio.src = "assets/音效/dnf/暴击2.mp3";
+//全局音乐控制
+var MainAudio = new Audio();
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
+var ClickAudio = new Audio();
+ClickAudio.src = "assets/音效/常规/单击.mp3";
 var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
-//mainaudio.playOnlyOnce = true
-//mainaudioo.play()
-//mainaudio.end();
 /**
  * 常量
  *
@@ -221,8 +231,9 @@ var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 500;
-var staticStage = stages[1];
-var dynamicStage = stages[0];
+var staticStage = stages[2];
+var dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
 var player = new User();
 var map;
 var missionManager = new MissionManager();
@@ -345,7 +356,6 @@ var MenuState = /** @class */ (function (_super) {
     __extends(MenuState, _super);
     function MenuState() {
         var _this = _super.call(this) || this;
-        _this.startaudio = new AudioPlay(StartAudio);
         _this.onClick = function (eventData) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
@@ -361,6 +371,7 @@ var MenuState = /** @class */ (function (_super) {
         _this.title = new TextField('', 100, 300, 20);
         _this.loadButton = new Bitmap(350, 440, titleLoadImg);
         _this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        _this.startaudio = new AudioPlay(StartAudio);
         return _this;
     }
     Object.defineProperty(MenuState, "instance", {
@@ -397,7 +408,6 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
-        _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
@@ -421,6 +431,7 @@ var CreateState = /** @class */ (function (_super) {
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
+        _this.createaudio = new AudioPlay(CreateAudio);
         _this.createPlayerButtonScript = _this.startButton.addComponent(new CreatePlayerButtonScript());
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
@@ -558,7 +569,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 0;
+        camera.layer = 1;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
@@ -592,13 +603,15 @@ var PlayingState = /** @class */ (function (_super) {
         });
         shpManager.addEventListener('shopDown', function (eventData) {
             shopUIContainer.deleteChild(_this.shpUI);
+            shopUIContainer.deleteAll();
+            console.log("真关闭", shopUIContainer.toString());
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
             _this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(_this.baggUI);
         });
-        baManager.addEventListener('updateShop', function (eventData) {
+        shpManager.addEventListener('updateShop', function (eventData) {
             shopUIContainer.deleteChild(_this.shpUI);
             _this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(_this.shpUI);
@@ -715,5 +728,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());

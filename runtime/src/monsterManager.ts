@@ -32,6 +32,8 @@ class monsterManager {
             const level = parseInt(item.level);
             const dropType = parseInt(item.dropType);
 
+
+
             let monster = new Monster(id, name, hp, attack, exp, coin, level, dropType);
 
             const viewPath = item.view;
@@ -39,6 +41,13 @@ class monsterManager {
             viewImg.src = viewPath;
             const view = new Bitmap(0, 0, viewImg);
             monster.view = view;
+            if (item.uselessTalks) {
+                monster.head.img = viewImg;
+                monster.uselessTalks = item.uselessTalks;
+            }
+            if (item.changeTypeID) {
+                monster.changeTypeID = item.changeTypeID;
+            }
 
             this.monsterList.push(monster);
 

@@ -23,6 +23,47 @@
 			"equipmentID": "36",
 			"price": "15",
 			"description": "assets/gaojianli.png"
+		},
+		{
+			"productID": "4",
+			"equipmentID": "20",
+			"price": "15",
+			"description": "assets/gaojianli.png"
+		},
+		{
+			"productID": "5",
+			"equipmentID": "0",
+			"price": "15",
+			"description": "assets/gaojianli.png"
+		}
+		,
+		{
+			"productID": "6",
+			"equipmentID": "1",
+			"price": "15",
+			"description": "assets/gaojianli.png"
+		}
+		,
+		{
+			"productID": "7",
+			"equipmentID": "36",
+			"price": "15",
+			"description": "assets/gaojianli.png"
+		}
+		,
+		{
+			"productID": "8",
+			"equipmentID": "0",
+			"price": "15",
+			"description": "assets/gaojianli.png"
+		}
+		,
+		{
+			"productID": "9",
+			"equipmentID": "1",
+			"price": "15",
+			"description": "assets/gaojianli.png"
 		}
 	]
+
 }

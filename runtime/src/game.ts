@@ -5,6 +5,9 @@
  */
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
+
+Resource.load('./assets/美术素材/框.png', 'bgPaper')
+
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -185,26 +188,35 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 
-
-const MainAudio = new Audio()
-MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
-const ClickAudio = new Audio()
-ClickAudio.src = "assets/音效/常规/单击.mp3"
-
+//局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const CreateAudio = new Audio()
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
 
+const BattleAudio = new Audio()
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
+const SucceedAudio = new Audio()
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
+const FailAudio = new Audio()
+FailAudio.src = "assets/音效/常规/战斗失败.mp3"
+
+const Attack1Audio = new Audio()
+Attack1Audio.src = "assets/音效/dnf/暴击1.mp3"
+const Attack2Audio = new Audio()
+Attack2Audio.src = "assets/音效/dnf/暴击2.mp3"
+//全局音乐控制
+const MainAudio = new Audio()
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
+const ClickAudio = new Audio()
+ClickAudio.src = "assets/音效/常规/单击.mp3"
+
 const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
+
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
 
-
-//mainaudio.playOnlyOnce = true
-//mainaudioo.play()
-//mainaudio.end();
 
 
 /**
@@ -243,8 +255,9 @@ const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 500;
 
-const staticStage = stages[1];
-const dynamicStage = stages[0];
+const staticStage = stages[2];
+const dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement))
 
 
 var player: User = new User();
@@ -398,7 +411,7 @@ class MenuState extends State {
     loadButton: Bitmap;
     workerButton: Bitmap;
 
-    startaudio = new AudioPlay(StartAudio);
+    startaudio: AudioPlay;
 
 
     constructor() {
@@ -408,6 +421,7 @@ class MenuState extends State {
         this.title = new TextField('', 100, 300, 20);
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
         this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        this.startaudio = new AudioPlay(StartAudio);
     }
 
     onEnter(): void {
@@ -474,7 +488,7 @@ class CreateState extends State {
     canAssignPointText: TextField;
     tipsText: TextField;
 
-    createaudio = new AudioPlay(CreateAudio);
+    createaudio:AudioPlay;
 
     canAssignPoint = 5;
 
@@ -496,6 +510,8 @@ class CreateState extends State {
 
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
+
+        this.createaudio = new AudioPlay(CreateAudio);
 
         this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
@@ -673,7 +689,7 @@ class PlayingState extends State {
 
         let camera = this.camera.addComponent(new Camera()) as Camera;
 
-        camera.layer = 0;
+        camera.layer = 1;
 
 
         dynamicStage.addChild(this.mapContainer);
@@ -712,13 +728,15 @@ class PlayingState extends State {
         });
         shpManager.addEventListener('shopDown', (eventData: any) => {
             shopUIContainer.deleteChild(this.shpUI);
+            shopUIContainer.deleteAll()
+            console.log("真关闭",shopUIContainer.toString())
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
             this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(this.baggUI);
         });
-        baManager.addEventListener('updateShop', (eventData: any) => {
+        shpManager.addEventListener('updateShop', (eventData: any) => {
             shopUIContainer.deleteChild(this.shpUI);
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
@@ -726,7 +744,7 @@ class PlayingState extends State {
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
-                
+
                 clickaudio.play();
 
                 const globalX = eventData.globalX;
@@ -802,7 +820,7 @@ class PlayingState extends State {
 
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
-    
+
     //clickaudio.play();
 
     const globalX = event.offsetX;
@@ -855,5 +873,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());

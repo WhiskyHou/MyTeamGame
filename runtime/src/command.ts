@@ -123,10 +123,20 @@ class TalkCommand extends Command {
                         console.log(`完成任务: ${mission.toString()}`);
                         missionManager.submit(mission);
                     }
+                    this.npc.changeType();//测试换类型！！！
                     callback();
                 }
             })
         } else {
+            if (this.npc.uselessTalks.length != 0) {
+                const uselessTalkWindow = new UselessTalkWindow(100, 150);
+                talkUIContainer.addChild(uselessTalkWindow);
+                uselessTalkWindow.setNpc(this.npc);
+                uselessTalkWindow.update();
+                uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
+                    talkUIContainer.deleteAll();
+                })
+            }
             callback();
         }
     }
@@ -137,53 +147,100 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
+
+
+    battleaudio: AudioPlay
+    succeedaudio: AudioPlay
+    failaudio: AudioPlay
+
+
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
+    hasUselessTalk = false;
 
 
     constructor(monster: Monster) {
         super();
         this.monster = monster;
         this.monsterOriginHp = this.monster.hp;
+
+        this.battleaudio = new AudioPlay(BattleAudio)
+        this.succeedaudio = new AudioPlay(SucceedAudio)
+        this.failaudio = new AudioPlay(FailAudio)
+        this.battleaudio.playOnlyOnce = false;
+        this.succeedaudio.playOnlyOnce = true;
+        this.failaudio.playOnlyOnce = true;
+        if (monster.uselessTalks.length != 0) {
+            this.hasUselessTalk = true;
+        }
     }
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
+
+
+
+        if (this.hasUselessTalk) {
+            const uselessTalkWindow = new UselessTalkWindow(100, 150);
+            talkUIContainer.addChild(uselessTalkWindow);
+            uselessTalkWindow.setMonster(this.monster);
+            uselessTalkWindow.update();
+            uselessTalkWindow.addEventListener("uselessTalkWiondowClose", () => {
+                talkUIContainer.deleteAll();
+                batteUIContainer.addChild(batUI);
+                mainaudio.end();
+                this.battleaudio.play();
+            })
+        }
+
         const batUI = new battleUI(0, 0);
 
         const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
-        batteUIContainer.addChild(batUI);
+        if (!this.hasUselessTalk) {
+            batteUIContainer.addChild(batUI);
+            mainaudio.end();
+            this.battleaudio.play();
+        }
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
-
             batteUIContainer.addChild(batEndUI);
+            this.monster.changeType();//此处测试换类型
             map.deleteMonster(this.monster);
+
+            this.battleaudio.end();
+            this.succeedaudio.play();
+            mainaudio.play();
         })
 
         batManager.addEventListener('backSceneWin', (eventData: any) => {
+
             batteUIContainer.deleteAll();
 
+            this.battleaudio.end();
+            mainaudio.play();
 
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             this.monster.hp = this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
+
+            this.battleaudio.end();
+            this.failaudio.play();
+            mainaudio.play();
+
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {
             batteUIContainer.deleteAll();
             this.monster.hp = this.monsterOriginHp;
+
+            this.battleaudio.end();
+            mainaudio.play();
         })
 
 
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
-        // this.monster.hp -= player.attack;
-        // player._hp -= this.monster.attack;
-        // if (this.monster.hp <= 0) {
-        //     player.fight(this.monster);
-        //     map.deleteMonster(this.monster);
-        // }
+
+
         callback();
     }
 }

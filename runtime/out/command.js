@@ -91,6 +91,7 @@ var TalkCommand = /** @class */ (function (_super) {
         return _this;
     }
     TalkCommand.prototype.execute = function (callback) {
+        var _this = this;
         console.log("\u5F00\u59CB\u548CNPC\uFF1A" + this.npc.toString() + "\u5BF9\u8BDD");
         player.talk(this.npc);
         var mission = null;
@@ -118,11 +119,21 @@ var TalkCommand = /** @class */ (function (_super) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
                         missionManager.submit(mission);
                     }
+                    _this.npc.changeType(); //测试换类型！！！
                     callback();
                 }
             });
         }
         else {
+            if (this.npc.uselessTalks.length != 0) {
+                var uselessTalkWindow = new UselessTalkWindow(100, 150);
+                talkUIContainer.addChild(uselessTalkWindow);
+                uselessTalkWindow.setNpc(this.npc);
+                uselessTalkWindow.update();
+                uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
+                    talkUIContainer.deleteAll();
+                });
+            }
             callback();
         }
     };
@@ -136,40 +147,69 @@ var FightCommand = /** @class */ (function (_super) {
     function FightCommand(monster) {
         var _this = _super.call(this) || this;
         _this.monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
+        _this.hasUselessTalk = false;
         _this.monster = monster;
         _this.monsterOriginHp = _this.monster.hp;
+        _this.battleaudio = new AudioPlay(BattleAudio);
+        _this.succeedaudio = new AudioPlay(SucceedAudio);
+        _this.failaudio = new AudioPlay(FailAudio);
+        _this.battleaudio.playOnlyOnce = false;
+        _this.succeedaudio.playOnlyOnce = true;
+        _this.failaudio.playOnlyOnce = true;
+        if (monster.uselessTalks.length != 0) {
+            _this.hasUselessTalk = true;
+        }
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
+        if (this.hasUselessTalk) {
+            var uselessTalkWindow = new UselessTalkWindow(100, 150);
+            talkUIContainer.addChild(uselessTalkWindow);
+            uselessTalkWindow.setMonster(this.monster);
+            uselessTalkWindow.update();
+            uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
+                talkUIContainer.deleteAll();
+                batteUIContainer.addChild(batUI);
+                mainaudio.end();
+                _this.battleaudio.play();
+            });
+        }
         var batUI = new battleUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
-        batteUIContainer.addChild(batUI);
+        if (!this.hasUselessTalk) {
+            batteUIContainer.addChild(batUI);
+            mainaudio.end();
+            this.battleaudio.play();
+        }
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
+            _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);
+            _this.battleaudio.end();
+            _this.succeedaudio.play();
+            mainaudio.play();
         });
         batManager.addEventListener('backSceneWin', function (eventData) {
             batteUIContainer.deleteAll();
+            _this.battleaudio.end();
+            mainaudio.play();
         });
         batManager.addEventListener('playerDie', function (eventData) {
             _this.monster.hp = _this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
+            _this.battleaudio.end();
+            _this.failaudio.play();
+            mainaudio.play();
         });
         batManager.addEventListener('backSceneLose', function (eventData) {
             batteUIContainer.deleteAll();
             _this.monster.hp = _this.monsterOriginHp;
+            _this.battleaudio.end();
+            mainaudio.play();
         });
-        // stage.addChild(this.batteUIContainer);
-        // this.batteUIContainer.addChild(this.battleUI);
-        // this.monster.hp -= player.attack;
-        // player._hp -= this.monster.attack;
-        // if (this.monster.hp <= 0) {
-        //     player.fight(this.monster);
-        //     map.deleteMonster(this.monster);
-        // }
         callback();
     };
     return FightCommand;

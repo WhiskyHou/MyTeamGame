@@ -17,6 +17,8 @@ var battleManager = /** @class */ (function (_super) {
         player.addEventListener("changeEquips", function () {
             _this.originHp = player._hp;
         });
+        _this.attack1audio = new AudioPlay(Attack1Audio);
+        _this.attack2audio = new AudioPlay(Attack2Audio);
         return _this;
     }
     battleManager.prototype.damageFlow = function (damage) {
@@ -151,12 +153,16 @@ var battleManager = /** @class */ (function (_super) {
     battleManager.prototype.playerDealDamage = function () {
         var ran = Math.random() * 100;
         if (ran <= player._criticalPer) {
+            this.attack2audio.play(); /////////////
             this.dispatchEvent('criticalHit', null);
-            return this.playerNormalDamage() * 2;
+            return this.damageFlow(player._attack * (1 + player.suitAttackPer)) * 2;
         }
-        return this.playerNormalDamage();
+        else {
+            return this.playerNormalDamage();
+        }
     };
     battleManager.prototype.playerNormalDamage = function () {
+        this.attack1audio.play(); /////////////
         return this.damageFlow(player._attack * (1 + player.suitAttackPer));
     };
     battleManager.prototype.expGetter = function (enemy) {

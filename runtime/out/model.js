@@ -244,6 +244,7 @@ var User = /** @class */ (function (_super) {
             this._mp = this._originMp;
             this.maxMp = this._originMp;
             this.maxHP = this._originHealth;
+            this._hp = this.maxHP;
             this.changeEquipments();
             console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
         }
@@ -405,8 +406,10 @@ var Npc = /** @class */ (function () {
         this.y = 0;
         this.id = 0;
         this.name = '';
+        this.changeTypeID = 0; //要转变成的怪物的ID
         this.canAcceptMissions = [];
         this.canSubmitMissions = [];
+        this.uselessTalks = [];
         this.id = id;
         this.name = name;
         missionManager.addEventListener('missionUpdate', function (eventData) {
@@ -429,6 +432,29 @@ var Npc = /** @class */ (function () {
     Npc.prototype.toString = function () {
         return "[NPC ~ id:" + this.id + ", name:" + this.name + "]";
     };
+    Npc.prototype.changeType = function () {
+        // map.deleteMonster(this)
+        var tempX = this.x;
+        var tempY = this.y;
+        map.deleteNpc(this);
+        for (var i = 0; i < monsManager.monsterList.length; i++) {
+            if (monsManager.monsterList[i].id == this.changeTypeID) {
+                var mons = monsManager.monsterList[i];
+                mons.x = tempX;
+                mons.y = tempY;
+                var monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+                var monsterItem = monsManager.monsterList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                monsterItem.x = tempX;
+                monsterItem.y = tempY;
+                var key = tempX + '_' + tempY;
+                map.monsterConfig[key] = monsterItem;
+                map.roleContainer.addChild(monsterView);
+            }
+        }
+    };
     return Npc;
 }());
 /**
@@ -440,6 +466,7 @@ var Monster = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
+        _this.head = new Bitmap(0, 0, backButtonImg);
         _this.id = 0;
         _this.name = '';
         _this.dropTime = 2; //掉落次数
@@ -447,6 +474,8 @@ var Monster = /** @class */ (function (_super) {
         _this.coin = 0;
         _this.level = 0;
         _this.dropType = 0; //0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
+        _this.changeTypeID = 0; //要转变成的NPC的ID
+        _this.uselessTalks = [];
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
@@ -569,6 +598,46 @@ var Monster = /** @class */ (function (_super) {
                 return equipBox;
         }
     };
+    Monster.prototype.changeType = function () {
+        // map.deleteMonster(this)
+        var tempX = this.x;
+        var tempY = this.y;
+        map.deleteMonster(this);
+        for (var i = 0; i < npcManager.npcList.length; i++) {
+            if (npcManager.npcList[i].id == this.changeTypeID) {
+                var npc = npcManager.npcList[i];
+                npc.x = tempX;
+                npc.y = tempY;
+                var npcView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, npcManager.npcList[i].view.img);
+                var npcItem = npcManager.npcList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                npcItem.x = tempX;
+                npcItem.y = tempY;
+                var key = tempX + '_' + tempY;
+                map.npcConfig[key] = npcItem;
+                map.roleContainer.addChild(npcView);
+            }
+        }
+        for (var i = 0; i < monsManager.monsterList.length; i++) {
+            if (monsManager.monsterList[i].id == this.changeTypeID) {
+                var mons = monsManager.monsterList[i];
+                mons.x = tempX;
+                mons.y = tempY;
+                var monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+                var monsterItem = monsManager.monsterList[i];
+                // monsterItem.name = '队长';
+                // monsterItem.view = monsterView;
+                // monsterItem.hp = 120;
+                monsterItem.x = tempX;
+                monsterItem.y = tempY;
+                var key = tempX + '_' + tempY;
+                map.monsterConfig[key] = monsterItem;
+                map.roleContainer.addChild(monsterView);
+            }
+        }
+    };
     return Monster;
 }(EventDispatcher));
 /**
@@ -677,3 +746,83 @@ var Skill = /** @class */ (function () {
     };
     return Skill;
 }());
+/**
+ * 废话窗口
+ */
+var UselessTalkWindow = /** @class */ (function (_super) {
+    __extends(UselessTalkWindow, _super);
+    function UselessTalkWindow(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.count = 0;
+        _this.isNpc = true;
+        _this.view = new Bitmap(0, 0, talk_window);
+        _this.text = new TextField("", 190, 100, 24);
+        _this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
+        _this.addChild(_this.blackMask);
+        _this.addChild(_this.view);
+        _this.addChild(_this.text);
+        _this.addEventListener("onClick", function (eventData) {
+            switch (_this.count % 2) {
+                case 0:
+                    _this.text.y = 220;
+                    break;
+                case 1:
+                    _this.text.y = 100;
+                    break;
+            }
+            _this.count++;
+            _this.update();
+        });
+        return _this;
+    }
+    UselessTalkWindow.prototype.update = function () {
+        var contents = [];
+        if (this.isNpc) {
+            contents = this.npc.uselessTalks;
+        }
+        else {
+            contents = this.monster.uselessTalks;
+        }
+        if (this.count >= contents.length) {
+            this.dispatchEvent("uselessTalkWiondowClose", null);
+        }
+        else {
+            this.text.text = contents[this.count];
+        }
+    };
+    UselessTalkWindow.prototype.initNpcInfo = function () {
+        if (this.isNpc) {
+            this.head = this.npc.head;
+        }
+        else {
+            this.head = this.monster.head;
+        }
+        this.head.x = 400;
+        this.head.y = 60;
+        if (this.isNpc) {
+            this.name = new TextField(this.npc.name, 445, 35, 20);
+        }
+        else {
+            this.name = new TextField(this.monster.name, 445, 35, 20);
+        }
+        this.playerView = player.head;
+        this.playerView.x = 50;
+        this.playerView.y = 170;
+        this.playerNameText = new TextField(player.name, 90, 140, 24);
+        this.addChild(this.head);
+        this.addChild(this.name);
+        this.addChild(this.playerView);
+        this.addChild(this.playerNameText);
+    };
+    UselessTalkWindow.prototype.setNpc = function (npc) {
+        this.npc = npc;
+        this.isNpc = true;
+        this.initNpcInfo();
+    };
+    UselessTalkWindow.prototype.setMonster = function (monster) {
+        this.monster = monster;
+        this.isNpc = false;
+        this.initNpcInfo();
+    };
+    return UselessTalkWindow;
+}(DisplayObjectContainer));
