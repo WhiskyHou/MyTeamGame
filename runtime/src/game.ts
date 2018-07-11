@@ -5,6 +5,9 @@
  */
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
+
+Resource.load('./assets/美术素材/框.png', 'bgPaper')
+
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -243,8 +246,9 @@ const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 500;
 
-const staticStage = stages[1];
-const dynamicStage = stages[0];
+const staticStage = stages[2];
+const dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement))
 
 
 var player: User = new User();
@@ -726,7 +730,7 @@ class PlayingState extends State {
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
-                
+
                 clickaudio.play();
 
                 const globalX = eventData.globalX;
@@ -802,7 +806,7 @@ class PlayingState extends State {
 
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
-    
+
     //clickaudio.play();
 
     const globalX = event.offsetX;

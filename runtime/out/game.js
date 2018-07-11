@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -221,8 +222,9 @@ var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 500;
-var staticStage = stages[1];
-var dynamicStage = stages[0];
+var staticStage = stages[2];
+var dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
 var player = new User();
 var map;
 var missionManager = new MissionManager();
