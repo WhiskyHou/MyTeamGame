@@ -27,6 +27,7 @@ class UserInfoUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
+
         this.userName = new TextField(player.name, 130, 5, 20);
         this.userLevel = new TextField('' + player.level, 52, 85, 20);
         this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
@@ -58,6 +59,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
         this.addChild(this.bloodbar);
+
+
+      
 
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
@@ -117,6 +121,8 @@ class MissionInfoUI extends DisplayObjectContainer {
     }
 
     update() {
+
+        
         this.deleteAll();
         let index = 0;
         for (let mission of missionManager.missions) {
