@@ -383,6 +383,21 @@ var shopUI = /** @class */ (function (_super) {
         _this.shopR.addEventListener("onClick", function (eventData) {
             shpManager.shopRight();
         });
+        _this.shopBuy.addEventListener("onClick", function (eventData) {
+            shpManager.shopBuy();
+        });
+        _this.ShopText1.addEventListener("onClick", function (eventData) {
+            shpManager.changeNowProduct(0);
+        });
+        _this.ShopText2.addEventListener("onClick", function (eventData) {
+            shpManager.changeNowProduct(1);
+        });
+        _this.ShopText3.addEventListener("onClick", function (eventData) {
+            shpManager.changeNowProduct(2);
+        });
+        _this.ShopText4.addEventListener("onClick", function (eventData) {
+            shpManager.changeNowProduct(3);
+        });
         return _this;
     }
     shopUI.prototype.changeEquipmentInfo = function (equip) {
