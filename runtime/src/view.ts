@@ -549,6 +549,7 @@ class battleUI extends DisplayObjectContainer {
     itemUseButton: Bitmap;
     itemBackButton: Bitmap;
 
+
     index = 0;
 
 
@@ -573,7 +574,6 @@ class battleUI extends DisplayObjectContainer {
 
         this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
         this.itemButton = new Bitmap(475, 420, battleItemImg);
-
 
         for (let i = 0; i < this.player.skill.length; i++) {
             switch (player.skill[i].id) {

@@ -178,10 +178,7 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
-var MainAudio = new Audio();
-MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
-var ClickAudio = new Audio();
-ClickAudio.src = "assets/音效/常规/单击.mp3";
+//局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var CreateAudio = new Audio();
@@ -192,19 +189,19 @@ var SucceedAudio = new Audio();
 SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
 var FailAudio = new Audio();
 FailAudio.src = "assets/音效/常规/战斗失败.mp3";
+var Attack1Audio = new Audio();
+Attack1Audio.src = "assets/音效/dnf/暴击1.mp3";
+var Attack2Audio = new Audio();
+Attack2Audio.src = "assets/音效/dnf/暴击2.mp3";
+//全局音乐控制
+var MainAudio = new Audio();
+MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
+var ClickAudio = new Audio();
+ClickAudio.src = "assets/音效/常规/单击.mp3";
 var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
-var battleaudio = new AudioPlay(BattleAudio);
-var succeedaudio = new AudioPlay(SucceedAudio);
-var failaudio = new AudioPlay(FailAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
-battleaudio.playOnlyOnce = false;
-succeedaudio.playOnlyOnce = true;
-failaudio.playOnlyOnce = true;
-//mainaudio.playOnlyOnce = true
-//mainaudioo.play()
-//mainaudio.end();
 /**
  * 常量
  *
@@ -359,7 +356,6 @@ var MenuState = /** @class */ (function (_super) {
     __extends(MenuState, _super);
     function MenuState() {
         var _this = _super.call(this) || this;
-        _this.startaudio = new AudioPlay(StartAudio);
         _this.onClick = function (eventData) {
             // 这里不调用onExit的话，状态机里面调用onExit还没反应，就提示游戏状态的角色名字未定义
             // 如果这里就调用onExit的话，那么状态机里的onExit也会调用成功
@@ -375,6 +371,7 @@ var MenuState = /** @class */ (function (_super) {
         _this.title = new TextField('', 100, 300, 20);
         _this.loadButton = new Bitmap(350, 440, titleLoadImg);
         _this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        _this.startaudio = new AudioPlay(StartAudio);
         return _this;
     }
     Object.defineProperty(MenuState, "instance", {
@@ -411,7 +408,6 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
-        _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
@@ -435,6 +431,7 @@ var CreateState = /** @class */ (function (_super) {
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
+        _this.createaudio = new AudioPlay(CreateAudio);
         _this.createPlayerButtonScript = _this.startButton.addComponent(new CreatePlayerButtonScript());
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {

@@ -25,6 +25,7 @@ class shopManager extends EventDispatcher {
         if(this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]){
             this.nowEquipment = this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]
         }
+        this.shopUpdate()
     }
     changeNowGroup(num : number){
         this.nowGroup = num;
