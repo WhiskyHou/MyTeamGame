@@ -136,6 +136,9 @@ var CommandPool = /** @class */ (function () {
     };
     return CommandPool;
 }());
+/**
+ * 组件
+ */
 var Behaviour = /** @class */ (function () {
     function Behaviour() {
     }

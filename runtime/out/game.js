@@ -399,11 +399,13 @@ var CreateState = /** @class */ (function (_super) {
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
+        _this.createPlayerButton = _this.startButton.addComponent(new CreatePlayerButton());
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 _this.canAssignPoint--;
+                _this.createPlayerButton.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
             _this.playerHpText.text = "" + player._originHealth;
@@ -412,6 +414,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 _this.canAssignPoint++;
+                _this.createPlayerButton.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
             _this.playerHpText.text = "" + player._originHealth;
@@ -420,6 +423,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 _this.canAssignPoint--;
+                _this.createPlayerButton.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
             _this.playerAttackText.text = "" + player._originAttack;
@@ -428,6 +432,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
+                _this.createPlayerButton.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
             }
             _this.playerAttackText.text = "" + player._originAttack;
@@ -459,15 +464,6 @@ var CreateState = /** @class */ (function (_super) {
         // stage.addEventListener("onClick", this.onClick);
     };
     CreateState.prototype.onUpdate = function () {
-        if (this.canAssignPoint == 0) {
-            this.heartBeatEffect(this.startButton);
-        }
-        else {
-            this.startButton.scaleX = 1;
-            this.startButton.scaleY = 1;
-            this.startButton.x = 350;
-            this.startButton.y = 430;
-        }
     };
     CreateState.prototype.onExit = function () {
         console.log('Create State onExit');
@@ -487,26 +483,6 @@ var CreateState = /** @class */ (function (_super) {
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
         player.coin = 1000000; //测试用
-    };
-    CreateState.prototype.heartBeatEffect = function (bmp) {
-        if (this.bigTag) {
-            bmp.scaleX += 0.08;
-            bmp.scaleY += 0.08;
-            bmp.x -= 5;
-            bmp.y -= 3;
-        }
-        else {
-            bmp.scaleX -= 0.08;
-            bmp.scaleY -= 0.08;
-            bmp.x += 5;
-            bmp.y += 3;
-        }
-        if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
-            this.bigTag = false;
-        }
-        if (bmp.scaleX < 1 || bmp.scaleY < 1) {
-            this.bigTag = true;
-        }
     };
     return CreateState;
 }(State));

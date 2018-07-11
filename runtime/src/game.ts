@@ -391,14 +391,11 @@ class MenuState extends State {
         audio.play()
     }
     onUpdate(): void {
-
     }
     onExit(): void {
         console.log('Menu State onExit');
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
-
-
     }
 
 
@@ -444,6 +441,8 @@ class CreateState extends State {
     canAssignPoint = 5;
     bigTag = true;
 
+    createPlayerButton: CreatePlayerButton;
+
     constructor() {
         super();
         this.backGround = new Bitmap(0, 0, createBGImg);
@@ -461,12 +460,15 @@ class CreateState extends State {
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
 
+        this.createPlayerButton = this.startButton.addComponent(new CreatePlayerButton()) as CreatePlayerButton;
+
         this.startButton.addEventListener("onClick", this.onStartClick);
 
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 this.canAssignPoint--;
+                this.createPlayerButton.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
             this.playerHpText.text = "" + player._originHealth;
@@ -475,6 +477,7 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
+                this.createPlayerButton.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
             this.playerHpText.text = "" + player._originHealth;
@@ -483,6 +486,7 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 this.canAssignPoint--;
+                this.createPlayerButton.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
             this.playerAttackText.text = "" + player._originAttack;
@@ -491,6 +495,7 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
+                this.createPlayerButton.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
             }
             this.playerAttackText.text = "" + player._originAttack;
@@ -517,14 +522,6 @@ class CreateState extends State {
 
     }
     onUpdate(): void {
-        if (this.canAssignPoint == 0) {
-            this.heartBeatEffect(this.startButton);
-        } else {
-            this.startButton.scaleX = 1;
-            this.startButton.scaleY = 1;
-            this.startButton.x = 350;
-            this.startButton.y = 430;
-        }
 
     }
     onExit(): void {
@@ -556,27 +553,6 @@ class CreateState extends State {
         } else {
             this.tipsText.text = " ← 加完点才能学习！"
         }
-    }
-
-    heartBeatEffect(bmp: Bitmap) {
-        if (this.bigTag) {
-            bmp.scaleX += 0.08;
-            bmp.scaleY += 0.08;
-            bmp.x -= 5;
-            bmp.y -= 3;
-        } else {
-            bmp.scaleX -= 0.08;
-            bmp.scaleY -= 0.08;
-            bmp.x += 5;
-            bmp.y += 3;
-        }
-        if (bmp.scaleX > 1.5 || bmp.scaleY > 1.5) {
-            this.bigTag = false;
-        }
-        if (bmp.scaleX < 1 || bmp.scaleY < 1) {
-            this.bigTag = true;
-        }
-
     }
 }
 
