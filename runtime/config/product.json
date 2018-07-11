@@ -1,0 +1,21 @@
+{
+	"product": [
+		{
+			"productID": "0",
+			"equipmentID": "0",
+			"price": "5",
+			"description": "assets/gaojianli.png"
+		},
+		{
+			"productID": "1",
+			"equipmentID": "8",
+			"price": "5",
+			"description": "assets/gaojianli.png"
+		},	{
+			"productID": "2",
+			"equipmentID": "9",
+			"price": "5",
+			"description": "assets/gaojianli.png"
+		}
+	]
+}
