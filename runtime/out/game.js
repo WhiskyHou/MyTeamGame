@@ -70,7 +70,7 @@ yingzheng_head.src = './assets/yingzheng_head.png';
 var captain = new Image();
 captain.src = './assets/monster.png';
 var talk_window = new Image();
-talk_window.src = './assets/talkWindow.png';
+talk_window.src = './assets/美术素材/UI/3 对话框/UI 对话框界面 PNG/ui对话框.png  ';
 var battlePanelBgImg = new Image();
 battlePanelBgImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版1.png';
 var battlePanelBlackMask = new Image();
@@ -162,6 +162,8 @@ var Shop = new Image();
 Shop.src = './assets/美术素材/场景/边缘/商店.png';
 var bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
+var playerHeadImg = new Image();
+playerHeadImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
 var missionCloseImg = new Image();
@@ -232,6 +234,8 @@ npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
+            shpManager.init(function () {
+            });
             missionManager.init();
         });
     });

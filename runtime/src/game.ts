@@ -64,7 +64,7 @@ yingzheng_head.src = './assets/yingzheng_head.png';
 var captain = new Image();
 captain.src = './assets/monster.png';
 var talk_window = new Image();
-talk_window.src = './assets/talkWindow.png';
+talk_window.src = './assets/美术素材/UI/3 对话框/UI 对话框界面 PNG/ui对话框.png  ';
 
 let battlePanelBgImg = new Image();
 battlePanelBgImg.src = './assets/美术素材/UI/战斗界面/UI 战斗界面 PNG/战斗界面模版1.png';
@@ -167,7 +167,8 @@ Shop.src = './assets/美术素材/场景/边缘/商店.png';
 
 let bloodBar = new Image();
 bloodBar.src = './assets/血条.png';
-
+let playerHeadImg = new Image();
+playerHeadImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
 
 let missionImg = new Image();
 missionImg.src = './assets/UI 任务界面底.png';
@@ -255,6 +256,9 @@ npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
+            shpManager.init(() => {
+    
+            });
             missionManager.init();
         });
     })
@@ -742,6 +746,10 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
+<<<<<<< HEAD
+                    // console.log('npc Info');
+=======
+>>>>>>> e492f206c7d68e460ec80f69f2e90ef84c700d85
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {

@@ -11,6 +11,7 @@ class User extends EventDispatcher {
     x: number;
     y: number;
     view: Bitmap;
+    head: Bitmap;
     moveStatus: boolean = true;
 
     public name: string;
@@ -69,6 +70,7 @@ class User extends EventDispatcher {
         this.skill.push(skillEmpty);
 
         this.addEventListener('updateUserInfo', () => this.calProperty());
+        this.head = new Bitmap(0, 0, playerHeadImg);
     }
 
     _level: number;

@@ -68,6 +68,7 @@ var User = /** @class */ (function (_super) {
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
         _this.addEventListener('updateUserInfo', function () { return _this.calProperty(); });
+        _this.head = new Bitmap(0, 0, playerHeadImg);
         return _this;
     }
     Object.defineProperty(User.prototype, "level", {

@@ -4,7 +4,7 @@
 			"id": "1",
 			"name": "捡起屠龙宝刀",
 			"needLevel": "1",
-			"fromNpcId": "1",
+			"fromNpcId": "7",
 			"toNpcId": "2",
 			"canAcceptConfig": [
 				"欢迎来到王者大陆",
