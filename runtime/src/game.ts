@@ -188,14 +188,20 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 
 const MainAudio = new Audio()
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
-const StartAudio = new Audio()
-StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const ClickAudio = new Audio()
 ClickAudio.src = "assets/音效/常规/单击.mp3"
+
+const StartAudio = new Audio()
+StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const CreateAudio = new Audio()
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
 
 const mainaudio = new AudioPlay(MainAudio);
+const clickaudio = new AudioPlay(ClickAudio);
+mainaudio.playOnlyOnce = false;
+clickaudio.playOnlyOnce = true;
+
+
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
 //mainaudio.end();
@@ -468,7 +474,6 @@ class CreateState extends State {
     canAssignPointText: TextField;
     tipsText: TextField;
 
-    clickaudio = new AudioPlay(ClickAudio);
     createaudio = new AudioPlay(CreateAudio);
 
     canAssignPoint = 5;
@@ -503,8 +508,7 @@ class CreateState extends State {
                 this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
         });
@@ -515,8 +519,7 @@ class CreateState extends State {
                 this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerHpText.text = "" + player._originHealth;
         });
@@ -527,8 +530,7 @@ class CreateState extends State {
                 this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
@@ -539,8 +541,7 @@ class CreateState extends State {
                 this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
-                this.clickaudio.playOnlyOnce = true;
-                this.clickaudio.play();
+                clickaudio.play();
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
@@ -705,21 +706,29 @@ class PlayingState extends State {
         });
         shpManager.addEventListener('openShop', (eventData: any) => {
             batteUIContainer.deleteChild(this.battleUI);
-            shopUIContainer.deleteChild(this.baggUI);
+            bagUIContainer.deleteChild(this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
-            bagUIContainer.addChild(this.shpUI);
+            shopUIContainer.addChild(this.shpUI);
         });
         shpManager.addEventListener('shopDown', (eventData: any) => {
-            bagUIContainer.deleteChild(this.shpUI);
+            shopUIContainer.deleteChild(this.shpUI);
         });
         baManager.addEventListener('updateBag', (eventData: any) => {
             bagUIContainer.deleteChild(this.baggUI);
             this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(this.baggUI);
         });
+        baManager.addEventListener('updateShop', (eventData: any) => {
+            shopUIContainer.deleteChild(this.shpUI);
+            this.shpUI = new shopUI(0, 0);
+            shopUIContainer.addChild(this.shpUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
+                
+                clickaudio.play();
+
                 const globalX = eventData.globalX;
                 const globalY = eventData.globalY;
                 const localPos = map.getLocalPos(new math.Point(globalX, globalY));
@@ -793,6 +802,9 @@ class PlayingState extends State {
 
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
+    
+    //clickaudio.play();
+
     const globalX = event.offsetX;
     const globalY = event.offsetY;
 

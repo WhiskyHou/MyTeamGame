@@ -10,20 +10,27 @@ class shopManager extends EventDispatcher {
     openShop(){
         console.log('你打开商店');
         this.dispatchEvent('openShop', player);
+        this.shopUpdate()
     }
     shopDown(){
         this.dispatchEvent('shopDown', player);
         console.log('你关闭了窗口');
+        this.shopUpdate()
     }
     shopBuy(){
         this.dispatchEvent('shopDown', player);
         console.log('你关闭了窗口');
+        this.shopUpdate()
     }
     changeNowProduct(num : number){
         this.nowNumber = num;
         if(this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]){
             this.nowEquipment = this.storeEquipment[this.nowGroup][5*this.nowPage+this.nowNumber]
         }
+    }
+    changeNowGroup(num : number){
+        this.nowGroup = num;
+        this.shopUpdate()
     }
     shopRight(){
         console.log('你点击了右键');
@@ -79,6 +86,7 @@ class shopManager extends EventDispatcher {
         }
         // this.nowPage = 0;
         // this.nowNumber = 0;
+        this.shopUpdate()
     }
     posTOgroup(pos : number): number {//posID转分栏信息
         if(pos == 0){//武器
