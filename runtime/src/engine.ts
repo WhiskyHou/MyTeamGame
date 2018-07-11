@@ -582,6 +582,13 @@ class Animator extends DisplayObject {
         this.visible = true
     }
 
+    end() {
+        this.isPlaying = false
+        this.visible = true
+        this.index = 0
+        this.duringTiem = this.delta
+    }
+
     reset() {
         this.isPlaying = this.isLooping
         this.visible = this.isLooping;
