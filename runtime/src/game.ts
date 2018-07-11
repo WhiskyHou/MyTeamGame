@@ -257,7 +257,7 @@ npcManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
             shpManager.init(() => {
-    
+
             });
             missionManager.init();
         });
@@ -476,9 +476,8 @@ class CreateState extends State {
     createaudio = new AudioPlay(CreateAudio);
 
     canAssignPoint = 5;
-    bigTag = true;
 
-    createPlayerButton: CreatePlayerButton;
+    createPlayerButtonScript: CreatePlayerButtonScript;
 
     constructor() {
         super();
@@ -497,7 +496,7 @@ class CreateState extends State {
         this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
 
-        this.createPlayerButton = this.startButton.addComponent(new CreatePlayerButton()) as CreatePlayerButton;
+        this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
         this.startButton.addEventListener("onClick", this.onStartClick);
 
@@ -505,7 +504,7 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 this.canAssignPoint--;
-                this.createPlayerButton.canAssignPoint--;
+                this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 this.clickaudio.playOnlyOnce = true;
@@ -517,7 +516,7 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
-                this.createPlayerButton.canAssignPoint++;
+                this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 this.clickaudio.playOnlyOnce = true;
@@ -529,7 +528,7 @@ class CreateState extends State {
             if (this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 this.canAssignPoint--;
-                this.createPlayerButton.canAssignPoint--;
+                this.createPlayerButtonScript.canAssignPoint--;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 this.clickaudio.playOnlyOnce = true;
@@ -541,7 +540,7 @@ class CreateState extends State {
             if (this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
-                this.createPlayerButton.canAssignPoint++;
+                this.createPlayerButtonScript.canAssignPoint++;
                 this.canAssignPointText.text = "" + this.canAssignPoint;
 
                 this.clickaudio.playOnlyOnce = true;
@@ -747,7 +746,10 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
+<<<<<<< HEAD
                     // console.log('npc Info');
+=======
+>>>>>>> 8eaf7fd3e4adc92029821d2258d053c76312610a
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {
