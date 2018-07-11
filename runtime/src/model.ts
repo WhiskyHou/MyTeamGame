@@ -351,8 +351,8 @@ class Consumable extends Equipment{
         this.addCharm = addCharm;
     }
     use(callback: Function){
-        player._hp += this.addHP
-        player._mp += this.addMP
+        player._hp += (this.addHP/100)*player.maxHP
+        player._mp += (this.addMP/100)*player.maxHP
         player._charm += this.addCharm
         callback()
     }
