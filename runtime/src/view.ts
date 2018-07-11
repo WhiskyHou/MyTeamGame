@@ -428,13 +428,8 @@ class shopUI extends DisplayObjectContainer {
         this.ShopText3 = new TextField('33333', 365, 149, 30);
         this.ShopText4 = new TextField('44444', 365, 182, 30);
         this.ShopText5 = new TextField('55555', 365, 215, 30);
-<<<<<<< HEAD
-        this.ShopPage = new TextField('1',380,250,30);
-        this.productMultiInfoText =new MultiTextField([],365,400,20,5).setStringByNumber('12345678910',5);
-=======
         this.ShopPage = new TextField('1', 380, 250, 30);
-        //this.ShopMultiInfoText =new MultiTextField('',365,400,20,5);
->>>>>>> fdedc95b6d55fb205f101a1402c27732e0dee65f
+        this.productMultiInfoText = new MultiTextField([], 365, 400, 20, 5).setStringByNumber('12345678910', 5);
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
 
