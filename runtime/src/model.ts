@@ -327,7 +327,30 @@ class Equipment {
         return `[Equipment ~ name:${this.name}, attack:${this.attack}]`;
     }
 }
+/**
+ * 消耗品、其他、技能
+ */
+class Consumable extends Equipment{
+    x: number = 0;
+    y: number = 0;
+    view: Bitmap
 
+    public addHP: number;
+    public addMP: number;
+    public addCharm: number;
+
+    constructor(id: number, name: string,posID : number, addHP: number, addMP: number, addCharm: number) {
+        super(id,name,0,posID,0,0,0);
+        this.addHP = addHP;
+        this.addMP = addMP;
+        this.addCharm = addCharm;
+
+    }
+
+    toString() {
+        return `[Equipment ~ name:${this.name}, add:${this.addCharm+this.addHP+this.addMP}]`;
+    }
+}
 /**
  * 商品
  */

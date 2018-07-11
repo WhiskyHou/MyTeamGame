@@ -298,6 +298,25 @@ var Equipment = /** @class */ (function () {
     return Equipment;
 }());
 /**
+ * 消耗品、其他、技能
+ */
+var Consumable = /** @class */ (function (_super) {
+    __extends(Consumable, _super);
+    function Consumable(id, name, posID, addHP, addMP, addCharm) {
+        var _this = _super.call(this, id, name, 0, posID, 0, 0, 0) || this;
+        _this.x = 0;
+        _this.y = 0;
+        _this.addHP = addHP;
+        _this.addMP = addMP;
+        _this.addCharm = addCharm;
+        return _this;
+    }
+    Consumable.prototype.toString = function () {
+        return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP) + "]";
+    };
+    return Consumable;
+}(Equipment));
+/**
  * 商品
  */
 var Product = /** @class */ (function () {
