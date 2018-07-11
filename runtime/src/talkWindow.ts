@@ -3,7 +3,7 @@
  */
 class TalkWindow extends DisplayObjectContainer {
     view: Bitmap;
-
+    blackMask: Bitmap;
     head: Bitmap;
 
     name: TextField;
@@ -26,13 +26,9 @@ class TalkWindow extends DisplayObjectContainer {
 
         this.view = new Bitmap(0, 0, talk_window);
         this.text = new TextField("", 190, 100, 24);
+        this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
 
-        // this.playerView.img = player.view.img;
-        // this.playerView.x = 50;
-        // this.playerView.y = 50;
-        // this.playerNameText = new TextField(player.name, 200, 200, 24);
-
-
+        this.addChild(this.blackMask);
         this.addChild(this.view);
         this.addChild(this.text);
         // this.addChild(this.playerView);

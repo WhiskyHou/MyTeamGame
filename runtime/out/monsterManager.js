@@ -38,6 +38,9 @@ var monsterManager = /** @class */ (function () {
                 monster.head.img = viewImg;
                 monster.uselessTalks = item.uselessTalks;
             }
+            if (item.changeTypeID) {
+                monster.changeTypeID = item.changeTypeID;
+            }
             this.monsterList.push(monster);
         }
     };

@@ -123,6 +123,7 @@ class TalkCommand extends Command {
                         console.log(`完成任务: ${mission.toString()}`);
                         missionManager.submit(mission);
                     }
+                    this.npc.changeType();//测试换类型！！！
                     callback();
                 }
             })
@@ -203,6 +204,7 @@ class FightCommand extends Command {
         }
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
+            this.monster.changeType();//此处测试换类型
             map.deleteMonster(this.monster);
 
             this.battleaudio.end();
