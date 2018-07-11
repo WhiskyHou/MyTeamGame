@@ -196,11 +196,25 @@ StartAudio.src = "assets/音效/常规/创建角色.mp3"
 const CreateAudio = new Audio()
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
 
+const BattleAudio = new Audio()
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
+const SucceedAudio = new Audio()
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
+const FailAudio = new Audio()
+FailAudio.src = "assets/音效/常规/战斗失败.mp3"
+
 const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
+
+const battleaudio = new AudioPlay(BattleAudio)
+const succeedaudio = new AudioPlay(SucceedAudio)
+const failaudio = new AudioPlay(FailAudio)
+
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
-
+battleaudio.playOnlyOnce = false;
+succeedaudio.playOnlyOnce = true;
+failaudio.playOnlyOnce = true;
 
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
@@ -750,10 +764,6 @@ class PlayingState extends State {
                 const npcInfo = map.getNpcInfo(row, col);
 
                 if (npcInfo) {
-<<<<<<< HEAD
-                    // console.log('npc Info');
-=======
->>>>>>> 8eaf7fd3e4adc92029821d2258d053c76312610a
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
                     } else {

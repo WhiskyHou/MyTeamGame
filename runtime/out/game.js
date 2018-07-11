@@ -185,10 +185,22 @@ var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var CreateAudio = new Audio();
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+var BattleAudio = new Audio();
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3";
+var SucceedAudio = new Audio();
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
+var FailAudio = new Audio();
+FailAudio.src = "assets/音效/常规/战斗失败.mp3";
 var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
+var battleaudio = new AudioPlay(BattleAudio);
+var succeedaudio = new AudioPlay(SucceedAudio);
+var failaudio = new AudioPlay(FailAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
+battleaudio.playOnlyOnce = false;
+succeedaudio.playOnlyOnce = true;
+failaudio.playOnlyOnce = true;
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
 //mainaudio.end();

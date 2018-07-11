@@ -530,6 +530,8 @@ class battleUI extends DisplayObjectContainer {
 
     index = 0;
 
+   
+
     constructor(x: number, y: number) {
         super(x, y);
         this.index = 0;
@@ -550,6 +552,7 @@ class battleUI extends DisplayObjectContainer {
 
         this.escapeButton = new Bitmap(475, 370, battleEscapeImg);
         this.itemButton = new Bitmap(475, 420, battleItemImg);
+
 
         for (let i = 0; i < this.player.skill.length; i++) {
             switch (player.skill[i].id) {
@@ -796,6 +799,7 @@ class battleUI extends DisplayObjectContainer {
             }
         })
     }
+
 
     indexJudge() {
         if (this.index >= 17) {

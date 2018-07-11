@@ -143,6 +143,8 @@ var FightCommand = /** @class */ (function (_super) {
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
+        mainaudio.end();
+        battleaudio.play();
         var batUI = new battleUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
@@ -150,17 +152,23 @@ var FightCommand = /** @class */ (function (_super) {
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(_this.monster);
+            battleaudio.end();
+            succeedaudio.play();
         });
         batManager.addEventListener('backSceneWin', function (eventData) {
             batteUIContainer.deleteAll();
+            mainaudio.play();
         });
         batManager.addEventListener('playerDie', function (eventData) {
             _this.monster.hp = _this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
+            battleaudio.end();
+            failaudio.play();
         });
         batManager.addEventListener('backSceneLose', function (eventData) {
             batteUIContainer.deleteAll();
             _this.monster.hp = _this.monsterOriginHp;
+            mainaudio.play();
         });
         // stage.addChild(this.batteUIContainer);
         // this.batteUIContainer.addChild(this.battleUI);
