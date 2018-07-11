@@ -470,14 +470,16 @@ var Animator = /** @class */ (function (_super) {
         _this.delta = delta;
         _this.visible = false;
         _this.isPlaying = false;
+        _this.isLooping = false;
         return _this;
     }
     Animator.prototype.onStart = function () {
     };
-    Animator.prototype.onUpdate = function (delta) {
+    Animator.prototype.update = function (delta) {
         if (this.isPlaying) {
-            if (this.index == this.count) {
+            if (this.index == this.count - 1) {
                 this.reset();
+                return;
             }
             if (this.duringTiem >= this.delta) {
                 this.index++;
@@ -491,8 +493,8 @@ var Animator = /** @class */ (function (_super) {
         this.visible = true;
     };
     Animator.prototype.reset = function () {
-        this.isPlaying = false;
-        this.visible = false;
+        this.isPlaying = this.isLooping;
+        this.visible = this.isLooping;
         this.index = 0;
         this.duringTiem = this.delta;
     };

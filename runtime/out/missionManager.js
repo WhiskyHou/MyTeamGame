@@ -29,7 +29,6 @@ var MissionManager = /** @class */ (function (_super) {
         xhr.send();
         xhr.onload = function () {
             var obj = JSON.parse(xhr.response);
-            // console.log(xhr.response)
             _this.parseFromConfig(obj);
         };
         this.update();

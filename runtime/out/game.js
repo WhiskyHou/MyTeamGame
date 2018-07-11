@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+Resource.load('./assets/灰尘.png', "dust");
 Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
@@ -390,6 +391,11 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.title);
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
+        // anim测试
+        this.animTemp = new DisplayObjectContainer(100, 100);
+        staticStage.addChild(this.animTemp);
+        var anim = this.animTemp.addComponent(new PlayerAnimTest());
+        anim.play();
         this.startButton.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
@@ -728,5 +734,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
+fsm.replaceState(MenuState.instance);
 // fsm.replaceState(new LoadingState());
