@@ -42,7 +42,7 @@ var shopManager = /** @class */ (function (_super) {
     shopManager.prototype.changeNowGroup = function (num) {
         this.nowGroup = num;
         console.log('当前组', this.nowGroup);
-        this.nowNumber = -1;
+        this.nowNumber = 100;
         this.nowPage = 0;
         this.shopUpdate();
     };
@@ -51,6 +51,7 @@ var shopManager = /** @class */ (function (_super) {
         var MaxPage = (this.storeEquipment[this.nowGroup].length / 5) - 1;
         console.log(MaxPage);
         if (this.nowPage < MaxPage) {
+            this.nowNumber = 100;
             this.nowPage++;
         }
         this.shopUpdate();
@@ -58,6 +59,7 @@ var shopManager = /** @class */ (function (_super) {
     shopManager.prototype.shopLeft = function () {
         console.log('你点击了左键');
         if (this.nowPage > 0) {
+            this.nowNumber = -1;
             this.nowPage--;
         }
         this.shopUpdate();

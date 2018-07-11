@@ -30,7 +30,7 @@ class shopManager extends EventDispatcher {
     changeNowGroup(num : number){
         this.nowGroup = num;
         console.log('当前组',this.nowGroup);
-        this.nowNumber = -1
+        this.nowNumber = 100
         this.nowPage = 0
         this.shopUpdate()
     }
@@ -39,13 +39,15 @@ class shopManager extends EventDispatcher {
         let MaxPage=(this.storeEquipment[this.nowGroup].length/5)-1;
         console.log(MaxPage);
         if(this.nowPage< MaxPage){
-           this.nowPage++; 
+            this.nowNumber = 100
+            this.nowPage++; 
         }
         this.shopUpdate()
     }
     shopLeft(){
         console.log('你点击了左键');
         if(this.nowPage > 0){
+            this.nowNumber = -1
             this.nowPage--; 
          }
         this.shopUpdate()
