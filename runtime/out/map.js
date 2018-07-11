@@ -163,6 +163,9 @@ var GameMap = /** @class */ (function (_super) {
             for (var i = 0; i < mapPortal.length; i++) {
                 var row = mapPortal[i];
                 for (var j = 0; j < row.length; j++) {
+                    var item = row[j];
+                    if (item != 0) {
+                    }
                 }
             }
         };

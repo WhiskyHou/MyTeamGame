@@ -166,7 +166,10 @@ class GameMap extends DisplayObjectContainer {
             for (let i = 0; i < mapPortal.length; i++) {
                 const row = mapPortal[i]
                 for (let j = 0; j < row.length; j++) {
+                    const item = row[j];
+                    if (item != 0) {
 
+                    }
                 }
             }
 

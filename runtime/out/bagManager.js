@@ -31,7 +31,7 @@ var bagManager = /** @class */ (function (_super) {
         if (this.nowNumber > -1) {
             var pos = this.nowEquipment.posID;
             if (pos < 7) {
-                if (player.mounthedEquipment[pos].id != 0) {
+                if (player.mounthedEquipment[pos].id != 0) { //如果当前位置有装备，就先把他卸下来
                     this.nowMounthedEquipment = player.mounthedEquipment[pos];
                     this.bagOff();
                 }
@@ -120,16 +120,16 @@ var bagManager = /** @class */ (function (_super) {
         this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5 + this.nowNumber];
     };
     bagManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {
