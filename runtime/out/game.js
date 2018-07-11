@@ -177,13 +177,16 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 var MainAudio = new Audio();
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
-var StartAudio = new Audio();
-StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var ClickAudio = new Audio();
 ClickAudio.src = "assets/音效/常规/单击.mp3";
+var StartAudio = new Audio();
+StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var CreateAudio = new Audio();
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
 var mainaudio = new AudioPlay(MainAudio);
+var clickaudio = new AudioPlay(ClickAudio);
+mainaudio.playOnlyOnce = false;
+clickaudio.playOnlyOnce = true;
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
 //mainaudio.end();
@@ -390,7 +393,6 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
-        _this.clickaudio = new AudioPlay(ClickAudio);
         _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
         _this.bigTag = true;
@@ -424,8 +426,7 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint--;
                 _this.createPlayerButton.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -435,8 +436,7 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint++;
                 _this.createPlayerButton.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -446,8 +446,7 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint--;
                 _this.createPlayerButton.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -457,8 +456,7 @@ var CreateState = /** @class */ (function (_super) {
                 _this.canAssignPoint++;
                 _this.createPlayerButton.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -600,6 +598,7 @@ var PlayingState = /** @class */ (function (_super) {
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {
+                clickaudio.play();
                 var globalX = eventData.globalX;
                 var globalY = eventData.globalY;
                 var localPos = map.getLocalPos(new math.Point(globalX, globalY));
@@ -660,6 +659,7 @@ var PlayingState = /** @class */ (function (_super) {
 }(State));
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
+    //clickaudio.play();
     var globalX = event.offsetX;
     var globalY = event.offsetY;
     //以下调UI位置用

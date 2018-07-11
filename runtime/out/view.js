@@ -48,14 +48,17 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.bloodbar);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
+            clickaudio.play();
         });
         _this.SkillButton.addEventListener('onClick', function (eventData) {
             _this.skillUI = new skillBoxUI(0, 0);
             skillBoxContainer.addChild(_this.skillUI);
+            clickaudio.play();
         });
         _this.missionButton.addEventListener('onClick', function (eventData) {
             _this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(_this.missionUI);
+            clickaudio.play();
         });
         player.addEventListener('updateUserInfo', function (eventData) {
             // if (player.currentEXP >= player.needEXP) {
@@ -131,6 +134,7 @@ var MissionUI = /** @class */ (function (_super) {
         _this.addChild(_this.closeButton);
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
+            clickaudio.play();
         });
         return _this;
     }
@@ -213,12 +217,15 @@ var bagUI = /** @class */ (function (_super) {
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
             baManager.getNowEquipment(0);
+            clickaudio.play();
         });
         _this.bagOffButton.addEventListener("onClick", function (eventData) {
             baManager.bagOff();
+            clickaudio.play();
         });
         _this.bagDownButton.addEventListener("onClick", function (eventData) {
             baManager.bagDown();
+            clickaudio.play();
         });
         _this.bagRightButton.addEventListener("onClick", function (eventData) {
             baManager.bagRight();
@@ -228,59 +235,74 @@ var bagUI = /** @class */ (function (_super) {
         });
         _this.bagOtherButton.addEventListener("onClick", function (eventData) {
             baManager.bagOther();
+            clickaudio.play();
         });
         _this.bagWeaponButton.addEventListener("onClick", function (eventData) {
             baManager.bagWeapon();
+            clickaudio.play();
         });
         _this.bagArmorButton.addEventListener("onClick", function (eventData) {
             baManager.bagArmor();
+            clickaudio.play();
         });
         _this.bagConsumableButton.addEventListener("onClick", function (eventData) {
             baManager.bagConsumable();
+            clickaudio.play();
         });
         _this.equipment1Text.addEventListener("onClick", function (eventData) {
             baManager.changeNowEquipment(0);
             _this.changeEquipmentInfo(baManager.nowEquipment);
+            clickaudio.play();
         });
         _this.equipment2Text.addEventListener("onClick", function (eventData) {
             baManager.changeNowEquipment(1);
             _this.changeEquipmentInfo(baManager.nowEquipment);
+            clickaudio.play();
         });
         _this.equipment3Text.addEventListener("onClick", function (eventData) {
             baManager.changeNowEquipment(2);
             _this.changeEquipmentInfo(baManager.nowEquipment);
+            clickaudio.play();
         });
         _this.equipment4Text.addEventListener("onClick", function (eventData) {
             baManager.changeNowEquipment(3);
             _this.changeEquipmentInfo(baManager.nowEquipment);
+            clickaudio.play();
         });
         _this.equipment5Text.addEventListener("onClick", function (eventData) {
             baManager.changeNowEquipment(4);
             _this.changeEquipmentInfo(baManager.nowEquipment);
+            clickaudio.play();
         });
         _this.weaponText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(0);
             _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
+            clickaudio.play();
         });
         _this.clothText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(1);
             _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
+            clickaudio.play();
         });
         _this.watchText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(2);
             _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
+            clickaudio.play();
         });
         _this.trousersText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(3);
             _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
+            clickaudio.play();
         });
         _this.phoneText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(4);
             _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
+            clickaudio.play();
         });
         _this.shoesText.addEventListener("onClick", function (ecentData) {
             baManager.changeNowMounthedEquipment(5);
             _this.changeEquipmentInfo(baManager.nowMounthedEquipment);
+            clickaudio.play();
         });
         return _this;
     }
@@ -341,6 +363,7 @@ var shopUI = /** @class */ (function (_super) {
         _this.addChild(_this.ShopCoin);
         _this.shopDownButton.addEventListener("onClick", function (eventData) {
             shpManager.shopDown();
+            clickaudio.play();
         });
         return _this;
     }
@@ -446,9 +469,11 @@ var battleUI = /** @class */ (function (_super) {
         _this.addChild(_this.itemContainer);
         _this.attackButton.addEventListener("onClick", function (eventData) {
             batManager.fightOneTime(player, _this.enemy, 0); //普通攻击ID为0
+            clickaudio.play();
         });
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
+            clickaudio.play();
             if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
@@ -469,6 +494,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
+            clickaudio.play();
             if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
@@ -490,6 +516,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
+            clickaudio.play();
             if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
@@ -511,6 +538,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.escapeButton.addEventListener('onClick', function (eventData) {
+            clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
             if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
@@ -522,6 +550,7 @@ var battleUI = /** @class */ (function (_super) {
             }
         });
         _this.itemButton.addEventListener('onClick', function (eventData) {
+            clickaudio.play();
             _this.itemBg = new Bitmap(270, 70, Resource.get('battleItemBgImg'));
             _this.itemContainer.addChild(_this.itemBg);
             _this.itemUseButton = new Bitmap(470, 165, Resource.get('battleItemUseImg'));
@@ -529,8 +558,10 @@ var battleUI = /** @class */ (function (_super) {
             _this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg'));
             _this.itemContainer.addChild(_this.itemBackButton);
             _this.itemUseButton.addEventListener('onClick', function () {
+                clickaudio.play();
             });
             _this.itemBackButton.addEventListener('onClick', function () {
+                clickaudio.play();
                 _this.itemContainer.deleteAll();
             });
             console.log('弹出消耗品界面！');
@@ -637,6 +668,7 @@ var battleEndWinUI = /** @class */ (function (_super) {
         // this.backButton.deleteAllEventListener();
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
+            clickaudio.play();
         });
         return _this;
         // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
@@ -669,6 +701,7 @@ var battleEndLoseUI = /** @class */ (function (_super) {
         _this.addChild(_this.backButton);
         _this.backButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneLose", null);
+            clickaudio.play();
         });
         return _this;
     }
@@ -703,9 +736,11 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.addChild(_this.skillOffButton);
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
+            clickaudio.play();
         });
         _this.skillOnButton.addEventListener('onClick', function () {
             if (_this.nowChoice == 1) {
+                clickaudio.play();
                 for (var i = 0; i < skillArray.length; i++) {
                     if (_this.choosingSkillArrayNo == skillArray[i].id) {
                         for (var b = 0; b < player.skill.length; b++) {
@@ -723,6 +758,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         });
         _this.skillOffButton.addEventListener('onClick', function () {
             if (_this.nowChoice == 2) {
+                clickaudio.play();
                 for (var i = 0; i < player.skill.length; i++) {
                     if (_this.choosingMountedSkillArrayNo == player.skill[i].id) {
                         if (player.skill[i].id != 1) {
@@ -748,6 +784,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         var _loop_1 = function (i) {
             this_1.skillText = new TextField(skillArray[i].name, 0, (i - 1) * 33, 25);
             this_1.skillText.addEventListener('onClick', function () {
+                clickaudio.play();
                 _this.nowChoice = 1;
                 _this.descriptionText.img = skillArray[i].description.img;
                 _this.choosingSkillArrayNo = skillArray[i].id;
@@ -766,6 +803,7 @@ var skillBoxUI = /** @class */ (function (_super) {
         var _loop_2 = function (i) {
             this_2.mountedSkillText = new TextField(player.skill[i].name, 0, i * 33, 25);
             this_2.mountedSkillText.addEventListener('onClick', function () {
+                clickaudio.play();
                 _this.nowChoice = 2;
                 _this.descriptionText.img = player.skill[i].description.img;
                 _this.choosingMountedSkillArrayNo = player.skill[i].id;
