@@ -15,7 +15,7 @@ var shopManager = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.nowGroup = 0;
         _this.nowPage = 0;
-        _this.nowNumber = 0;
+        _this.nowNumber = -1;
         _this.storeEquipment = [[], [], [], []]; //储存装备的
         return _this;
     }
@@ -108,16 +108,16 @@ var shopManager = /** @class */ (function (_super) {
         this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {
