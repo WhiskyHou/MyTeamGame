@@ -237,6 +237,7 @@ var dynamicStage = stages[1];
 stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
 var player = new User();
 var map;
+var mapManager = new MapManager();
 var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 var monsManager = new monsterManager();
@@ -252,6 +253,7 @@ npcManager.init(function () {
             shpManager.init(function () {
             });
             missionManager.init();
+            mapManager.init();
         });
     });
 });
@@ -391,11 +393,6 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.title);
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
-        // anim测试
-        this.animTemp = new DisplayObjectContainer(100, 100);
-        staticStage.addChild(this.animTemp);
-        var anim = this.animTemp.addComponent(new PlayerAnimTest());
-        anim.play();
         this.startButton.addEventListener("onClick", this.onClick);
     };
     MenuState.prototype.onUpdate = function () {
@@ -543,7 +540,7 @@ var PlayingState = /** @class */ (function (_super) {
     __extends(PlayingState, _super);
     function PlayingState() {
         var _this = _super.call(this) || this;
-        map = new GameMap();
+        map = mapManager.getMap(0);
         talkUIContainer = new DisplayObjectContainer(0, 0);
         _this.mapContainer = new DisplayObjectContainer(0, 0);
         _this.userUIContainer = new DisplayObjectContainer(0, 0);
@@ -697,7 +694,7 @@ canvas.onclick = function (event) {
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
-            // console.log(hitResult);
+            console.log(hitResult);
             hitResult = hitResult.parent;
             hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         }

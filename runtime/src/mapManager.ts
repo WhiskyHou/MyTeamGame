@@ -8,7 +8,7 @@ class MapManager extends EventDispatcher {
 
     init() {
         const xhr = new XMLHttpRequest();
-        xhr.open("get", "config/mission.json")
+        xhr.open("get", "config/map.json")
         xhr.send();
         xhr.onload = () => {
             const obj = JSON.parse(xhr.response)
@@ -19,7 +19,15 @@ class MapManager extends EventDispatcher {
 
     parseFromConfig(obj: any) {
         for (let item of obj.map) {
-
+            const map = new GameMap(item)
+            this.maps.push(map)
         }
+    }
+
+    getMap(index: number) {
+        if (index < this.maps.length) {
+            return this.maps[index]
+        }
+        return null
     }
 }

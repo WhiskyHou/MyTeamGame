@@ -85,7 +85,8 @@ var shopManager = /** @class */ (function (_super) {
             var price = parseInt(item.price);
             var productID = parseInt(item.productID);
             var equipmentID = parseInt(item.equipmentID);
-            var equipment = equipManager.equipList[equipmentID];
+            // if(this.getEquipment(equipmentID).posID<10){ }
+            var equipment = this.getEquipment(equipmentID);
             var descriptionPath = item.description;
             var descriptionImg = new Image();
             descriptionImg.src = descriptionPath;
@@ -108,16 +109,16 @@ var shopManager = /** @class */ (function (_super) {
         this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {
@@ -142,6 +143,14 @@ var shopManager = /** @class */ (function (_super) {
         else {
             return [];
         }
+    };
+    shopManager.prototype.getEquipment = function (equipID) {
+        for (var _i = 0, _a = equipManager.equipList; _i < _a.length; _i++) {
+            var item = _a[_i];
+            if (equipID == item.id)
+                return item;
+        }
+        return new Equipment(0, '', 0, 10, 0, 0, 0);
     };
     return shopManager;
 }(EventDispatcher));
