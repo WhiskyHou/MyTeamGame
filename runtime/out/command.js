@@ -154,6 +154,9 @@ var FightCommand = /** @class */ (function (_super) {
         _this.battleaudio.playOnlyOnce = false;
         _this.succeedaudio.playOnlyOnce = true;
         _this.failaudio.playOnlyOnce = true;
+        if (monster.uselessTalks.length != 0) {
+            _this.hasUselessTalk = true;
+        }
         return _this;
     }
     FightCommand.prototype.execute = function (callback) {
@@ -161,6 +164,16 @@ var FightCommand = /** @class */ (function (_super) {
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
         mainaudio.end();
         this.battleaudio.play();
+        if (this.hasUselessTalk) {
+            var uselessTalkWindow = new UselessTalkWindow(100, 150);
+            talkUIContainer.addChild(uselessTalkWindow);
+            uselessTalkWindow.setMonster(this.monster);
+            uselessTalkWindow.update();
+            uselessTalkWindow.addEventListener("uselessTalkWiondowClose", function () {
+                talkUIContainer.deleteAll();
+                batteUIContainer.addChild(batUI);
+            });
+        }
         var batUI = new battleUI(0, 0);
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);

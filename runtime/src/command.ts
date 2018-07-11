@@ -146,16 +146,12 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
-<<<<<<< HEAD
     
 
     battleaudio :AudioPlay
     succeedaudio :AudioPlay
     failaudio :AudioPlay
     
-=======
-
->>>>>>> 8034989a04b1628d0ee8280f7e3128fa046e47e3
 
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
@@ -166,7 +162,6 @@ class FightCommand extends Command {
         super();
         this.monster = monster;
         this.monsterOriginHp = this.monster.hp;
-<<<<<<< HEAD
 
         this.battleaudio = new AudioPlay(BattleAudio)
         this.succeedaudio = new AudioPlay(SucceedAudio)
@@ -174,20 +169,16 @@ class FightCommand extends Command {
         this.battleaudio.playOnlyOnce = false;
         this.succeedaudio.playOnlyOnce = true;
         this.failaudio.playOnlyOnce = true;
-=======
         if (monster.uselessTalks.length != 0) {
             this.hasUselessTalk = true;
         }
->>>>>>> 8034989a04b1628d0ee8280f7e3128fa046e47e3
     }
 
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
-<<<<<<< HEAD
         
         mainaudio.end();
         this.battleaudio.play();
-=======
 
         if (this.hasUselessTalk) {
             const uselessTalkWindow = new UselessTalkWindow(100, 150);
@@ -199,7 +190,6 @@ class FightCommand extends Command {
                 batteUIContainer.addChild(batUI);
             })
         }
->>>>>>> 8034989a04b1628d0ee8280f7e3128fa046e47e3
 
         const batUI = new battleUI(0, 0);
 
@@ -219,31 +209,20 @@ class FightCommand extends Command {
 
         batManager.addEventListener('backSceneWin', (eventData: any) => {
 
-<<<<<<< HEAD
             batteUIContainer.deleteAll(); 
             
             this.battleaudio.end();
             mainaudio.play();  
-=======
-            batteUIContainer.deleteAll();
-            mainaudio.play();
->>>>>>> 8034989a04b1628d0ee8280f7e3128fa046e47e3
 
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             this.monster.hp = this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
-<<<<<<< HEAD
            
             this.battleaudio.end();
             this.failaudio.play();
             mainaudio.play();
-=======
-
-            battleaudio.end();
-            failaudio.play();
->>>>>>> 8034989a04b1628d0ee8280f7e3128fa046e47e3
 
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {
