@@ -437,10 +437,6 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2c67b3740d7910ff9860e0f497396cd64947ef6d
         this.startButton.addEventListener("onClick", this.onClick)
 
 

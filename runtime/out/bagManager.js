@@ -42,6 +42,14 @@ var bagManager = /** @class */ (function (_super) {
                 this.bagUpdate();
                 this.nowNumber = -1;
             }
+            else if (pos < 8) {
+                var con = this.nowEquipment;
+                con.use(function () { });
+            }
+            else {
+                var con = this.nowEquipment;
+                con.use(function () { });
+            }
         }
     };
     bagManager.prototype.bagOff = function () {

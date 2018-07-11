@@ -316,6 +316,12 @@ var Consumable = /** @class */ (function (_super) {
         _this.addCharm = addCharm;
         return _this;
     }
+    Consumable.prototype.use = function (callback) {
+        player._hp += this.addHP;
+        player._mp += this.addMP;
+        player._charm += this.addCharm;
+        callback();
+    };
     Consumable.prototype.toString = function () {
         return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP) + "]";
     };

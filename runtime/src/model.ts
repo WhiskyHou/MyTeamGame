@@ -349,9 +349,13 @@ class Consumable extends Equipment{
         this.addHP = addHP;
         this.addMP = addMP;
         this.addCharm = addCharm;
-
     }
-
+    use(callback: Function){
+        player._hp += this.addHP
+        player._mp += this.addMP
+        player._charm += this.addCharm
+        callback()
+    }
     toString() {
         return `[Equipment ~ name:${this.name}, add:${this.addCharm+this.addHP+this.addMP}]`;
     }
