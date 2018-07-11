@@ -9,17 +9,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var CreatePlayerButton = /** @class */ (function (_super) {
-    __extends(CreatePlayerButton, _super);
-    function CreatePlayerButton() {
+var CreatePlayerButtonScript = /** @class */ (function (_super) {
+    __extends(CreatePlayerButtonScript, _super);
+    function CreatePlayerButtonScript() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.canAssignPoint = 5;
         _this.bigTag = true;
         return _this;
     }
-    CreatePlayerButton.prototype.onStart = function () {
+    CreatePlayerButtonScript.prototype.onStart = function () {
     };
-    CreatePlayerButton.prototype.onUpdate = function (delta) {
+    CreatePlayerButtonScript.prototype.onUpdate = function (delta) {
         if (this.canAssignPoint == 0) {
             this.heartBeatEffect(delta);
         }
@@ -31,9 +31,9 @@ var CreatePlayerButton = /** @class */ (function (_super) {
             startButton.y = 430;
         }
     };
-    CreatePlayerButton.prototype.onDestory = function () {
+    CreatePlayerButtonScript.prototype.onDestory = function () {
     };
-    CreatePlayerButton.prototype.heartBeatEffect = function (delta) {
+    CreatePlayerButtonScript.prototype.heartBeatEffect = function (delta) {
         var bmp = this.gameObject;
         if (this.bigTag) {
             bmp.scaleX += delta * 4;
@@ -54,5 +54,5 @@ var CreatePlayerButton = /** @class */ (function (_super) {
             this.bigTag = true;
         }
     };
-    return CreatePlayerButton;
+    return CreatePlayerButtonScript;
 }(Behaviour));

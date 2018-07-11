@@ -1,4 +1,4 @@
-class CreatePlayerButton extends Behaviour {
+class CreatePlayerButtonScript extends Behaviour {
 
     canAssignPoint: number = 5
 

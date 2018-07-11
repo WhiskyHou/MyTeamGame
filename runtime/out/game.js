@@ -393,7 +393,6 @@ var CreateState = /** @class */ (function (_super) {
         _this.clickaudio = new AudioPlay(ClickAudio);
         _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
-        _this.bigTag = true;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
                 fsm.replaceState(PlayingState.instance);
@@ -416,13 +415,13 @@ var CreateState = /** @class */ (function (_super) {
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
-        _this.createPlayerButton = _this.startButton.addComponent(new CreatePlayerButton());
+        _this.createPlayerButtonScript = _this.startButton.addComponent(new CreatePlayerButtonScript());
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 _this.canAssignPoint--;
-                _this.createPlayerButton.canAssignPoint--;
+                _this.createPlayerButtonScript.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 _this.clickaudio.playOnlyOnce = true;
                 _this.clickaudio.play();
@@ -433,7 +432,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 _this.canAssignPoint++;
-                _this.createPlayerButton.canAssignPoint++;
+                _this.createPlayerButtonScript.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 _this.clickaudio.playOnlyOnce = true;
                 _this.clickaudio.play();
@@ -444,7 +443,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 _this.canAssignPoint--;
-                _this.createPlayerButton.canAssignPoint--;
+                _this.createPlayerButtonScript.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 _this.clickaudio.playOnlyOnce = true;
                 _this.clickaudio.play();
@@ -455,7 +454,7 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
-                _this.createPlayerButton.canAssignPoint++;
+                _this.createPlayerButtonScript.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
                 _this.clickaudio.playOnlyOnce = true;
                 _this.clickaudio.play();
