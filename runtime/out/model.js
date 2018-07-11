@@ -441,6 +441,7 @@ var Monster = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.x = 0;
         _this.y = 0;
+        _this.head = new Bitmap(0, 0, backButtonImg);
         _this.id = 0;
         _this.name = '';
         _this.dropTime = 2; //掉落次数

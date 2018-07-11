@@ -35,7 +35,7 @@ var monsterManager = /** @class */ (function () {
             var view = new Bitmap(0, 0, viewImg);
             monster.view = view;
             if (item.uselessTalks) {
-                monster.head = view;
+                monster.head.img = viewImg;
                 monster.uselessTalks = item.uselessTalks;
             }
             this.monsterList.push(monster);
