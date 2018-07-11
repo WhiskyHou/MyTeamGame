@@ -94,7 +94,7 @@ var GameMap = /** @class */ (function (_super) {
                                 npcView.y = TILE_SIZE * j;
                                 npc.x = i;
                                 npc.y = j;
-                                var key = i + '_' + j;
+                                var key = j + '_' + i;
                                 _this.npcConfig[key] = npc;
                                 _this.roleContainer.addChild(npcView);
                             }
@@ -108,27 +108,27 @@ var GameMap = /** @class */ (function (_super) {
                 for (var j = 0; j < row.length; j++) {
                     var id = row[j];
                     if (id == KILL_DARGON_KNIFE) {
-                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, knife);
+                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
                         var equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '屠龙刀';
                         equipmentTiem.attack = 35;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
-                        var key = i + '_' + j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
+                        var key = j + '_' + i;
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
                     }
                     else if (id == HP_BOTTLE) {
                         // TODO
-                        var equipmentView = new Bitmap(TILE_SIZE * i, TILE_SIZE * j, hp_bottle);
+                        var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
                         var equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
                         equipmentTiem.view = equipmentView;
                         equipmentTiem.name = '扁鹊的药瓶';
                         equipmentTiem.attack = 0;
-                        equipmentTiem.x = i;
-                        equipmentTiem.y = j;
-                        var key = i + '_' + j;
+                        equipmentTiem.x = j;
+                        equipmentTiem.y = i;
+                        var key = j + '_' + i;
                         _this.equipmentConfig[key] = equipmentTiem;
                         _this.itemContainer.addChild(equipmentView);
                     }
@@ -147,11 +147,11 @@ var GameMap = /** @class */ (function (_super) {
                             if (monster.id == id) {
                                 var monsterView = monster.view;
                                 // const npcHead = npc.head;
-                                monsterView.x = TILE_SIZE * i;
-                                monsterView.y = TILE_SIZE * j;
-                                monster.x = i;
-                                monster.y = j;
-                                var key = i + '_' + j;
+                                monsterView.x = TILE_SIZE * j;
+                                monsterView.y = TILE_SIZE * i;
+                                monster.x = j;
+                                monster.y = i;
+                                var key = j + '_' + i;
                                 _this.monsterConfig[key] = monster;
                                 _this.roleContainer.addChild(monsterView);
                             }

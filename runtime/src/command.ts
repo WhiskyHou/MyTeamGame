@@ -146,6 +146,8 @@ class TalkCommand extends Command {
  * 打架命令
  */
 class FightCommand extends Command {
+
+
     monster: Monster = new Monster(0, "1", 3, 4, 5, 6, 7, 8);
     monsterOriginHp: number;
     hasUselessTalk = false;
@@ -184,21 +186,31 @@ class FightCommand extends Command {
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(this.monster);
+
+            battleaudio.end();
+            succeedaudio.play();
         })
 
         batManager.addEventListener('backSceneWin', (eventData: any) => {
-            batteUIContainer.deleteAll();
 
+            batteUIContainer.deleteAll();
+            mainaudio.play();
 
         })
 
         batManager.addEventListener('playerDie', (eventData: any) => {
             this.monster.hp = this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
+
+            battleaudio.end();
+            failaudio.play();
+
         })
         batManager.addEventListener('backSceneLose', (eventData: any) => {
             batteUIContainer.deleteAll();
             this.monster.hp = this.monsterOriginHp;
+
+            mainaudio.play();
         })
 
 

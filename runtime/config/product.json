@@ -2,19 +2,26 @@
 	"product": [
 		{
 			"productID": "0",
-			"equipmentID": "0",
-			"price": "5",
+			"equipmentID": "33",
+			"price": "15",
 			"description": "assets/gaojianli.png"
 		},
 		{
 			"productID": "1",
-			"equipmentID": "8",
-			"price": "5",
+			"equipmentID": "34",
+			"price": "8",
 			"description": "assets/gaojianli.png"
-		},	{
+		},
+		{
 			"productID": "2",
-			"equipmentID": "9",
-			"price": "5",
+			"equipmentID": "35",
+			"price": "8",
+			"description": "assets/gaojianli.png"
+		},
+		{
+			"productID": "3",
+			"equipmentID": "36",
+			"price": "15",
 			"description": "assets/gaojianli.png"
 		}
 	]

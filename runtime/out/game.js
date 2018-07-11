@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
+Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -179,13 +180,28 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 var MainAudio = new Audio();
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
-var StartAudio = new Audio();
-StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var ClickAudio = new Audio();
 ClickAudio.src = "assets/音效/常规/单击.mp3";
+var StartAudio = new Audio();
+StartAudio.src = "assets/音效/常规/创建角色.mp3";
 var CreateAudio = new Audio();
 CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+var BattleAudio = new Audio();
+BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3";
+var SucceedAudio = new Audio();
+SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
+var FailAudio = new Audio();
+FailAudio.src = "assets/音效/常规/战斗失败.mp3";
 var mainaudio = new AudioPlay(MainAudio);
+var clickaudio = new AudioPlay(ClickAudio);
+var battleaudio = new AudioPlay(BattleAudio);
+var succeedaudio = new AudioPlay(SucceedAudio);
+var failaudio = new AudioPlay(FailAudio);
+mainaudio.playOnlyOnce = false;
+clickaudio.playOnlyOnce = true;
+battleaudio.playOnlyOnce = false;
+succeedaudio.playOnlyOnce = true;
+failaudio.playOnlyOnce = true;
 //mainaudio.playOnlyOnce = true
 //mainaudioo.play()
 //mainaudio.end();
@@ -218,8 +234,9 @@ var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 500;
-var staticStage = stages[1];
-var dynamicStage = stages[0];
+var staticStage = stages[2];
+var dynamicStage = stages[1];
+stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
 var player = new User();
 var map;
 var missionManager = new MissionManager();
@@ -394,10 +411,8 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
-        _this.clickaudio = new AudioPlay(ClickAudio);
         _this.createaudio = new AudioPlay(CreateAudio);
         _this.canAssignPoint = 5;
-        _this.bigTag = true;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0) {
                 fsm.replaceState(PlayingState.instance);
@@ -420,16 +435,15 @@ var CreateState = /** @class */ (function (_super) {
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
         _this.attackMinusButton = new Bitmap(460, 305, createMinusButtonImg);
-        _this.createPlayerButton = _this.startButton.addComponent(new CreatePlayerButton());
+        _this.createPlayerButtonScript = _this.startButton.addComponent(new CreatePlayerButtonScript());
         _this.startButton.addEventListener("onClick", _this.onStartClick);
         _this.hpAddButton.addEventListener("onClick", function () {
             if (_this.canAssignPoint > 0) {
                 player._originHealth += 5;
                 _this.canAssignPoint--;
-                _this.createPlayerButton.canAssignPoint--;
+                _this.createPlayerButtonScript.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -437,10 +451,9 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 _this.canAssignPoint++;
-                _this.createPlayerButton.canAssignPoint++;
+                _this.createPlayerButtonScript.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerHpText.text = "" + player._originHealth;
         });
@@ -448,10 +461,9 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint > 0) {
                 player._originAttack += 1;
                 _this.canAssignPoint--;
-                _this.createPlayerButton.canAssignPoint--;
+                _this.createPlayerButtonScript.canAssignPoint--;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -459,10 +471,9 @@ var CreateState = /** @class */ (function (_super) {
             if (_this.canAssignPoint < 5 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
-                _this.createPlayerButton.canAssignPoint++;
+                _this.createPlayerButtonScript.canAssignPoint++;
                 _this.canAssignPointText.text = "" + _this.canAssignPoint;
-                _this.clickaudio.playOnlyOnce = true;
-                _this.clickaudio.play();
+                clickaudio.play();
             }
             _this.playerAttackText.text = "" + player._originAttack;
         });
@@ -561,7 +572,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 0;
+        camera.layer = 1;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
@@ -589,21 +600,27 @@ var PlayingState = /** @class */ (function (_super) {
         });
         shpManager.addEventListener('openShop', function (eventData) {
             batteUIContainer.deleteChild(_this.battleUI);
-            shopUIContainer.deleteChild(_this.baggUI);
+            bagUIContainer.deleteChild(_this.baggUI);
             // missionBoxContainer.deleteChild(this.missionUI);
-            bagUIContainer.addChild(_this.shpUI);
+            shopUIContainer.addChild(_this.shpUI);
         });
         shpManager.addEventListener('shopDown', function (eventData) {
-            bagUIContainer.deleteChild(_this.shpUI);
+            shopUIContainer.deleteChild(_this.shpUI);
         });
         baManager.addEventListener('updateBag', function (eventData) {
             bagUIContainer.deleteChild(_this.baggUI);
             _this.baggUI = new bagUI(0, 0);
             bagUIContainer.addChild(_this.baggUI);
         });
+        baManager.addEventListener('updateShop', function (eventData) {
+            shopUIContainer.deleteChild(_this.shpUI);
+            _this.shpUI = new shopUI(0, 0);
+            shopUIContainer.addChild(_this.shpUI);
+        });
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', function (eventData) {
             if (player.moveStatus) {
+                clickaudio.play();
                 var globalX = eventData.globalX;
                 var globalY = eventData.globalY;
                 var localPos = map.getLocalPos(new math.Point(globalX, globalY));
@@ -621,7 +638,6 @@ var PlayingState = /** @class */ (function (_super) {
                 }
                 var npcInfo = map.getNpcInfo(row, col);
                 if (npcInfo) {
-                    // console.log('npc Info');
                     if (npcInfo.id == 6) {
                         shpManager.openShop();
                     }
@@ -665,6 +681,7 @@ var PlayingState = /** @class */ (function (_super) {
 }(State));
 // 鼠标点击事件，捕获所有被点击到的 DisplayObject，并从叶子节点依次向上通知监听器，监听器执行
 canvas.onclick = function (event) {
+    //clickaudio.play();
     var globalX = event.offsetX;
     var globalY = event.offsetY;
     //以下调UI位置用

@@ -329,6 +329,46 @@
 			"attack": "0",
 			"criticalPer": "0",
 			"charm": "100"
+		},
+		{
+			"id": "33",
+			"name": "淘来的手机",
+			"quality": "2",
+			"posID": "4",
+			"health": "13",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "10"
+		},
+		{
+			"id": "34",
+			"name": "小裙子",
+			"quality": "1",
+			"posID": "3",
+			"health": "8",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "5"
+		},
+		{
+			"id": "35",
+			"name": "纸片手表",
+			"quality": "1",
+			"posID": "2",
+			"health": "6",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "3"
+		},
+		{
+			"id": "36",
+			"name": "主程的假发",
+			"quality": "2",
+			"posID": "0",
+			"health": "0",
+			"attack": "10",
+			"criticalPer": "8",
+			"charm": "10"
 		}
 	]
 }

@@ -49,10 +49,18 @@ class Resource {
 
     static resource: { [index: string]: HTMLElement } = {}
 
-    static load(path: string, key: string) {
-        const obj = new Image();
-        obj.src = path;
-        this.resource[key] = obj;
+    static load(path: string, key: string, type: string = "image") {
+        let obj;
+        if (type == "image") {
+            obj = new Image();
+        } else if (type == "audio") {
+            obj = new Audio()
+        }
+
+        if (obj) {
+            obj.src = path;
+            this.resource[key] = obj;
+        }
     }
 
     static get(key: string) {
@@ -771,6 +779,7 @@ class AudioPlay {
 
     end() {
         this.audio.pause();
+        this.audio.currentTime=0.0;
     }
 }
 

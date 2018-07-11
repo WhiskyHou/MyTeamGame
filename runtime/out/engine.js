@@ -52,10 +52,19 @@ var StateMachine = /** @class */ (function () {
 var Resource = /** @class */ (function () {
     function Resource() {
     }
-    Resource.load = function (path, key) {
-        var obj = new Image();
-        obj.src = path;
-        this.resource[key] = obj;
+    Resource.load = function (path, key, type) {
+        if (type === void 0) { type = "image"; }
+        var obj;
+        if (type == "image") {
+            obj = new Image();
+        }
+        else if (type == "audio") {
+            obj = new Audio();
+        }
+        if (obj) {
+            obj.src = path;
+            this.resource[key] = obj;
+        }
     };
     Resource.get = function (key) {
         return this.resource[key];
@@ -653,6 +662,7 @@ var AudioPlay = /** @class */ (function () {
     };
     AudioPlay.prototype.end = function () {
         this.audio.pause();
+        this.audio.currentTime = 0.0;
     };
     return AudioPlay;
 }());

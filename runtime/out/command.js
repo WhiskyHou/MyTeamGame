@@ -175,17 +175,23 @@ var FightCommand = /** @class */ (function (_super) {
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             map.deleteMonster(_this.monster);
+            battleaudio.end();
+            succeedaudio.play();
         });
         batManager.addEventListener('backSceneWin', function (eventData) {
             batteUIContainer.deleteAll();
+            mainaudio.play();
         });
         batManager.addEventListener('playerDie', function (eventData) {
             _this.monster.hp = _this.monsterOriginHp;
             batteUIContainer.addChild(batEndLoseUI);
+            battleaudio.end();
+            failaudio.play();
         });
         batManager.addEventListener('backSceneLose', function (eventData) {
             batteUIContainer.deleteAll();
             _this.monster.hp = _this.monsterOriginHp;
+            mainaudio.play();
         });
         callback();
     };
