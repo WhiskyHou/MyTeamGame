@@ -194,6 +194,10 @@ var Attack1Audio = new Audio();
 Attack1Audio.src = "assets/音效/dnf/暴击1.mp3";
 var Attack2Audio = new Audio();
 Attack2Audio.src = "assets/音效/dnf/暴击2.mp3";
+var BuyAudio = new Audio();
+BuyAudio.src = "assets/音效/常规/金币.mp3";
+var HPMPAudio = new Audio();
+HPMPAudio.src = "assets/音效/dnf/药水.mp3";
 //全局音乐控制
 var MainAudio = new Audio();
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
@@ -245,6 +249,7 @@ var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
+var inputManager = new InputManager();
 var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
@@ -709,6 +714,7 @@ canvas.onclick = function (event) {
 };
 window.onkeydown = function (event) {
     var keyCode = event.keyCode ? event.keyCode : event.which;
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     }

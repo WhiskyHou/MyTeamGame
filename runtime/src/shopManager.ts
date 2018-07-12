@@ -3,8 +3,12 @@ class shopManager extends EventDispatcher {
     nowPage : number = 0;
     nowNumber : number = -1;
     storeProduct : Array<Array<any>> = [[],[],[],[]];//储存装备的
+
+    buyaudio:AudioPlay
+
     constructor() {
         super();
+        this.buyaudio=new AudioPlay(BuyAudio);
     }
     openShop(){
         console.log('你打开商店');
@@ -16,13 +20,16 @@ class shopManager extends EventDispatcher {
     }
     shopBuy(){
         if(this.nowNumber>-1 && this.nowNumber < 100){
+
+            this.buyaudio.play();
+
             let product = this.storeProduct[this.nowGroup][5*this.nowPage+this.nowNumber]
             let price = product.price
             let equipment = product.equipment
             player.coin -= price
             player.packageEquipment.push(equipment)
             console.log('你购买了商品');
-            this.nowNumber = -1
+            // this.nowNumber = -1
             this.shopUpdate()
         }
         
@@ -43,6 +50,7 @@ class shopManager extends EventDispatcher {
         let MaxPage=(this.storeProduct[this.nowGroup].length/5)-1;
         console.log(MaxPage);
         if(this.nowPage< MaxPage){
+            clickaudio.play();
             this.nowNumber = 100
             this.nowPage++; 
         }
@@ -51,6 +59,7 @@ class shopManager extends EventDispatcher {
     shopLeft(){
         console.log('你点击了左键');
         if(this.nowPage > 0){
+            clickaudio.play();
             this.nowNumber = -1
             this.nowPage--; 
          }

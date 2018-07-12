@@ -1,3 +1,4 @@
+// import { userInfo } from "os";
 
 /**
  * 状态
@@ -613,7 +614,7 @@ class TextField extends DisplayObject {
     renderX: number;
     renderY: number;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'fantasy', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'ShouZhaFont', color: string = 'black') {
         super(x, y);
         this.renderX = x;
         this.renderY = y;
@@ -715,7 +716,7 @@ class MultiTextField extends DisplayObject {
             let width = context.measureText(this.text[i]).width
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
-            context.font = this.size.toString() + 'px lisu';
+            context.font = this.size.toString() + 'px ShouZhaFont';
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     }
@@ -774,6 +775,7 @@ class AudioPlay {
         this.audio.hidden = true;
         this.audio.controls = true;
         this.audio.loop = false;
+       
     }
 
     set playOnlyOnce(v: boolean) {
@@ -782,11 +784,11 @@ class AudioPlay {
 
     play() {
         this.audio.play()
+        this.audio.currentTime = 0.0;
     }
 
     end() {
         this.audio.pause();
-        this.audio.currentTime = 0.0;
     }
 }
 
