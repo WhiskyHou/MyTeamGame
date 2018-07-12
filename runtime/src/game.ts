@@ -640,7 +640,7 @@ let shopUIContainer: DisplayObjectContainer;
 // anim测试
 let animTemp: DisplayObjectContainer;
 // anim测试
-animTemp = new DisplayObjectContainer(0,0 );
+animTemp = new DisplayObjectContainer(0, 0);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 //anim.play();
 
@@ -891,5 +891,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(MenuState.instance);
+fsm.replaceState(LoadingState.instance);
 // fsm.replaceState(new LoadingState());
