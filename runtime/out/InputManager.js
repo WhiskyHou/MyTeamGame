@@ -48,19 +48,19 @@ var InputManager = /** @class */ (function (_super) {
     };
     InputManager.prototype.parse = function (code) {
         switch (code) {
-            case 8://BACK
+            case 8: //BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
-            case 13://Enter
+            case 13: //Enter
                 this.dispatchEvent('Enter', this.inputString);
                 break;
-            case 20://Caps Lock
+            case 20: //Caps Lock
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 9://Tab
+            case 9: //Tab
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 27://ESC
+            case 27: //ESC
                 this.dispatchEvent('Esc', this.inputString);
                 break;
         }

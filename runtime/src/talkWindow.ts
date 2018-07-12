@@ -25,7 +25,7 @@ class TalkWindow extends DisplayObjectContainer {
         super(x, y);
 
         this.view = new Bitmap(0, 0, talk_window);
-        this.text = new TextField("", 190, 100, 24);
+        this.text = new TextField("", 190, 100, 20);
         this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
 
         this.addChild(this.blackMask);
@@ -35,6 +35,7 @@ class TalkWindow extends DisplayObjectContainer {
         // this.addChild(this.playerNameText);
 
         this.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
             switch (this.count % 2) {
                 case 0:
                     this.text.y = 220;
@@ -74,7 +75,7 @@ class TalkWindow extends DisplayObjectContainer {
         this.playerView = player.head;
         this.playerView.x = 50;
         this.playerView.y = 170;
-        this.playerNameText = new TextField(player.name, 90, 140, 24);
+        this.playerNameText = new TextField(player.name, 90, 140, 20);
 
         this.addChild(this.head);
         this.addChild(this.name);

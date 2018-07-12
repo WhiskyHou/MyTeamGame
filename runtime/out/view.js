@@ -490,6 +490,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.consumChoiceID = 0;
         _this.index = 0;
         // super(58, 64);
+        _this.hpmpaudio = new AudioPlay(HPMPAudio);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
@@ -563,7 +564,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -584,7 +585,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -606,7 +607,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -630,7 +631,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -648,6 +649,7 @@ var battleUI = /** @class */ (function (_super) {
             _this.itemContainer.addChild(_this.itemBackButton);
             _this.itemContainer.addChild(_this.itemTextGroup);
             _this.itemUseButton.addEventListener('onClick', function () {
+                _this.hpmpaudio.play();
                 _this.updateConsumCount();
                 if (_this.consumChoiceID != 0) {
                     for (var i = 0; i < player.packageEquipment.length; i++) {
@@ -674,7 +676,6 @@ var battleUI = /** @class */ (function (_super) {
                         }
                     }
                 }
-                clickaudio.play();
             });
             _this.itemBackButton.addEventListener('onClick', function () {
                 clickaudio.play();
@@ -780,6 +781,7 @@ var battleUI = /** @class */ (function (_super) {
         if (redCount > 0) {
             var redText = new TextField(red.name + " X " + redCount, 315, 165 + 32 * lineCount, 20);
             redText.addEventListener("onClick", function () {
+                clickaudio.play();
                 _this.consumChoiceID = red.id;
             });
             this.itemTextGroup.addChild(redText);
@@ -789,6 +791,7 @@ var battleUI = /** @class */ (function (_super) {
             var blueText = new TextField(blue.name + " X " + blueCount, 315, 165 + 32 * lineCount, 20);
             this.itemTextGroup.addChild(blueText);
             blueText.addEventListener("onClick", function () {
+                clickaudio.play();
                 _this.consumChoiceID = blue.id;
             });
             lineCount++;

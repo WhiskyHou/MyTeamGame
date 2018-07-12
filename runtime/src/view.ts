@@ -628,6 +628,7 @@ class battleUI extends DisplayObjectContainer {
     itemBackButton: Bitmap;
     itemTextGroup = new DisplayObjectContainer(0, 0);
     itemText: TextField;
+    hpmpaudio: AudioPlay;
 
 
     index = 0;
@@ -638,6 +639,8 @@ class battleUI extends DisplayObjectContainer {
         super(x, y);
         this.index = 0;
         // super(58, 64);
+
+        this.hpmpaudio = new AudioPlay(HPMPAudio);
 
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
@@ -810,6 +813,7 @@ class battleUI extends DisplayObjectContainer {
             this.itemContainer.addChild(this.itemTextGroup);
 
             this.itemUseButton.addEventListener('onClick', () => {
+                this.hpmpaudio.play();
                 this.updateConsumCount();
 
 
@@ -840,7 +844,6 @@ class battleUI extends DisplayObjectContainer {
                     }
                 }
 
-                clickaudio.play();
             })
 
             this.itemBackButton.addEventListener('onClick', () => {
@@ -970,6 +973,7 @@ class battleUI extends DisplayObjectContainer {
         if (redCount > 0) {
             let redText = new TextField(red.name + " X " + redCount, 315, 165 + 32 * lineCount, 20);
             redText.addEventListener("onClick", () => {
+                clickaudio.play();
                 this.consumChoiceID = red.id;
             })
             this.itemTextGroup.addChild(redText);
@@ -979,6 +983,7 @@ class battleUI extends DisplayObjectContainer {
             let blueText = new TextField(blue.name + " X " + blueCount, 315, 165 + 32 * lineCount, 20);
             this.itemTextGroup.addChild(blueText);
             blueText.addEventListener("onClick", () => {
+                clickaudio.play();
                 this.consumChoiceID = blue.id;
             })
             lineCount++;
