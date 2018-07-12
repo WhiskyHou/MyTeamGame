@@ -8,7 +8,7 @@ class TalkWindow extends DisplayObjectContainer {
 
     name: TextField;
 
-    text: TextField;
+    text: MultiTextField;
 
     npc: Npc;
 
@@ -25,7 +25,7 @@ class TalkWindow extends DisplayObjectContainer {
         super(x, y);
 
         this.view = new Bitmap(0, 0, talk_window);
-        this.text = new TextField("", 190, 100, 20);
+        this.text = new MultiTextField([], 190, 100, 24, 5);
         this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
 
         this.addChild(this.blackMask);
@@ -38,9 +38,11 @@ class TalkWindow extends DisplayObjectContainer {
             clickaudio.play();
             switch (this.count % 2) {
                 case 0:
+                    this.text.x = 160;
                     this.text.y = 220;
                     break;
                 case 1:
+                    this.text.x = 195;
                     this.text.y = 100;
                     break;
             }
@@ -62,7 +64,7 @@ class TalkWindow extends DisplayObjectContainer {
         if (this.count >= contents.length) {
             this.dispatchEvent("talkWiondowClose", null);
         } else {
-            this.text.text = contents[this.count];
+            this.text.setStringByNumber(contents[this.count], 8);
         }
     }
 

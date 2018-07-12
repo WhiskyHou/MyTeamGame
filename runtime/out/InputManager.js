@@ -18,6 +18,7 @@ var InputManager = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.inputString = "";
         _this.inputOver = false;
+        _this.rechargeIsStart = false;
         _this.addEventListener("inputStart", function (eventData) {
             console.log(eventData);
             _this.parse(eventData);
@@ -86,6 +87,18 @@ var InputManager = /** @class */ (function (_super) {
                 _this.dispatchEvent('inputChanged', _this.inputString);
             }
         });
+        this.addEventListener("rechargeInput", function (eventData) {
+            console.log(eventData);
+            if (!_this.rechargeIsStart) {
+                _this.rechargeIsStart = true;
+                _this.inputString = "";
+            }
+            else {
+                _this.inputString += _this.CodeTOWords(eventData);
+                console.log('你按下了', _this.inputString);
+                _this.dispatchEvent('inputChanged', _this.inputString);
+            }
+        });
         this.addEventListener("L", function (eventData) {
             //任务快捷键
         });
@@ -107,6 +120,7 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener("Enter", function (eventData) {
             _this.inputOver = true;
+            _this.rechargeIsStart = false;
             _this.dispatchEvent('inputOver', _this.inputString);
         });
         this.addEventListener("Caps Lock", function (eventData) {
@@ -114,7 +128,6 @@ var InputManager = /** @class */ (function (_super) {
         this.addEventListener("Esc", function (eventData) {
             baManager.dispatchEvent('bagDown', player);
             shpManager.dispatchEvent('shopDown', player);
-            //大哥自己有自己的想法不用我这个思路了很遗憾。
         });
     };
     return InputManager;

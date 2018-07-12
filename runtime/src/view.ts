@@ -81,6 +81,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.EscButton);
         this.addChild(this.missionButton);
 
+        //16558
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
             clickaudio.play();
@@ -1288,6 +1289,8 @@ class SettingUI extends DisplayObjectContainer {
     off: Bitmap;
     backButton: Bitmap;
     blackMask: Bitmap;
+    recharge : Bitmap;
+    rechargeInput : MultiTextField;
     hasOn = false;
 
     constructor(x: number, y: number) {
@@ -1298,17 +1301,23 @@ class SettingUI extends DisplayObjectContainer {
         this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
         this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-
+        this.recharge = new Bitmap(500, 446, bagOnUI)
         this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.on);
         this.addChild(this.off);
         this.addChild(this.backButton);
+        this.addChild(this.recharge);
 
         inputManager.addEventListener("Esc", (eventData: any) => {
             this.deleteAll();
         });
-
+        this.recharge.addEventListener("rechargeInput", (eventData: any) => {
+            this.deleteChild(this.recharge)
+            this.rechargeInput = new MultiTextField([],500,450,20,10).setStringByNumber("123456",3)
+            this.addChild(this.rechargeInput)
+            clickaudio.play();
+        })
         this.backButton.addEventListener("onClick", (eventData: any) => {
             this.deleteAll();
             clickaudio.play();

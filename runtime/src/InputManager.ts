@@ -5,6 +5,7 @@ class InputManager extends EventDispatcher {
     inputText: TextField
     inputString: string = ""
     inputOver: boolean = false
+    rechargeIsStart : boolean = false;
     constructor() {
         super()
 
@@ -49,8 +50,8 @@ class InputManager extends EventDispatcher {
                 this.dispatchEvent('I', this.inputString);
                 break;
             case 79://O
-            this.dispatchEvent('O', this.inputString);    
-            break;
+                this.dispatchEvent('O', this.inputString);    
+                break;
             case 8://BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
@@ -71,6 +72,17 @@ class InputManager extends EventDispatcher {
     listen() {
         this.addEventListener("inputStart", (eventData: any) => {
             if (!this.inputOver) {
+                this.inputString += this.CodeTOWords(eventData)
+                console.log('你按下了', this.inputString)
+                this.dispatchEvent('inputChanged', this.inputString);
+            }
+        });
+        this.addEventListener("rechargeInput", (eventData: any) => {
+            console.log(eventData)
+            if (!this.rechargeIsStart) {
+                this.rechargeIsStart = true
+                this.inputString = ""
+            }else{
                 this.inputString += this.CodeTOWords(eventData)
                 console.log('你按下了', this.inputString)
                 this.dispatchEvent('inputChanged', this.inputString);
@@ -97,6 +109,7 @@ class InputManager extends EventDispatcher {
         });
         this.addEventListener("Enter", (eventData: any) => {
             this.inputOver = true;
+            this.rechargeIsStart = false
             this.dispatchEvent('inputOver', this.inputString);
         });
         this.addEventListener("Caps Lock", (eventData: any) => {
@@ -106,7 +119,6 @@ class InputManager extends EventDispatcher {
         this.addEventListener("Esc", (eventData: any) => {
             baManager.dispatchEvent('bagDown', player);
             shpManager.dispatchEvent('shopDown', player);
-            //大哥自己有自己的想法不用我这个思路了很遗憾。
 
         });
     }
