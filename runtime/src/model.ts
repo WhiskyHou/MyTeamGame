@@ -1012,7 +1012,7 @@ class UselessTalkWindow extends DisplayObjectContainer {
     blackMask: Bitmap;
 
     name: TextField;
-    text: TextField;
+    text: MultiTextField;
 
     npc: Npc;
     monster: Monster;
@@ -1031,7 +1031,7 @@ class UselessTalkWindow extends DisplayObjectContainer {
         super(x, y);
 
         this.view = new Bitmap(0, 0, talk_window);
-        this.text = new TextField("", 190, 100, 24);
+        this.text = new MultiTextField([], 190, 100, 24, 5);
         this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
 
         this.addChild(this.blackMask);
@@ -1041,9 +1041,11 @@ class UselessTalkWindow extends DisplayObjectContainer {
         this.addEventListener("onClick", (eventData: any) => {
             switch (this.count % 2) {
                 case 0:
+                    this.text.x = 160;
                     this.text.y = 220;
                     break;
                 case 1:
+                    this.text.x = 195;
                     this.text.y = 100;
                     break;
             }
@@ -1064,7 +1066,7 @@ class UselessTalkWindow extends DisplayObjectContainer {
         if (this.count >= contents.length) {
             this.dispatchEvent("uselessTalkWiondowClose", null);
         } else {
-            this.text.text = contents[this.count];
+            this.text.setStringByNumber(contents[this.count], 8);
         }
     }
 

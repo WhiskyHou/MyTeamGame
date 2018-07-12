@@ -124,10 +124,10 @@ MissionButton.src = './assets/1 60x80 任务ui.png';
 
 var bloodUI = new Image();
 bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
-var userCoinUI  = new Image();
-userCoinUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
+var userCoinUI = new Image();
+userCoinUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
 var userDiamondUI = new Image();
-userDiamondUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
+userDiamondUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
 
 
 var bagWindowsUI = new Image();
@@ -206,6 +206,19 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入�
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 
+//场景切换
+Resource.load('./assets/场景切换/校园', 'mapchange1');
+Resource.load('./assets/场景切换/操场', 'mapchange2');
+Resource.load('./assets/场景切换/家', 'mapchange3');
+Resource.load('./assets/场景切换/教室', 'mapchange4');
+Resource.load('./assets/场景切换/街道', 'mapchange5');
+Resource.load('./assets/场景切换/密室', 'mapchange6');
+Resource.load('./assets/场景切换/副本', 'mapchange7');
+Resource.load('./assets/场景切换/副本1', 'mapchange8');
+Resource.load('./assets/场景切换/副本2', 'mapchange9');
+Resource.load('./assets/场景切换/副本3', 'mapchange10');
+Resource.load('./assets/场景切换/副本4', 'mapchange11');
+
 //局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
@@ -259,7 +272,7 @@ xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
 const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
-const ROW_NUM = 15;
+const ROW_NUM = 18;
 const COL_NUM = 21;
 
 const GRASS_L = 0;
@@ -597,7 +610,7 @@ class CreateState extends State {
         this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
         this.startButton.addEventListener("onClick", this.onStartClick);
-        
+
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
@@ -660,16 +673,16 @@ class CreateState extends State {
         staticStage.addChild(this.attackMinusButton);
 
         inputManager.addEventListener("inputChanged", (eventData: any) => {
-            if(!this.hasName){
+            if (!this.hasName) {
                 staticStage.deleteChild(this.playerNameText);
                 player.name = eventData
-                console.log("mingzi:",eventData)
+                console.log("mingzi:", eventData)
                 this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
                 staticStage.addChild(this.playerNameText);
-            }   
+            }
         });
         inputManager.addEventListener("inputOver", () => {
-            this.hasName =true
+            this.hasName = true
         });
         // stage.addEventListener("onClick", this.onClick);
 
@@ -705,11 +718,11 @@ class CreateState extends State {
             fsm.replaceState(PlayingState.instance);
             this.createaudio.playOnlyOnce = true;
             this.createaudio.play();
-        } 
-        if(this.canAssignPoint > 0) {
+        }
+        if (this.canAssignPoint > 0) {
             this.tipsText.text = " ← 加完点才能学习！"
         }
-        if(!this.hasName) {
+        if (!this.hasName) {
             this.tips2Text.text = "请输入名字，按ENTER结束！ ↑"
         }
     }
@@ -725,16 +738,13 @@ let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
 let settingBoxContainer: DisplayObjectContainer;
 
-// anim测试角色
-let animTemp: DisplayObjectContainer;
-// anim测试角色
-animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
-const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+// // anim测试角色
+// let animTemp: DisplayObjectContainer;
+// // anim测试角色
+// animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
+// const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 
-//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
-//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
-
-anim.play();
+let anim: PlayerAnimTest
 
 /**
  * 游戏状态
@@ -763,8 +773,6 @@ class PlayingState extends State {
     shpUI: shopUI;
 
     camera: EmptyObject
-
-
 
     constructor() {
         super();
@@ -811,6 +819,9 @@ class PlayingState extends State {
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
+
+        anim = player.view.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+        anim.play();
         //this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);

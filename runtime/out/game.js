@@ -192,6 +192,18 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入�
 //制作团队
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
+//场景切换
+Resource.load('./assets/场景切换/校园', 'mapchange1');
+Resource.load('./assets/场景切换/操场', 'mapchange2');
+Resource.load('./assets/场景切换/家', 'mapchange3');
+Resource.load('./assets/场景切换/教室', 'mapchange4');
+Resource.load('./assets/场景切换/街道', 'mapchange5');
+Resource.load('./assets/场景切换/密室', 'mapchange6');
+Resource.load('./assets/场景切换/副本', 'mapchange7');
+Resource.load('./assets/场景切换/副本1', 'mapchange8');
+Resource.load('./assets/场景切换/副本2', 'mapchange9');
+Resource.load('./assets/场景切换/副本3', 'mapchange10');
+Resource.load('./assets/场景切换/副本4', 'mapchange11');
 //局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
@@ -234,7 +246,7 @@ xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
  */
 var TILE_SIZE = 128; //TODO:还原为128
 var ASSETS_PATH = "./assets/";
-var ROW_NUM = 15;
+var ROW_NUM = 18;
 var COL_NUM = 21;
 var GRASS_L = 0;
 var GRASS_D = 1;
@@ -614,14 +626,12 @@ var skillBoxContainer;
 var missionBoxContainer;
 var shopUIContainer;
 var settingBoxContainer;
-// anim测试角色
-var animTemp;
-// anim测试角色
-animTemp = new DisplayObjectContainer(PLAYER_INDEX_X, PLAYER_INDEX_Y);
-var anim = animTemp.addComponent(new PlayerAnimTest());
-//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
-//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
-anim.play();
+// // anim测试角色
+// let animTemp: DisplayObjectContainer;
+// // anim测试角色
+// animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
+// const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+var anim;
 /**
  * 游戏状态
  */
@@ -673,6 +683,8 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(settingBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
+        anim = player.view.addComponent(new PlayerAnimTest());
+        anim.play();
         //this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);

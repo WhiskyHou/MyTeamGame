@@ -18,7 +18,7 @@ var TalkWindow = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.count = 0;
         _this.view = new Bitmap(0, 0, talk_window);
-        _this.text = new MultiTextField([], 190, 100, 24, 20);
+        _this.text = new MultiTextField([], 190, 100, 24, 5);
         _this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.view);
@@ -29,9 +29,11 @@ var TalkWindow = /** @class */ (function (_super) {
             clickaudio.play();
             switch (_this.count % 2) {
                 case 0:
+                    _this.text.x = 160;
                     _this.text.y = 220;
                     break;
                 case 1:
+                    _this.text.x = 195;
                     _this.text.y = 100;
                     break;
             }
