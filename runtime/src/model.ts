@@ -116,6 +116,8 @@ class User extends EventDispatcher {
 
     fight(monster: Monster) {
         this.dispatchEvent('fightWithMonster', { name: monster.name });
+        console.log(monster.name);
+
     }
 
     talk(npc: Npc) {
@@ -453,6 +455,8 @@ class Mission {
         }
         else if (this.isAccepted) {
             if (this.current >= this.total) {
+                console.log("任务可以提交啦！！！");
+
                 nextStatus = MissionStatus.CAN_SUBMIT;
             } else {
                 nextStatus = MissionStatus.DURRING;

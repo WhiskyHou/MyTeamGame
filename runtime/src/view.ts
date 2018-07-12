@@ -28,7 +28,6 @@ class UserInfoUI extends DisplayObjectContainer {
     settingUI: SettingUI;
     
     //
-    inputText: TextField;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -56,8 +55,6 @@ class UserInfoUI extends DisplayObjectContainer {
         
         //
 
-        this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
-        this.addChild(this.inputText);
 
         this.addChild(this.bloodUI);
         this.addChild(this.userCoinUI);
@@ -80,20 +77,6 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.EscButton);
         this.addChild(this.missionButton);
 
-
-
-        inputManager.addEventListener('inputChanged', (eventData: any) => {
-            this.deleteChild(this.inputText);
-            this.inputText = new TextField(eventData, 350, 300, 60);
-            this.addChild(this.inputText);
-        })
-        inputManager.addEventListener('inputOver', (eventData: any) => {
-            player.name = eventData;
-            this.deleteChild(this.userName);
-            this.userName = new TextField(player.name, 130, 12, 20);
-            this.addChild(this.userName);
-            this.deleteChild(this.inputText);
-        })
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
             clickaudio.play();

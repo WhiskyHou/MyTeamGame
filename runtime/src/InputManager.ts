@@ -30,8 +30,8 @@ class InputManager extends EventDispatcher{
         if(code>64 && code <91)
         {
             return Words1[code-65]
-        }else if(code>47 && code <58){
-            return Words2[code-48]
+        }else if(code>48 && code <59){
+            return Words2[code-49]
         }else if(code == 32){
             return " "
         }else{
@@ -73,7 +73,6 @@ class InputManager extends EventDispatcher{
         });
         this.addEventListener("Enter", (eventData: any) => {
             this.inputOver = true;
-            console.log('你按下了回车1')
             this.dispatchEvent('inputOver', this.inputString);
         });
         this.addEventListener("Caps Lock", (eventData: any) => {

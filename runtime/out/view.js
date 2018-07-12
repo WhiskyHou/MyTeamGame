@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
  */
 var UserInfoUI = /** @class */ (function (_super) {
     __extends(UserInfoUI, _super);
+    //
     function UserInfoUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
@@ -33,8 +34,6 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.SkillButton = new Bitmap(680, 475, SkillButton);
         _this.missionButton = new Bitmap(610, 475, MissionButton);
         //
-        _this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
-        _this.addChild(_this.inputText);
         _this.addChild(_this.bloodUI);
         _this.addChild(_this.userCoinUI);
         _this.addChild(_this.userDiamondUI);
@@ -51,18 +50,6 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
         _this.addChild(_this.missionButton);
-        inputManager.addEventListener('inputChanged', function (eventData) {
-            _this.deleteChild(_this.inputText);
-            _this.inputText = new TextField(eventData, 350, 300, 60);
-            _this.addChild(_this.inputText);
-        });
-        inputManager.addEventListener('inputOver', function (eventData) {
-            player.name = eventData;
-            _this.deleteChild(_this.userName);
-            _this.userName = new TextField(player.name, 130, 12, 20);
-            _this.addChild(_this.userName);
-            _this.deleteChild(_this.inputText);
-        });
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
             clickaudio.play();
