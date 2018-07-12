@@ -31,6 +31,8 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         _this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
         _this.bloodbar = new Bitmap(90, 35, bloodBar);
+        _this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
+        _this.addChild(_this.inputText);
         _this.addChild(_this.userName);
         _this.addChild(_this.userLevel);
         // this.addChild(this.userAttack);
@@ -46,6 +48,18 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.currentEXP);
         _this.addChild(_this.needEXP);
         _this.addChild(_this.bloodbar);
+        inputManager.addEventListener('inputChanged', function (eventData) {
+            _this.deleteChild(_this.inputText);
+            _this.inputText = new TextField(eventData, 350, 300, 60);
+            _this.addChild(_this.inputText);
+        });
+        inputManager.addEventListener('inputOver', function (eventData) {
+            player.name = eventData;
+            _this.deleteChild(_this.userName);
+            _this.userName = new TextField(player.name, 130, 5, 20);
+            _this.addChild(_this.userName);
+            _this.deleteChild(_this.inputText);
+        });
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
             clickaudio.play();

@@ -17,7 +17,6 @@ var __extends = (this && this.__extends) || (function () {
 var van_pick_knife = document.getElementById('van_pick_knife');
 Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
-Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -238,8 +237,7 @@ var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 200;
 var staticStage = stages[2];
-var dynamicStage = stages[1];
-stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
+var dynamicStage = stages[0];
 var player = new User();
 var map;
 var mapManager = new MapManager();
@@ -250,6 +248,7 @@ var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
+var inputManager = new InputManager();
 var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
@@ -548,7 +547,6 @@ var animTemp;
 // anim测试角色
 animTemp = new DisplayObjectContainer(0, 0);
 var anim = animTemp.addComponent(new PlayerAnimTest());
-//anim.play();
 /**
  * 游戏状态
  */
@@ -588,7 +586,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 1;
+        camera.layer = 0;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
@@ -719,6 +717,7 @@ canvas.onclick = function (event) {
 };
 window.onkeydown = function (event) {
     var keyCode = event.keyCode ? event.keyCode : event.which;
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     }
@@ -748,5 +747,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(MenuState.instance);
+fsm.replaceState(LoadingState.instance);
 // fsm.replaceState(new LoadingState());

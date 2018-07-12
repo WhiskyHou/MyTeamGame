@@ -1,4 +1,5 @@
 "use strict";
+// import { userInfo } from "os";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -460,14 +461,14 @@ var MultiWindow = /** @class */ (function (_super) {
  */
 var Animator = /** @class */ (function (_super) {
     __extends(Animator, _super);
-    function Animator(x, y, image, size, count, delta) {
+    function Animator(x, y, image, size, count, middleTime) {
         var _this = _super.call(this, x, y) || this;
         _this.index = 0;
-        _this.duringTiem = delta;
+        _this.duringTiem = middleTime;
         _this.image = image;
         _this.size = size;
         _this.count = count;
-        _this.delta = delta;
+        _this.middleTime = middleTime;
         _this.visible = false;
         _this.isPlaying = false;
         _this.isLooping = false;
@@ -475,11 +476,11 @@ var Animator = /** @class */ (function (_super) {
     }
     Animator.prototype.update = function (delta) {
         if (this.isPlaying) {
-            if (this.index == this.count - 1) {
+            if (this.index == this.count) {
                 this.reset();
                 return;
             }
-            if (this.duringTiem >= this.delta) {
+            if (this.duringTiem >= this.middleTime) {
                 this.index++;
                 this.duringTiem = 0;
             }
@@ -494,13 +495,13 @@ var Animator = /** @class */ (function (_super) {
         this.isPlaying = false;
         this.visible = true;
         this.index = 0;
-        this.duringTiem = this.delta;
+        this.duringTiem = this.middleTime;
     };
     Animator.prototype.reset = function () {
         this.isPlaying = this.isLooping;
         this.visible = this.isLooping;
         this.index = 0;
-        this.duringTiem = this.delta;
+        this.duringTiem = 0;
     };
     Animator.prototype.render = function (context) {
         context.drawImage(this.image, this.index * this.size, 0, this.size, this.size, 0, 0, this.size, this.size);
@@ -515,7 +516,7 @@ var Animator = /** @class */ (function (_super) {
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
     function TextField(text, x, y, size, style, color) {
-        if (style === void 0) { style = 'fantasy'; }
+        if (style === void 0) { style = 'ShouZhaFont'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
         _this.renderX = x;
@@ -603,7 +604,7 @@ var MultiTextField = /** @class */ (function (_super) {
             var width = context.measureText(this.text[i]).width;
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
-            context.font = this.size.toString() + 'px lisu';
+            context.font = this.size.toString() + 'px ShouZhaFont';
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     };

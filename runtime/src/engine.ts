@@ -1,3 +1,4 @@
+// import { userInfo } from "os";
 
 /**
  * 状态
@@ -533,7 +534,7 @@ class Animator extends DisplayObject {
 
     duringTiem: number
 
-    delta: number
+    middleTime: number
 
     index: number
 
@@ -545,14 +546,14 @@ class Animator extends DisplayObject {
 
     isLooping: boolean
 
-    constructor(x: number, y: number, image: HTMLImageElement, size: number, count: number, delta: number) {
+    constructor(x: number, y: number, image: HTMLImageElement, size: number, count: number, middleTime: number) {
         super(x, y);
         this.index = 0
-        this.duringTiem = delta
+        this.duringTiem = middleTime
         this.image = image
         this.size = size
         this.count = count
-        this.delta = delta
+        this.middleTime = middleTime
 
         this.visible = false
         this.isPlaying = false
@@ -561,11 +562,11 @@ class Animator extends DisplayObject {
 
     update(delta: number) {
         if (this.isPlaying) {
-            if (this.index == this.count - 1) {
+            if (this.index == this.count) {
                 this.reset();
                 return;
             }
-            if (this.duringTiem >= this.delta) {
+            if (this.duringTiem >= this.middleTime) {
                 this.index++;
                 this.duringTiem = 0;
             }
@@ -582,14 +583,14 @@ class Animator extends DisplayObject {
         this.isPlaying = false
         this.visible = true
         this.index = 0
-        this.duringTiem = this.delta
+        this.duringTiem = this.middleTime
     }
 
     reset() {
         this.isPlaying = this.isLooping
         this.visible = this.isLooping;
         this.index = 0
-        this.duringTiem = this.delta
+        this.duringTiem = 0
     }
 
     render(context: CanvasRenderingContext2D): void {
@@ -613,7 +614,7 @@ class TextField extends DisplayObject {
     renderX: number;
     renderY: number;
 
-    constructor(text: string, x: number, y: number, size: number, style: string = 'fantasy', color: string = 'black') {
+    constructor(text: string, x: number, y: number, size: number, style: string = 'ShouZhaFont', color: string = 'black') {
         super(x, y);
         this.renderX = x;
         this.renderY = y;
@@ -715,7 +716,7 @@ class MultiTextField extends DisplayObject {
             let width = context.measureText(this.text[i]).width
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
-            context.font = this.size.toString() + 'px lisu';
+            context.font = this.size.toString() + 'px ShouZhaFont';
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     }
@@ -774,7 +775,7 @@ class AudioPlay {
         this.audio.hidden = true;
         this.audio.controls = true;
         this.audio.loop = false;
-       
+
     }
 
     set playOnlyOnce(v: boolean) {

@@ -9,9 +9,6 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
 
-
-Resource.load('./assets/美术素材/框.png', 'bgPaper')
-
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -267,8 +264,7 @@ const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
-const dynamicStage = stages[1];
-stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement))
+const dynamicStage = stages[0];
 
 
 var player: User = new User();
@@ -281,6 +277,7 @@ let equipManager = new EquipmentManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
+let inputManager = new InputManager();
 let skillArray: Skill[] = []
 
 
@@ -655,9 +652,8 @@ let shopUIContainer: DisplayObjectContainer;
 // anim测试角色
 let animTemp: DisplayObjectContainer;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0,0 );
+animTemp = new DisplayObjectContainer(0,0);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
-//anim.play();
 
 /**
  * 游戏状态
@@ -708,7 +704,6 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
         shopUIContainer = new DisplayObjectContainer(120, -50);
         this.shpUI = new shopUI(0, 0);
-
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
 
@@ -719,7 +714,7 @@ class PlayingState extends State {
 
         let camera = this.camera.addComponent(new Camera()) as Camera;
 
-        camera.layer = 1;
+        camera.layer = 0;
 
 
         dynamicStage.addChild(this.mapContainer);
@@ -773,6 +768,7 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
+
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
@@ -877,7 +873,7 @@ canvas.onclick = function (event) {
 }
 window.onkeydown = (event: any) => {
     let keyCode = event.keyCode ? event.keyCode : event.which;
-
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     } else if (keyCode === 83) {
@@ -906,5 +902,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(MenuState.instance);
+fsm.replaceState(LoadingState.instance);
 // fsm.replaceState(new LoadingState());
