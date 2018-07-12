@@ -233,9 +233,9 @@
 		{
 			"id": "12",
 			"name": "第一次见到女神",
-			"needLevel": "10",
-			"fromNpcId": "11",
-			"toNpcId": "1",
+			"needLevel": "1",
+			"fromNpcId": "10",
+			"toNpcId": "11",
 			"canAcceptConfig": [
 				"给大家介绍我们的新同学，小美",
 				"（这个妹妹我曾见过的啊！苍天啊，大地啊，这是老天给我的恩赐啊）",

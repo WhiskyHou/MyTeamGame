@@ -67,6 +67,13 @@ class MissionManager extends EventDispatcher {
             mission.addEXP = rewardNumber[1]
             mission.equipment = shpManager.getEquipment(rewardNumber[2])
             // console.log('任务名' + mission.name);
+            for (let i = 0; i < npcManager.npcList.length; i++) {
+                if (npcManager.npcList[i].name == item.goingFunc) {
+                    mission.talkTarget = npcManager.npcList[i];
+                }
+            }
+
+
             this.missions.push(mission);
         }
     }

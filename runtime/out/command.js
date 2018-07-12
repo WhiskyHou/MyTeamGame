@@ -190,6 +190,7 @@ var PickCommand = /** @class */ (function (_super) {
  */
 var TalkCommand = /** @class */ (function (_super) {
     __extends(TalkCommand, _super);
+    // missionID: number = 100;
     function TalkCommand(npc) {
         var _this = _super.call(this) || this;
         _this.npc = npc;
@@ -200,13 +201,13 @@ var TalkCommand = /** @class */ (function (_super) {
         console.log("\u5F00\u59CB\u548CNPC\uFF1A" + this.npc.toString() + "\u5BF9\u8BDD");
         player.talk(this.npc);
         var mission = null;
-        if (this.npc.canAcceptMissions.length > 0) {
-            mission = this.npc.canAcceptMissions[0];
-        }
+        console.log("可交任务长度" + this.npc.canSubmitMissions.length);
         if (this.npc.canSubmitMissions.length > 0) {
             mission = this.npc.canSubmitMissions[0];
         }
-        // console.log('任务长度' + missionManager.missions.length);
+        if (this.npc.canAcceptMissions.length > 0) {
+            mission = this.npc.canAcceptMissions[0];
+        }
         if (mission) {
             var talkWindow_1 = new TalkWindow(100, 150);
             talkUIContainer.addChild(talkWindow_1);
@@ -216,16 +217,19 @@ var TalkCommand = /** @class */ (function (_super) {
                 talkUIContainer.deleteChild(talkWindow_1);
                 if (mission) {
                     console.log(mission.status);
-                    if (mission.status == MissionStatus.CAN_ACCEPT) {
+                    if (mission.status == MissionStatus.CAN_SUBMIT) {
+                        console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
+                        missionManager.submit(mission);
+                    }
+                    else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
                         missionManager.accept(mission);
+                        if (mission.type == 'talkWithNpc') {
+                            player.talk(mission.talkTarget);
+                        }
                         if (_this.npc.changeTypeID != 0) {
                             _this.npc.changeType(); //测试换类型！！！ 
                         }
-                    }
-                    else if (mission.status == MissionStatus.CAN_SUBMIT) {
-                        console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
-                        missionManager.submit(mission);
                     }
                     callback();
                 }

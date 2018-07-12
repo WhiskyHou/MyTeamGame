@@ -66,14 +66,14 @@ class WalkCommand extends Command {
 class PortalCommand extends Command {
 
     portal: Portal
-    mapnameBitmap:Bitmap
-    mapname:TextField;
+    mapnameBitmap: Bitmap
+    mapname: TextField;
 
     constructor(portal: Portal) {
         super()
         this.portal = portal;
-        this.mapnameBitmap=new Bitmap(0, 0, Resource.get('mapchange1') as HTMLImageElement)
-        this.mapname=new TextField('',400,250,50)
+        this.mapnameBitmap = new Bitmap(0, 0, Resource.get('mapchange1') as HTMLImageElement)
+        this.mapname = new TextField('', 400, 250, 50)
     }
 
     execute() {
@@ -84,8 +84,8 @@ class PortalCommand extends Command {
         map.addChild(player.view)
 
 
-        if(this.portal.to==1){
-            this.mapname=new TextField('- 校园 -',300,200,100)
+        if (this.portal.to == 1) {
+            this.mapname = new TextField('- 校园 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -93,8 +93,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==2){
-            this.mapname=new TextField('- 操场 -',300,200,100)
+        if (this.portal.to == 2) {
+            this.mapname = new TextField('- 操场 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -102,8 +102,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==3){
-            this.mapname=new TextField('- 家 -',300,200,100)
+        if (this.portal.to == 3) {
+            this.mapname = new TextField('- 家 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -111,8 +111,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==4){
-            this.mapname=new TextField('- 教室 -',300,200,100)
+        if (this.portal.to == 4) {
+            this.mapname = new TextField('- 教室 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -120,8 +120,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==5){
-            this.mapname=new TextField('- 街道 -',300,200,100)
+        if (this.portal.to == 5) {
+            this.mapname = new TextField('- 街道 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -129,8 +129,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==6){
-            this.mapname=new TextField('- 密室 -',300,200,100)
+        if (this.portal.to == 6) {
+            this.mapname = new TextField('- 密室 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -138,8 +138,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==7){
-            this.mapname=new TextField('- 副本 -',300,200,100)
+        if (this.portal.to == 7) {
+            this.mapname = new TextField('- 副本 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -147,8 +147,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==8){
-            this.mapname=new TextField('- 副本1 -',300,200,100)
+        if (this.portal.to == 8) {
+            this.mapname = new TextField('- 副本1 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -156,8 +156,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==9){
-            this.mapname=new TextField('- 副本2 -',300,200,100)
+        if (this.portal.to == 9) {
+            this.mapname = new TextField('- 副本2 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -165,8 +165,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==10){
-            this.mapname=new TextField('- 副本3 -',300,200,100)
+        if (this.portal.to == 10) {
+            this.mapname = new TextField('- 副本3 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -174,15 +174,15 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==11){
-            this.mapname=new TextField('- 副本4 -',300,200,100)
+        if (this.portal.to == 11) {
+            this.mapname = new TextField('- 副本4 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
                 staticStage.deleteChild(this.mapname);
             }, 2000);
         }
-    
+
         player.x = this.portal.targetRow
         player.y = this.portal.targetCol
         player.view.x = player.x * TILE_SIZE
@@ -221,6 +221,8 @@ class PickCommand extends Command {
  */
 class TalkCommand extends Command {
     npc: Npc;
+    // missionID: number = 100;
+
 
     constructor(npc: Npc) {
         super();
@@ -234,14 +236,15 @@ class TalkCommand extends Command {
         player.talk(this.npc);
 
         let mission: Mission | null = null;
+        console.log("可交任务长度" + this.npc.canSubmitMissions.length);
+        if (this.npc.canSubmitMissions.length > 0) {
+
+
+            mission = this.npc.canSubmitMissions[0];
+        }
         if (this.npc.canAcceptMissions.length > 0) {
             mission = this.npc.canAcceptMissions[0];
         }
-        if (this.npc.canSubmitMissions.length > 0) {
-            mission = this.npc.canSubmitMissions[0];
-        }
-
-        // console.log('任务长度' + missionManager.missions.length);
 
         if (mission) {
 
@@ -253,17 +256,20 @@ class TalkCommand extends Command {
                 talkUIContainer.deleteChild(talkWindow);
                 if (mission) {
                     console.log(mission.status);
-
-                    if (mission.status == MissionStatus.CAN_ACCEPT) {
+                    if (mission.status == MissionStatus.CAN_SUBMIT) {
+                        console.log(`完成任务: ${mission.toString()}`);
+                        missionManager.submit(mission);
+                    }
+                    else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log(`接受任务：${mission.toString()}`);
                         missionManager.accept(mission);
+                        if (mission.type == 'talkWithNpc') {
+                            player.talk(mission.talkTarget);
+                        }
                         if (this.npc.changeTypeID != 0) {
                             this.npc.changeType();//测试换类型！！！ 
                         }
 
-                    } else if (mission.status == MissionStatus.CAN_SUBMIT) {
-                        console.log(`完成任务: ${mission.toString()}`);
-                        missionManager.submit(mission);
                     }
                     callback();
                 }
