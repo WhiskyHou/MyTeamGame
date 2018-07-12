@@ -247,7 +247,7 @@
 				"女······小···美，你好。"
 			],
 			"going": "talkWithNpc",
-			"goingFunc": "null",
+			"goingFunc": "小美",
 			"reward": "3,5,0"
 		},
 		{
@@ -266,7 +266,7 @@
 				"这是什么老师？···"
 			],
 			"going": "talkWithNpc",
-			"goingFunc": "null",
+			"goingFunc": "李老师",
 			"reward": "5,5,0"
 		},
 		{
@@ -318,9 +318,9 @@
 		{
 			"id": "16",
 			"name": "基友的关怀",
-			"needLevel": "21",
+			"needLevel": "1",
 			"fromNpcId": "21",
-			"toNpcId": "1",
+			"toNpcId": "21",
 			"canAcceptConfig": [
 				"听说你要追女神？",
 				"是···是啊···",
@@ -331,7 +331,7 @@
 				"嘿嘿，那就先谢谢你了"
 			],
 			"going": "talkWithNpc",
-			"goingFunc": "null",
+			"goingFunc": "基友甲",
 			"reward": "0,0,1001"
 		},
 		{
@@ -352,7 +352,7 @@
 				"我没事，休息一下就好了。"
 			],
 			"going": "talkWithNpc",
-			"goingFunc": "null",
+			"goingFunc": "小美",
 			"reward": "5,8,0"
 		},
 		{
@@ -452,7 +452,7 @@
 				"（不信你任务做不下去了啊！）",
 				"来，给你这本秘籍，有了它，你才可能梦想成真。"
 			],
-			"going": "null",
+			"going": "talkWithNpc",
 			"goingFunc": "智者",
 			"reward": "0,0,1002"
 		},
@@ -461,7 +461,7 @@
 			"name": "梦想成真",
 			"needLevel": "1",
 			"fromNpcId": "12",
-			"toNpcId": "0",
+			"toNpcId": "1",
 			"canAcceptConfig": [
 				"你···你真的喜欢我么？",
 				"虽然我智商不行，情商不行，学习不行，体育不行，又没有钱，又没有房，还···",
