@@ -168,6 +168,8 @@ class MissionUI extends DisplayObjectContainer {
 
     blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
+    missionTextGroup = new DisplayObjectContainer(0, 0);
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -177,13 +179,27 @@ class MissionUI extends DisplayObjectContainer {
         this.addChild(this.blackMask);
         this.addChild(this.MissionBackGround);
         this.addChild(this.closeButton);
+        this.addChild(this.missionTextGroup);
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
             clickaudio.play();
         })
+        this.updateMissionText();
+    }
+
+
+    updateMissionText() {
+        this.missionTextGroup.deleteAll();
+        let missionText = new TextField(missionManager.missions[0].name, 375, 100, 40);
+        for (let i = 0; i < missionManager.missions[0].canAcceptContent.length; i++) {
+            let missionAcceptText = new TextField(missionManager.missions[0].canAcceptContent[i], 390, 180 + 25 * i, 25);
+            this.missionTextGroup.addChild(missionAcceptText);
+        }
+        this.missionTextGroup.addChild(missionText);
     }
 }
+
 /**
  * 背包UI
  */
@@ -977,22 +993,6 @@ class battleEndWinUI extends DisplayObjectContainer {
             batManager.dispatchEvent("backSceneWin", null);
             clickaudio.play();
         })
-
-
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     if (this.hasListener) {
-        //         return;
-        //     }
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //         this.hasListener = true;
-        //     }
-        // })
-
     }
 }
 
@@ -1153,62 +1153,4 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillGroup.addChild(this.mountedSkillText);
         }
     }
-
-    // returnSkillNo(id: number) {
-    //     for (let i = 0; i < skillArray.length; i++) {
-    //         if (id == skillArray[i].id) {
-    //             return i;
-    //         }
-    //     }
-    //     return 1;
-    // }
 }
-
-/**
- * 对话窗口UI
- */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
-
-//     count: number = 1;
-
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
-
-//     constructor(x: number, y: number) {
-//         super(x, y);
-
-//         this.init();
-
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }

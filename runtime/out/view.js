@@ -141,17 +141,29 @@ var MissionUI = /** @class */ (function (_super) {
     function MissionUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.missionTextGroup = new DisplayObjectContainer(0, 0);
         _this.MissionBackGround = new Bitmap(225, 65, missionImg);
         _this.closeButton = new Bitmap(215, 55, missionCloseImg);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.MissionBackGround);
         _this.addChild(_this.closeButton);
+        _this.addChild(_this.missionTextGroup);
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
             clickaudio.play();
         });
+        _this.updateMissionText();
         return _this;
     }
+    MissionUI.prototype.updateMissionText = function () {
+        this.missionTextGroup.deleteAll();
+        var missionText = new TextField(missionManager.missions[0].name, 375, 100, 40);
+        for (var i = 0; i < missionManager.missions[0].canAcceptContent.length; i++) {
+            var missionAcceptText = new TextField(missionManager.missions[0].canAcceptContent[i], 390, 180 + 25 * i, 25);
+            this.missionTextGroup.addChild(missionAcceptText);
+        }
+        this.missionTextGroup.addChild(missionText);
+    };
     return MissionUI;
 }(DisplayObjectContainer));
 /**
@@ -800,19 +812,6 @@ var battleEndWinUI = /** @class */ (function (_super) {
             clickaudio.play();
         });
         return _this;
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     if (this.hasListener) {
-        //         return;
-        //     }
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //         this.hasListener = true;
-        //     }
-        // })
     }
     return battleEndWinUI;
 }(DisplayObjectContainer));
@@ -947,43 +946,3 @@ var skillBoxUI = /** @class */ (function (_super) {
     };
     return skillBoxUI;
 }(DisplayObjectContainer));
-/**
- * 对话窗口UI
- */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
-//     count: number = 1;
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
-//     constructor(x: number, y: number) {
-//         super(x, y);
-//         this.init();
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
