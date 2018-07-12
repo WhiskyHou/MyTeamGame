@@ -2,7 +2,7 @@
  * 用户信息UI
  */
 class UserInfoUI extends DisplayObjectContainer {
-    
+
     //主界面UI
     userName: TextField;
     userLevel: TextField;
@@ -26,16 +26,19 @@ class UserInfoUI extends DisplayObjectContainer {
     skillUI: skillBoxUI;
     missionUI: MissionUI;
     settingUI: SettingUI;
-    
+
+
+
     //
-    inputText: TextField;
 
     constructor(x: number, y: number) {
+
         super(x, y);
-        
+
+
         this.bloodUI = new Bitmap(0, 0, bloodUI);
-        this.userCoinUI = new Bitmap(350,20,userCoinUI);
-        this.userDiamondUI = new Bitmap(500,20,userDiamondUI);
+        this.userCoinUI = new Bitmap(350, 20, userCoinUI);
+        this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
 
         this.userName = new TextField(player.name, 130, 12, 20);
         this.userLevel = new TextField('' + player.level, 54, 91, 20);
@@ -53,47 +56,36 @@ class UserInfoUI extends DisplayObjectContainer {
         this.EscButton = new Bitmap(820, 475, EscButton);
         this.SkillButton = new Bitmap(680, 475, SkillButton);
         this.missionButton = new Bitmap(610, 475, MissionButton);
-        
+
         //
 
-        this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
-        this.addChild(this.inputText);
 
         this.addChild(this.bloodUI);
         this.addChild(this.userCoinUI);
         this.addChild(this.userDiamondUI);
-        
+
         this.addChild(this.userName);
         this.addChild(this.userLevel);
         this.addChild(this.userCoin);
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
-       
+
         this.addChild(this.HP);
         this.addChild(this.MP);
 
-       //
-        
+        //
+
         this.addChild(this.bagButton);
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
         this.addChild(this.missionButton);
 
+<<<<<<< HEAD
+        //16558
+=======
 
-
-        inputManager.addEventListener('inputChanged', (eventData: any) => {
-            this.deleteChild(this.inputText);
-            this.inputText = new TextField(eventData, 350, 300, 60);
-            this.addChild(this.inputText);
-        })
-        inputManager.addEventListener('inputOver', (eventData: any) => {
-            player.name = eventData;
-            this.deleteChild(this.userName);
-            this.userName = new TextField(player.name, 130, 12, 20);
-            this.addChild(this.userName);
-            this.deleteChild(this.inputText);
-        })
+>>>>>>> 89b05dda96e3e42291f83d294662e9c84abbbd13
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
             clickaudio.play();
@@ -103,20 +95,85 @@ class UserInfoUI extends DisplayObjectContainer {
             this.skillUI = new skillBoxUI(0, 0);
             skillBoxContainer.addChild(this.skillUI);
             clickaudio.play();
+            this.skillUI.hasOn = true;
         });
 
         this.missionButton.addEventListener('onClick', (eventData: any) => {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
             clickaudio.play();
+            missionHasOn = true;
         });
 
         this.EscButton.addEventListener('onClick', (eventData: any) => {
             this.settingUI = new SettingUI(0, 0);
             settingBoxContainer.addChild(this.settingUI);
+            setHasOn = true;
             clickaudio.play();
         });
 
+
+        let missionHasOn = false;
+        let setHasOn = false;
+        let skillHasOn = false;
+
+        //26558
+        inputManager.addEventListener('L', () => {
+            if (!this.missionUI) {
+                this.missionUI = new MissionUI(0, 0);
+                missionBoxContainer.addChild(this.missionUI);
+                clickaudio.play();
+            } else {
+
+                if (!this.missionUI.hasOn) {
+                    this.missionUI = new MissionUI(0, 0);
+                    missionBoxContainer.addChild(this.missionUI);
+                    clickaudio.play();
+                    this.missionUI.hasOn = true;
+                } else {
+                    missionBoxContainer.deleteAll();
+                    this.missionUI.hasOn = false;
+                }
+            }
+        })
+
+        inputManager.addEventListener('O', () => {
+            if (!this.settingUI) {
+                this.settingUI = new SettingUI(0, 0);
+                settingBoxContainer.addChild(this.settingUI);
+                clickaudio.play();
+            } else {
+                if (!this.settingUI.hasOn) {
+                    this.settingUI = new SettingUI(0, 0);
+                    settingBoxContainer.addChild(this.settingUI);
+                    clickaudio.play();
+                    this.settingUI.hasOn = true;
+                } else {
+                    settingBoxContainer.deleteAll();
+                    this.settingUI.hasOn = false;
+                }
+            }
+        })
+
+        inputManager.addEventListener('K', () => {
+            if (!this.skillUI) {
+                this.skillUI = new skillBoxUI(0, 0);
+                skillBoxContainer.addChild(this.skillUI);
+                clickaudio.play();
+            } else {
+                if (!this.skillUI.hasOn) {
+                    this.skillUI = new skillBoxUI(0, 0);
+                    skillBoxContainer.addChild(this.skillUI);
+                    clickaudio.play();
+                    this.skillUI.hasOn = true;
+                } else {
+                    skillBoxContainer.deleteAll();
+                    this.skillUI.hasOn = false;
+                }
+            }
+
+
+        })
 
         player.addEventListener('updateUserInfo', (eventData: any) => {
             // if (player.currentEXP >= player.needEXP) {
@@ -135,11 +192,18 @@ class UserInfoUI extends DisplayObjectContainer {
             //     equipments += item.name.toString();
             // }
             // this.userEquipment.text = '装备: ' + equipments;
+            this.deleteChild(this.HP);
+            this.deleteChild(this.MP);
+            this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+            this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+            this.addChild(this.HP);
+            this.addChild(this.MP);
         });
 
 
         // console.log(player);
     }
+
 }
 
 
@@ -192,10 +256,12 @@ class MissionUI extends DisplayObjectContainer {
     blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
     missionTextGroup = new DisplayObjectContainer(0, 0);
+    hasOn = false;
 
     constructor(x: number, y: number) {
         super(x, y);
 
+        this.hasOn = true;
         this.MissionBackGround = new Bitmap(225, 65, missionImg);
         this.closeButton = new Bitmap(215, 55, missionCloseImg);
 
@@ -209,7 +275,12 @@ class MissionUI extends DisplayObjectContainer {
             clickaudio.play();
         })
         this.updateMissionText();
+
+        inputManager.addEventListener("Esc", (eventData: any) => {
+            this.deleteAll();
+        });
     }
+
 
 
     updateMissionText() {
@@ -502,6 +573,9 @@ class shopUI extends DisplayObjectContainer {
         this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5)
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
+        let blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
+
+        this.addChild(blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.shopDownButton);
         this.addChild(this.shopWQ);
@@ -1068,7 +1142,6 @@ class battleEndLoseUI extends DisplayObjectContainer {
 class skillBoxUI extends DisplayObjectContainer {
 
     backGround: Bitmap;
-
     closeButton: Bitmap;
     // backButton: Bitmap;
 
@@ -1090,9 +1163,12 @@ class skillBoxUI extends DisplayObjectContainer {
 
     blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
+    hasOn = false;
+
     constructor(x: number, y: number) {
         super(x, y);
 
+        this.hasOn = true;
         this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         this.skillTextGroup = new DisplayObjectContainer(375, 20);
@@ -1115,6 +1191,10 @@ class skillBoxUI extends DisplayObjectContainer {
             this.deleteAll();
             clickaudio.play();
         })
+
+        inputManager.addEventListener("Esc", (eventData: any) => {
+            this.deleteAll();
+        });
 
         this.skillOnButton.addEventListener('onClick', () => {
             if (this.nowChoice == 1) {
@@ -1213,10 +1293,11 @@ class SettingUI extends DisplayObjectContainer {
     off: Bitmap;
     backButton: Bitmap;
     blackMask: Bitmap;
+    hasOn = false;
 
     constructor(x: number, y: number) {
         super(x, y);
-
+        this.hasOn = true;
         this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1') as HTMLImageElement);
         this.on = new Bitmap(440, 195, Resource.get('SettingUI2') as HTMLImageElement);
         this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
@@ -1228,6 +1309,10 @@ class SettingUI extends DisplayObjectContainer {
         this.addChild(this.on);
         this.addChild(this.off);
         this.addChild(this.backButton);
+
+        inputManager.addEventListener("Esc", (eventData: any) => {
+            this.deleteAll();
+        });
 
         this.backButton.addEventListener("onClick", (eventData: any) => {
             this.deleteAll();
@@ -1281,7 +1366,7 @@ class WorkerUI extends DisplayObjectContainer {
 
         this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1') as HTMLImageElement);
         this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2') as HTMLImageElement);
-       
+
         this.addChild(this.backGround);
         this.addChild(this.backButton);
 
@@ -1289,6 +1374,6 @@ class WorkerUI extends DisplayObjectContainer {
             this.deleteAll();
             clickaudio.play();
         })
-       
+
     }
 }

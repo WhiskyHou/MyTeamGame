@@ -36,8 +36,8 @@ var InputManager = /** @class */ (function (_super) {
         if (code > 64 && code < 91) {
             return Words1[code - 65];
         }
-        else if (code > 47 && code < 58) {
-            return Words2[code - 48];
+        else if (code > 48 && code < 59) {
+            return Words2[code - 49];
         }
         else if (code == 32) {
             return " ";
@@ -48,6 +48,18 @@ var InputManager = /** @class */ (function (_super) {
     };
     InputManager.prototype.parse = function (code) {
         switch (code) {
+            case 76: //L
+                this.dispatchEvent('L', this.inputString);
+                break;
+            case 75: //K
+                this.dispatchEvent('K', this.inputString);
+                break;
+            case 73: //I
+                this.dispatchEvent('I', this.inputString);
+                break;
+            case 79: //O
+                this.dispatchEvent('O', this.inputString);
+                break;
             case 8: //BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
@@ -74,6 +86,19 @@ var InputManager = /** @class */ (function (_super) {
                 _this.dispatchEvent('inputChanged', _this.inputString);
             }
         });
+        this.addEventListener("L", function (eventData) {
+            //任务快捷键
+        });
+        this.addEventListener("K", function (eventData) {
+            //技能快捷键
+        });
+        this.addEventListener("I", function (eventData) {
+            //背包快捷键
+            baManager.openBag();
+        });
+        this.addEventListener("O", function (eventData) {
+            //设置快捷键
+        });
         this.addEventListener("Back", function (eventData) {
             if (!_this.inputOver) {
                 _this.inputString = _this.inputString.slice(0, _this.inputString.length - 1);
@@ -82,7 +107,6 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener("Enter", function (eventData) {
             _this.inputOver = true;
-            console.log('你按下了回车1');
             _this.dispatchEvent('inputOver', _this.inputString);
         });
         this.addEventListener("Caps Lock", function (eventData) {
