@@ -11,8 +11,8 @@
             "id": 2,
             "from": 2,
             "to": 1,
-            "targetRow": 1,
-            "targetCol": 1
+            "targetRow": 4,
+            "targetCol": 6
         }
     ]
 }
