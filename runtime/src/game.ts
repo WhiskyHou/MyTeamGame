@@ -124,16 +124,16 @@ MissionButton.src = './assets/1 60x80 任务ui.png';
 
 var bloodUI = new Image();
 bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
-var userCoinUI  = new Image();
-userCoinUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
+var userCoinUI = new Image();
+userCoinUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
 var userDiamondUI = new Image();
-userDiamondUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
+userDiamondUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
 
 
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景2.png';
 var bagOnUI = new Image();
-bagOnUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 装备.png';
+bagOnUI.src = './assets/美术素材/UI/5 背包界面/UI 背包 PNG/背包UI 使用.png';
 var bagOffUI = new Image();
 bagOffUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/背包UI 卸下.png';
 var bagDownUI = new Image();
@@ -259,7 +259,7 @@ xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
 const TILE_SIZE = 128;//TODO:还原为128
 const ASSETS_PATH = "./assets/";
 
-const ROW_NUM = 15;
+const ROW_NUM = 18;
 const COL_NUM = 21;
 
 const GRASS_L = 0;
@@ -597,7 +597,7 @@ class CreateState extends State {
         this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
         this.startButton.addEventListener("onClick", this.onStartClick);
-        
+
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
@@ -660,21 +660,18 @@ class CreateState extends State {
         staticStage.addChild(this.attackMinusButton);
 
         inputManager.addEventListener("inputChanged", (eventData: any) => {
-            if(!this.hasName){
+            if (!this.hasName) {
                 staticStage.deleteChild(this.playerNameText);
                 player.name = eventData
-                console.log("mingzi:",eventData)
+                console.log("mingzi:", eventData)
                 this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
                 staticStage.addChild(this.playerNameText);
-            }   
+            }
         });
         inputManager.addEventListener("inputOver", () => {
-            this.hasName =true
+            this.hasName = true
         });
         // stage.addEventListener("onClick", this.onClick);
-
-
-
 
     }
     onUpdate(): void {
@@ -708,11 +705,11 @@ class CreateState extends State {
             fsm.replaceState(PlayingState.instance);
             this.createaudio.playOnlyOnce = true;
             this.createaudio.play();
-        } 
-        if(this.canAssignPoint > 0) {
+        }
+        if (this.canAssignPoint > 0) {
             this.tipsText.text = " ← 加完点才能学习！"
         }
-        if(!this.hasName) {
+        if (!this.hasName) {
             this.tips2Text.text = "请输入名字，按ENTER结束！ ↑"
         }
     }
@@ -728,16 +725,13 @@ let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
 let settingBoxContainer: DisplayObjectContainer;
 
-// anim测试角色
-let animTemp: DisplayObjectContainer;
-// anim测试角色
-animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
-const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+// // anim测试角色
+// let animTemp: DisplayObjectContainer;
+// // anim测试角色
+// animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
+// const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 
-//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
-//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
-
-anim.play();
+let anim: PlayerAnimTest
 
 /**
  * 游戏状态
@@ -814,6 +808,9 @@ class PlayingState extends State {
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
+
+        anim = player.view.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+        anim.play();
         //this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);
@@ -907,29 +904,8 @@ canvas.onclick = function (event) {
 window.onkeydown = (event: any) => {
     let keyCode = event.keyCode ? event.keyCode : event.which;
     inputManager.dispatchEvent("inputStart", keyCode);
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
-    } else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "DOWN" });
-    } else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "LEFT" });
-    } else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "RIGHT" });
-    }
 }
-window.onkeyup = (event: any) => {
-    let keyCode = event.keyCode ? event.keyCode : event.which;
 
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "UP" });
-    } else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "DOWN" });
-    } else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "LEFT" });
-    } else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "RIGHT" });
-    }
-}
 
 
 

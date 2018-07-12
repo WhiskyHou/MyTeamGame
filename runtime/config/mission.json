@@ -5,7 +5,7 @@
 			"name": "捡起屠龙宝刀",
 			"needLevel": "1",
 			"fromNpcId": "7",
-			"toNpcId": "4",
+			"toNpcId": "7",
 			"canAcceptConfig": [
 				"欢迎来到王者大陆",
 				"你的等级还很低",
@@ -26,9 +26,9 @@
 		{
 			"id": "2",
 			"name": "寻找大师",
-			"needLevel": "2",
-			"fromNpcId": "1",
-			"toNpcId": "3",
+			"needLevel": "1",
+			"fromNpcId": "3",
+			"toNpcId": "4",
 			"canAcceptConfig": [
 				"你怎么回来了？",
 				"屠龙刀找到了？",
@@ -46,20 +46,20 @@
 				"从哪来的回哪去"
 			],
 			"going": "talkWithNpc",
-			"goingFunc": "诸葛亮",
-			"reward": "0,0,0"
+			"goingFunc": "王昭君",
+			"reward": "20,30,1005"
 		},
 		{
 			"id": "3",
 			"name": "打败美队",
-			"needLevel": "3",
-			"fromNpcId": "1",
-			"toNpcId": "1",
+			"needLevel": "1",
+			"fromNpcId": "2",
+			"toNpcId": "2",
 			"canAcceptConfig": [
 				"大师没告诉你去干什么？",
 				"唉其它npc是真的懒",
 				"什么事都要找我",
-				"你帮我个帮吧，去打败一个美队",
+				"你帮我个帮吧，去打败一个美队111111111111111111111111",
 				"就一个啊"
 			],
 			"canSubmitConfig": [
@@ -70,8 +70,8 @@
 				"2333333……"
 			],
 			"going": "fightWithMonster",
-			"goingFunc": "队长",
-			"reward": "0,0,0"
+			"goingFunc": "引擎怪",
+			"reward": "20,30,1005"
 		},
 		{
 			"id": "4",

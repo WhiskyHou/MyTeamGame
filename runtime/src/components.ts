@@ -6,13 +6,15 @@ class PlayerAnimTest extends Behaviour {
     anim: Animator
 
     onStart(): void {
-        this.anim = new Animator(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE, Resource.get('dust') as HTMLImageElement, 128, 4, 0.2);
-        (this.gameObject as DisplayObjectContainer).addChild(this.anim)
+        this.anim = new Animator(this.gameObject.x, this.gameObject.y, Resource.get('dust') as HTMLImageElement, 128, 4, 0.2);
+        this.gameObject.addChild(this.anim)
         this.anim.isLooping = true
         this.anim.visible = true
     }
     onUpdate(delta: number): void {
         this.anim.update(delta);
+        this.anim.x = this.gameObject.x
+        this.anim.y = this.gameObject.y
     }
     onDestory(): void {
 
