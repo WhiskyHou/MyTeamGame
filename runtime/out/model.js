@@ -570,41 +570,34 @@ var Monster = /** @class */ (function (_super) {
         var ran = Math.random() * 100;
         // lv2掉率45% lv1掉率55%
         if (ran >= 45) {
-            return lv2Set.buildEquip();
+            return lv1DgSetlv2.buildEquip();
         }
         else {
-            return lv1Set.buildEquip();
+            return lv1DgSetlv1.buildEquip();
         }
     };
     Monster.prototype.equipDropLv2 = function () {
         var ran = Math.random() * 100;
         // lv3掉率30% lv2掉率70% 
         if (ran >= 70) {
-            return lv3Set.buildEquip();
+            return lv2DgSetlv3.buildEquip();
         }
         else {
-            return lv2Set.buildEquip();
+            return lv2DgSetlv2.buildEquip();
         }
     };
     Monster.prototype.equipDropLv3 = function () {
         var ran = Math.random() * 100;
         // lv4掉率20% lv3掉率80% 
         if (ran >= 80) {
-            return lv4Set.buildEquip();
+            return lv3DgSetlv5.buildEquip();
         }
         else {
-            return lv3Set.buildEquip();
+            return lv3DgSetlv4.buildEquip();
         }
     };
     Monster.prototype.equipDropLv4 = function () {
-        var ran = Math.random() * 100;
-        // lv5掉率5% lv4掉率95% 
-        if (ran >= 95) {
-            return lv5Set.buildEquip();
-        }
-        else {
-            return lv4Set.buildEquip();
-        }
+        return lv4DgSet.buildEquip();
     };
     Monster.prototype.makeDrop = function () {
         var equipBox = [];
@@ -757,11 +750,88 @@ var lv5EquipSet = /** @class */ (function (_super) {
     }
     return lv5EquipSet;
 }(EquipmentSet));
+var lv1DungeonEquipSet = /** @class */ (function (_super) {
+    __extends(lv1DungeonEquipSet, _super);
+    function lv1DungeonEquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv1DungeonEquipSet;
+}(EquipmentSet));
+var lv1DungeonEquipSetlv1 = /** @class */ (function (_super) {
+    __extends(lv1DungeonEquipSetlv1, _super);
+    function lv1DungeonEquipSetlv1() {
+        return _super.call(this) || this;
+    }
+    return lv1DungeonEquipSetlv1;
+}(lv1DungeonEquipSet));
+var lv1DungeonEquipSetlv2 = /** @class */ (function (_super) {
+    __extends(lv1DungeonEquipSetlv2, _super);
+    function lv1DungeonEquipSetlv2() {
+        return _super.call(this) || this;
+    }
+    return lv1DungeonEquipSetlv2;
+}(lv1DungeonEquipSet));
+var lv2DungeonEquipSet = /** @class */ (function (_super) {
+    __extends(lv2DungeonEquipSet, _super);
+    function lv2DungeonEquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv2DungeonEquipSet;
+}(EquipmentSet));
+var lv2DungeonEquipSetlv2 = /** @class */ (function (_super) {
+    __extends(lv2DungeonEquipSetlv2, _super);
+    function lv2DungeonEquipSetlv2() {
+        return _super.call(this) || this;
+    }
+    return lv2DungeonEquipSetlv2;
+}(lv2DungeonEquipSet));
+var lv2DungeonEquipSetlv3 = /** @class */ (function (_super) {
+    __extends(lv2DungeonEquipSetlv3, _super);
+    function lv2DungeonEquipSetlv3() {
+        return _super.call(this) || this;
+    }
+    return lv2DungeonEquipSetlv3;
+}(lv2DungeonEquipSet));
+var lv3DungeonEquipSet = /** @class */ (function (_super) {
+    __extends(lv3DungeonEquipSet, _super);
+    function lv3DungeonEquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv3DungeonEquipSet;
+}(EquipmentSet));
+var lv3DungeonEquipSetlv4 = /** @class */ (function (_super) {
+    __extends(lv3DungeonEquipSetlv4, _super);
+    function lv3DungeonEquipSetlv4() {
+        return _super.call(this) || this;
+    }
+    return lv3DungeonEquipSetlv4;
+}(lv3DungeonEquipSet));
+var lv3DungeonEquipSetlv5 = /** @class */ (function (_super) {
+    __extends(lv3DungeonEquipSetlv5, _super);
+    function lv3DungeonEquipSetlv5() {
+        return _super.call(this) || this;
+    }
+    return lv3DungeonEquipSetlv5;
+}(lv3DungeonEquipSet));
+var lv4DungeonEquipSet = /** @class */ (function (_super) {
+    __extends(lv4DungeonEquipSet, _super);
+    function lv4DungeonEquipSet() {
+        return _super.call(this) || this;
+    }
+    return lv4DungeonEquipSet;
+}(EquipmentSet));
 var lv1Set = new lv1EquipSet();
 var lv2Set = new lv2EquipSet();
 var lv3Set = new lv3EquipSet();
 var lv4Set = new lv4EquipSet();
 var lv5Set = new lv5EquipSet();
+var lv1DgSetlv1 = new lv1DungeonEquipSetlv1();
+var lv1DgSetlv2 = new lv1DungeonEquipSetlv2();
+var lv2DgSetlv2 = new lv2DungeonEquipSetlv2();
+var lv2DgSetlv3 = new lv2DungeonEquipSetlv3();
+var lv3DgSetlv4 = new lv3DungeonEquipSetlv4();
+var lv3DgSetlv5 = new lv3DungeonEquipSetlv5();
+var lv4DgSet = new lv4DungeonEquipSet();
 function equipSetInit(equipManager) {
     for (var i = 0; i < equipManager.equipList.length; i++) {
         switch (equipManager.equipList[i].quality) {
@@ -782,6 +852,37 @@ function equipSetInit(equipManager) {
                 break;
         }
     }
+}
+function dungeonEquipSetInitequip(Manager) {
+    //lv1地下城固定掉落
+    lv1DgSetlv1.addEquipID(8);
+    lv1DgSetlv1.addEquipID(9);
+    lv1DgSetlv2.addEquipID(10);
+    lv1DgSetlv1.addEquipID(11);
+    lv1DgSetlv2.addEquipID(12);
+    lv1DgSetlv1.addEquipID(1);
+    //lv2地下城固定掉落
+    lv2DgSetlv2.addEquipID(14);
+    lv2DgSetlv2.addEquipID(15);
+    lv2DgSetlv3.addEquipID(16);
+    lv2DgSetlv3.addEquipID(17);
+    lv2DgSetlv3.addEquipID(18);
+    lv2DgSetlv3.addEquipID(19);
+    lv2DgSetlv3.addEquipID(20);
+    //lv3地下城固定掉落
+    lv3DgSetlv5.addEquipID(5);
+    lv3DgSetlv4.addEquipID(21);
+    lv3DgSetlv4.addEquipID(22);
+    lv3DgSetlv4.addEquipID(23);
+    lv3DgSetlv4.addEquipID(24);
+    lv3DgSetlv4.addEquipID(25);
+    //lv4地下城固定掉落
+    lv4DgSet.addEquipID(28);
+    lv4DgSet.addEquipID(29);
+    lv4DgSet.addEquipID(30);
+    lv4DgSet.addEquipID(31);
+    lv4DgSet.addEquipID(32);
+    lv4DgSet.addEquipID(6);
 }
 /**
  * 技能

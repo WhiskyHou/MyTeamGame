@@ -4,7 +4,7 @@
  */
 class MissionManager extends EventDispatcher {
     missions: Mission[] = []
-
+    safeLock : boolean = false;
 
 
     constructor() {
@@ -44,18 +44,16 @@ class MissionManager extends EventDispatcher {
                     mission.current++;
                 }
             }
-            let rewardFunc: Function;
-            if (item.reward == 'levelUp') {
-                rewardFunc = () => {
-                    player.levelUp();
+            let rewardNumber = this.parseRewardString(item.reward)
+            const rewardFunc = () => {
+                if(this.safeLock){
+                    player.coin += rewardNumber[0]
+                    player.currentEXP += rewardNumber[1]
+                    if(rewardNumber[2]>0){
+                        player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]))
+                    }   
                 }
-            } else if (item.reward == 'levelDown') {
-                rewardFunc = () => {
-                    player.levelDown();
-                }
-            } else {
-                rewardFunc = () => { }
-            }
+            }                                                                                                             
             let mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -65,6 +63,9 @@ class MissionManager extends EventDispatcher {
             mission.canAcceptContent = item.canAcceptConfig;
             mission.canSubmitContent = item.canSubmitConfig;
             mission.status = MissionStatus.UNACCEPT;
+            mission.addCoin = rewardNumber[0]
+            mission.addEXP = rewardNumber[1]
+            mission.equipment = shpManager.getEquipment(rewardNumber[2])
             // console.log('任务名' + mission.name);
             this.missions.push(mission);
         }
@@ -78,6 +79,14 @@ class MissionManager extends EventDispatcher {
     submit(mission: Mission) {
         mission.isSubmit = true;
         this.update();
+    }
+    parseRewardString(reward : string):Array<any>{
+        let rewards = reward.split(",")
+        let rewardNumber =[]
+        for (let item of rewards) {
+            rewardNumber.push(parseInt(item))
+        }
+        return rewardNumber
     }
 
 }

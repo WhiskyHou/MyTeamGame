@@ -1003,7 +1003,7 @@ var SettingUI = /** @class */ (function (_super) {
             Attack2Audio.src = "assets/音效/dnf/静音.mp3";
             BuyAudio.src = "assets/音效/dnf/静音.mp3";
             HPMPAudio.src = "assets/音效/dnf/静音.mp3";
-            MainAudio.src = "assets/音效/dnf/静音.mp33";
+            MainAudio.src = "assets/音效/dnf/静音.mp3";
             ClickAudio.src = "assets/音效/dnf/静音.mp3";
         });
         return _this;
