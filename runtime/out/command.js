@@ -197,7 +197,6 @@ var TalkCommand = /** @class */ (function (_super) {
         return _this;
     }
     TalkCommand.prototype.execute = function (callback) {
-        var _this = this;
         console.log("\u5F00\u59CB\u548CNPC\uFF1A" + this.npc.toString() + "\u5BF9\u8BDD");
         player.talk(this.npc);
         var mission = null;
@@ -227,9 +226,13 @@ var TalkCommand = /** @class */ (function (_super) {
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);
                         }
-                        if (_this.npc.changeTypeID != 0) {
-                            _this.npc.changeType(); //测试换类型！！！ 
+                        if (mission.fightTarget) {
+                            console.log(mission.fightTarget.name + "变怪！！！");
+                            mission.fightTarget.changeType();
                         }
+                        // if (this.npc.changeTypeID != 0) {
+                        //     this.npc.changeType();//测试换类型！！！ 
+                        // }
                     }
                     callback();
                 }

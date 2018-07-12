@@ -283,7 +283,7 @@ class MissionUI extends DisplayObjectContainer {
         this.missionTextGroup.deleteAll();
 
         for (let i = 0; i < missionManager.missions.length; i++) {
-            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING || missionManager.missions[i].status == MissionStatus.CAN_SUBMIT) {
                 let missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
 
                 for (let b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
@@ -1289,8 +1289,8 @@ class SettingUI extends DisplayObjectContainer {
     off: Bitmap;
     backButton: Bitmap;
     blackMask: Bitmap;
-    recharge : Bitmap;
-    rechargeInput : MultiTextField;
+    recharge: Bitmap;
+    rechargeInput: MultiTextField;
     hasOn = false;
     oneTime = true;
     code = 0;
@@ -1308,7 +1308,7 @@ class SettingUI extends DisplayObjectContainer {
         this.addChild(this.on);
         this.addChild(this.off);
         this.addChild(this.backButton);
-        if(!inputManager.rechargeIsStart){
+        if (!inputManager.rechargeIsStart) {
             this.addChild(this.recharge);
         }
 
@@ -1317,30 +1317,30 @@ class SettingUI extends DisplayObjectContainer {
         });
         this.recharge.addEventListener("onClick", (eventData: any) => {
             this.deleteChild(this.recharge)
-            this.rechargeInput = new MultiTextField(["请输入","8×3","充值码"],400,250,20,10)
+            this.rechargeInput = new MultiTextField(["请输入", "8×3", "充值码"], 400, 250, 20, 10)
             this.addChild(this.rechargeInput)
             inputManager.rechargeIsStart = true;
-            inputManager.dispatchEvent('rechargeInput',null)
+            inputManager.dispatchEvent('rechargeInput', null)
             clickaudio.play();
         })
         inputManager.addEventListener("inputChanged", (eventData: any) => {
-            if(inputManager.rechargeIsStart){
+            if (inputManager.rechargeIsStart) {
                 this.deleteChild(this.rechargeInput)
-                let event : string = eventData;
-                this.code = parseInt(event.slice(0,24))
+                let event: string = eventData;
+                this.code = parseInt(event.slice(0, 24))
                 console.log(this.code)
-                this.rechargeInput = new MultiTextField(["请输入充值码"],415,250,20,10).setStringByNumber(event.slice(0,24),8)
+                this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
                 this.addChild(this.rechargeInput)
                 clickaudio.play();
-            }    
+            }
         })
         this.backButton.addEventListener("onClick", (eventData: any) => {
             this.deleteAll();
-            this.rechargeInput = new MultiTextField([],400,250,20,10)
-            if(this.code == 1 && this.oneTime){
+            this.rechargeInput = new MultiTextField([], 400, 250, 20, 10)
+            if (this.code == 1 && this.oneTime) {
                 player.coin += 10000
             }
-            this.oneTime =false
+            this.oneTime = false
             inputManager.dispatchEvent('inputOver', null);
             this.deleteChild(this.rechargeInput)
             clickaudio.play();

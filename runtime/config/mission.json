@@ -244,7 +244,9 @@
 			],
 			"canSubmitConfig": [
 				"你好啊~",
-				"女······小···美，你好。"
+				"女······小···美，你好。",
+				"有事吗？",
+				"（我到旁边冷静一下再来找她）"
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "小美",
@@ -257,24 +259,26 @@
 			"fromNpcId": "11",
 			"toNpcId": "10",
 			"canAcceptConfig": [
+				"怎么啦？",
+				"没事！……要加油学习啊！",
 				"以后大家一起加油啊~",
-				"好···好的，小美。",
-				"（我一定要追到你！）"
+				"好···好的，小美。我先去找老师了！"
 			],
 			"canSubmitConfig": [
-				"心动不如行动，快做点什么，到处转一转，**女神吧！（等等，我说了什么？其实我是很和谐的）",
+				"我知道你想干嘛！从南边出校门吧！会有惊喜呦！",
 				"这是什么老师？···"
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "李老师",
-			"reward": "5,5,0"
+			"reward": "5,5,0",
+			"foreMissionID": "12"
 		},
 		{
 			"id": "14",
 			"name": "舍身救美",
 			"needLevel": "1",
-			"fromNpcId": "12",
-			"toNpcId": "12",
+			"fromNpcId": "13",
+			"toNpcId": "13",
 			"canAcceptConfig": [
 				"救命啊！！！！！！！",
 				"女神，你退开，小心我误伤到你。"
@@ -285,14 +289,15 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "呆萌恶犬",
-			"reward": "5,10,0"
+			"reward": "5,10,0",
+			"foreMissionID": "13"
 		},
 		{
 			"id": "15",
 			"name": "打到邋遢鬼",
 			"needLevel": "1",
-			"fromNpcId": "12",
-			"toNpcId": "12",
+			"fromNpcId": "13",
+			"toNpcId": "13",
 			"canAcceptConfig": [
 				"你还能再帮帮我么？",
 				"为美女···不不不，为朋友两肋插刀！",
@@ -313,7 +318,8 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "邋遢鬼",
-			"reward": "8,12,0"
+			"reward": "8,12,0",
+			"foreMissionID": "14"
 		},
 		{
 			"id": "16",
@@ -332,10 +338,11 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "基友甲",
-			"reward": "0,0,1001"
+			"reward": "0,0,1001",
+			"foreMissionID": "15"
 		},
 		{
-			"id": "16",
+			"id": "17",
 			"name": "小美生病了",
 			"needLevel": "1",
 			"fromNpcId": "10",
@@ -353,10 +360,11 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "小美",
-			"reward": "5,8,0"
+			"reward": "5,8,0",
+			"foreMissionID": "16"
 		},
 		{
-			"id": "17",
+			"id": "18",
 			"name": "八百万死肥宅",
 			"needLevel": "1",
 			"fromNpcId": "16",
@@ -372,10 +380,11 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "快乐肥宅",
-			"reward": "10,25,0"
+			"reward": "10,25,0",
+			"foreMissionID": "17"
 		},
 		{
-			"id": "18",
+			"id": "19",
 			"name": "肉包子争夺战",
 			"needLevel": "1",
 			"fromNpcId": "17",
@@ -394,10 +403,11 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "大吃货",
-			"reward": "12,35,0"
+			"reward": "12,35,0",
+			"foreMissionID": "18"
 		},
 		{
-			"id": "19",
+			"id": "20",
 			"name": "委屈的小花",
 			"needLevel": "1",
 			"fromNpcId": "22",
@@ -414,10 +424,11 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "不良少年",
-			"reward": "15,50,0"
+			"reward": "15,50,0",
+			"foreMissionID": "19"
 		},
 		{
-			"id": "20",
+			"id": "21",
 			"name": "校园欺凌？",
 			"needLevel": "1",
 			"fromNpcId": "19",
@@ -432,10 +443,11 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "校园恶霸",
-			"reward": "20,80,0"
+			"reward": "20,80,0",
+			"foreMissionID": "20"
 		},
 		{
-			"id": "21",
+			"id": "22",
 			"name": "最后的准备",
 			"needLevel": "1",
 			"fromNpcId": "23",
@@ -454,10 +466,11 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "智者",
-			"reward": "0,0,1002"
+			"reward": "0,0,1002",
+			"foreMissionID": "21"
 		},
 		{
-			"id": "22",
+			"id": "23",
 			"name": "梦想成真",
 			"needLevel": "1",
 			"fromNpcId": "12",
@@ -478,7 +491,8 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "帅策划",
-			"reward": "0,0,0"
+			"reward": "0,0,0",
+			"foreMissionID": "22"
 		}
 	]
 }
