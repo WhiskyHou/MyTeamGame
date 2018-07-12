@@ -104,7 +104,6 @@ class User extends EventDispatcher {
         this._coin = coin;
         this.dispatchEvent('updateUserInfo', null);
     }
-
     pick(equipment: Equipment) {
         this.packageEquipment.push(equipment);
         this.dispatchEvent('updateUserInfo', null);
