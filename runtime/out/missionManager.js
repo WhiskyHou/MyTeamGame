@@ -17,7 +17,6 @@ var MissionManager = /** @class */ (function (_super) {
     function MissionManager() {
         var _this = _super.call(this) || this;
         _this.missions = [];
-        _this.safeLock = false;
         return _this;
     }
     MissionManager.prototype.init = function () {
@@ -42,7 +41,6 @@ var MissionManager = /** @class */ (function (_super) {
         this.dispatchEvent('missionUpdate', {});
     };
     MissionManager.prototype.parseFromConfig = function (config) {
-        var _this = this;
         var _loop_1 = function (item) {
             var going = item.going;
             var goingFunc = function (eventData) {
@@ -53,12 +51,10 @@ var MissionManager = /** @class */ (function (_super) {
             };
             var rewardNumber = this_1.parseRewardString(item.reward);
             var rewardFunc = function () {
-                if (_this.safeLock) {
-                    player.coin += rewardNumber[0];
-                    player.currentEXP += rewardNumber[1];
-                    if (rewardNumber[2] > 0) {
-                        player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]));
-                    }
+                player.coin += rewardNumber[0];
+                player.currentEXP += rewardNumber[1];
+                if (rewardNumber[2] > 0) {
+                    player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]));
                 }
             };
             var mission = new Mission(going, goingFunc, rewardFunc);

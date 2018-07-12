@@ -481,8 +481,8 @@ class MenuState extends State {
         this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
 
 
-        workerContainer=new DisplayObjectContainer(0,0);
-        
+        workerContainer = new DisplayObjectContainer(0, 0);
+
         this.workerButton.addEventListener("onClick", () => {
             workerUI = new WorkerUI(0, 0);
             workerContainer.addChild(workerUI);
@@ -510,7 +510,7 @@ class MenuState extends State {
         this.anim1.isLooping = true;
         this.anim2.play();
         this.anim2.isLooping = true;
-        
+
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
@@ -686,7 +686,7 @@ class CreateState extends State {
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+        player.view = new Bitmap(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE, playerIdleImg);
 
         player.coin = 1000000;//测试用
     }
@@ -753,7 +753,7 @@ class PlayingState extends State {
     constructor() {
         super();
 
-        map = mapManager.getMap(0) as GameMap;
+        map = mapManager.getMap(1) as GameMap;
         talkUIContainer = new DisplayObjectContainer(0, 0);
 
         this.mapContainer = new DisplayObjectContainer(0, 0);
@@ -794,8 +794,8 @@ class PlayingState extends State {
         staticStage.addChild(settingBoxContainer);
 
         this.mapContainer.addChild(map);
-        //this.mapContainer.addChild(player.view);
-        this.mapContainer.addChild(animTemp);
+        this.mapContainer.addChild(player.view);
+        // this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
@@ -916,5 +916,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());
