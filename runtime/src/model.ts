@@ -648,9 +648,9 @@ class Monster extends EventDispatcher {
         let ran = Math.random() * 100;
         // lv2掉率45% lv1掉率55%
         if (ran >= 45) {
-            return lv2Set.buildEquip();
+            return lv1DgSetlv2.buildEquip();
         } else {
-            return lv1Set.buildEquip();
+            return lv1DgSetlv1.buildEquip();
         }
     }
 
@@ -658,9 +658,9 @@ class Monster extends EventDispatcher {
         let ran = Math.random() * 100;
         // lv3掉率30% lv2掉率70% 
         if (ran >= 70) {
-            return lv3Set.buildEquip();
+            return lv2DgSetlv3.buildEquip();
         } else {
-            return lv2Set.buildEquip();
+            return lv2DgSetlv2.buildEquip();
         }
     }
 
@@ -668,20 +668,14 @@ class Monster extends EventDispatcher {
         let ran = Math.random() * 100;
         // lv4掉率20% lv3掉率80% 
         if (ran >= 80) {
-            return lv4Set.buildEquip();
+            return lv3DgSetlv5.buildEquip();
         } else {
-            return lv3Set.buildEquip();
+            return lv3DgSetlv4.buildEquip();
         }
     }
 
     private equipDropLv4(): number {
-        let ran = Math.random() * 100;
-        // lv5掉率5% lv4掉率95% 
-        if (ran >= 95) {
-            return lv5Set.buildEquip();
-        } else {
-            return lv4Set.buildEquip();
-        }
+        return lv4DgSet.buildEquip();
     }
 
     public makeDrop() {
@@ -840,11 +834,80 @@ class lv5EquipSet extends EquipmentSet {
     }
 }
 
+class lv1DungeonEquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+class lv1DungeonEquipSetlv1 extends lv1DungeonEquipSet {
+    constructor() {
+        super();
+    }
+}
+class lv1DungeonEquipSetlv2 extends lv1DungeonEquipSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv2DungeonEquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv2DungeonEquipSetlv2 extends lv2DungeonEquipSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv2DungeonEquipSetlv3 extends lv2DungeonEquipSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv3DungeonEquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv3DungeonEquipSetlv4 extends lv3DungeonEquipSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv3DungeonEquipSetlv5 extends lv3DungeonEquipSet {
+    constructor() {
+        super();
+    }
+}
+
+class lv4DungeonEquipSet extends EquipmentSet {
+    constructor() {
+        super();
+    }
+}
+
 let lv1Set = new lv1EquipSet();
 let lv2Set = new lv2EquipSet();
 let lv3Set = new lv3EquipSet();
 let lv4Set = new lv4EquipSet();
 let lv5Set = new lv5EquipSet();
+
+let lv1DgSetlv1 = new lv1DungeonEquipSetlv1();
+let lv1DgSetlv2 = new lv1DungeonEquipSetlv2();
+
+let lv2DgSetlv2 = new lv2DungeonEquipSetlv2();
+let lv2DgSetlv3 = new lv2DungeonEquipSetlv3();
+
+let lv3DgSetlv4 = new lv3DungeonEquipSetlv4();
+let lv3DgSetlv5 = new lv3DungeonEquipSetlv5();
+
+let lv4DgSet = new lv4DungeonEquipSet();
 
 function equipSetInit(equipManager: EquipmentManager) {
     for (var i = 0; i < equipManager.equipList.length; i++) {
@@ -866,6 +929,43 @@ function equipSetInit(equipManager: EquipmentManager) {
                 break;
         }
     }
+}
+
+function dungeonEquipSetInitequip(Manager: EquipmentManager) {
+
+    //lv1地下城固定掉落
+    lv1DgSetlv1.addEquipID(8);
+    lv1DgSetlv1.addEquipID(9);
+    lv1DgSetlv2.addEquipID(10);
+    lv1DgSetlv1.addEquipID(11);
+    lv1DgSetlv2.addEquipID(12);
+    lv1DgSetlv1.addEquipID(1);
+
+    //lv2地下城固定掉落
+    lv2DgSetlv2.addEquipID(14);
+    lv2DgSetlv2.addEquipID(15);
+    lv2DgSetlv3.addEquipID(16);
+    lv2DgSetlv3.addEquipID(17);
+    lv2DgSetlv3.addEquipID(18);
+    lv2DgSetlv3.addEquipID(19);
+    lv2DgSetlv3.addEquipID(20);
+
+    //lv3地下城固定掉落
+    lv3DgSetlv5.addEquipID(5);
+    lv3DgSetlv4.addEquipID(21);
+    lv3DgSetlv4.addEquipID(22);
+    lv3DgSetlv4.addEquipID(23);
+    lv3DgSetlv4.addEquipID(24);
+    lv3DgSetlv4.addEquipID(25);
+
+    //lv4地下城固定掉落
+    lv4DgSet.addEquipID(28);
+    lv4DgSet.addEquipID(29);
+    lv4DgSet.addEquipID(30);
+    lv4DgSet.addEquipID(31);
+    lv4DgSet.addEquipID(32);
+    lv4DgSet.addEquipID(6);
+
 }
 
 /**

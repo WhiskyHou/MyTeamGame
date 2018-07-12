@@ -267,6 +267,7 @@ npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
+            dungeonEquipSetInitequip(equipManager);
             shpManager.init(function () {
                 missionManager.init();
                 portalManager.init(function () {
