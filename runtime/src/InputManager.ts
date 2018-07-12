@@ -41,17 +41,17 @@ class InputManager extends EventDispatcher {
     parse(code : number){
         switch (code){
             case 76://L
-            this.dispatchEvent('L', this.inputString);    
-            break;
+                this.dispatchEvent('L', this.inputString);
+                break;
             case 75://K
-            this.dispatchEvent('K', this.inputString);    
-            break;
+                this.dispatchEvent('K', this.inputString);
+                break;
             case 73://I
-            this.dispatchEvent('I', this.inputString);    
-            break;
+                this.dispatchEvent('I', this.inputString);
+                break;
             case 79://O
-            this.dispatchEvent('O', this.inputString);    
-            break;
+                this.dispatchEvent('O', this.inputString);    
+                break;
             case 8://BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
@@ -119,7 +119,6 @@ class InputManager extends EventDispatcher {
         this.addEventListener("Esc", (eventData: any) => {
             baManager.dispatchEvent('bagDown', player);
             shpManager.dispatchEvent('shopDown', player);
-            //大哥自己有自己的想法不用我这个思路了很遗憾。
 
         });
     }
