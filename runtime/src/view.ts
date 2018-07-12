@@ -1212,6 +1212,38 @@ class SettingUI extends DisplayObjectContainer {
             this.deleteAll();
             clickaudio.play();
         })
+        this.on.addEventListener("onClick", (eventData: any) => {
+
+            StartAudio.src = "assets/音效/常规/创建角色.mp3"
+            CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
+            BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
+            SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
+            FailAudio.src = "assets/音效/常规/战斗失败.mp3"
+            Attack1Audio.src = "assets/音效/dnf/暴击1.mp3"
+            Attack2Audio.src = "assets/音效/dnf/暴击2.mp3"
+            BuyAudio.src = "assets/音效/常规/金币.mp3"
+            HPMPAudio.src = "assets/音效/dnf/药水.mp3"
+            MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
+            ClickAudio.src = "assets/音效/常规/单击.mp3"
+
+            clickaudio.play();
+            mainaudio.play();
+        })
+        this.off.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
+
+            StartAudio.src = "assets/音效/dnf/静音.mp3"
+            CreateAudio.src = "assets/音效/dnf/静音.mp3"
+            BattleAudio.src = "assets/音效/dnf/静音.mp3"
+            SucceedAudio.src = "assets/音效/dnf/静音.mp3"
+            FailAudio.src = "assets/音效/dnf/静音.mp3"
+            Attack1Audio.src = "assets/音效/dnf/静音.mp3"
+            Attack2Audio.src = "assets/音效/dnf/静音.mp3"
+            BuyAudio.src = "assets/音效/dnf/静音.mp3"
+            HPMPAudio.src = "assets/音效/dnf/静音.mp3"
+            MainAudio.src = "assets/音效/dnf/静音.mp33"
+            ClickAudio.src = "assets/音效/dnf/静音.mp3"
+        })
     }
 }
 

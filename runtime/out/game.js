@@ -663,46 +663,6 @@ var PlayingState = /** @class */ (function (_super) {
             _this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(_this.shpUI);
         });
-        // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
-        map.addEventListener('onClick', function (eventData) {
-            if (player.moveStatus) {
-                clickaudio.play();
-                var globalX = eventData.globalX;
-                var globalY = eventData.globalY;
-                var localPos = map.getLocalPos(new math.Point(globalX, globalY));
-                // 确定被点击的格子位置
-                var row = Math.floor(localPos.x / TILE_SIZE);
-                var col = Math.floor(localPos.y / TILE_SIZE);
-                // 添加行走命令
-                var walk = new WalkCommand(player.x, player.y, row, col);
-                commandPool.addCommand(walk);
-                // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
-                var equipmentInfo = map.getEquipmentInfo(row, col);
-                if (equipmentInfo) {
-                    var pick = new PickCommand(equipmentInfo);
-                    commandPool.addCommand(pick);
-                }
-                var npcInfo = map.getNpcInfo(row, col);
-                if (npcInfo) {
-                    if (npcInfo.id == 6) {
-                        shpManager.openShop();
-                    }
-                    else {
-                        var talk = new TalkCommand(npcInfo);
-                        commandPool.addCommand(talk);
-                    }
-                }
-                var monsterInfo = map.getMonsterInfo(row, col);
-                if (monsterInfo) {
-                    // console.log('monster Info');
-                    var fight = new FightCommand(monsterInfo);
-                    commandPool.addCommand(fight);
-                }
-                player.moveStatus = false;
-                // 执行命令池的命令
-                commandPool.execute();
-            }
-        });
         this.changePlayerViewPosture();
     };
     PlayingState.prototype.onUpdate = function () {

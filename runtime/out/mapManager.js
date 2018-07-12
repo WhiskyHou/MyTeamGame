@@ -37,7 +37,52 @@ var MapManager = /** @class */ (function (_super) {
     };
     MapManager.prototype.getMap = function (index) {
         if (index < this.maps.length) {
-            return this.maps[index];
+            var map_2 = this.maps[index];
+            map_2.addEventListener('onClick', function (eventData) {
+                if (player.moveStatus) {
+                    clickaudio.play();
+                    var globalX = eventData.globalX;
+                    var globalY = eventData.globalY;
+                    var localPos = map_2.getLocalPos(new math.Point(globalX, globalY));
+                    // 确定被点击的格子位置
+                    var row = Math.floor(localPos.x / TILE_SIZE);
+                    var col = Math.floor(localPos.y / TILE_SIZE);
+                    // 添加行走命令
+                    var walk = new WalkCommand(player.x, player.y, row, col);
+                    commandPool.addCommand(walk);
+                    // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
+                    var equipmentInfo = map_2.getEquipmentInfo(row, col);
+                    if (equipmentInfo) {
+                        var pick = new PickCommand(equipmentInfo);
+                        commandPool.addCommand(pick);
+                    }
+                    var npcInfo = map_2.getNpcInfo(row, col);
+                    if (npcInfo) {
+                        if (npcInfo.id == 6) {
+                            shpManager.openShop();
+                        }
+                        else {
+                            var talk = new TalkCommand(npcInfo);
+                            commandPool.addCommand(talk);
+                        }
+                    }
+                    var monsterInfo = map_2.getMonsterInfo(row, col);
+                    if (monsterInfo) {
+                        // console.log('monster Info');
+                        var fight = new FightCommand(monsterInfo);
+                        commandPool.addCommand(fight);
+                    }
+                    var portalInfo = map_2.getPortalInfo(row, col);
+                    if (portalInfo) {
+                        var portal = new PortalCommand(portalInfo);
+                        commandPool.addCommand(portal);
+                    }
+                    player.moveStatus = false;
+                    // 执行命令池的命令
+                    commandPool.execute();
+                }
+            });
+            return map_2;
         }
         return null;
     };
