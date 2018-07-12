@@ -1040,30 +1040,54 @@ var SettingUI = /** @class */ (function (_super) {
     function SettingUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.hasOn = false;
+        _this.oneTime = true;
+        _this.code = 0;
         _this.hasOn = true;
         _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
         _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
         _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
         _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-        _this.recharge = new Bitmap(500, 446, bagOnUI);
+        _this.recharge = new Bitmap(425, 250, bagOnUI);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.on);
         _this.addChild(_this.off);
         _this.addChild(_this.backButton);
-        _this.addChild(_this.recharge);
+        if (!inputManager.rechargeIsStart) {
+            _this.addChild(_this.recharge);
+        }
         inputManager.addEventListener("Esc", function (eventData) {
             _this.deleteAll();
         });
-        _this.recharge.addEventListener("rechargeInput", function (eventData) {
+        _this.recharge.addEventListener("onClick", function (eventData) {
             _this.deleteChild(_this.recharge);
-            _this.rechargeInput = new MultiTextField([], 500, 450, 20, 10).setStringByNumber("123456", 3);
+            _this.rechargeInput = new MultiTextField(["请输入", "8×3", "充值码"], 400, 250, 20, 10);
             _this.addChild(_this.rechargeInput);
+            inputManager.rechargeIsStart = true;
+            inputManager.dispatchEvent('rechargeInput', null);
             clickaudio.play();
+        });
+        inputManager.addEventListener("inputChanged", function (eventData) {
+            if (inputManager.rechargeIsStart) {
+                _this.deleteChild(_this.rechargeInput);
+                var event_1 = eventData;
+                _this.code = parseInt(event_1.slice(0, 24));
+                console.log(_this.code);
+                _this.rechargeInput = new MultiTextField(["请输入充值码"], 400, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
+                _this.addChild(_this.rechargeInput);
+                clickaudio.play();
+            }
         });
         _this.backButton.addEventListener("onClick", function (eventData) {
             _this.deleteAll();
+            _this.rechargeInput = new MultiTextField([], 400, 250, 20, 10);
+            if (_this.code == 1 && _this.oneTime) {
+                player.coin += 10000;
+            }
+            _this.oneTime = false;
+            inputManager.dispatchEvent('inputOver', null);
+            _this.deleteChild(_this.rechargeInput);
             clickaudio.play();
         });
         _this.on.addEventListener("onClick", function (eventData) {
