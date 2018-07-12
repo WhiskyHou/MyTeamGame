@@ -744,5 +744,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(LoadingState.instance);
+fsm.replaceState(CreateState.instance);
 // fsm.replaceState(new LoadingState());

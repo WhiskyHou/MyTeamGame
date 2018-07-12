@@ -765,7 +765,7 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
-   
+
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
@@ -899,5 +899,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(LoadingState.instance);
+fsm.replaceState(CreateState.instance);
 // fsm.replaceState(new LoadingState());

@@ -148,20 +148,20 @@ class User extends EventDispatcher {
         if (Math.abs(targetX - player.view.x) > 5) {
             stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
-            player.view.x += stepX; 
-            animTemp.x=player.view.x;///
+            player.view.x += stepX;
+            animTemp.x = player.view.x;///
         } else {
             player.view.x = targetX;
-            animTemp.x=player.view.x;///
+            animTemp.x = player.view.x;///
         }
         if (Math.abs(targetY - player.view.y) > 5) {
             stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
-            animTemp.y=player.view.y;///
+            animTemp.y = player.view.y;///
         } else {
             player.view.y = targetY;
-            animTemp.y=player.view.y;///
+            animTemp.y = player.view.y;///
         }
 
     }
@@ -334,7 +334,7 @@ class Equipment {
 /**
  * 消耗品、其他、技能
  */
-class Consumable extends Equipment{
+class Consumable extends Equipment {
     x: number = 0;
     y: number = 0;
     view: Bitmap
@@ -343,22 +343,23 @@ class Consumable extends Equipment{
     public addMP: number;
     public addCharm: number;
 
-    constructor(id: number, name: string,posID : number, addHP: number, addMP: number, addCharm: number) {
-        super(id,name,0,posID,0,0,0);
+    constructor(id: number, name: string, posID: number, addHP: number, addMP: number, addCharm: number) {
+        super(id, name, 0, posID, 0, 0, 0);
         this.addHP = addHP;
         this.addMP = addMP;
         this.addCharm = addCharm;
     }
-    use(callback: Function){
-        player._hp += Math.ceil((this.addHP/100)*player.maxHP)
-        if(player._hp > player.maxHP){player._hp = player.maxHP}
-        player._mp += Math.ceil((this.addMP/100)*player.maxMp)
-        if(player._mp > player.maxMp){player._hp = player.maxMp}
+
+    use(callback: Function) {
+        player._hp += Math.ceil((this.addHP / 100) * player.maxHP)
+        if (player._hp > player.maxHP) { player._hp = player.maxHP }
+        player._mp += Math.ceil((this.addMP / 100) * player.maxMp)
+        if (player._mp > player.maxMp) { player._mp = player.maxMp }
         player._charm += this.addCharm
         callback()
     }
     toString() {
-        return `[Equipment ~ name:${this.name}, add:${this.addCharm+this.addHP+this.addMP}]`;
+        return `[Equipment ~ name:${this.name}, add:${this.addCharm + this.addHP + this.addMP}]`;
     }
 }
 /**
