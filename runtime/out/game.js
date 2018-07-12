@@ -617,8 +617,11 @@ var settingBoxContainer;
 // anim测试角色
 var animTemp;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0, 0);
+animTemp = new DisplayObjectContainer(PLAYER_INDEX_X, PLAYER_INDEX_Y);
 var anim = animTemp.addComponent(new PlayerAnimTest());
+//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
+//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
+anim.play();
 /**
  * 游戏状态
  */
@@ -670,7 +673,7 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(settingBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
-        // this.mapContainer.addChild(animTemp);
+        //this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
         staticStage.addChild(batteUIContainer);
