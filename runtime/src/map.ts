@@ -2,6 +2,8 @@
  * 游戏地图容器
  */
 class GameMap extends DisplayObjectContainer {
+    id: number
+
     grid: astar.Grid;
 
     config = []
@@ -23,6 +25,8 @@ class GameMap extends DisplayObjectContainer {
         this.addChild(this.tileContainer);
         this.addChild(this.itemContainer);
         this.addChild(this.roleContainer);
+
+        this.id = obj.id;
 
         this.init(obj);
     }

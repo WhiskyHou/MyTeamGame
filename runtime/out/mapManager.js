@@ -35,15 +35,21 @@ var MapManager = /** @class */ (function (_super) {
             this.maps.push(map_1);
         }
     };
-    MapManager.prototype.getMap = function (index) {
-        if (index < this.maps.length) {
-            var map_2 = this.maps[index];
-            map_2.addEventListener('onClick', function (eventData) {
+    MapManager.prototype.getMap = function (id) {
+        var map = null;
+        for (var _i = 0, _a = this.maps; _i < _a.length; _i++) {
+            var item = _a[_i];
+            if (item.id == id) {
+                map = item;
+            }
+        }
+        if (map) {
+            map.addEventListener('onClick', function (eventData) {
                 if (player.moveStatus) {
                     clickaudio.play();
                     var globalX = eventData.globalX;
                     var globalY = eventData.globalY;
-                    var localPos = map_2.getLocalPos(new math.Point(globalX, globalY));
+                    var localPos = map.getLocalPos(new math.Point(globalX, globalY));
                     // 确定被点击的格子位置
                     var row = Math.floor(localPos.x / TILE_SIZE);
                     var col = Math.floor(localPos.y / TILE_SIZE);
@@ -51,12 +57,12 @@ var MapManager = /** @class */ (function (_super) {
                     var walk = new WalkCommand(player.x, player.y, row, col);
                     commandPool.addCommand(walk);
                     // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
-                    var equipmentInfo = map_2.getEquipmentInfo(row, col);
+                    var equipmentInfo = map.getEquipmentInfo(row, col);
                     if (equipmentInfo) {
                         var pick = new PickCommand(equipmentInfo);
                         commandPool.addCommand(pick);
                     }
-                    var npcInfo = map_2.getNpcInfo(row, col);
+                    var npcInfo = map.getNpcInfo(row, col);
                     if (npcInfo) {
                         if (npcInfo.id == 6) {
                             shpManager.openShop();
@@ -66,13 +72,13 @@ var MapManager = /** @class */ (function (_super) {
                             commandPool.addCommand(talk);
                         }
                     }
-                    var monsterInfo = map_2.getMonsterInfo(row, col);
+                    var monsterInfo = map.getMonsterInfo(row, col);
                     if (monsterInfo) {
                         // console.log('monster Info');
                         var fight = new FightCommand(monsterInfo);
                         commandPool.addCommand(fight);
                     }
-                    var portalInfo = map_2.getPortalInfo(row, col);
+                    var portalInfo = map.getPortalInfo(row, col);
                     if (portalInfo) {
                         var portal = new PortalCommand(portalInfo);
                         commandPool.addCommand(portal);
@@ -82,9 +88,8 @@ var MapManager = /** @class */ (function (_super) {
                     commandPool.execute();
                 }
             });
-            return map_2;
         }
-        return null;
+        return map;
     };
     return MapManager;
 }(EventDispatcher));

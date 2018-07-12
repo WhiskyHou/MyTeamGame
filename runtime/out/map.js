@@ -27,6 +27,7 @@ var GameMap = /** @class */ (function (_super) {
         _this.addChild(_this.tileContainer);
         _this.addChild(_this.itemContainer);
         _this.addChild(_this.roleContainer);
+        _this.id = obj.id;
         _this.init(obj);
         return _this;
     }

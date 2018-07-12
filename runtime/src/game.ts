@@ -470,8 +470,8 @@ class MenuState extends State {
         this.startaudio = new AudioPlay(StartAudio);
         this.anim = new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
 
-        workerContainer=new DisplayObjectContainer(0,0);
-        
+        workerContainer = new DisplayObjectContainer(0, 0);
+
         this.workerButton.addEventListener("onClick", () => {
             workerUI = new WorkerUI(0, 0);
             workerContainer.addChild(workerUI);
@@ -733,7 +733,7 @@ class PlayingState extends State {
     constructor() {
         super();
 
-        map = mapManager.getMap(0) as GameMap;
+        map = mapManager.getMap(1) as GameMap;
         talkUIContainer = new DisplayObjectContainer(0, 0);
 
         this.mapContainer = new DisplayObjectContainer(0, 0);

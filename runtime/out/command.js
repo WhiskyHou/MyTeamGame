@@ -76,7 +76,7 @@ var PortalCommand = /** @class */ (function (_super) {
     PortalCommand.prototype.execute = function () {
         console.log("\u4F20\u9001\u76EE\u6807" + this.portal.toString());
         dynamicStage.deleteChild(map);
-        map = mapManager.getMap(this.portal.to - 1);
+        map = mapManager.getMap(this.portal.to);
         map.addChild(player.view);
         player.x = this.portal.targetRow;
         player.y = this.portal.targetCol;
