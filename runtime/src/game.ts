@@ -267,8 +267,8 @@ const NPC5 = 5;
 
 const MONSTER = 1;
 
-const PLAYER_INDEX_X = 0;
-const PLAYER_INDEX_Y = 0;
+const PLAYER_INDEX_X = 8;
+const PLAYER_INDEX_Y = 5;
 const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
