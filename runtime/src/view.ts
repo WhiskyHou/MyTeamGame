@@ -1292,7 +1292,8 @@ class SettingUI extends DisplayObjectContainer {
     recharge : Bitmap;
     rechargeInput : MultiTextField;
     hasOn = false;
-
+    oneTime = true;
+    code = 0;
     constructor(x: number, y: number) {
         super(x, y);
         this.hasOn = true;
@@ -1301,25 +1302,47 @@ class SettingUI extends DisplayObjectContainer {
         this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
         this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-        this.recharge = new Bitmap(500, 446, bagOnUI)
+        this.recharge = new Bitmap(425, 250, bagOnUI)
         this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.on);
         this.addChild(this.off);
         this.addChild(this.backButton);
-        this.addChild(this.recharge);
+        if(!inputManager.rechargeIsStart){
+            this.addChild(this.recharge);
+        }
 
         inputManager.addEventListener("Esc", (eventData: any) => {
             this.deleteAll();
         });
-        this.recharge.addEventListener("rechargeInput", (eventData: any) => {
+        this.recharge.addEventListener("onClick", (eventData: any) => {
             this.deleteChild(this.recharge)
-            this.rechargeInput = new MultiTextField([],500,450,20,10).setStringByNumber("123456",3)
+            this.rechargeInput = new MultiTextField(["请输入","8×3","充值码"],400,250,20,10)
             this.addChild(this.rechargeInput)
+            inputManager.rechargeIsStart = true;
+            inputManager.dispatchEvent('rechargeInput',null)
             clickaudio.play();
+        })
+        inputManager.addEventListener("inputChanged", (eventData: any) => {
+            if(inputManager.rechargeIsStart){
+                this.deleteChild(this.rechargeInput)
+                let event : string = eventData;
+                this.code = parseInt(event.slice(0,24))
+                console.log(this.code)
+                this.rechargeInput = new MultiTextField(["请输入充值码"],400,250,20,10).setStringByNumber(event.slice(0,24),8)
+                this.addChild(this.rechargeInput)
+                clickaudio.play();
+            }    
         })
         this.backButton.addEventListener("onClick", (eventData: any) => {
             this.deleteAll();
+            this.rechargeInput = new MultiTextField([],400,250,20,10)
+            if(this.code == 1 && this.oneTime){
+                player.coin += 10000
+            }
+            this.oneTime =false
+            inputManager.dispatchEvent('inputOver', null);
+            this.deleteChild(this.rechargeInput)
             clickaudio.play();
         })
         this.on.addEventListener("onClick", (eventData: any) => {

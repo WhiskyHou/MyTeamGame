@@ -27,11 +27,11 @@ class InputManager extends EventDispatcher {
     CodeTOWords(code: number): string {
         //字母：65 = A , 90 = Z ;上边的数字： 48 = 1 , 57 = 0
         let Words1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-        let Words2 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+        let Words2 = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']
         if (code > 64 && code < 91) {
             return Words1[code - 65]
-        } else if (code > 48 && code < 59) {
-            return Words2[code - 49]
+        } else if (code > 47 && code < 58) {
+            return Words2[code - 48]
         } else if (code == 32) {
             return " "
         } else {
@@ -76,6 +76,11 @@ class InputManager extends EventDispatcher {
                 console.log('你按下了', this.inputString)
                 this.dispatchEvent('inputChanged', this.inputString);
             }
+            if(this.rechargeIsStart){
+                this.inputString += this.CodeTOWords(eventData)
+                console.log('你按下了', this.inputString)
+                this.dispatchEvent('inputChanged', this.inputString);
+            }
         });
         this.addEventListener("rechargeInput", (eventData: any) => {
             console.log(eventData)
@@ -84,7 +89,7 @@ class InputManager extends EventDispatcher {
                 this.inputString = ""
             }else{
                 this.inputString += this.CodeTOWords(eventData)
-                console.log('你按下了', this.inputString)
+                console.log('你按下了2', this.inputString)
                 this.dispatchEvent('inputChanged', this.inputString);
             }
         });
@@ -106,14 +111,16 @@ class InputManager extends EventDispatcher {
                 this.inputString = this.inputString.slice(0, this.inputString.length - 1)
                 this.dispatchEvent('inputChanged', this.inputString);
             }
+            if(this.rechargeIsStart){
+                this.inputString = this.inputString.slice(0, this.inputString.length - 1)
+                this.dispatchEvent('inputChanged', this.inputString);
+            }
         });
         this.addEventListener("Enter", (eventData: any) => {
             this.inputOver = true;
-            this.rechargeIsStart = false
             this.dispatchEvent('inputOver', this.inputString);
         });
         this.addEventListener("Caps Lock", (eventData: any) => {
-
 
         });
         this.addEventListener("Esc", (eventData: any) => {
@@ -121,5 +128,8 @@ class InputManager extends EventDispatcher {
             shpManager.dispatchEvent('shopDown', player);
 
         });
+        this.addEventListener('inputOver',(eventData: any) => {
+            this.inputString = ""
+        })
     }
 }
