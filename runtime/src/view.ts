@@ -1160,7 +1160,6 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillGroup.addChild(this.mountedSkillText);
         }
     }
-<<<<<<< HEAD
 
     // returnSkillNo(id: number) {
     //     for (let i = 0; i < skillArray.length; i++) {
@@ -1187,10 +1186,10 @@ class SettingUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.backGround= new Bitmap(290,120,Resource.get('SettingUI1')as HTMLImageElement);
-        this.on = new Bitmap(440,195,Resource.get('SettingUI2')as HTMLImageElement);
-        this.off = new Bitmap(500,195,Resource.get('SettingUI3')as HTMLImageElement);
-        this.backButton = new Bitmap(400,320,Resource.get('SettingUI4')as HTMLImageElement);
+        this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1') as HTMLImageElement);
+        this.on = new Bitmap(440, 195, Resource.get('SettingUI2') as HTMLImageElement);
+        this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
+        this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
         this.addChild(this.blackMask);
@@ -1254,6 +1253,3 @@ class SettingUI extends DisplayObjectContainer {
 //         return this._config;
 //     }
 // }
-=======
-}
->>>>>>> 21137e073d59df254a32c8781b96f40b4c1f9fe5
