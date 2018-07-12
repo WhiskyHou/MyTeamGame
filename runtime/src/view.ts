@@ -2,7 +2,7 @@
  * 用户信息UI
  */
 class UserInfoUI extends DisplayObjectContainer {
-    
+
     //主界面UI
     userName: TextField;
     userLevel: TextField;
@@ -26,15 +26,15 @@ class UserInfoUI extends DisplayObjectContainer {
     skillUI: skillBoxUI;
     missionUI: MissionUI;
     settingUI: SettingUI;
-    
+
     //
 
     constructor(x: number, y: number) {
         super(x, y);
-        
+
         this.bloodUI = new Bitmap(0, 0, bloodUI);
-        this.userCoinUI = new Bitmap(350,20,userCoinUI);
-        this.userDiamondUI = new Bitmap(500,20,userDiamondUI);
+        this.userCoinUI = new Bitmap(350, 20, userCoinUI);
+        this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
 
         this.userName = new TextField(player.name, 130, 12, 20);
         this.userLevel = new TextField('' + player.level, 54, 91, 20);
@@ -52,26 +52,26 @@ class UserInfoUI extends DisplayObjectContainer {
         this.EscButton = new Bitmap(820, 475, EscButton);
         this.SkillButton = new Bitmap(680, 475, SkillButton);
         this.missionButton = new Bitmap(610, 475, MissionButton);
-        
+
         //
 
 
         this.addChild(this.bloodUI);
         this.addChild(this.userCoinUI);
         this.addChild(this.userDiamondUI);
-        
+
         this.addChild(this.userName);
         this.addChild(this.userLevel);
         this.addChild(this.userCoin);
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
-       
+
         this.addChild(this.HP);
         this.addChild(this.MP);
 
-       //
-        
+        //
+
         this.addChild(this.bagButton);
         this.addChild(this.SkillButton);
         this.addChild(this.EscButton);
@@ -199,7 +199,12 @@ class MissionUI extends DisplayObjectContainer {
             clickaudio.play();
         })
         this.updateMissionText();
+
+        inputManager.addEventListener("Esc", (eventData: any) => {
+            this.deleteAll();
+        });
     }
+
 
 
     updateMissionText() {
@@ -492,6 +497,9 @@ class shopUI extends DisplayObjectContainer {
         this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5)
         this.ShopCoin = new TextField('100', 438, 453, 20);
 
+        let blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
+
+        this.addChild(blackMask);
         this.addChild(this.infoPanel);
         this.addChild(this.shopDownButton);
         this.addChild(this.shopWQ);
@@ -1101,6 +1109,10 @@ class skillBoxUI extends DisplayObjectContainer {
             clickaudio.play();
         })
 
+        inputManager.addEventListener("Esc", (eventData: any) => {
+            this.deleteAll();
+        });
+
         this.skillOnButton.addEventListener('onClick', () => {
             if (this.nowChoice == 1) {
                 clickaudio.play();
@@ -1214,6 +1226,10 @@ class SettingUI extends DisplayObjectContainer {
         this.addChild(this.off);
         this.addChild(this.backButton);
 
+        inputManager.addEventListener("Esc", (eventData: any) => {
+            this.deleteAll();
+        });
+
         this.backButton.addEventListener("onClick", (eventData: any) => {
             this.deleteAll();
             clickaudio.play();
@@ -1266,7 +1282,7 @@ class WorkerUI extends DisplayObjectContainer {
 
         this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1') as HTMLImageElement);
         this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2') as HTMLImageElement);
-       
+
         this.addChild(this.backGround);
         this.addChild(this.backButton);
 
@@ -1274,6 +1290,6 @@ class WorkerUI extends DisplayObjectContainer {
             this.deleteAll();
             clickaudio.play();
         })
-       
+
     }
 }

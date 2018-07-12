@@ -154,6 +154,9 @@ var MissionUI = /** @class */ (function (_super) {
             clickaudio.play();
         });
         _this.updateMissionText();
+        inputManager.addEventListener("Esc", function (eventData) {
+            _this.deleteAll();
+        });
         return _this;
     }
     MissionUI.prototype.updateMissionText = function () {
@@ -376,6 +379,8 @@ var shopUI = /** @class */ (function (_super) {
         _this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
         _this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5);
         _this.ShopCoin = new TextField('100', 438, 453, 20);
+        var blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
+        _this.addChild(blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.shopDownButton);
         _this.addChild(_this.shopWQ);
@@ -872,6 +877,9 @@ var skillBoxUI = /** @class */ (function (_super) {
             _this.deleteAll();
             clickaudio.play();
         });
+        inputManager.addEventListener("Esc", function (eventData) {
+            _this.deleteAll();
+        });
         _this.skillOnButton.addEventListener('onClick', function () {
             if (_this.nowChoice == 1) {
                 clickaudio.play();
@@ -969,6 +977,9 @@ var SettingUI = /** @class */ (function (_super) {
         _this.addChild(_this.on);
         _this.addChild(_this.off);
         _this.addChild(_this.backButton);
+        inputManager.addEventListener("Esc", function (eventData) {
+            _this.deleteAll();
+        });
         _this.backButton.addEventListener("onClick", function (eventData) {
             _this.deleteAll();
             clickaudio.play();
