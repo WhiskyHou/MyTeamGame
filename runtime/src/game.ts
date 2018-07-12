@@ -844,7 +844,6 @@ class PlayingState extends State {
         // this.playerViewMove();
         player.update();
         missionManager.update();
-
     }
     onExit(): void {
         staticStage.deleteAll();

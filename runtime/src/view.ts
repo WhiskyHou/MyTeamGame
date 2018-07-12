@@ -2,6 +2,7 @@
  * 用户信息UI
  */
 class UserInfoUI extends DisplayObjectContainer {
+    
     //主界面UI
     userName: TextField;
     userLevel: TextField;
@@ -9,6 +10,8 @@ class UserInfoUI extends DisplayObjectContainer {
     userDiamond: TextField;
     currentEXP: TextField;
     needEXP: TextField;
+    HP: TextField;
+    MP: TextField;
 
     bloodUI: Bitmap;
     userCoinUI: Bitmap;
@@ -41,6 +44,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.currentEXP = new TextField('' + player.currentEXP, 150, 90, 20);
         this.needEXP = new TextField('/    ' + player.needEXP, 190, 90, 20);
 
+        this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+        this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+
         //
 
         this.bagButton = new Bitmap(750, 475, bagButton);
@@ -63,6 +69,9 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
+       
+        this.addChild(this.HP);
+        this.addChild(this.MP);
 
        //
         

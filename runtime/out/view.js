@@ -25,6 +25,8 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userDiamond = new TextField('' + player.diamond, 545, 20, 25);
         _this.currentEXP = new TextField('' + player.currentEXP, 150, 90, 20);
         _this.needEXP = new TextField('/    ' + player.needEXP, 190, 90, 20);
+        _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+        _this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
         //
         _this.bagButton = new Bitmap(750, 475, bagButton);
         _this.EscButton = new Bitmap(820, 475, EscButton);
@@ -42,6 +44,8 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.userDiamond);
         _this.addChild(_this.currentEXP);
         _this.addChild(_this.needEXP);
+        _this.addChild(_this.HP);
+        _this.addChild(_this.MP);
         //
         _this.addChild(_this.bagButton);
         _this.addChild(_this.SkillButton);
