@@ -436,8 +436,8 @@ class MenuState extends State {
     workerButton: Bitmap;
 
     startaudio: AudioPlay;
-    anim:Animator;///
-    
+    anim: Animator;///
+
 
     constructor() {
         super();
@@ -447,7 +447,7 @@ class MenuState extends State {
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
         this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         this.startaudio = new AudioPlay(StartAudio);
-        this.anim=new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
+        this.anim = new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
 
     }
 
@@ -461,7 +461,7 @@ class MenuState extends State {
 
         this.startButton.addEventListener("onClick", this.onClick)
         this.anim.play();
-        this.anim.isLooping=true;
+        this.anim.isLooping = true;
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
@@ -665,7 +665,7 @@ let settingBoxContainer: DisplayObjectContainer;
 // anim测试角色
 let animTemp: DisplayObjectContainer;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0,0);
+animTemp = new DisplayObjectContainer(0, 0);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 
 /**
@@ -720,7 +720,7 @@ class PlayingState extends State {
         this.shpUI = new shopUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
-        settingBoxContainer=new DisplayObjectContainer(0,0);
+        settingBoxContainer = new DisplayObjectContainer(0, 0);
 
     }
 
@@ -811,7 +811,6 @@ class PlayingState extends State {
                 }
 
                 const npcInfo = map.getNpcInfo(row, col);
-
                 if (npcInfo) {
                     if (npcInfo.id == 6) {
                         shpManager.openShop()
@@ -822,12 +821,17 @@ class PlayingState extends State {
                 }
 
                 const monsterInfo = map.getMonsterInfo(row, col);
-
-
                 if (monsterInfo) {
                     // console.log('monster Info');
                     const fight = new FightCommand(monsterInfo);
                     commandPool.addCommand(fight);
+                }
+
+                const portalInfo = map.getPortalInfo(row, col);
+                if (portalInfo) {
+                    const portal = new PortalCommand(portalInfo);
+                    commandPool.addCommand(portal);
+                    console.log(66666)
                 }
 
                 player.moveStatus = false;

@@ -64,19 +64,15 @@ class WalkCommand extends Command {
  */
 class PortalCommand extends Command {
 
-    targetMap: number
-    targetRow: number
-    targetCol: number
+    portal: Portal
 
-    constructor(targetMap: number, targetRow: number, targetCol: number) {
+    constructor(portal: Portal) {
         super()
-        this.targetMap = targetMap
-        this.targetRow = targetRow
-        this.targetCol = targetCol
+        this.portal = portal;
     }
 
     execute() {
-        console.log(`传送目标${this.targetMap}`)
+        console.log(`传送目标${this.portal.toString()}`)
     }
 }
 

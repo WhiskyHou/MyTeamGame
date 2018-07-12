@@ -684,6 +684,12 @@ var PlayingState = /** @class */ (function (_super) {
                     var fight = new FightCommand(monsterInfo);
                     commandPool.addCommand(fight);
                 }
+                var portalInfo = map.getPortalInfo(row, col);
+                if (portalInfo) {
+                    var portal = new PortalCommand(portalInfo);
+                    commandPool.addCommand(portal);
+                    console.log(66666);
+                }
                 player.moveStatus = false;
                 // 执行命令池的命令
                 commandPool.execute();

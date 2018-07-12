@@ -18,7 +18,7 @@ var PortalManager = /** @class */ (function () {
         for (var _i = 0, _a = obj.portal; _i < _a.length; _i++) {
             var item = _a[_i];
             var portal = new Portal(item.id, item.from, item.to, item.targetRow, item.targetCol);
-            this.portalList.push();
+            this.portalList.push(portal);
         }
     };
     return PortalManager;
