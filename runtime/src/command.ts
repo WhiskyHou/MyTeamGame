@@ -19,7 +19,7 @@ class WalkCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始走路！！！从(${this.fromX}, ${this.fromY})出发`);
 
-        ///anim.play();////
+        anim.play();////
 
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
@@ -49,7 +49,7 @@ class WalkCommand extends Command {
             }
             else {
                 console.log(`到达地点！！！(${this.toX},${this.toY})`);
-                ///anim.end();////
+                anim.end();////
                 player.moveStatus = true;
                 callback();
                 return;
