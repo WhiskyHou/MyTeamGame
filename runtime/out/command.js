@@ -24,7 +24,7 @@ var WalkCommand = /** @class */ (function (_super) {
     }
     WalkCommand.prototype.execute = function (callback) {
         console.log("\u5F00\u59CB\u8D70\u8DEF\uFF01\uFF01\uFF01\u4ECE(" + this.fromX + ", " + this.fromY + ")\u51FA\u53D1");
-        ///anim.play();////
+        anim.play(); ////
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         var findpath = new astar.AStar();
@@ -53,7 +53,7 @@ var WalkCommand = /** @class */ (function (_super) {
             }
             else {
                 console.log("\u5230\u8FBE\u5730\u70B9\uFF01\uFF01\uFF01(" + _this.toX + "," + _this.toY + ")");
-                ///anim.end();////
+                anim.end(); ////
                 player.moveStatus = true;
                 callback();
                 return;

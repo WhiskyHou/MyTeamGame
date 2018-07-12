@@ -19,7 +19,7 @@ class WalkCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始走路！！！从(${this.fromX}, ${this.fromY})出发`);
 
-        ///anim.play();////
+        anim.play();////
 
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
@@ -49,7 +49,7 @@ class WalkCommand extends Command {
             }
             else {
                 console.log(`到达地点！！！(${this.toX},${this.toY})`);
-                ///anim.end();////
+                anim.end();////
                 player.moveStatus = true;
                 callback();
                 return;
@@ -66,14 +66,14 @@ class WalkCommand extends Command {
 class PortalCommand extends Command {
 
     portal: Portal
-    mapnameBitmap:Bitmap
-    mapname:TextField;
+    mapnameBitmap: Bitmap
+    mapname: TextField;
 
     constructor(portal: Portal) {
         super()
         this.portal = portal;
-        this.mapnameBitmap=new Bitmap(0, 0, Resource.get('mapchange1') as HTMLImageElement)
-        this.mapname=new TextField('',400,250,50)
+        this.mapnameBitmap = new Bitmap(0, 0, Resource.get('mapchange1') as HTMLImageElement)
+        this.mapname = new TextField('', 400, 250, 50)
     }
 
     execute() {
@@ -84,8 +84,8 @@ class PortalCommand extends Command {
         map.addChild(player.view)
 
 
-        if(this.portal.to==1){
-            this.mapname=new TextField('- 校园 -',300,200,100)
+        if (this.portal.to == 1) {
+            this.mapname = new TextField('- 校园 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -93,8 +93,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==2){
-            this.mapname=new TextField('- 操场 -',300,200,100)
+        if (this.portal.to == 2) {
+            this.mapname = new TextField('- 操场 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -102,8 +102,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==3){
-            this.mapname=new TextField('- 家 -',300,200,100)
+        if (this.portal.to == 3) {
+            this.mapname = new TextField('- 家 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -111,8 +111,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==4){
-            this.mapname=new TextField('- 教室 -',300,200,100)
+        if (this.portal.to == 4) {
+            this.mapname = new TextField('- 教室 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -120,8 +120,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==5){
-            this.mapname=new TextField('- 街道 -',300,200,100)
+        if (this.portal.to == 5) {
+            this.mapname = new TextField('- 街道 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -129,8 +129,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==6){
-            this.mapname=new TextField('- 密室 -',300,200,100)
+        if (this.portal.to == 6) {
+            this.mapname = new TextField('- 密室 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -138,8 +138,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==7){
-            this.mapname=new TextField('- 副本 -',300,200,100)
+        if (this.portal.to == 7) {
+            this.mapname = new TextField('- 副本 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -147,8 +147,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==8){
-            this.mapname=new TextField('- 副本1 -',300,200,100)
+        if (this.portal.to == 8) {
+            this.mapname = new TextField('- 副本1 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -156,8 +156,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==9){
-            this.mapname=new TextField('- 副本2 -',300,200,100)
+        if (this.portal.to == 9) {
+            this.mapname = new TextField('- 副本2 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -165,8 +165,8 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==10){
-            this.mapname=new TextField('- 副本3 -',300,200,100)
+        if (this.portal.to == 10) {
+            this.mapname = new TextField('- 副本3 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
@@ -174,15 +174,15 @@ class PortalCommand extends Command {
             }, 2000);
         }
 
-        if(this.portal.to==11){
-            this.mapname=new TextField('- 副本4 -',300,200,100)
+        if (this.portal.to == 11) {
+            this.mapname = new TextField('- 副本4 -', 300, 200, 100)
             staticStage.addChild(this.mapname)
 
             setTimeout(() => {
                 staticStage.deleteChild(this.mapname);
             }, 2000);
         }
-    
+
         player.x = this.portal.targetRow
         player.y = this.portal.targetCol
         player.view.x = player.x * TILE_SIZE

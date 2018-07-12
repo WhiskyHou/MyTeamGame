@@ -447,6 +447,10 @@ class Bitmap extends DisplayObject {
     render(context: CanvasRenderingContext2D) {
         // 绘制的时候 context 已经通过矩阵运算变换到绘制坐标系了，所以给的位置信息都是0
         context.drawImage(this.img, 0, 0);
+
+        for (let child of this.children) {
+            child.render(context)
+        }
     }
 
     hitTest(point: math.Point) {
