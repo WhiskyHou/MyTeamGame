@@ -785,63 +785,6 @@ class PlayingState extends State {
             shopUIContainer.addChild(this.shpUI);
         });
 
-        // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
-        map.addEventListener('onClick', (eventData: any) => {
-            if (player.moveStatus) {
-
-                clickaudio.play();
-
-                const globalX = eventData.globalX;
-                const globalY = eventData.globalY;
-                const localPos = map.getLocalPos(new math.Point(globalX, globalY));
-
-                // 确定被点击的格子位置
-                const row = Math.floor(localPos.x / TILE_SIZE);
-                const col = Math.floor(localPos.y / TILE_SIZE);
-
-                // 添加行走命令
-                const walk = new WalkCommand(player.x, player.y, row, col);
-                commandPool.addCommand(walk);
-
-                // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
-                const equipmentInfo = map.getEquipmentInfo(row, col);
-                if (equipmentInfo) {
-                    const pick = new PickCommand(equipmentInfo);
-                    commandPool.addCommand(pick);
-                }
-
-                const npcInfo = map.getNpcInfo(row, col);
-                if (npcInfo) {
-                    if (npcInfo.id == 6) {
-                        shpManager.openShop()
-                    } else {
-                        const talk = new TalkCommand(npcInfo);
-                        commandPool.addCommand(talk)
-                    }
-                }
-
-                const monsterInfo = map.getMonsterInfo(row, col);
-                if (monsterInfo) {
-                    // console.log('monster Info');
-                    const fight = new FightCommand(monsterInfo);
-                    commandPool.addCommand(fight);
-                }
-
-                const portalInfo = map.getPortalInfo(row, col);
-                if (portalInfo) {
-                    const portal = new PortalCommand(portalInfo);
-                    commandPool.addCommand(portal);
-                    console.log(66666)
-                }
-
-                player.moveStatus = false;
-
-                // 执行命令池的命令
-                commandPool.execute();
-            }
-        });
-
-
 
         this.changePlayerViewPosture();
     }

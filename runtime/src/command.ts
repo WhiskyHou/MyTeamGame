@@ -73,6 +73,15 @@ class PortalCommand extends Command {
 
     execute() {
         console.log(`传送目标${this.portal.toString()}`)
+        map = mapManager.getMap(this.portal.to - 1) as GameMap
+        map.addChild(player.view)
+
+        player.x = this.portal.targetRow
+        player.y = this.portal.targetCol
+        player.view.x = player.x * TILE_SIZE
+        player.view.y = player.y * TILE_SIZE
+
+        dynamicStage.addChild(map)
     }
 }
 
