@@ -266,9 +266,14 @@ class TalkCommand extends Command {
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);
                         }
-                        if (this.npc.changeTypeID != 0) {
-                            this.npc.changeType();//测试换类型！！！ 
+                        if (mission.fightTarget) {
+                            console.log(mission.fightTarget.name + "变怪！！！");
+
+                            mission.fightTarget.changeType();
                         }
+                        // if (this.npc.changeTypeID != 0) {
+                        //     this.npc.changeType();//测试换类型！！！ 
+                        // }
 
                     }
                     callback();
