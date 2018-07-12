@@ -26,16 +26,10 @@ class GameMap extends DisplayObjectContainer {
 
         this.init(obj);
     }
+
     // 好像只调用了一次…… 初始化……
     init(obj: any) {
         this.grid = new astar.Grid(COL_NUM, ROW_NUM);
-
-        // const xhr = new XMLHttpRequest();
-        // xhr.open("get", "config/map.json")
-        // xhr.send();
-        // let obj: any;
-        // xhr.onload = () => {
-        // obj = JSON.parse(xhr.response);
 
         this.config = obj
 
@@ -160,71 +154,6 @@ class GameMap extends DisplayObjectContainer {
             }
         }
 
-        // const mapEquip = obj.equipment as number[][];
-        // for (let i = 0; i < mapEquip.length; i++) {
-        //     const row = mapEquip[i];
-        //     for (let j = 0; j < row.length; j++) {
-        //         const item = row[j]
-        //         if (item != 0) {
-        //             const id = item
-        //             console.log(equipManager.equipList.length);
-        //             for (let equip of equipManager.equipList) {
-        //                 let equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
-        //                 let equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
-        //                 let key = j + '_' + i;
-        //                 switch (equip.id) {
-        //                     case 1005:
-        //                         console.log("添加");
-
-        //                         equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
-        //                         equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
-        //                         equipmentTiem.view = equipmentView;
-        //                         equipmentTiem.x = j;
-        //                         equipmentTiem.y = i;
-        //                         key = j + '_' + i;
-        //                         this.equipmentConfig[key] = equipmentTiem;
-        //                         this.itemContainer.addChild(equipmentView);
-        //                         break;
-        //                     case 1004:
-        //                         equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, caihuaBookImg);
-        //                         equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
-        //                         equipmentTiem.view = equipmentView;
-        //                         equipmentTiem.x = j;
-        //                         equipmentTiem.y = i;
-        //                         key = j + '_' + i;
-        //                         this.equipmentConfig[key] = equipmentTiem;
-        //                         this.itemContainer.addChild(equipmentView);
-        //                         break;
-
-        //                 }
-
-        // if (equip.id == 1005) {
-        //     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
-        //     const equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
-        //     equipmentTiem.view = equipmentView;
-        //     equipmentTiem.x = j;
-        //     equipmentTiem.y = i;
-        //     const key = j + '_' + i;
-        //     this.equipmentConfig[key] = equipmentTiem;
-        //     this.itemContainer.addChild(equipmentView);
-        //     break;
-        // }
-        // if (equip.id == 1004) {
-        //     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, caihuaBookImg);
-        //     const equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
-        //     equipmentTiem.view = equipmentView;
-        //     equipmentTiem.x = j;
-        //     equipmentTiem.y = i;
-        //     const key = j + '_' + i;
-        //     this.equipmentConfig[key] = equipmentTiem;
-        //     this.itemContainer.addChild(equipmentView);
-        //     break;
-        // }
-        //     }
-        // }
-        //             }
-        //         }
-
         const mapMonster = obj.monster as number[][];
         for (let i = 0; i < mapMonster.length; i++) {
             const row = mapMonster[i];
@@ -269,9 +198,14 @@ class GameMap extends DisplayObjectContainer {
             }
         }
 
-        // }// loadEnd
+
+    } // init() end
+
+
+    reset() {
 
     }
+
 
     // getNodeInfo(row: number, col: number) {
     //     for (let item of this.config.map.) {
