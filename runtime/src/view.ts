@@ -21,8 +21,9 @@ class UserInfoUI extends DisplayObjectContainer {
 
     skillUI: skillBoxUI;
     missionUI: MissionUI;
+    settingUI: SettingUI;
 
-    inputText : TextField;
+    inputText: TextField;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -32,10 +33,10 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userLevel = new TextField('' + player.level, 52, 85, 20);
         this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        this.bagButton = new Bitmap(750, 465, bagButton);
-        this.EscButton = new Bitmap(820, 465, EscButton);
-        this.SkillButton = new Bitmap(680, 465, SkillButton);
-        this.missionButton = new Bitmap(610, 465, MissionButton);
+        this.bagButton = new Bitmap(750, 475, bagButton);
+        this.EscButton = new Bitmap(820, 475, EscButton);
+        this.SkillButton = new Bitmap(680, 475, SkillButton);
+        this.missionButton = new Bitmap(610, 475, MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -44,7 +45,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
         this.bloodbar = new Bitmap(90, 35, bloodBar);
 
-        this.inputText = new TextField('输入玩家姓名' , 350, 100, 60);
+        this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
         this.addChild(this.inputText);
 
         this.addChild(this.userName);
@@ -64,13 +65,13 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.bloodbar);
 
 
-      
-        inputManager.addEventListener('inputChanged', (eventData: any) =>{
+
+        inputManager.addEventListener('inputChanged', (eventData: any) => {
             this.deleteChild(this.inputText);
-            this.inputText = new TextField(eventData , 350, 300, 60);
+            this.inputText = new TextField(eventData, 350, 300, 60);
             this.addChild(this.inputText);
         })
-        inputManager.addEventListener('inputOver', (eventData: any) =>{
+        inputManager.addEventListener('inputOver', (eventData: any) => {
             player.name = eventData;
             this.deleteChild(this.userName);
             this.userName = new TextField(player.name, 130, 5, 20);
@@ -91,6 +92,12 @@ class UserInfoUI extends DisplayObjectContainer {
         this.missionButton.addEventListener('onClick', (eventData: any) => {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
+            clickaudio.play();
+        });
+
+        this.EscButton.addEventListener('onClick', (eventData: any) => {
+            this.settingUI = new SettingUI(0, 0);
+            settingBoxContainer.addChild(this.settingUI);
             clickaudio.play();
         });
 
@@ -136,7 +143,7 @@ class MissionInfoUI extends DisplayObjectContainer {
 
     update() {
 
-        
+
         this.deleteAll();
         let index = 0;
         for (let mission of missionManager.missions) {
@@ -168,6 +175,8 @@ class MissionUI extends DisplayObjectContainer {
 
     blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
+    missionTextGroup = new DisplayObjectContainer(0, 0);
+
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -177,13 +186,37 @@ class MissionUI extends DisplayObjectContainer {
         this.addChild(this.blackMask);
         this.addChild(this.MissionBackGround);
         this.addChild(this.closeButton);
+        this.addChild(this.missionTextGroup);
 
         this.closeButton.addEventListener('onClick', () => {
             this.deleteAll();
             clickaudio.play();
         })
+        this.updateMissionText();
+    }
+
+
+    updateMissionText() {
+        this.missionTextGroup.deleteAll();
+
+        for (let i = 0; i < missionManager.missions.length; i++) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+                let missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+
+                for (let b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
+                    let missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    this.missionTextGroup.addChild(missionAcceptText);
+                }
+                this.missionTextGroup.addChild(missionText);
+                return;
+            }
+        }
+
+
+
     }
 }
+
 /**
  * 背包UI
  */
@@ -499,7 +532,7 @@ class shopUI extends DisplayObjectContainer {
         })
         this.shopBuy.addEventListener("onClick", (eventData: any) => {
             shpManager.shopBuy()
-           
+
         })
         this.ShopText1.addEventListener("onClick", (eventData: any) => {
             shpManager.changeNowProduct(0)
@@ -577,6 +610,8 @@ class battleUI extends DisplayObjectContainer {
     itemBg: Bitmap;
     itemUseButton: Bitmap;
     itemBackButton: Bitmap;
+    itemTextGroup = new DisplayObjectContainer(0, 0);
+    itemText: TextField;
 
 
     index = 0;
@@ -756,8 +791,39 @@ class battleUI extends DisplayObjectContainer {
             this.itemContainer.addChild(this.itemUseButton);
             this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg') as HTMLImageElement);
             this.itemContainer.addChild(this.itemBackButton);
+            this.itemContainer.addChild(this.itemTextGroup);
 
             this.itemUseButton.addEventListener('onClick', () => {
+                this.updateConsumCount();
+
+
+                if (this.consumChoiceID != 0) {
+                    for (let i = 0; i < player.packageEquipment.length; i++) {
+                        if (this.consumChoiceID == player.packageEquipment[i].id) {
+                            let con = player.packageEquipment[i] as Consumable;
+                            con.use(() => {
+                                return;
+                            });
+                            if (con.id == 1000) {
+                                let textField = new TextField(this.player.name + " 使用 " + player.packageEquipment[i].name + " 回复了 " + Math.floor(this.player.maxHP * con.addHP / 100) + " 点HP！", 0, this.index * 20, 15);
+                                this.playerHpText.text = "" + this.player._hp + " / " + this.player.maxHP
+                                this.textGroup.addChild(textField);
+                                this.index++;
+                            }
+
+                            if (con.id == 1001) {
+                                let textField = new TextField(this.player.name + " 使用 " + player.packageEquipment[i].name + " 回复了 " + Math.floor(this.player.maxMp * con.addMP / 100) + " 点MP！", 0, this.index * 20, 15);
+                                this.textGroup.addChild(textField);
+                                this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
+                                this.index++;
+                            }
+                            player.packageEquipment.splice(i, 1);
+                            this.updateConsumCount();
+                            return;
+                        }
+                    }
+                }
+
                 clickaudio.play();
             })
 
@@ -767,7 +833,14 @@ class battleUI extends DisplayObjectContainer {
             })
 
             console.log('弹出消耗品界面！');
+
+            this.updateConsumCount();
+            //以下获取角色消耗品
+
+
+
         })
+
 
 
         batManager.addEventListener('playerBattleStart', (player: User) => {
@@ -858,6 +931,46 @@ class battleUI extends DisplayObjectContainer {
         }
     }
 
+    consumChoiceID = 0;
+    updateConsumCount() {
+
+        this.itemTextGroup.deleteAll();
+
+        let redCount = 0;
+        let blueCount = 0;
+        let lineCount = 0;
+        for (let i = 0; i < player.packageEquipment.length; i++) {
+            if (player.packageEquipment[i].id == 1000) {
+                redCount++;
+
+            }
+            if (player.packageEquipment[i].id == 1001) {
+                blueCount++;
+            }
+        }
+        let red = equipManager.getEquipByID(1000) as Equipment;
+        let blue = equipManager.getEquipByID(1001) as Equipment;
+
+        if (redCount > 0) {
+            let redText = new TextField(red.name + " X " + redCount, 315, 165 + 32 * lineCount, 20);
+            redText.addEventListener("onClick", () => {
+                this.consumChoiceID = red.id;
+            })
+            this.itemTextGroup.addChild(redText);
+            lineCount++;
+        }
+        if (blueCount > 0) {
+            let blueText = new TextField(blue.name + " X " + blueCount, 315, 165 + 32 * lineCount, 20);
+            this.itemTextGroup.addChild(blueText);
+            blueText.addEventListener("onClick", () => {
+                this.consumChoiceID = blue.id;
+            })
+            lineCount++;
+        }
+        if (blueCount == 0 && redCount == 0) {
+            this.consumChoiceID = 0;
+        }
+    }
 }
 
 /**
@@ -897,22 +1010,6 @@ class battleEndWinUI extends DisplayObjectContainer {
             batManager.dispatchEvent("backSceneWin", null);
             clickaudio.play();
         })
-
-
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     if (this.hasListener) {
-        //         return;
-        //     }
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //         this.hasListener = true;
-        //     }
-        // })
-
     }
 }
 
@@ -1084,51 +1181,93 @@ class skillBoxUI extends DisplayObjectContainer {
     // }
 }
 
+
 /**
- * 对话窗口UI
+ * 设置UI
  */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
+class SettingUI extends DisplayObjectContainer {
 
-//     count: number = 1;
+    backGround: Bitmap;
+    on: Bitmap;
+    off: Bitmap;
+    backButton: Bitmap;
+    blackMask: Bitmap;
 
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
+    constructor(x: number, y: number) {
+        super(x, y);
 
-//     constructor(x: number, y: number) {
-//         super(x, y);
+        this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1') as HTMLImageElement);
+        this.on = new Bitmap(440, 195, Resource.get('SettingUI2') as HTMLImageElement);
+        this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
+        this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
-//         this.init();
+        this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.on);
+        this.addChild(this.off);
+        this.addChild(this.backButton);
 
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            this.deleteAll();
+            clickaudio.play();
+        })
+        this.on.addEventListener("onClick", (eventData: any) => {
 
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
+            StartAudio.src = "assets/音效/常规/创建角色.mp3"
+            CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
+            BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
+            SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
+            FailAudio.src = "assets/音效/常规/战斗失败.mp3"
+            Attack1Audio.src = "assets/音效/dnf/暴击1.mp3"
+            Attack2Audio.src = "assets/音效/dnf/暴击2.mp3"
+            BuyAudio.src = "assets/音效/常规/金币.mp3"
+            HPMPAudio.src = "assets/音效/dnf/药水.mp3"
+            MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
+            ClickAudio.src = "assets/音效/常规/单击.mp3"
 
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
+            clickaudio.play();
+            mainaudio.play();
+        })
+        this.off.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
 
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
+            StartAudio.src = "assets/音效/dnf/静音.mp3"
+            CreateAudio.src = "assets/音效/dnf/静音.mp3"
+            BattleAudio.src = "assets/音效/dnf/静音.mp3"
+            SucceedAudio.src = "assets/音效/dnf/静音.mp3"
+            FailAudio.src = "assets/音效/dnf/静音.mp3"
+            Attack1Audio.src = "assets/音效/dnf/静音.mp3"
+            Attack2Audio.src = "assets/音效/dnf/静音.mp3"
+            BuyAudio.src = "assets/音效/dnf/静音.mp3"
+            HPMPAudio.src = "assets/音效/dnf/静音.mp3"
+            MainAudio.src = "assets/音效/dnf/静音.mp33"
+            ClickAudio.src = "assets/音效/dnf/静音.mp3"
+        })
+    }
+}
+
+/**
+ * 制作团队UI
+ */
+class WorkerUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    backButton: Bitmap;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1') as HTMLImageElement);
+        this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2') as HTMLImageElement);
+       
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            this.deleteAll();
+            clickaudio.play();
+        })
+       
+    }
+}

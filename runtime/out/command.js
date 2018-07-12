@@ -64,6 +64,28 @@ var WalkCommand = /** @class */ (function (_super) {
     return WalkCommand;
 }(Command));
 /**
+ * 传送命令
+ */
+var PortalCommand = /** @class */ (function (_super) {
+    __extends(PortalCommand, _super);
+    function PortalCommand(portal) {
+        var _this = _super.call(this) || this;
+        _this.portal = portal;
+        return _this;
+    }
+    PortalCommand.prototype.execute = function () {
+        console.log("\u4F20\u9001\u76EE\u6807" + this.portal.toString());
+        map = mapManager.getMap(this.portal.to - 1);
+        map.addChild(player.view);
+        player.x = this.portal.targetRow;
+        player.y = this.portal.targetCol;
+        player.view.x = player.x * TILE_SIZE;
+        player.view.y = player.y * TILE_SIZE;
+        dynamicStage.addChild(map);
+    };
+    return PortalCommand;
+}(Command));
+/**
  * 拾取命令
  */
 var PickCommand = /** @class */ (function (_super) {

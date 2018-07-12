@@ -20,10 +20,10 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userLevel = new TextField('' + player.level, 52, 85, 20);
         _this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        _this.bagButton = new Bitmap(750, 465, bagButton);
-        _this.EscButton = new Bitmap(820, 465, EscButton);
-        _this.SkillButton = new Bitmap(680, 465, SkillButton);
-        _this.missionButton = new Bitmap(610, 465, MissionButton);
+        _this.bagButton = new Bitmap(750, 475, bagButton);
+        _this.EscButton = new Bitmap(820, 475, EscButton);
+        _this.SkillButton = new Bitmap(680, 475, SkillButton);
+        _this.missionButton = new Bitmap(610, 475, MissionButton);
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
         _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -72,6 +72,11 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.missionButton.addEventListener('onClick', function (eventData) {
             _this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(_this.missionUI);
+            clickaudio.play();
+        });
+        _this.EscButton.addEventListener('onClick', function (eventData) {
+            _this.settingUI = new SettingUI(0, 0);
+            settingBoxContainer.addChild(_this.settingUI);
             clickaudio.play();
         });
         player.addEventListener('updateUserInfo', function (eventData) {
@@ -141,17 +146,34 @@ var MissionUI = /** @class */ (function (_super) {
     function MissionUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.missionTextGroup = new DisplayObjectContainer(0, 0);
         _this.MissionBackGround = new Bitmap(225, 65, missionImg);
         _this.closeButton = new Bitmap(215, 55, missionCloseImg);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.MissionBackGround);
         _this.addChild(_this.closeButton);
+        _this.addChild(_this.missionTextGroup);
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
             clickaudio.play();
         });
+        _this.updateMissionText();
         return _this;
     }
+    MissionUI.prototype.updateMissionText = function () {
+        this.missionTextGroup.deleteAll();
+        for (var i = 0; i < missionManager.missions.length; i++) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+                var missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+                for (var b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
+                    var missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    this.missionTextGroup.addChild(missionAcceptText);
+                }
+                this.missionTextGroup.addChild(missionText);
+                return;
+            }
+        }
+    };
     return MissionUI;
 }(DisplayObjectContainer));
 /**
@@ -460,7 +482,9 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillIDGroup = [];
         //以下消耗品界面
         _this.itemContainer = new DisplayObjectContainer(0, 0);
+        _this.itemTextGroup = new DisplayObjectContainer(0, 0);
         _this.index = 0;
+        _this.consumChoiceID = 0;
         _this.index = 0;
         // super(58, 64);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
@@ -619,7 +643,34 @@ var battleUI = /** @class */ (function (_super) {
             _this.itemContainer.addChild(_this.itemUseButton);
             _this.itemBackButton = new Bitmap(470, 285, Resource.get('battleItemBackImg'));
             _this.itemContainer.addChild(_this.itemBackButton);
+            _this.itemContainer.addChild(_this.itemTextGroup);
             _this.itemUseButton.addEventListener('onClick', function () {
+                _this.updateConsumCount();
+                if (_this.consumChoiceID != 0) {
+                    for (var i = 0; i < player.packageEquipment.length; i++) {
+                        if (_this.consumChoiceID == player.packageEquipment[i].id) {
+                            var con = player.packageEquipment[i];
+                            con.use(function () {
+                                return;
+                            });
+                            if (con.id == 1000) {
+                                var textField = new TextField(_this.player.name + " 使用 " + player.packageEquipment[i].name + " 回复了 " + Math.floor(_this.player.maxHP * con.addHP / 100) + " 点HP！", 0, _this.index * 20, 15);
+                                _this.playerHpText.text = "" + _this.player._hp + " / " + _this.player.maxHP;
+                                _this.textGroup.addChild(textField);
+                                _this.index++;
+                            }
+                            if (con.id == 1001) {
+                                var textField = new TextField(_this.player.name + " 使用 " + player.packageEquipment[i].name + " 回复了 " + Math.floor(_this.player.maxMp * con.addMP / 100) + " 点MP！", 0, _this.index * 20, 15);
+                                _this.textGroup.addChild(textField);
+                                _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
+                                _this.index++;
+                            }
+                            player.packageEquipment.splice(i, 1);
+                            _this.updateConsumCount();
+                            return;
+                        }
+                    }
+                }
                 clickaudio.play();
             });
             _this.itemBackButton.addEventListener('onClick', function () {
@@ -627,6 +678,8 @@ var battleUI = /** @class */ (function (_super) {
                 _this.itemContainer.deleteAll();
             });
             console.log('弹出消耗品界面！');
+            _this.updateConsumCount();
+            //以下获取角色消耗品
         });
         batManager.addEventListener('playerBattleStart', function (player) {
             _this.player = player;
@@ -705,6 +758,42 @@ var battleUI = /** @class */ (function (_super) {
             this.index = 0;
         }
     };
+    battleUI.prototype.updateConsumCount = function () {
+        var _this = this;
+        this.itemTextGroup.deleteAll();
+        var redCount = 0;
+        var blueCount = 0;
+        var lineCount = 0;
+        for (var i = 0; i < player.packageEquipment.length; i++) {
+            if (player.packageEquipment[i].id == 1000) {
+                redCount++;
+            }
+            if (player.packageEquipment[i].id == 1001) {
+                blueCount++;
+            }
+        }
+        var red = equipManager.getEquipByID(1000);
+        var blue = equipManager.getEquipByID(1001);
+        if (redCount > 0) {
+            var redText = new TextField(red.name + " X " + redCount, 315, 165 + 32 * lineCount, 20);
+            redText.addEventListener("onClick", function () {
+                _this.consumChoiceID = red.id;
+            });
+            this.itemTextGroup.addChild(redText);
+            lineCount++;
+        }
+        if (blueCount > 0) {
+            var blueText = new TextField(blue.name + " X " + blueCount, 315, 165 + 32 * lineCount, 20);
+            this.itemTextGroup.addChild(blueText);
+            blueText.addEventListener("onClick", function () {
+                _this.consumChoiceID = blue.id;
+            });
+            lineCount++;
+        }
+        if (blueCount == 0 && redCount == 0) {
+            this.consumChoiceID = 0;
+        }
+    };
     return battleUI;
 }(DisplayObjectContainer));
 /**
@@ -733,19 +822,6 @@ var battleEndWinUI = /** @class */ (function (_super) {
             clickaudio.play();
         });
         return _this;
-        // batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
-        //     if (this.hasListener) {
-        //         return;
-        //     }
-        //     for (let i = 0; i < dropBox.length; i++) {
-        //         let equip: Equipment;
-        //         equip = equipManager.getEquipByID(dropBox[i]) as Equipment;
-        //         let textField = new TextField(equip.name, 0, 30 * i, 20);
-        //         player.packageEquipment.push(equip);
-        //         this.dropTextGroup.addChild(textField);
-        //         this.hasListener = true;
-        //     }
-        // })
     }
     return battleEndWinUI;
 }(DisplayObjectContainer));
@@ -881,42 +957,75 @@ var skillBoxUI = /** @class */ (function (_super) {
     return skillBoxUI;
 }(DisplayObjectContainer));
 /**
- * 对话窗口UI
+ * 设置UI
  */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
-//     count: number = 1;
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
-//     constructor(x: number, y: number) {
-//         super(x, y);
-//         this.init();
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
+var SettingUI = /** @class */ (function (_super) {
+    __extends(SettingUI, _super);
+    function SettingUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
+        _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
+        _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
+        _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.addChild(_this.blackMask);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.on);
+        _this.addChild(_this.off);
+        _this.addChild(_this.backButton);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            _this.deleteAll();
+            clickaudio.play();
+        });
+        _this.on.addEventListener("onClick", function (eventData) {
+            StartAudio.src = "assets/音效/常规/创建角色.mp3";
+            CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+            BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3";
+            SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
+            FailAudio.src = "assets/音效/常规/战斗失败.mp3";
+            Attack1Audio.src = "assets/音效/dnf/暴击1.mp3";
+            Attack2Audio.src = "assets/音效/dnf/暴击2.mp3";
+            BuyAudio.src = "assets/音效/常规/金币.mp3";
+            HPMPAudio.src = "assets/音效/dnf/药水.mp3";
+            MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
+            ClickAudio.src = "assets/音效/常规/单击.mp3";
+            clickaudio.play();
+            mainaudio.play();
+        });
+        _this.off.addEventListener("onClick", function (eventData) {
+            clickaudio.play();
+            StartAudio.src = "assets/音效/dnf/静音.mp3";
+            CreateAudio.src = "assets/音效/dnf/静音.mp3";
+            BattleAudio.src = "assets/音效/dnf/静音.mp3";
+            SucceedAudio.src = "assets/音效/dnf/静音.mp3";
+            FailAudio.src = "assets/音效/dnf/静音.mp3";
+            Attack1Audio.src = "assets/音效/dnf/静音.mp3";
+            Attack2Audio.src = "assets/音效/dnf/静音.mp3";
+            BuyAudio.src = "assets/音效/dnf/静音.mp3";
+            HPMPAudio.src = "assets/音效/dnf/静音.mp3";
+            MainAudio.src = "assets/音效/dnf/静音.mp33";
+            ClickAudio.src = "assets/音效/dnf/静音.mp3";
+        });
+        return _this;
+    }
+    return SettingUI;
+}(DisplayObjectContainer));
+/**
+ * 制作团队UI
+ */
+var WorkerUI = /** @class */ (function (_super) {
+    __extends(WorkerUI, _super);
+    function WorkerUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1'));
+        _this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2'));
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.backButton);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            _this.deleteAll();
+            clickaudio.play();
+        });
+        return _this;
+    }
+    return WorkerUI;
+}(DisplayObjectContainer));

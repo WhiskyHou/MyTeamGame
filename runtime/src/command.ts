@@ -38,7 +38,7 @@ class WalkCommand extends Command {
             callback();
         }
     }
-    
+
     walk(path: astar.Node[], callback: Function) {
         setTimeout(() => {
             let node = path.shift();
@@ -55,6 +55,33 @@ class WalkCommand extends Command {
             }
             this.walk(path, callback);
         }, 128000 / PLAYER_WALK_SPEED);
+    }
+}
+
+
+/**
+ * 传送命令
+ */
+class PortalCommand extends Command {
+
+    portal: Portal
+
+    constructor(portal: Portal) {
+        super()
+        this.portal = portal;
+    }
+
+    execute() {
+        console.log(`传送目标${this.portal.toString()}`)
+        map = mapManager.getMap(this.portal.to - 1) as GameMap
+        map.addChild(player.view)
+
+        player.x = this.portal.targetRow
+        player.y = this.portal.targetCol
+        player.view.x = player.x * TILE_SIZE
+        player.view.y = player.y * TILE_SIZE
+
+        dynamicStage.addChild(map)
     }
 }
 
