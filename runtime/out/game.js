@@ -16,7 +16,6 @@ var __extends = (this && this.__extends) || (function () {
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
 Resource.load('./assets/正面动画.png', "dust");
-Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -237,8 +236,7 @@ var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
 var PLAYER_WALK_SPEED = 200;
 var staticStage = stages[2];
-var dynamicStage = stages[1];
-stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
+var dynamicStage = stages[0];
 var player = new User();
 var map;
 var mapManager = new MapManager();
@@ -543,7 +541,6 @@ var animTemp;
 // anim测试
 animTemp = new DisplayObjectContainer(0, 0);
 var anim = animTemp.addComponent(new PlayerAnimTest());
-//anim.play();
 /**
  * 游戏状态
  */
@@ -583,7 +580,7 @@ var PlayingState = /** @class */ (function (_super) {
         var _this = this;
         this.camera = new EmptyObject(0, 0);
         var camera = this.camera.addComponent(new Camera());
-        camera.layer = 1;
+        camera.layer = 0;
         dynamicStage.addChild(this.mapContainer);
         // staticStage.addChild(this.bg);
         staticStage.addChild(this.userUIContainer);
