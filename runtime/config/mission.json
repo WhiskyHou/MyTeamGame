@@ -21,7 +21,7 @@
 			],
 			"going": "pickEquipment",
 			"goingFunc": "屠龙刀",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "2",
@@ -47,7 +47,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "3",
@@ -71,7 +71,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "队长",
-			"reward": "levelDown"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "4",
@@ -92,7 +92,7 @@
 			],
 			"going": "pickEquipment",
 			"goingFunc": "扁鹊的药瓶",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "5",
@@ -112,7 +112,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "6",
@@ -130,7 +130,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "队长",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "7",
@@ -149,7 +149,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "扁鹊",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "8",
@@ -168,7 +168,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "嬴政",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "9",
@@ -188,7 +188,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "王昭君",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "10",
@@ -208,7 +208,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "11",
@@ -228,7 +228,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "12",
@@ -248,7 +248,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward":"20,20,3"
 		},
 		{
 			"id": "13",
@@ -267,7 +267,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "14",
@@ -285,7 +285,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward":"20,20,3"
 		},
 		{
 			"id": "15",
@@ -313,7 +313,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,30,2"
 		},
 		{
 			"id": "16",
@@ -332,7 +332,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "16",
@@ -353,7 +353,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward":"20,20,3"
 		},
 		{
 			"id": "17",
@@ -372,7 +372,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "18",
@@ -394,7 +394,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "19",
@@ -414,7 +414,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "20",
@@ -432,7 +432,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "21",
@@ -454,7 +454,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "22",
@@ -478,7 +478,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward":"20,20,3"
 		}
 	]
 }
