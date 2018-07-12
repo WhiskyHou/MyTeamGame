@@ -198,12 +198,22 @@ class MissionUI extends DisplayObjectContainer {
 
     updateMissionText() {
         this.missionTextGroup.deleteAll();
-        let missionText = new TextField(missionManager.missions[0].name, 375, 100, 40);
-        for (let i = 0; i < missionManager.missions[0].canAcceptContent.length; i++) {
-            let missionAcceptText = new TextField(missionManager.missions[0].canAcceptContent[i], 390, 180 + 25 * i, 25);
-            this.missionTextGroup.addChild(missionAcceptText);
+
+        for (let i = 0; i < missionManager.missions.length; i++) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+                let missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+
+                for (let b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
+                    let missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    this.missionTextGroup.addChild(missionAcceptText);
+                }
+                this.missionTextGroup.addChild(missionText);
+                return;
+            }
         }
-        this.missionTextGroup.addChild(missionText);
+
+
+
     }
 }
 
@@ -1203,7 +1213,7 @@ class SettingUI extends DisplayObjectContainer {
             clickaudio.play();
         })
         this.on.addEventListener("onClick", (eventData: any) => {
-            
+
             StartAudio.src = "assets/音效/常规/创建角色.mp3"
             CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
             BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
@@ -1215,13 +1225,13 @@ class SettingUI extends DisplayObjectContainer {
             HPMPAudio.src = "assets/音效/dnf/药水.mp3"
             MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
             ClickAudio.src = "assets/音效/常规/单击.mp3"
-            
+
             clickaudio.play();
             mainaudio.play();
         })
         this.off.addEventListener("onClick", (eventData: any) => {
             clickaudio.play();
-            
+
             StartAudio.src = "assets/音效/dnf/静音.mp3"
             CreateAudio.src = "assets/音效/dnf/静音.mp3"
             BattleAudio.src = "assets/音效/dnf/静音.mp3"
@@ -1236,8 +1246,6 @@ class SettingUI extends DisplayObjectContainer {
         })
     }
 }
-
-
 
 /**
  * 制作团队UI

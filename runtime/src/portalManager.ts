@@ -17,7 +17,7 @@ class PortalManager {
         for (let item of obj.portal) {
             const portal = new Portal(item.id, item.from, item.to, item.targetRow, item.targetCol);
 
-            this.portalList.push()
+            this.portalList.push(portal)
         }
     }
 }
