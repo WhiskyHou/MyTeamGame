@@ -5,6 +5,7 @@ class InputManager extends EventDispatcher {
     inputText: TextField
     inputString: string = ""
     inputOver: boolean = false
+    rechargeIsStart : boolean = false;
     constructor() {
         super()
 
@@ -76,6 +77,17 @@ class InputManager extends EventDispatcher {
                 this.dispatchEvent('inputChanged', this.inputString);
             }
         });
+        this.addEventListener("rechargeInput", (eventData: any) => {
+            console.log(eventData)
+            if (!this.rechargeIsStart) {
+                this.rechargeIsStart = true
+                this.inputString = ""
+            }else{
+                this.inputString += this.CodeTOWords(eventData)
+                console.log('你按下了', this.inputString)
+                this.dispatchEvent('inputChanged', this.inputString);
+            }
+        });
         this.addEventListener("L", (eventData: any) => {
             //任务快捷键
         });
@@ -97,6 +109,7 @@ class InputManager extends EventDispatcher {
         });
         this.addEventListener("Enter", (eventData: any) => {
             this.inputOver = true;
+            this.rechargeIsStart = false
             this.dispatchEvent('inputOver', this.inputString);
         });
         this.addEventListener("Caps Lock", (eventData: any) => {

@@ -18,7 +18,7 @@ var TalkWindow = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.count = 0;
         _this.view = new Bitmap(0, 0, talk_window);
-        _this.text = new TextField("", 190, 100, 24);
+        _this.text = new MultiTextField([], 190, 100, 24, 28);
         _this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.view);
@@ -51,7 +51,7 @@ var TalkWindow = /** @class */ (function (_super) {
             this.dispatchEvent("talkWiondowClose", null);
         }
         else {
-            this.text.text = contents[this.count];
+            this.text.setStringByNumber(contents[this.count], 8);
         }
     };
     TalkWindow.prototype.initNpcInfo = function () {

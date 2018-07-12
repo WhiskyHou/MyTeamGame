@@ -972,13 +972,21 @@ var SettingUI = /** @class */ (function (_super) {
         _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
         _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.recharge = new Bitmap(500, 446, bagOnUI);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.on);
         _this.addChild(_this.off);
         _this.addChild(_this.backButton);
+        _this.addChild(_this.recharge);
         inputManager.addEventListener("Esc", function (eventData) {
             _this.deleteAll();
+        });
+        _this.recharge.addEventListener("rechargeInput", function (eventData) {
+            _this.deleteChild(_this.recharge);
+            _this.rechargeInput = new MultiTextField([], 500, 450, 20, 10).setStringByNumber("123456", 3);
+            _this.addChild(_this.rechargeInput);
+            clickaudio.play();
         });
         _this.backButton.addEventListener("onClick", function (eventData) {
             _this.deleteAll();
