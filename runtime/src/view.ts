@@ -81,11 +81,6 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.EscButton);
         this.addChild(this.missionButton);
 
-<<<<<<< HEAD
-        //16558
-=======
-
->>>>>>> 89b05dda96e3e42291f83d294662e9c84abbbd13
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
             clickaudio.play();
