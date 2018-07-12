@@ -339,9 +339,9 @@ class Consumable extends Equipment {
     y: number = 0;
     view: Bitmap
 
-    public addHP: number;
-    public addMP: number;
-    public addCharm: number;
+    public addHP: number = 0;
+    public addMP: number = 0;
+    public addCharm: number = 0;
 
     constructor(id: number, name: string, posID: number, addHP: number, addMP: number, addCharm: number) {
         super(id, name, 0, posID, 0, 0, 0);
@@ -351,6 +351,7 @@ class Consumable extends Equipment {
     }
 
     use(callback: Function) {
+
         player._hp += Math.ceil((this.addHP / 100) * player.maxHP)
         if (player._hp > player.maxHP) { player._hp = player.maxHP }
         player._mp += Math.ceil((this.addMP / 100) * player.maxMp)

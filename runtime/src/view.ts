@@ -33,10 +33,10 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userLevel = new TextField('' + player.level, 52, 85, 20);
         this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        this.bagButton = new Bitmap(750, 465, bagButton);
-        this.EscButton = new Bitmap(820, 465, EscButton);
-        this.SkillButton = new Bitmap(680, 465, SkillButton);
-        this.missionButton = new Bitmap(610, 465, MissionButton);
+        this.bagButton = new Bitmap(750, 475, bagButton);
+        this.EscButton = new Bitmap(820, 475, EscButton);
+        this.SkillButton = new Bitmap(680, 475, SkillButton);
+        this.missionButton = new Bitmap(610, 475, MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -198,12 +198,22 @@ class MissionUI extends DisplayObjectContainer {
 
     updateMissionText() {
         this.missionTextGroup.deleteAll();
-        let missionText = new TextField(missionManager.missions[0].name, 375, 100, 40);
-        for (let i = 0; i < missionManager.missions[0].canAcceptContent.length; i++) {
-            let missionAcceptText = new TextField(missionManager.missions[0].canAcceptContent[i], 390, 180 + 25 * i, 25);
-            this.missionTextGroup.addChild(missionAcceptText);
+
+        for (let i = 0; i < missionManager.missions.length; i++) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+                let missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+
+                for (let b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
+                    let missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    this.missionTextGroup.addChild(missionAcceptText);
+                }
+                this.missionTextGroup.addChild(missionText);
+                return;
+            }
         }
-        this.missionTextGroup.addChild(missionText);
+
+
+
     }
 }
 
@@ -1160,7 +1170,6 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillGroup.addChild(this.mountedSkillText);
         }
     }
-<<<<<<< HEAD
 
     // returnSkillNo(id: number) {
     //     for (let i = 0; i < skillArray.length; i++) {
@@ -1187,10 +1196,10 @@ class SettingUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.backGround= new Bitmap(290,120,Resource.get('SettingUI1')as HTMLImageElement);
-        this.on = new Bitmap(440,195,Resource.get('SettingUI2')as HTMLImageElement);
-        this.off = new Bitmap(500,195,Resource.get('SettingUI3')as HTMLImageElement);
-        this.backButton = new Bitmap(400,320,Resource.get('SettingUI4')as HTMLImageElement);
+        this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1') as HTMLImageElement);
+        this.on = new Bitmap(440, 195, Resource.get('SettingUI2') as HTMLImageElement);
+        this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
+        this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
         this.addChild(this.blackMask);
@@ -1203,57 +1212,62 @@ class SettingUI extends DisplayObjectContainer {
             this.deleteAll();
             clickaudio.play();
         })
+        this.on.addEventListener("onClick", (eventData: any) => {
+
+            StartAudio.src = "assets/音效/常规/创建角色.mp3"
+            CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3"
+            BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3"
+            SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3"
+            FailAudio.src = "assets/音效/常规/战斗失败.mp3"
+            Attack1Audio.src = "assets/音效/dnf/暴击1.mp3"
+            Attack2Audio.src = "assets/音效/dnf/暴击2.mp3"
+            BuyAudio.src = "assets/音效/常规/金币.mp3"
+            HPMPAudio.src = "assets/音效/dnf/药水.mp3"
+            MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
+            ClickAudio.src = "assets/音效/常规/单击.mp3"
+
+            clickaudio.play();
+            mainaudio.play();
+        })
+        this.off.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
+
+            StartAudio.src = "assets/音效/dnf/静音.mp3"
+            CreateAudio.src = "assets/音效/dnf/静音.mp3"
+            BattleAudio.src = "assets/音效/dnf/静音.mp3"
+            SucceedAudio.src = "assets/音效/dnf/静音.mp3"
+            FailAudio.src = "assets/音效/dnf/静音.mp3"
+            Attack1Audio.src = "assets/音效/dnf/静音.mp3"
+            Attack2Audio.src = "assets/音效/dnf/静音.mp3"
+            BuyAudio.src = "assets/音效/dnf/静音.mp3"
+            HPMPAudio.src = "assets/音效/dnf/静音.mp3"
+            MainAudio.src = "assets/音效/dnf/静音.mp33"
+            ClickAudio.src = "assets/音效/dnf/静音.mp3"
+        })
     }
 }
 
 /**
- * 对话窗口UI
+ * 制作团队UI
  */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
+class WorkerUI extends DisplayObjectContainer {
 
-//     count: number = 1;
+    backGround: Bitmap;
+    backButton: Bitmap;
 
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
+    constructor(x: number, y: number) {
+        super(x, y);
 
-//     constructor(x: number, y: number) {
-//         super(x, y);
+        this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1') as HTMLImageElement);
+        this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2') as HTMLImageElement);
+       
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
 
-//         this.init();
-
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
-=======
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            this.deleteAll();
+            clickaudio.play();
+        })
+       
+    }
 }
->>>>>>> 21137e073d59df254a32c8781b96f40b4c1f9fe5

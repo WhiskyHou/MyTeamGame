@@ -186,6 +186,9 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png'
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
+//制作团队
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 //局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
@@ -214,6 +217,11 @@ var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
+//装备道具图片
+var caihuaBookImg = new Image();
+caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
+var xiXingBookImg = new Image();
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
 /**
  * 常量
  *
@@ -240,8 +248,8 @@ var NPC3 = 3;
 var NPC4 = 4;
 var NPC5 = 5;
 var MONSTER = 1;
-var PLAYER_INDEX_X = 0;
-var PLAYER_INDEX_Y = 0;
+var PLAYER_INDEX_X = 8;
+var PLAYER_INDEX_Y = 5;
 var PLAYER_WALK_SPEED = 200;
 var staticStage = stages[2];
 var dynamicStage = stages[0];
@@ -257,7 +265,6 @@ var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
 var inputManager = new InputManager();
-var skillArray = [];
 // 这回调看着也太丑了啊
 npcManager.init(function () {
     monsManager.init(function () {
@@ -291,31 +298,41 @@ batManager.addEventListener("enemyBattleStart", function (enemy) {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
+var skillArray = []; //人物已有技能库
+var skillBase = []; //全技能库
 var skillAttack = new Skill(0, '攻击', 0); //攻击预留
 skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
+skillBase.push(skillAttack);
 var skillEmpty = new Skill(1, '空', 0); //空
 skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
+skillBase.push(skillEmpty);
 var skillCaihua = new Skill(2, '菜花宝典', 30);
 skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
-skillArray.push(skillCaihua);
+// skillArray.push(skillCaihua);
+skillBase.push(skillCaihua);
 var skillSabi = new Skill(3, '撒币大法', 20);
 skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
-skillArray.push(skillSabi);
+// skillArray.push(skillSabi);
+skillBase.push(skillSabi);
 var skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
 skillArray.push(skillBusi);
+skillBase.push(skillBusi);
 var skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
 skillArray.push(skillGuolai);
+skillBase.push(skillGuolai);
 var skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
 skillArray.push(skillQishang);
+skillBase.push(skillQishang);
 var skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
 ;
-skillArray.push(skillXixing);
+// skillArray.push(skillXixing);
+skillBase.push(skillXixing);
 /**
  * 载入状态
  */
@@ -368,6 +385,8 @@ var LoadingState = /** @class */ (function (_super) {
     };
     return LoadingState;
 }(State));
+var workerContainer;
+var workerUI;
 /**
  * 菜单状态
  */
@@ -392,6 +411,12 @@ var MenuState = /** @class */ (function (_super) {
         _this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         _this.startaudio = new AudioPlay(StartAudio);
         _this.anim = new Animator(100, 100, Resource.get('TestAnim'), 128, 16, 0.2);
+        workerContainer = new DisplayObjectContainer(0, 0);
+        _this.workerButton.addEventListener("onClick", function () {
+            workerUI = new WorkerUI(0, 0);
+            workerContainer.addChild(workerUI);
+            clickaudio.play();
+        });
         return _this;
     }
     Object.defineProperty(MenuState, "instance", {
@@ -411,6 +436,7 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        staticStage.addChild(workerContainer);
         this.startButton.addEventListener("onClick", this.onClick);
         this.anim.play();
         this.anim.isLooping = true;
@@ -649,46 +675,6 @@ var PlayingState = /** @class */ (function (_super) {
             _this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(_this.shpUI);
         });
-        // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
-        map.addEventListener('onClick', function (eventData) {
-            if (player.moveStatus) {
-                clickaudio.play();
-                var globalX = eventData.globalX;
-                var globalY = eventData.globalY;
-                var localPos = map.getLocalPos(new math.Point(globalX, globalY));
-                // 确定被点击的格子位置
-                var row = Math.floor(localPos.x / TILE_SIZE);
-                var col = Math.floor(localPos.y / TILE_SIZE);
-                // 添加行走命令
-                var walk = new WalkCommand(player.x, player.y, row, col);
-                commandPool.addCommand(walk);
-                // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
-                var equipmentInfo = map.getEquipmentInfo(row, col);
-                if (equipmentInfo) {
-                    var pick = new PickCommand(equipmentInfo);
-                    commandPool.addCommand(pick);
-                }
-                var npcInfo = map.getNpcInfo(row, col);
-                if (npcInfo) {
-                    if (npcInfo.id == 6) {
-                        shpManager.openShop();
-                    }
-                    else {
-                        var talk = new TalkCommand(npcInfo);
-                        commandPool.addCommand(talk);
-                    }
-                }
-                var monsterInfo = map.getMonsterInfo(row, col);
-                if (monsterInfo) {
-                    // console.log('monster Info');
-                    var fight = new FightCommand(monsterInfo);
-                    commandPool.addCommand(fight);
-                }
-                player.moveStatus = false;
-                // 执行命令池的命令
-                commandPool.execute();
-            }
-        });
         this.changePlayerViewPosture();
     };
     PlayingState.prototype.onUpdate = function () {
@@ -762,5 +748,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());

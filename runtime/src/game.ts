@@ -197,6 +197,10 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回�
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
 
+//制作团队
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
+
 //局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
@@ -233,6 +237,11 @@ const clickaudio = new AudioPlay(ClickAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
 
+//装备道具图片
+let caihuaBookImg = new Image()
+caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png"
+let xiXingBookImg = new Image();
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
 
 
 /**
@@ -267,8 +276,8 @@ const NPC5 = 5;
 
 const MONSTER = 1;
 
-const PLAYER_INDEX_X = 0;
-const PLAYER_INDEX_Y = 0;
+const PLAYER_INDEX_X = 8;
+const PLAYER_INDEX_Y = 5;
 const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
@@ -287,7 +296,6 @@ let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
 let inputManager = new InputManager();
-let skillArray: Skill[] = []
 
 // 这回调看着也太丑了啊
 npcManager.init(() => {
@@ -326,31 +334,41 @@ batManager.addEventListener("enemyBattleStart", (enemy: Monster) => {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
+let skillArray: Skill[] = []//人物已有技能库
+let skillBase: Skill[] = []//全技能库
+
 let skillAttack = new Skill(0, '攻击', 0);//攻击预留
 skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
+skillBase.push(skillAttack);
 let skillEmpty = new Skill(1, '空', 0);//空
 skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
+skillBase.push(skillEmpty);
 let skillCaihua = new Skill(2, '菜花宝典', 30);
 skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
-skillArray.push(skillCaihua);
+// skillArray.push(skillCaihua);
+skillBase.push(skillCaihua);
 let skillSabi = new Skill(3, '撒币大法', 20);
 skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
-skillArray.push(skillSabi);
+// skillArray.push(skillSabi);
+skillBase.push(skillSabi);
 let skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
 skillArray.push(skillBusi);
+skillBase.push(skillBusi);
 let skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
 skillArray.push(skillGuolai);
+skillBase.push(skillGuolai);
 let skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
 skillArray.push(skillQishang);
+skillBase.push(skillQishang);
 let skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
-skillArray.push(skillXixing);
-
+// skillArray.push(skillXixing);
+skillBase.push(skillXixing);
 
 /**
  * 载入状态
@@ -414,6 +432,9 @@ class LoadingState extends State {
 }
 
 
+let workerContainer: DisplayObjectContainer
+let workerUI: WorkerUI;
+
 /**
  * 菜单状态
  */
@@ -436,8 +457,8 @@ class MenuState extends State {
     workerButton: Bitmap;
 
     startaudio: AudioPlay;
-    anim:Animator;///
-    
+    anim: Animator;///
+
 
     constructor() {
         super();
@@ -447,7 +468,16 @@ class MenuState extends State {
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
         this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         this.startaudio = new AudioPlay(StartAudio);
-        this.anim=new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
+        this.anim = new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
+
+        workerContainer=new DisplayObjectContainer(0,0);
+        
+        this.workerButton.addEventListener("onClick", () => {
+            workerUI = new WorkerUI(0, 0);
+            workerContainer.addChild(workerUI);
+            clickaudio.play();
+        });
+
 
     }
 
@@ -458,10 +488,11 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        staticStage.addChild(workerContainer);
 
         this.startButton.addEventListener("onClick", this.onClick)
         this.anim.play();
-        this.anim.isLooping=true;
+        this.anim.isLooping = true;
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
@@ -471,6 +502,7 @@ class MenuState extends State {
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
     }
+
 
 
     onClick = (eventData: any) => {
@@ -665,7 +697,7 @@ let settingBoxContainer: DisplayObjectContainer;
 // anim测试角色
 let animTemp: DisplayObjectContainer;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0,0);
+animTemp = new DisplayObjectContainer(0, 0);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 
 /**
@@ -720,7 +752,7 @@ class PlayingState extends State {
         this.shpUI = new shopUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
-        settingBoxContainer=new DisplayObjectContainer(0,0);
+        settingBoxContainer = new DisplayObjectContainer(0, 0);
 
     }
 
@@ -784,59 +816,6 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
-
-        // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
-        map.addEventListener('onClick', (eventData: any) => {
-            if (player.moveStatus) {
-
-                clickaudio.play();
-
-                const globalX = eventData.globalX;
-                const globalY = eventData.globalY;
-                const localPos = map.getLocalPos(new math.Point(globalX, globalY));
-
-                // 确定被点击的格子位置
-                const row = Math.floor(localPos.x / TILE_SIZE);
-                const col = Math.floor(localPos.y / TILE_SIZE);
-
-                // 添加行走命令
-                const walk = new WalkCommand(player.x, player.y, row, col);
-                commandPool.addCommand(walk);
-
-                // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
-                const equipmentInfo = map.getEquipmentInfo(row, col);
-                if (equipmentInfo) {
-                    const pick = new PickCommand(equipmentInfo);
-                    commandPool.addCommand(pick);
-                }
-
-                const npcInfo = map.getNpcInfo(row, col);
-
-                if (npcInfo) {
-                    if (npcInfo.id == 6) {
-                        shpManager.openShop()
-                    } else {
-                        const talk = new TalkCommand(npcInfo);
-                        commandPool.addCommand(talk)
-                    }
-                }
-
-                const monsterInfo = map.getMonsterInfo(row, col);
-
-
-                if (monsterInfo) {
-                    // console.log('monster Info');
-                    const fight = new FightCommand(monsterInfo);
-                    commandPool.addCommand(fight);
-                }
-
-                player.moveStatus = false;
-
-                // 执行命令池的命令
-                commandPool.execute();
-            }
-        });
-
 
 
         this.changePlayerViewPosture();
@@ -918,5 +897,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());
