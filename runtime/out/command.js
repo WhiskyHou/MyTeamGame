@@ -125,7 +125,6 @@ var TalkCommand = /** @class */ (function (_super) {
         if (this.npc.canSubmitMissions.length > 0) {
             mission = this.npc.canSubmitMissions[0];
         }
-        console.log(mission);
         // console.log('任务长度' + missionManager.missions.length);
         if (mission) {
             var talkWindow_1 = new TalkWindow(100, 150);
@@ -135,15 +134,18 @@ var TalkCommand = /** @class */ (function (_super) {
             talkWindow_1.addEventListener("talkWiondowClose", function () {
                 talkUIContainer.deleteChild(talkWindow_1);
                 if (mission) {
+                    console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
                         missionManager.accept(mission);
+                        if (_this.npc.changeTypeID != 0) {
+                            _this.npc.changeType(); //测试换类型！！！ 
+                        }
                     }
                     else if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
                         missionManager.submit(mission);
                     }
-                    _this.npc.changeType(); //测试换类型！！！
                     callback();
                 }
             });

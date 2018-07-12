@@ -435,9 +435,9 @@ class Mission {
 
     going: Function;
     reward: Function;
-    addCoin : number;
-    addEXP : number;
-    equipment : Equipment;
+    addCoin: number;
+    addEXP: number;
+    equipment: Equipment;
 
     constructor(type: string, going: Function, reward: Function) {
         this.going = going;
@@ -509,6 +509,8 @@ class Npc {
         missionManager.addEventListener('missionUpdate', (eventData: any) => {
             this.update();
         })
+
+
     }
 
     update() {
@@ -522,6 +524,7 @@ class Npc {
                 this.canSubmitMissions.push(mission);
             }
         }
+
     }
 
     toString() {

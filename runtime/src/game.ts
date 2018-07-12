@@ -477,8 +477,8 @@ class MenuState extends State {
         this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
 
 
-        workerContainer=new DisplayObjectContainer(0,0);
-        
+        workerContainer = new DisplayObjectContainer(0, 0);
+
         this.workerButton.addEventListener("onClick", () => {
             workerUI = new WorkerUI(0, 0);
             workerContainer.addChild(workerUI);
@@ -506,7 +506,7 @@ class MenuState extends State {
         this.anim1.isLooping = true;
         this.anim2.play();
         this.anim2.isLooping = true;
-        
+
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
@@ -913,5 +913,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+fsm.replaceState(CreateState.instance);
+// fsm.replaceState(new LoadingState());

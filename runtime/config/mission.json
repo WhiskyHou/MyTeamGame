@@ -21,7 +21,7 @@
 			],
 			"going": "pickEquipment",
 			"goingFunc": "屠龙刀",
-			"reward": "0,0,0"
+			"reward": "20,30,1005"
 		},
 		{
 			"id": "2",
