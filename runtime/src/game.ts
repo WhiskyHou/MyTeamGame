@@ -506,7 +506,7 @@ class MenuState extends State {
         this.anim1.isLooping = true;
         this.anim2.play();
         this.anim2.isLooping = true;
-        
+
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
@@ -682,7 +682,7 @@ class CreateState extends State {
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+        player.view = new Bitmap(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE, playerIdleImg);
 
         player.coin = 1000000;//测试用
     }
@@ -790,8 +790,8 @@ class PlayingState extends State {
         staticStage.addChild(settingBoxContainer);
 
         this.mapContainer.addChild(map);
-        //this.mapContainer.addChild(player.view);
-        this.mapContainer.addChild(animTemp);
+        this.mapContainer.addChild(player.view);
+        // this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);

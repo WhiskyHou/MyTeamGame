@@ -580,7 +580,7 @@ var CreateState = /** @class */ (function (_super) {
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
-        player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, playerIdleImg);
+        player.view = new Bitmap(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE, playerIdleImg);
         player.coin = 1000000; //测试用
     };
     return CreateState;
@@ -648,8 +648,8 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(missionBoxContainer);
         staticStage.addChild(settingBoxContainer);
         this.mapContainer.addChild(map);
-        //this.mapContainer.addChild(player.view);
-        this.mapContainer.addChild(animTemp);
+        this.mapContainer.addChild(player.view);
+        // this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
         staticStage.addChild(batteUIContainer);
