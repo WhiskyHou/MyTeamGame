@@ -17,6 +17,7 @@ var MissionManager = /** @class */ (function (_super) {
     function MissionManager() {
         var _this = _super.call(this) || this;
         _this.missions = [];
+        _this.safeLock = false;
         return _this;
     }
     MissionManager.prototype.init = function () {
@@ -41,6 +42,7 @@ var MissionManager = /** @class */ (function (_super) {
         this.dispatchEvent('missionUpdate', {});
     };
     MissionManager.prototype.parseFromConfig = function (config) {
+        var _this = this;
         var _loop_1 = function (item) {
             var going = item.going;
             var goingFunc = function (eventData) {
@@ -49,9 +51,16 @@ var MissionManager = /** @class */ (function (_super) {
                     mission.current++;
                 }
             };
-            var rewardFunc = void 0;
             var rewardNumber = this_1.parseRewardString(item.reward);
-            rewardFunc = this_1.parseReward(rewardNumber);
+            var rewardFunc = function () {
+                if (_this.safeLock) {
+                    player.coin += rewardNumber[0];
+                    player.currentEXP += rewardNumber[1];
+                    if (rewardNumber[2] > 0) {
+                        player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]));
+                    }
+                }
+            };
             var mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -80,17 +89,6 @@ var MissionManager = /** @class */ (function (_super) {
     MissionManager.prototype.submit = function (mission) {
         mission.isSubmit = true;
         this.update();
-    };
-    MissionManager.prototype.parseReward = function (rewards) {
-        var rewardFunc;
-        rewardFunc = function () {
-            player.coin += rewards[0];
-            player.currentEXP += rewards[1];
-            if (rewards[2] > 0) {
-                player.packageEquipment.push(shpManager.getEquipment(rewards[2]));
-            }
-        };
-        return rewardFunc();
     };
     MissionManager.prototype.parseRewardString = function (reward) {
         var rewards = reward.split(",");
