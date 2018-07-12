@@ -74,6 +74,11 @@ var UserInfoUI = /** @class */ (function (_super) {
             missionBoxContainer.addChild(_this.missionUI);
             clickaudio.play();
         });
+        _this.EscButton.addEventListener('onClick', function (eventData) {
+            _this.settingUI = new SettingUI(0, 0);
+            settingBoxContainer.addChild(_this.settingUI);
+            clickaudio.play();
+        });
         player.addEventListener('updateUserInfo', function (eventData) {
             // if (player.currentEXP >= player.needEXP) {
             //     player.level++;
@@ -879,6 +884,31 @@ var skillBoxUI = /** @class */ (function (_super) {
         }
     };
     return skillBoxUI;
+}(DisplayObjectContainer));
+/**
+ * 设置UI
+ */
+var SettingUI = /** @class */ (function (_super) {
+    __extends(SettingUI, _super);
+    function SettingUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
+        _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
+        _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
+        _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.addChild(_this.blackMask);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.on);
+        _this.addChild(_this.off);
+        _this.addChild(_this.backButton);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            _this.deleteAll();
+            clickaudio.play();
+        });
+        return _this;
+    }
+    return SettingUI;
 }(DisplayObjectContainer));
 /**
  * 对话窗口UI

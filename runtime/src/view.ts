@@ -21,6 +21,7 @@ class UserInfoUI extends DisplayObjectContainer {
 
     skillUI: skillBoxUI;
     missionUI: MissionUI;
+    settingUI: SettingUI;
 
     inputText : TextField;
 
@@ -91,6 +92,12 @@ class UserInfoUI extends DisplayObjectContainer {
         this.missionButton.addEventListener('onClick', (eventData: any) => {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
+            clickaudio.play();
+        });
+
+        this.EscButton.addEventListener('onClick', (eventData: any) => {
+            this.settingUI = new SettingUI(0, 0);
+            settingBoxContainer.addChild(this.settingUI);
             clickaudio.play();
         });
 
@@ -1082,6 +1089,40 @@ class skillBoxUI extends DisplayObjectContainer {
     //     }
     //     return 1;
     // }
+}
+
+
+/**
+ * 设置UI
+ */
+class SettingUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    on: Bitmap;
+    off: Bitmap;
+    backButton: Bitmap;
+    blackMask: Bitmap;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.backGround= new Bitmap(290,120,Resource.get('SettingUI1')as HTMLImageElement);
+        this.on = new Bitmap(440,195,Resource.get('SettingUI2')as HTMLImageElement);
+        this.off = new Bitmap(500,195,Resource.get('SettingUI3')as HTMLImageElement);
+        this.backButton = new Bitmap(400,320,Resource.get('SettingUI4')as HTMLImageElement);
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
+        this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.on);
+        this.addChild(this.off);
+        this.addChild(this.backButton);
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            this.deleteAll();
+            clickaudio.play();
+        })
+    }
 }
 
 /**
