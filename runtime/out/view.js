@@ -50,7 +50,6 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
         _this.addChild(_this.missionButton);
-        //16558
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
             clickaudio.play();
@@ -151,6 +150,12 @@ var UserInfoUI = /** @class */ (function (_super) {
             //     equipments += item.name.toString();
             // }
             // this.userEquipment.text = '装备: ' + equipments;
+            _this.deleteChild(_this.HP);
+            _this.deleteChild(_this.MP);
+            _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+            _this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+            _this.addChild(_this.HP);
+            _this.addChild(_this.MP);
         });
         return _this;
         // console.log(player);
