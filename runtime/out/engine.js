@@ -234,18 +234,20 @@ var Camera = /** @class */ (function (_super) {
         });
     };
     Camera.prototype.onUpdate = function (delta) {
-        if (this.isUpMove) {
-            stages[this.layer].y += delta * this.moveSpeed;
-        }
-        else if (this.isDownMove) {
-            stages[this.layer].y -= delta * this.moveSpeed;
-        }
-        if (this.isLeftMove) {
-            stages[this.layer].x += delta * this.moveSpeed;
-        }
-        else if (this.isRightMove) {
-            stages[this.layer].x -= delta * this.moveSpeed;
-        }
+        // if (this.isUpMove) {
+        //     stages[this.layer].y += delta * this.moveSpeed;
+        // } else if (this.isDownMove) {
+        //     stages[this.layer].y -= delta * this.moveSpeed;
+        // }
+        // if (this.isLeftMove) {
+        //     stages[this.layer].x += delta * this.moveSpeed;
+        // } else if (this.isRightMove) {
+        //     stages[this.layer].x -= delta * this.moveSpeed;
+        // }
+        var playerX = player.view.x;
+        var playerY = player.view.y;
+        stages[this.layer].x = 386 - playerX;
+        stages[this.layer].y = 216 - playerY;
     };
     Camera.prototype.onDestory = function () {
     };

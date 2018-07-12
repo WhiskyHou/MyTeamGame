@@ -14,52 +14,42 @@ var __extends = (this && this.__extends) || (function () {
  */
 var UserInfoUI = /** @class */ (function (_super) {
     __extends(UserInfoUI, _super);
+    //
     function UserInfoUI(x, y) {
         var _this = _super.call(this, x, y) || this;
-        _this.userName = new TextField(player.name, 130, 5, 20);
-        _this.userLevel = new TextField('' + player.level, 52, 85, 20);
-        _this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
-        _this.userEquipment = new TextField('装备: ', 400, 0, 20);
+        _this.bloodUI = new Bitmap(0, 0, bloodUI);
+        _this.userCoinUI = new Bitmap(350, 20, userCoinUI);
+        _this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
+        _this.userName = new TextField(player.name, 130, 12, 20);
+        _this.userLevel = new TextField('' + player.level, 54, 91, 20);
+        _this.userCoin = new TextField('' + player.coin, 390, 20, 25);
+        _this.userDiamond = new TextField('' + player.diamond, 545, 20, 25);
+        _this.currentEXP = new TextField('' + player.currentEXP, 150, 90, 20);
+        _this.needEXP = new TextField('/    ' + player.needEXP, 190, 90, 20);
+        _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+        _this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+        //
         _this.bagButton = new Bitmap(750, 475, bagButton);
         _this.EscButton = new Bitmap(820, 475, EscButton);
         _this.SkillButton = new Bitmap(680, 475, SkillButton);
         _this.missionButton = new Bitmap(610, 475, MissionButton);
-        _this.bloodUI = new Bitmap(0, 0, bloodUI);
-        _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
-        _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
-        _this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
-        _this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
-        _this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
-        _this.bloodbar = new Bitmap(90, 35, bloodBar);
-        _this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
-        _this.addChild(_this.inputText);
+        //
+        _this.addChild(_this.bloodUI);
+        _this.addChild(_this.userCoinUI);
+        _this.addChild(_this.userDiamondUI);
         _this.addChild(_this.userName);
         _this.addChild(_this.userLevel);
-        // this.addChild(this.userAttack);
-        // this.addChild(this.userEquipment);
-        _this.addChild(_this.bagButton);
-        _this.addChild(_this.SkillButton);
-        _this.addChild(_this.EscButton);
-        _this.addChild(_this.missionButton);
-        _this.addChild(_this.bloodUI);
-        _this.addChild(_this.bloodUI2);
         _this.addChild(_this.userCoin);
         _this.addChild(_this.userDiamond);
         _this.addChild(_this.currentEXP);
         _this.addChild(_this.needEXP);
-        _this.addChild(_this.bloodbar);
-        inputManager.addEventListener('inputChanged', function (eventData) {
-            _this.deleteChild(_this.inputText);
-            _this.inputText = new TextField(eventData, 350, 300, 60);
-            _this.addChild(_this.inputText);
-        });
-        inputManager.addEventListener('inputOver', function (eventData) {
-            player.name = eventData;
-            _this.deleteChild(_this.userName);
-            _this.userName = new TextField(player.name, 130, 5, 20);
-            _this.addChild(_this.userName);
-            _this.deleteChild(_this.inputText);
-        });
+        _this.addChild(_this.HP);
+        _this.addChild(_this.MP);
+        //
+        _this.addChild(_this.bagButton);
+        _this.addChild(_this.SkillButton);
+        _this.addChild(_this.EscButton);
+        _this.addChild(_this.missionButton);
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
             clickaudio.play();
@@ -88,7 +78,7 @@ var UserInfoUI = /** @class */ (function (_super) {
             // }
             _this.userLevel.text = '' + player.level;
             _this.currentEXP.text = '' + player.currentEXP;
-            _this.needEXP.text = '' + player.needEXP;
+            _this.needEXP.text = '/   ' + player.needEXP;
             _this.userCoin.text = '' + player.coin;
             // this.userAttack.text = 'Attck:' + player._attack;
             // let equipments: string = '';

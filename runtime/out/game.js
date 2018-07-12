@@ -120,9 +120,11 @@ SkillButton.src = './assets/1 60x80 技能ui.png';
 var MissionButton = new Image();
 MissionButton.src = './assets/1 60x80 任务ui.png';
 var bloodUI = new Image();
-bloodUI.src = './assets/ui血条1.png';
-var bloodUI2 = new Image();
-bloodUI2.src = './assets/ui血条2.png';
+bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
+var userCoinUI = new Image();
+userCoinUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
+var userDiamondUI = new Image();
+userDiamondUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景2.png';
 var bagOnUI = new Image();
@@ -471,24 +473,29 @@ var CreateState = /** @class */ (function (_super) {
     function CreateState() {
         var _this = _super.call(this) || this;
         _this.canAssignPoint = 5;
+        _this.hasName = false;
         _this.onStartClick = function (eventData) {
-            if (_this.canAssignPoint == 0) {
+            if (_this.canAssignPoint == 0 && _this.hasName) {
                 fsm.replaceState(PlayingState.instance);
                 _this.createaudio.playOnlyOnce = true;
                 _this.createaudio.play();
             }
-            else {
+            if (_this.canAssignPoint > 0) {
                 _this.tipsText.text = " ← 加完点才能学习！";
+            }
+            if (!_this.hasName) {
+                _this.tips2Text.text = "请输入名字，按ENTER结束！ ↑";
             }
         };
         _this.backGround = new Bitmap(0, 0, createBGImg);
         _this.startButton = new Bitmap(350, 430, createStartButtonImg);
         _this.onCreatePlayer();
-        _this.playerNameText = new TextField(player.name, 565, 160, 30);
+        _this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
         _this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 573, 255, 30);
         _this.tipsText = new TextField("", 620, 260, 20);
+        _this.tips2Text = new TextField("", 350, 220, 20);
         _this.hpAddButton = new Bitmap(630, 350, createAddButtonImg);
         _this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
         _this.attackAddButton = new Bitmap(630, 305, createAddButtonImg);
@@ -549,6 +556,7 @@ var CreateState = /** @class */ (function (_super) {
         configurable: true
     });
     CreateState.prototype.onEnter = function () {
+        var _this = this;
         staticStage.addChild(this.backGround);
         staticStage.addChild(this.startButton);
         staticStage.addChild(this.playerHpText);
@@ -556,10 +564,23 @@ var CreateState = /** @class */ (function (_super) {
         staticStage.addChild(this.playerAttackText);
         staticStage.addChild(this.canAssignPointText);
         staticStage.addChild(this.tipsText);
+        staticStage.addChild(this.tips2Text);
         staticStage.addChild(this.hpAddButton);
         staticStage.addChild(this.hpMinusButton);
         staticStage.addChild(this.attackAddButton);
         staticStage.addChild(this.attackMinusButton);
+        inputManager.addEventListener("inputChanged", function (eventData) {
+            if (!_this.hasName) {
+                staticStage.deleteChild(_this.playerNameText);
+                player.name = eventData;
+                console.log("mingzi:", eventData);
+                _this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
+                staticStage.addChild(_this.playerNameText);
+            }
+        });
+        inputManager.addEventListener("inputOver", function () {
+            _this.hasName = true;
+        });
         // stage.addEventListener("onClick", this.onClick);
     };
     CreateState.prototype.onUpdate = function () {
@@ -576,7 +597,7 @@ var CreateState = /** @class */ (function (_super) {
         player.needEXP = 20;
         player.currentEXP = 0;
         player.coin = 0;
-        player.name = 'Van';
+        player.name = ' ? ? ?';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
@@ -596,8 +617,11 @@ var settingBoxContainer;
 // anim测试角色
 var animTemp;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0, 0);
+animTemp = new DisplayObjectContainer(PLAYER_INDEX_X, PLAYER_INDEX_Y);
 var anim = animTemp.addComponent(new PlayerAnimTest());
+//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
+//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
+anim.play();
 /**
  * 游戏状态
  */
@@ -649,7 +673,7 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(settingBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
-        // this.mapContainer.addChild(animTemp);
+        //this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
         staticStage.addChild(batteUIContainer);
@@ -731,33 +755,6 @@ canvas.onclick = function (event) {
 window.onkeydown = function (event) {
     var keyCode = event.keyCode ? event.keyCode : event.which;
     inputManager.dispatchEvent("inputStart", keyCode);
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
-    }
-    else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "DOWN" });
-    }
-    else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "LEFT" });
-    }
-    else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "RIGHT" });
-    }
-};
-window.onkeyup = function (event) {
-    var keyCode = event.keyCode ? event.keyCode : event.which;
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "UP" });
-    }
-    else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "DOWN" });
-    }
-    else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "LEFT" });
-    }
-    else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "RIGHT" });
-    }
 };
 // 初始状态设置
 fsm.replaceState(CreateState.instance);

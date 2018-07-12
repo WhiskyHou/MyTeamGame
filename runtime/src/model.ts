@@ -104,7 +104,6 @@ class User extends EventDispatcher {
         this._coin = coin;
         this.dispatchEvent('updateUserInfo', null);
     }
-
     pick(equipment: Equipment) {
         this.packageEquipment.push(equipment);
         this.dispatchEvent('updateUserInfo', null);
@@ -140,6 +139,8 @@ class User extends EventDispatcher {
 
     moveSmooth() {
         // 角色每帧移动
+        // animTemp.x = player.view.x;///
+        // animTemp.y = player.view.y;///
         const targetX = player.x * TILE_SIZE;
         const targetY = player.y * TILE_SIZE;
         if (player.view.x == targetX && player.view.y == targetY) {
@@ -151,19 +152,15 @@ class User extends EventDispatcher {
             stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
             player.view.x += stepX;
-            animTemp.x = player.view.x;///
         } else {
             player.view.x = targetX;
-            animTemp.x = player.view.x;///
         }
         if (Math.abs(targetY - player.view.y) > 5) {
             stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
-            animTemp.y = player.view.y;///
         } else {
             player.view.y = targetY;
-            animTemp.y = player.view.y;///
         }
 
     }

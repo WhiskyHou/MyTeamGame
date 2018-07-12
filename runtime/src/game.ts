@@ -121,10 +121,14 @@ var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
 var MissionButton = new Image();
 MissionButton.src = './assets/1 60x80 任务ui.png';
+
 var bloodUI = new Image();
-bloodUI.src = './assets/ui血条1.png';
-var bloodUI2 = new Image();
-bloodUI2.src = './assets/ui血条2.png';
+bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
+var userCoinUI  = new Image();
+userCoinUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
+var userDiamondUI = new Image();
+userDiamondUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
+
 
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景2.png';
@@ -564,11 +568,11 @@ class CreateState extends State {
     playerHpText: TextField;
     canAssignPointText: TextField;
     tipsText: TextField;
-
+    tips2Text: TextField;
     createaudio: AudioPlay;
 
     canAssignPoint = 5;
-
+    hasName = false;
     createPlayerButtonScript: CreatePlayerButtonScript;
 
     constructor() {
@@ -576,12 +580,12 @@ class CreateState extends State {
         this.backGround = new Bitmap(0, 0, createBGImg);
         this.startButton = new Bitmap(350, 430, createStartButtonImg);
         this.onCreatePlayer();
-        this.playerNameText = new TextField(player.name, 565, 160, 30);
+        this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
         this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         this.canAssignPointText = new TextField("" + this.canAssignPoint, 573, 255, 30);
         this.tipsText = new TextField("", 620, 260, 20);
-
+        this.tips2Text = new TextField("", 350, 220, 20);
         this.hpAddButton = new Bitmap(630, 350, createAddButtonImg);
         this.hpMinusButton = new Bitmap(460, 350, createMinusButtonImg);
 
@@ -593,7 +597,7 @@ class CreateState extends State {
         this.createPlayerButtonScript = this.startButton.addComponent(new CreatePlayerButtonScript()) as CreatePlayerButtonScript;
 
         this.startButton.addEventListener("onClick", this.onStartClick);
-
+        
         this.hpAddButton.addEventListener("onClick", () => {
             if (this.canAssignPoint > 0) {
                 player._originHealth += 5;
@@ -649,17 +653,25 @@ class CreateState extends State {
         staticStage.addChild(this.playerAttackText);
         staticStage.addChild(this.canAssignPointText);
         staticStage.addChild(this.tipsText);
-
+        staticStage.addChild(this.tips2Text);
         staticStage.addChild(this.hpAddButton);
         staticStage.addChild(this.hpMinusButton);
         staticStage.addChild(this.attackAddButton);
         staticStage.addChild(this.attackMinusButton);
 
-
+        inputManager.addEventListener("inputChanged", (eventData: any) => {
+            if(!this.hasName){
+                staticStage.deleteChild(this.playerNameText);
+                player.name = eventData
+                console.log("mingzi:",eventData)
+                this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
+                staticStage.addChild(this.playerNameText);
+            }   
+        });
+        inputManager.addEventListener("inputOver", () => {
+            this.hasName =true
+        });
         // stage.addEventListener("onClick", this.onClick);
-
-
-
 
     }
     onUpdate(): void {
@@ -678,7 +690,7 @@ class CreateState extends State {
         player.needEXP = 20;
         player.currentEXP = 0;
         player.coin = 0;
-        player.name = 'Van';
+        player.name = ' ? ? ?';
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
@@ -689,13 +701,16 @@ class CreateState extends State {
 
     onStartClick = (eventData: any) => {
 
-        if (this.canAssignPoint == 0) {
+        if (this.canAssignPoint == 0 && this.hasName) {
             fsm.replaceState(PlayingState.instance);
-
             this.createaudio.playOnlyOnce = true;
             this.createaudio.play();
-        } else {
+        } 
+        if(this.canAssignPoint > 0) {
             this.tipsText.text = " ← 加完点才能学习！"
+        }
+        if(!this.hasName) {
+            this.tips2Text.text = "请输入名字，按ENTER结束！ ↑"
         }
     }
 }
@@ -713,8 +728,13 @@ let settingBoxContainer: DisplayObjectContainer;
 // anim测试角色
 let animTemp: DisplayObjectContainer;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0, 0);
+animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+
+//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
+//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
+
+anim.play();
 
 /**
  * 游戏状态
@@ -791,7 +811,7 @@ class PlayingState extends State {
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
-        // this.mapContainer.addChild(animTemp);
+        //this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
@@ -840,7 +860,6 @@ class PlayingState extends State {
         // this.playerViewMove();
         player.update();
         missionManager.update();
-
     }
     onExit(): void {
         staticStage.deleteAll();
@@ -885,29 +904,8 @@ canvas.onclick = function (event) {
 window.onkeydown = (event: any) => {
     let keyCode = event.keyCode ? event.keyCode : event.which;
     inputManager.dispatchEvent("inputStart", keyCode);
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
-    } else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "DOWN" });
-    } else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "LEFT" });
-    } else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "RIGHT" });
-    }
 }
-window.onkeyup = (event: any) => {
-    let keyCode = event.keyCode ? event.keyCode : event.which;
 
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "UP" });
-    } else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "DOWN" });
-    } else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "LEFT" });
-    } else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "RIGHT" });
-    }
-}
 
 
 

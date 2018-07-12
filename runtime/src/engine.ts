@@ -249,17 +249,23 @@ class Camera extends Behaviour {
     }
 
     onUpdate(delta: number): void {
-        if (this.isUpMove) {
-            stages[this.layer].y += delta * this.moveSpeed;
-        } else if (this.isDownMove) {
-            stages[this.layer].y -= delta * this.moveSpeed;
-        }
+        // if (this.isUpMove) {
+        //     stages[this.layer].y += delta * this.moveSpeed;
+        // } else if (this.isDownMove) {
+        //     stages[this.layer].y -= delta * this.moveSpeed;
+        // }
 
-        if (this.isLeftMove) {
-            stages[this.layer].x += delta * this.moveSpeed;
-        } else if (this.isRightMove) {
-            stages[this.layer].x -= delta * this.moveSpeed;
-        }
+        // if (this.isLeftMove) {
+        //     stages[this.layer].x += delta * this.moveSpeed;
+        // } else if (this.isRightMove) {
+        //     stages[this.layer].x -= delta * this.moveSpeed;
+        // }
+
+        const playerX = player.view.x
+        const playerY = player.view.y
+
+        stages[this.layer].x = 386 - playerX
+        stages[this.layer].y = 216 - playerY
     }
 
     onDestory(): void {

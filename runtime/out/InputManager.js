@@ -36,8 +36,8 @@ var InputManager = /** @class */ (function (_super) {
         if (code > 64 && code < 91) {
             return Words1[code - 65];
         }
-        else if (code > 47 && code < 58) {
-            return Words2[code - 48];
+        else if (code > 48 && code < 59) {
+            return Words2[code - 49];
         }
         else if (code == 32) {
             return " ";
