@@ -673,9 +673,6 @@ class CreateState extends State {
         });
         // stage.addEventListener("onClick", this.onClick);
 
-
-
-
     }
     onUpdate(): void {
 
@@ -902,29 +899,8 @@ canvas.onclick = function (event) {
 window.onkeydown = (event: any) => {
     let keyCode = event.keyCode ? event.keyCode : event.which;
     inputManager.dispatchEvent("inputStart", keyCode);
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
-    } else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "DOWN" });
-    } else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "LEFT" });
-    } else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "RIGHT" });
-    }
 }
-window.onkeyup = (event: any) => {
-    let keyCode = event.keyCode ? event.keyCode : event.which;
 
-    if (keyCode === 87) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "UP" });
-    } else if (keyCode === 83) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "DOWN" });
-    } else if (keyCode === 65) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "LEFT" });
-    } else if (keyCode === 68) {
-        PlayingState.instance.camera.dispatchEvent("cameraStop", { dir: "RIGHT" });
-    }
-}
 
 
 
