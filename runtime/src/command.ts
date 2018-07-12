@@ -230,7 +230,7 @@ class FightCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始打架：${this.monster.toString()}`);
 
-
+        player.fight(this.monster);
 
         if (this.hasUselessTalk) {
             const uselessTalkWindow = new UselessTalkWindow(100, 150);

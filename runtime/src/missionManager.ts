@@ -4,7 +4,7 @@
  */
 class MissionManager extends EventDispatcher {
     missions: Mission[] = []
-    safeLock : boolean = false;
+    safeLock: boolean = true;
 
 
     constructor() {
@@ -46,14 +46,14 @@ class MissionManager extends EventDispatcher {
             }
             let rewardNumber = this.parseRewardString(item.reward)
             const rewardFunc = () => {
-                if(this.safeLock){
+                if (this.safeLock) {
                     player.coin += rewardNumber[0]
                     player.currentEXP += rewardNumber[1]
-                    if(rewardNumber[2]>0){
+                    if (rewardNumber[2] > 0) {
                         player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]))
-                    }   
+                    }
                 }
-            }                                                                                                             
+            }
             let mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -80,9 +80,9 @@ class MissionManager extends EventDispatcher {
         mission.isSubmit = true;
         this.update();
     }
-    parseRewardString(reward : string):Array<any>{
+    parseRewardString(reward: string): Array<any> {
         let rewards = reward.split(",")
-        let rewardNumber =[]
+        let rewardNumber = []
         for (let item of rewards) {
             rewardNumber.push(parseInt(item))
         }

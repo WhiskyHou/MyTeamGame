@@ -17,7 +17,7 @@ var MissionManager = /** @class */ (function (_super) {
     function MissionManager() {
         var _this = _super.call(this) || this;
         _this.missions = [];
-        _this.safeLock = false;
+        _this.safeLock = true;
         return _this;
     }
     MissionManager.prototype.init = function () {
