@@ -972,47 +972,36 @@ var SettingUI = /** @class */ (function (_super) {
             _this.deleteAll();
             clickaudio.play();
         });
+        _this.on.addEventListener("onClick", function (eventData) {
+            StartAudio.src = "assets/音效/常规/创建角色.mp3";
+            CreateAudio.src = "assets/音效/常规/点一下玩一年.mp3";
+            BattleAudio.src = "assets/音效/常规/战斗背景音乐.mp3";
+            SucceedAudio.src = "assets/音效/常规/战斗胜利.mp3";
+            FailAudio.src = "assets/音效/常规/战斗失败.mp3";
+            Attack1Audio.src = "assets/音效/dnf/暴击1.mp3";
+            Attack2Audio.src = "assets/音效/dnf/暴击2.mp3";
+            BuyAudio.src = "assets/音效/常规/金币.mp3";
+            HPMPAudio.src = "assets/音效/dnf/药水.mp3";
+            MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
+            ClickAudio.src = "assets/音效/常规/单击.mp3";
+            clickaudio.play();
+            mainaudio.play();
+        });
+        _this.off.addEventListener("onClick", function (eventData) {
+            clickaudio.play();
+            StartAudio.src = "assets/音效/dnf/静音.mp3";
+            CreateAudio.src = "assets/音效/dnf/静音.mp3";
+            BattleAudio.src = "assets/音效/dnf/静音.mp3";
+            SucceedAudio.src = "assets/音效/dnf/静音.mp3";
+            FailAudio.src = "assets/音效/dnf/静音.mp3";
+            Attack1Audio.src = "assets/音效/dnf/静音.mp3";
+            Attack2Audio.src = "assets/音效/dnf/静音.mp3";
+            BuyAudio.src = "assets/音效/dnf/静音.mp3";
+            HPMPAudio.src = "assets/音效/dnf/静音.mp3";
+            MainAudio.src = "assets/音效/dnf/静音.mp33";
+            ClickAudio.src = "assets/音效/dnf/静音.mp3";
+        });
         return _this;
     }
     return SettingUI;
 }(DisplayObjectContainer));
-/**
- * 对话窗口UI
- */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
-//     count: number = 1;
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
-//     constructor(x: number, y: number) {
-//         super(x, y);
-//         this.init();
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
