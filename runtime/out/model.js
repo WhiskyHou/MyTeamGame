@@ -58,7 +58,6 @@ var User = /** @class */ (function (_super) {
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq2)
@@ -153,17 +152,21 @@ var User = /** @class */ (function (_super) {
             stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
             player.view.x += stepX;
+            animTemp.x = player.view.x; ///
         }
         else {
             player.view.x = targetX;
+            animTemp.x = player.view.x; ///
         }
         if (Math.abs(targetY - player.view.y) > 5) {
             stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
+            animTemp.y = player.view.y; ///
         }
         else {
             player.view.y = targetY;
+            animTemp.y = player.view.y; ///
         }
     };
     User.prototype.levelUp = function () {
@@ -312,6 +315,18 @@ var Consumable = /** @class */ (function (_super) {
         _this.addCharm = addCharm;
         return _this;
     }
+    Consumable.prototype.use = function (callback) {
+        player._hp += Math.ceil((this.addHP / 100) * player.maxHP);
+        if (player._hp > player.maxHP) {
+            player._hp = player.maxHP;
+        }
+        player._mp += Math.ceil((this.addMP / 100) * player.maxMp);
+        if (player._mp > player.maxMp) {
+            player._hp = player.maxMp;
+        }
+        player._charm += this.addCharm;
+        callback();
+    };
     Consumable.prototype.toString = function () {
         return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP) + "]";
     };

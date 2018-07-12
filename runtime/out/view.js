@@ -31,6 +31,8 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
         _this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
         _this.bloodbar = new Bitmap(90, 35, bloodBar);
+        _this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
+        _this.addChild(_this.inputText);
         _this.addChild(_this.userName);
         _this.addChild(_this.userLevel);
         // this.addChild(this.userAttack);
@@ -46,6 +48,18 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.currentEXP);
         _this.addChild(_this.needEXP);
         _this.addChild(_this.bloodbar);
+        inputManager.addEventListener('inputChanged', function (eventData) {
+            _this.deleteChild(_this.inputText);
+            _this.inputText = new TextField(eventData, 350, 300, 60);
+            _this.addChild(_this.inputText);
+        });
+        inputManager.addEventListener('inputOver', function (eventData) {
+            player.name = eventData;
+            _this.deleteChild(_this.userName);
+            _this.userName = new TextField(player.name, 130, 5, 20);
+            _this.addChild(_this.userName);
+            _this.deleteChild(_this.inputText);
+        });
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
             clickaudio.play();
@@ -367,15 +381,19 @@ var shopUI = /** @class */ (function (_super) {
         });
         _this.shopWQ.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(0);
+            clickaudio.play();
         });
         _this.shopFJ.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(1);
+            clickaudio.play();
         });
         _this.shopXHP.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(2);
+            clickaudio.play();
         });
         _this.shopJN.addEventListener("onClick", function (eventData) {
             shpManager.changeNowGroup(3);
+            clickaudio.play();
         });
         _this.shopL.addEventListener("onClick", function (eventData) {
             shpManager.shopLeft();
@@ -388,15 +406,19 @@ var shopUI = /** @class */ (function (_super) {
         });
         _this.ShopText1.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(0);
+            clickaudio.play();
         });
         _this.ShopText2.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(1);
+            clickaudio.play();
         });
         _this.ShopText3.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(2);
+            clickaudio.play();
         });
         _this.ShopText4.addEventListener("onClick", function (eventData) {
             shpManager.changeNowProduct(3);
+            clickaudio.play();
         });
         return _this;
     }
@@ -514,7 +536,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -535,7 +557,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -557,7 +579,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -581,7 +603,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {

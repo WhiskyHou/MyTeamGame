@@ -58,7 +58,6 @@ class User extends EventDispatcher {
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq1)
         // this.packageEquipment.push(eq2)
@@ -149,16 +148,20 @@ class User extends EventDispatcher {
         if (Math.abs(targetX - player.view.x) > 5) {
             stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
-            player.view.x += stepX;
+            player.view.x += stepX; 
+            animTemp.x=player.view.x;///
         } else {
             player.view.x = targetX;
+            animTemp.x=player.view.x;///
         }
         if (Math.abs(targetY - player.view.y) > 5) {
             stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
+            animTemp.y=player.view.y;///
         } else {
             player.view.y = targetY;
+            animTemp.y=player.view.y;///
         }
 
     }
@@ -345,9 +348,15 @@ class Consumable extends Equipment{
         this.addHP = addHP;
         this.addMP = addMP;
         this.addCharm = addCharm;
-
     }
-
+    use(callback: Function){
+        player._hp += Math.ceil((this.addHP/100)*player.maxHP)
+        if(player._hp > player.maxHP){player._hp = player.maxHP}
+        player._mp += Math.ceil((this.addMP/100)*player.maxMp)
+        if(player._mp > player.maxMp){player._hp = player.maxMp}
+        player._charm += this.addCharm
+        callback()
+    }
     toString() {
         return `[Equipment ~ name:${this.name}, add:${this.addCharm+this.addHP+this.addMP}]`;
     }

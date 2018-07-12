@@ -6,7 +6,7 @@
 var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioElement;
 
 
-Resource.load('./assets/灰尘.png', "dust");
+Resource.load('./assets/正面动画.png', "dust");
 
 
 Resource.load('./assets/美术素材/框.png', 'bgPaper')
@@ -208,6 +208,13 @@ const Attack1Audio = new Audio()
 Attack1Audio.src = "assets/音效/dnf/暴击1.mp3"
 const Attack2Audio = new Audio()
 Attack2Audio.src = "assets/音效/dnf/暴击2.mp3"
+
+const BuyAudio = new Audio()
+BuyAudio.src = "assets/音效/常规/金币.mp3"
+
+const HPMPAudio = new Audio()
+HPMPAudio.src = "assets/音效/dnf/药水.mp3"
+
 //全局音乐控制
 const MainAudio = new Audio()
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
@@ -256,7 +263,7 @@ const MONSTER = 1;
 
 const PLAYER_INDEX_X = 0;
 const PLAYER_INDEX_Y = 0;
-const PLAYER_WALK_SPEED = 500;
+const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
 const dynamicStage = stages[1];
@@ -273,6 +280,7 @@ let equipManager = new EquipmentManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
+let inputManager = new InputManager();
 let skillArray: Skill[] = []
 
 
@@ -418,9 +426,6 @@ class MenuState extends State {
     workerButton: Bitmap;
 
     startaudio: AudioPlay;
-
-    animTemp: DisplayObjectContainer;
-
 
     constructor() {
         super();
@@ -640,6 +645,13 @@ let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
 
+// anim测试
+let animTemp: DisplayObjectContainer;
+// anim测试
+animTemp = new DisplayObjectContainer(0, 0);
+const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+//anim.play();
+
 /**
  * 游戏状态
  */
@@ -667,6 +679,8 @@ class PlayingState extends State {
 
     camera: EmptyObject
 
+
+
     constructor() {
         super();
 
@@ -687,7 +701,6 @@ class PlayingState extends State {
         this.baggUI = new bagUI(0, 0);
         shopUIContainer = new DisplayObjectContainer(120, -50);
         this.shpUI = new shopUI(0, 0);
-
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
 
@@ -710,7 +723,9 @@ class PlayingState extends State {
         staticStage.addChild(missionBoxContainer);
 
         this.mapContainer.addChild(map);
-        this.mapContainer.addChild(player.view);
+        //this.mapContainer.addChild(player.view);
+        this.mapContainer.addChild(animTemp);
+
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
 
@@ -750,6 +765,7 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
+   
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {
@@ -810,6 +826,7 @@ class PlayingState extends State {
         // this.playerViewMove();
         player.update();
         missionManager.update();
+
     }
     onExit(): void {
         staticStage.deleteAll();
@@ -845,7 +862,7 @@ canvas.onclick = function (event) {
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
-            console.log(hitResult);
+            // console.log(hitResult);
             hitResult = hitResult.parent;
             hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         }
@@ -853,7 +870,7 @@ canvas.onclick = function (event) {
 }
 window.onkeydown = (event: any) => {
     let keyCode = event.keyCode ? event.keyCode : event.which;
-
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     } else if (keyCode === 83) {
@@ -882,5 +899,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(MenuState.instance);
+fsm.replaceState(LoadingState.instance);
 // fsm.replaceState(new LoadingState());

@@ -32,36 +32,26 @@
 		},
 		{
 			"productID": "5",
-			"equipmentID": "0",
-			"price": "15",
+			"equipmentID": "1000",
+			"price": "10",
 			"description": "assets/gaojianli.png"
-		}
-		,
+		},
 		{
 			"productID": "6",
-			"equipmentID": "1",
-			"price": "15",
+			"equipmentID": "1001",
+			"price": "8",
 			"description": "assets/gaojianli.png"
-		}
-		,
+		},
 		{
 			"productID": "7",
-			"equipmentID": "36",
-			"price": "15",
+			"equipmentID": "1002",
+			"price": "20  ",
 			"description": "assets/gaojianli.png"
-		}
-		,
+		},
 		{
 			"productID": "8",
-			"equipmentID": "0",
-			"price": "15",
-			"description": "assets/gaojianli.png"
-		}
-		,
-		{
-			"productID": "9",
-			"equipmentID": "1",
-			"price": "15",
+			"equipmentID": "1003",
+			"price": "100",
 			"description": "assets/gaojianli.png"
 		}
 	]

@@ -19,8 +19,6 @@ class EquipmentManager {
         }
     }
 
-
-
     parseFromConfig(config: any) {
         for (let item of config.equip) {
             const id = parseInt(item.id);
@@ -30,10 +28,18 @@ class EquipmentManager {
             const health = parseInt(item.health);
             const attack = parseInt(item.attack);
             const criticalPer = parseInt(item.criticalPer);
-
             let equip = new Equipment(id, name, quality, posID, health, attack, criticalPer);
-
             this.equipList.push(equip);
+        }
+        for (let item of config.consumable) {
+            const id = parseInt(item.id);
+            const name = item.name;
+            const posID = parseInt(item.posID);
+            const addHP = parseInt(item.addHP);
+            const addMP = parseInt(item.addMP);
+            const addCharm = parseInt(item.addCharm);
+            let consum = new Consumable(id, name, posID, addHP, addMP, addCharm);
+            this.equipList.push(consum);
         }
     }
 

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
  * TODO: 资源载入需要整理
  */
 var van_pick_knife = document.getElementById('van_pick_knife');
-Resource.load('./assets/灰尘.png', "dust");
+Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/美术素材/框.png', 'bgPaper');
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
@@ -194,6 +194,10 @@ var Attack1Audio = new Audio();
 Attack1Audio.src = "assets/音效/dnf/暴击1.mp3";
 var Attack2Audio = new Audio();
 Attack2Audio.src = "assets/音效/dnf/暴击2.mp3";
+var BuyAudio = new Audio();
+BuyAudio.src = "assets/音效/常规/金币.mp3";
+var HPMPAudio = new Audio();
+HPMPAudio.src = "assets/音效/dnf/药水.mp3";
 //全局音乐控制
 var MainAudio = new Audio();
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
@@ -231,7 +235,7 @@ var NPC5 = 5;
 var MONSTER = 1;
 var PLAYER_INDEX_X = 0;
 var PLAYER_INDEX_Y = 0;
-var PLAYER_WALK_SPEED = 500;
+var PLAYER_WALK_SPEED = 200;
 var staticStage = stages[2];
 var dynamicStage = stages[1];
 stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper')));
@@ -245,6 +249,7 @@ var equipManager = new EquipmentManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
+var inputManager = new InputManager();
 var skillArray = [];
 npcManager.init(function () {
     monsManager.init(function () {
@@ -533,6 +538,12 @@ var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
 var shopUIContainer;
+// anim测试
+var animTemp;
+// anim测试
+animTemp = new DisplayObjectContainer(0, 0);
+var anim = animTemp.addComponent(new PlayerAnimTest());
+//anim.play();
 /**
  * 游戏状态
  */
@@ -581,7 +592,8 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(skillBoxContainer);
         staticStage.addChild(missionBoxContainer);
         this.mapContainer.addChild(map);
-        this.mapContainer.addChild(player.view);
+        //this.mapContainer.addChild(player.view);
+        this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
         staticStage.addChild(batteUIContainer);
@@ -694,7 +706,7 @@ canvas.onclick = function (event) {
     if (hitResult) {
         hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         while (hitResult.parent) {
-            console.log(hitResult);
+            // console.log(hitResult);
             hitResult = hitResult.parent;
             hitResult.dispatchEvent('onClick', { target: hitResult, globalX: globalX, globalY: globalY });
         }
@@ -702,6 +714,7 @@ canvas.onclick = function (event) {
 };
 window.onkeydown = function (event) {
     var keyCode = event.keyCode ? event.keyCode : event.which;
+    inputManager.dispatchEvent("inputStart", keyCode);
     if (keyCode === 87) {
         PlayingState.instance.camera.dispatchEvent("cameraMove", { dir: "UP" });
     }
@@ -731,5 +744,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(MenuState.instance);
+fsm.replaceState(LoadingState.instance);
 // fsm.replaceState(new LoadingState());

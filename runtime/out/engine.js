@@ -1,4 +1,5 @@
 "use strict";
+// import { userInfo } from "os";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -473,8 +474,6 @@ var Animator = /** @class */ (function (_super) {
         _this.isLooping = false;
         return _this;
     }
-    Animator.prototype.onStart = function () {
-    };
     Animator.prototype.update = function (delta) {
         if (this.isPlaying) {
             if (this.index == this.count - 1) {
@@ -491,6 +490,12 @@ var Animator = /** @class */ (function (_super) {
     Animator.prototype.play = function () {
         this.isPlaying = true;
         this.visible = true;
+    };
+    Animator.prototype.end = function () {
+        this.isPlaying = false;
+        this.visible = true;
+        this.index = 0;
+        this.duringTiem = this.delta;
     };
     Animator.prototype.reset = function () {
         this.isPlaying = this.isLooping;
@@ -511,7 +516,7 @@ var Animator = /** @class */ (function (_super) {
 var TextField = /** @class */ (function (_super) {
     __extends(TextField, _super);
     function TextField(text, x, y, size, style, color) {
-        if (style === void 0) { style = 'fantasy'; }
+        if (style === void 0) { style = 'ShouZhaFont'; }
         if (color === void 0) { color = 'black'; }
         var _this = _super.call(this, x, y) || this;
         _this.renderX = x;
@@ -599,7 +604,7 @@ var MultiTextField = /** @class */ (function (_super) {
             var width = context.measureText(this.text[i]).width;
             context.fillStyle = 'black';
             // context.font = this.size.toString() + 'px Arial';
-            context.font = this.size.toString() + 'px lisu';
+            context.font = this.size.toString() + 'px ShouZhaFont';
             context.fillText(this.text[i], 0, i * (this.size + this.space), width);
         }
     };
@@ -661,10 +666,10 @@ var AudioPlay = /** @class */ (function () {
     });
     AudioPlay.prototype.play = function () {
         this.audio.play();
+        this.audio.currentTime = 0.0;
     };
     AudioPlay.prototype.end = function () {
         this.audio.pause();
-        this.audio.currentTime = 0.0;
     };
     return AudioPlay;
 }());

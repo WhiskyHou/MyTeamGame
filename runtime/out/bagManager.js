@@ -18,7 +18,8 @@ var bagManager = /** @class */ (function (_super) {
         _this.nowGroupEquipment = []; //当前组的装备数组
         _this.nowPage = 0;
         _this.nowGroup = 0;
-        _this.nowNumber = 0;
+        _this.nowNumber = -1;
+        _this.hpmpaudio = new AudioPlay(HPMPAudio);
         return _this;
     }
     bagManager.prototype.openBag = function () {
@@ -27,11 +28,12 @@ var bagManager = /** @class */ (function (_super) {
         this.bagWeapon();
     };
     bagManager.prototype.bagOn = function () {
+        var _this = this;
         console.log('你穿上了装备');
         if (this.nowNumber > -1) {
             var pos = this.nowEquipment.posID;
             if (pos < 7) {
-                if (player.mounthedEquipment[pos].id != 0) {
+                if (player.mounthedEquipment[pos].id != 0) { //如果当前位置有装备，就先把他卸下来
                     this.nowMounthedEquipment = player.mounthedEquipment[pos];
                     this.bagOff();
                 }
@@ -39,9 +41,29 @@ var bagManager = /** @class */ (function (_super) {
                 this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
                 this.changeNowEquipment(this.nowNumber);
                 this.exportCheckedEquipment(false);
-                this.bagUpdate();
                 this.nowNumber = -1;
             }
+            else if (pos < 8) {
+                var con = this.nowEquipment;
+                con.use(function () {
+                    console.log('zhixinglehuidiaohanshu');
+                    _this.hpmpaudio.play();
+                    _this.deletePackageEquipment(_this.nowGroup, _this.nowPage, _this.nowNumber);
+                    _this.changeNowEquipment(_this.nowNumber);
+                    _this.exportCheckedEquipment(false);
+                    _this.nowNumber = -1;
+                });
+            }
+            else {
+                var con = this.nowEquipment;
+                con.use(function () {
+                    _this.deletePackageEquipment(_this.nowGroup, _this.nowPage, _this.nowNumber);
+                    _this.changeNowEquipment(_this.nowNumber);
+                    _this.exportCheckedEquipment(false);
+                    _this.nowNumber = -1;
+                });
+            }
+            this.bagUpdate();
         }
     };
     bagManager.prototype.bagOff = function () {
@@ -120,16 +142,16 @@ var bagManager = /** @class */ (function (_super) {
         this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5 + this.nowNumber];
     };
     bagManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {
