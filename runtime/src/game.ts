@@ -8,9 +8,6 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 
 Resource.load('./assets/正面动画.png', "dust");
 
-
-Resource.load('./assets/美术素材/框.png', 'bgPaper')
-
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -266,8 +263,7 @@ const PLAYER_INDEX_Y = 0;
 const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
-const dynamicStage = stages[1];
-stages[0].addChild(new Bitmap(0, 0, Resource.get('bgPaper') as HTMLImageElement))
+const dynamicStage = stages[0];
 
 
 var player: User = new User();
@@ -650,7 +646,6 @@ let animTemp: DisplayObjectContainer;
 // anim测试
 animTemp = new DisplayObjectContainer(0, 0);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
-//anim.play();
 
 /**
  * 游戏状态
@@ -711,7 +706,7 @@ class PlayingState extends State {
 
         let camera = this.camera.addComponent(new Camera()) as Camera;
 
-        camera.layer = 1;
+        camera.layer = 0;
 
 
         dynamicStage.addChild(this.mapContainer);
@@ -765,7 +760,7 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
-   
+
         // 给map添加监听器 鼠标点击到map容器上了，监听器就执行到目标点的走路命令
         map.addEventListener('onClick', (eventData: any) => {
             if (player.moveStatus) {

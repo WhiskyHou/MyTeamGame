@@ -461,14 +461,14 @@ var MultiWindow = /** @class */ (function (_super) {
  */
 var Animator = /** @class */ (function (_super) {
     __extends(Animator, _super);
-    function Animator(x, y, image, size, count, delta) {
+    function Animator(x, y, image, size, count, middleTime) {
         var _this = _super.call(this, x, y) || this;
         _this.index = 0;
-        _this.duringTiem = delta;
+        _this.duringTiem = middleTime;
         _this.image = image;
         _this.size = size;
         _this.count = count;
-        _this.delta = delta;
+        _this.middleTime = middleTime;
         _this.visible = false;
         _this.isPlaying = false;
         _this.isLooping = false;
@@ -476,11 +476,11 @@ var Animator = /** @class */ (function (_super) {
     }
     Animator.prototype.update = function (delta) {
         if (this.isPlaying) {
-            if (this.index == this.count - 1) {
+            if (this.index == this.count) {
                 this.reset();
                 return;
             }
-            if (this.duringTiem >= this.delta) {
+            if (this.duringTiem >= this.middleTime) {
                 this.index++;
                 this.duringTiem = 0;
             }
@@ -495,13 +495,13 @@ var Animator = /** @class */ (function (_super) {
         this.isPlaying = false;
         this.visible = true;
         this.index = 0;
-        this.duringTiem = this.delta;
+        this.duringTiem = this.middleTime;
     };
     Animator.prototype.reset = function () {
         this.isPlaying = this.isLooping;
         this.visible = this.isLooping;
         this.index = 0;
-        this.duringTiem = this.delta;
+        this.duringTiem = 0;
     };
     Animator.prototype.render = function (context) {
         context.drawImage(this.image, this.index * this.size, 0, this.size, this.size, 0, 0, this.size, this.size);
