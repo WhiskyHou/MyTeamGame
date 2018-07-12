@@ -1,0 +1,18 @@
+{
+    "portal": [
+        {
+            "id": 1,
+            "from": 1,
+            "to": 2,
+            "targetRow": 3,
+            "targetCol": 4
+        },
+        {
+            "id": 2,
+            "from": 2,
+            "to": 1,
+            "targetRow": 1,
+            "targetCol": 1
+        }
+    ]
+}

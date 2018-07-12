@@ -16,7 +16,7 @@ var MapManager = /** @class */ (function (_super) {
         _this.maps = [];
         return _this;
     }
-    MapManager.prototype.init = function () {
+    MapManager.prototype.init = function (callback) {
         var _this = this;
         var xhr = new XMLHttpRequest();
         xhr.open("get", "config/map.json");
@@ -25,6 +25,7 @@ var MapManager = /** @class */ (function (_super) {
             var obj = JSON.parse(xhr.response);
             // console.log(xhr.response)
             _this.parseFromConfig(obj);
+            callback();
         };
     };
     MapManager.prototype.parseFromConfig = function (obj) {

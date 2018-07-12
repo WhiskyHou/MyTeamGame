@@ -38,7 +38,7 @@ class WalkCommand extends Command {
             callback();
         }
     }
-    
+
     walk(path: astar.Node[], callback: Function) {
         setTimeout(() => {
             let node = path.shift();
@@ -55,6 +55,28 @@ class WalkCommand extends Command {
             }
             this.walk(path, callback);
         }, 128000 / PLAYER_WALK_SPEED);
+    }
+}
+
+
+/**
+ * 传送命令
+ */
+class PortalCommand extends Command {
+
+    targetMap: number
+    targetRow: number
+    targetCol: number
+
+    constructor(targetMap: number, targetRow: number, targetCol: number) {
+        super()
+        this.targetMap = targetMap
+        this.targetRow = targetRow
+        this.targetCol = targetCol
+    }
+
+    execute() {
+        console.log(`传送目标${this.targetMap}`)
     }
 }
 
