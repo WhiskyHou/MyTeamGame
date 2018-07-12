@@ -59,7 +59,8 @@ var MapManager = /** @class */ (function (_super) {
                     var npcInfo = map_2.getNpcInfo(row, col);
                     if (npcInfo) {
                         if (npcInfo.id == 6) {
-                            shpManager.openShop();
+                            var shop = new ShopCommand();
+                            commandPool.addCommand(shop);
                         }
                         else {
                             var talk = new TalkCommand(npcInfo);

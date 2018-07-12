@@ -57,7 +57,8 @@ class MapManager extends EventDispatcher {
                     const npcInfo = map.getNpcInfo(row, col);
                     if (npcInfo) {
                         if (npcInfo.id == 6) {
-                            shpManager.openShop()
+                            const shop = new ShopCommand();
+                            commandPool.addCommand(shop)
                         } else {
                             const talk = new TalkCommand(npcInfo);
                             commandPool.addCommand(talk)
