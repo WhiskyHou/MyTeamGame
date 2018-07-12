@@ -2,67 +2,83 @@
  * 用户信息UI
  */
 class UserInfoUI extends DisplayObjectContainer {
+    
+    //主界面UI
     userName: TextField;
     userLevel: TextField;
-    userAttack: TextField;
-    userEquipment: TextField;
     userCoin: TextField;
     userDiamond: TextField;
     currentEXP: TextField;
     needEXP: TextField;
+    HP: TextField;
+    MP: TextField;
 
+    bloodUI: Bitmap;
+    userCoinUI: Bitmap;
+    userDiamondUI: Bitmap;
+
+    //按钮UI
     EscButton: Bitmap;
     bagButton: Bitmap;
     SkillButton: Bitmap;
     missionButton: Bitmap;
-    bloodUI: Bitmap;
-    bloodUI2: Bitmap;
-    bloodbar: Bitmap;
 
     skillUI: skillBoxUI;
     missionUI: MissionUI;
     settingUI: SettingUI;
-
+    
+    //
     inputText: TextField;
 
     constructor(x: number, y: number) {
         super(x, y);
+        
+        this.bloodUI = new Bitmap(0, 0, bloodUI);
+        this.userCoinUI = new Bitmap(350,20,userCoinUI);
+        this.userDiamondUI = new Bitmap(500,20,userDiamondUI);
 
+        this.userName = new TextField(player.name, 130, 12, 20);
+        this.userLevel = new TextField('' + player.level, 54, 91, 20);
+        this.userCoin = new TextField('' + player.coin, 390, 20, 25);
+        this.userDiamond = new TextField('' + player.diamond, 545, 20, 25);
+        this.currentEXP = new TextField('' + player.currentEXP, 150, 90, 20);
+        this.needEXP = new TextField('/    ' + player.needEXP, 190, 90, 20);
 
-        this.userName = new TextField(player.name, 130, 5, 20);
-        this.userLevel = new TextField('' + player.level, 52, 85, 20);
-        this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
-        this.userEquipment = new TextField('装备: ', 400, 0, 20);
+        this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+        this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+
+        //
+
         this.bagButton = new Bitmap(750, 475, bagButton);
         this.EscButton = new Bitmap(820, 475, EscButton);
         this.SkillButton = new Bitmap(680, 475, SkillButton);
         this.missionButton = new Bitmap(610, 475, MissionButton);
-        this.bloodUI = new Bitmap(0, 0, bloodUI);
-        this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
-        this.userCoin = new TextField('' + player.coin, 245, 9, 20);
-        this.userDiamond = new TextField('' + player.diamond, 350, 9, 20);
-        this.currentEXP = new TextField('' + player.currentEXP, 380, 9, 20);
-        this.needEXP = new TextField('' + player.needEXP, 420, 9, 20);
-        this.bloodbar = new Bitmap(90, 35, bloodBar);
+        
+        //
 
         this.inputText = new TextField('输入玩家姓名', 350, 100, 60);
         this.addChild(this.inputText);
 
+        this.addChild(this.bloodUI);
+        this.addChild(this.userCoinUI);
+        this.addChild(this.userDiamondUI);
+        
         this.addChild(this.userName);
         this.addChild(this.userLevel);
-        // this.addChild(this.userAttack);
-        // this.addChild(this.userEquipment);
-        this.addChild(this.bagButton);
-        this.addChild(this.SkillButton);
-        this.addChild(this.EscButton);
-        this.addChild(this.missionButton);
-        this.addChild(this.bloodUI);
-        this.addChild(this.bloodUI2);
         this.addChild(this.userCoin);
         this.addChild(this.userDiamond);
         this.addChild(this.currentEXP);
         this.addChild(this.needEXP);
-        this.addChild(this.bloodbar);
+       
+        this.addChild(this.HP);
+        this.addChild(this.MP);
+
+       //
+        
+        this.addChild(this.bagButton);
+        this.addChild(this.SkillButton);
+        this.addChild(this.EscButton);
+        this.addChild(this.missionButton);
 
 
 
@@ -74,7 +90,7 @@ class UserInfoUI extends DisplayObjectContainer {
         inputManager.addEventListener('inputOver', (eventData: any) => {
             player.name = eventData;
             this.deleteChild(this.userName);
-            this.userName = new TextField(player.name, 130, 5, 20);
+            this.userName = new TextField(player.name, 130, 12, 20);
             this.addChild(this.userName);
             this.deleteChild(this.inputText);
         })
@@ -111,7 +127,7 @@ class UserInfoUI extends DisplayObjectContainer {
             // }
             this.userLevel.text = '' + player.level;
             this.currentEXP.text = '' + player.currentEXP;
-            this.needEXP.text = '' + player.needEXP;
+            this.needEXP.text = '/   ' + player.needEXP;
             this.userCoin.text = '' + player.coin;
             // this.userAttack.text = 'Attck:' + player._attack;
             // let equipments: string = '';

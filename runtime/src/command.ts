@@ -18,7 +18,8 @@ class WalkCommand extends Command {
 
     execute(callback: Function): void {
         console.log(`开始走路！！！从(${this.fromX}, ${this.fromY})出发`);
-        anim.play();////
+
+        ///anim.play();////
 
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
@@ -48,7 +49,7 @@ class WalkCommand extends Command {
             }
             else {
                 console.log(`到达地点！！！(${this.toX},${this.toY})`);
-                anim.end();////
+                ///anim.end();////
                 player.moveStatus = true;
                 callback();
                 return;
@@ -73,7 +74,9 @@ class PortalCommand extends Command {
 
     execute() {
         console.log(`传送目标${this.portal.toString()}`)
-        map = mapManager.getMap(this.portal.to - 1) as GameMap
+        dynamicStage.deleteChild(map)
+
+        map = mapManager.getMap(this.portal.to) as GameMap
         map.addChild(player.view)
 
         player.x = this.portal.targetRow
@@ -132,9 +135,7 @@ class TalkCommand extends Command {
             mission = this.npc.canSubmitMissions[0];
         }
 
-        console.log(mission);
         // console.log('任务长度' + missionManager.missions.length);
-
 
         if (mission) {
 
@@ -145,14 +146,19 @@ class TalkCommand extends Command {
             talkWindow.addEventListener("talkWiondowClose", () => {
                 talkUIContainer.deleteChild(talkWindow);
                 if (mission) {
+                    console.log(mission.status);
+
                     if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log(`接受任务：${mission.toString()}`);
                         missionManager.accept(mission);
+                        if (this.npc.changeTypeID != 0) {
+                            this.npc.changeType();//测试换类型！！！ 
+                        }
+
                     } else if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log(`完成任务: ${mission.toString()}`);
                         missionManager.submit(mission);
                     }
-                    this.npc.changeType();//测试换类型！！！
                     callback();
                 }
             })
@@ -168,6 +174,24 @@ class TalkCommand extends Command {
             }
             callback();
         }
+    }
+}
+
+
+/**
+ * 对话命令
+ */
+class ShopCommand extends Command {
+    npc: Npc;
+
+    constructor() {
+        super();
+    }
+
+
+    execute(callback: Function): void {
+        shpManager.openShop()
+        callback();
     }
 }
 

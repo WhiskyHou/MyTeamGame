@@ -5,8 +5,6 @@
 class MissionManager extends EventDispatcher {
     missions: Mission[] = []
 
-
-
     constructor() {
         super();
     }
@@ -44,9 +42,14 @@ class MissionManager extends EventDispatcher {
                     mission.current++;
                 }
             }
-            let rewardFunc: Function;
             let rewardNumber = this.parseRewardString(item.reward)
-            rewardFunc = this.parseReward(rewardNumber)
+            const rewardFunc = () => {
+                    player.coin += rewardNumber[0]
+                    player.currentEXP += rewardNumber[1]
+                    if(rewardNumber[2]>0){
+                        player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]))
+                    }   
+            }                                                                                                             
             let mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -72,15 +75,6 @@ class MissionManager extends EventDispatcher {
     submit(mission: Mission) {
         mission.isSubmit = true;
         this.update();
-    }
-    parseReward(rewards : Array<any>): Function{
-        let rewardFunc: Function;
-        rewardFunc = () => {
-            player.coin += rewards[0]
-            player.currentEXP += rewards[1]
-            player.packageEquipment.push(shpManager.getEquipment(rewards[2]))
-        }   
-        return rewardFunc()
     }
     parseRewardString(reward : string):Array<any>{
         let rewards = reward.split(",")

@@ -82,6 +82,7 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener("Enter", function (eventData) {
             _this.inputOver = true;
+            console.log('你按下了回车1');
             _this.dispatchEvent('inputOver', _this.inputString);
         });
         this.addEventListener("Caps Lock", function (eventData) {

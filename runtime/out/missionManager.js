@@ -49,9 +49,14 @@ var MissionManager = /** @class */ (function (_super) {
                     mission.current++;
                 }
             };
-            var rewardFunc = void 0;
             var rewardNumber = this_1.parseRewardString(item.reward);
-            rewardFunc = this_1.parseReward(rewardNumber);
+            var rewardFunc = function () {
+                player.coin += rewardNumber[0];
+                player.currentEXP += rewardNumber[1];
+                if (rewardNumber[2] > 0) {
+                    player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]));
+                }
+            };
             var mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -80,15 +85,6 @@ var MissionManager = /** @class */ (function (_super) {
     MissionManager.prototype.submit = function (mission) {
         mission.isSubmit = true;
         this.update();
-    };
-    MissionManager.prototype.parseReward = function (rewards) {
-        var rewardFunc;
-        rewardFunc = function () {
-            player.coin += rewards[0];
-            player.currentEXP += rewards[1];
-            player.packageEquipment.push(shpManager.getEquipment(rewards[2]));
-        };
-        return rewardFunc();
     };
     MissionManager.prototype.parseRewardString = function (reward) {
         var rewards = reward.split(",");

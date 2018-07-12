@@ -24,7 +24,7 @@ var WalkCommand = /** @class */ (function (_super) {
     }
     WalkCommand.prototype.execute = function (callback) {
         console.log("\u5F00\u59CB\u8D70\u8DEF\uFF01\uFF01\uFF01\u4ECE(" + this.fromX + ", " + this.fromY + ")\u51FA\u53D1");
-        anim.play(); ////
+        ///anim.play();////
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         var findpath = new astar.AStar();
@@ -53,7 +53,7 @@ var WalkCommand = /** @class */ (function (_super) {
             }
             else {
                 console.log("\u5230\u8FBE\u5730\u70B9\uFF01\uFF01\uFF01(" + _this.toX + "," + _this.toY + ")");
-                anim.end(); ////
+                ///anim.end();////
                 player.moveStatus = true;
                 callback();
                 return;
@@ -75,7 +75,8 @@ var PortalCommand = /** @class */ (function (_super) {
     }
     PortalCommand.prototype.execute = function () {
         console.log("\u4F20\u9001\u76EE\u6807" + this.portal.toString());
-        map = mapManager.getMap(this.portal.to - 1);
+        dynamicStage.deleteChild(map);
+        map = mapManager.getMap(this.portal.to);
         map.addChild(player.view);
         player.x = this.portal.targetRow;
         player.y = this.portal.targetCol;
@@ -125,7 +126,6 @@ var TalkCommand = /** @class */ (function (_super) {
         if (this.npc.canSubmitMissions.length > 0) {
             mission = this.npc.canSubmitMissions[0];
         }
-        console.log(mission);
         // console.log('任务长度' + missionManager.missions.length);
         if (mission) {
             var talkWindow_1 = new TalkWindow(100, 150);
@@ -135,15 +135,18 @@ var TalkCommand = /** @class */ (function (_super) {
             talkWindow_1.addEventListener("talkWiondowClose", function () {
                 talkUIContainer.deleteChild(talkWindow_1);
                 if (mission) {
+                    console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
                         missionManager.accept(mission);
+                        if (_this.npc.changeTypeID != 0) {
+                            _this.npc.changeType(); //测试换类型！！！ 
+                        }
                     }
                     else if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
                         missionManager.submit(mission);
                     }
-                    _this.npc.changeType(); //测试换类型！！！
                     callback();
                 }
             });
@@ -162,6 +165,20 @@ var TalkCommand = /** @class */ (function (_super) {
         }
     };
     return TalkCommand;
+}(Command));
+/**
+ * 对话命令
+ */
+var ShopCommand = /** @class */ (function (_super) {
+    __extends(ShopCommand, _super);
+    function ShopCommand() {
+        return _super.call(this) || this;
+    }
+    ShopCommand.prototype.execute = function (callback) {
+        shpManager.openShop();
+        callback();
+    };
+    return ShopCommand;
 }(Command));
 /**
  * 打架命令

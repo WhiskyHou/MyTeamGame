@@ -26,10 +26,14 @@ class MapManager extends EventDispatcher {
         }
     }
 
-    getMap(index: number) {
-        if (index < this.maps.length) {
-            const map = this.maps[index]
-
+    getMap(id: number) {
+        let map: GameMap | null = null
+        for (let item of this.maps) {
+            if (item.id == id) {
+                map = item
+            }
+        }
+        if (map) {
             map.addEventListener('onClick', (eventData: any) => {
                 if (player.moveStatus) {
 
@@ -37,7 +41,7 @@ class MapManager extends EventDispatcher {
 
                     const globalX = eventData.globalX;
                     const globalY = eventData.globalY;
-                    const localPos = map.getLocalPos(new math.Point(globalX, globalY));
+                    const localPos = map!.getLocalPos(new math.Point(globalX, globalY));
 
                     // 确定被点击的格子位置
                     const row = Math.floor(localPos.x / TILE_SIZE);
@@ -48,30 +52,31 @@ class MapManager extends EventDispatcher {
                     commandPool.addCommand(walk);
 
                     // 获取被点击格子的装备信息 如果有东西的话 就添加一个拾取命令
-                    const equipmentInfo = map.getEquipmentInfo(row, col);
+                    const equipmentInfo = map!.getEquipmentInfo(row, col);
                     if (equipmentInfo) {
                         const pick = new PickCommand(equipmentInfo);
                         commandPool.addCommand(pick);
                     }
 
-                    const npcInfo = map.getNpcInfo(row, col);
+                    const npcInfo = map!.getNpcInfo(row, col);
                     if (npcInfo) {
                         if (npcInfo.id == 6) {
-                            shpManager.openShop()
+                            const shop = new ShopCommand();
+                            commandPool.addCommand(shop)
                         } else {
                             const talk = new TalkCommand(npcInfo);
                             commandPool.addCommand(talk)
                         }
                     }
 
-                    const monsterInfo = map.getMonsterInfo(row, col);
+                    const monsterInfo = map!.getMonsterInfo(row, col);
                     if (monsterInfo) {
                         // console.log('monster Info');
                         const fight = new FightCommand(monsterInfo);
                         commandPool.addCommand(fight);
                     }
 
-                    const portalInfo = map.getPortalInfo(row, col);
+                    const portalInfo = map!.getPortalInfo(row, col);
                     if (portalInfo) {
                         const portal = new PortalCommand(portalInfo);
                         commandPool.addCommand(portal);
@@ -83,9 +88,8 @@ class MapManager extends EventDispatcher {
                     commandPool.execute();
                 }
             });
-
-            return map;
         }
-        return null
+        return map;
+
     }
 }

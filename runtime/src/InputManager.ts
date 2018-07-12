@@ -73,6 +73,7 @@ class InputManager extends EventDispatcher{
         });
         this.addEventListener("Enter", (eventData: any) => {
             this.inputOver = true;
+            console.log('你按下了回车1')
             this.dispatchEvent('inputOver', this.inputString);
         });
         this.addEventListener("Caps Lock", (eventData: any) => {
