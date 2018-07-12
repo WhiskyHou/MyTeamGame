@@ -132,8 +132,95 @@ var GameMap = /** @class */ (function (_super) {
                     this.equipmentConfig[key] = equipmentTiem;
                     this.itemContainer.addChild(equipmentView);
                 }
+                else if (id == 1004) {
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, caihuaBookImg);
+                    var equip = equipManager.getEquipByID(id);
+                    var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    // equipmentTiem.name = '扁鹊的药瓶'
+                    // equipmentTiem.attack = 0;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }
+                else if (id == 1005) {
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equip = equipManager.getEquipByID(id);
+                    var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    // equipmentTiem.name = '扁鹊的药瓶'
+                    // equipmentTiem.attack = 0;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }
             }
         }
+        // const mapEquip = obj.equipment as number[][];
+        // for (let i = 0; i < mapEquip.length; i++) {
+        //     const row = mapEquip[i];
+        //     for (let j = 0; j < row.length; j++) {
+        //         const item = row[j]
+        //         if (item != 0) {
+        //             const id = item
+        //             console.log(equipManager.equipList.length);
+        //             for (let equip of equipManager.equipList) {
+        //                 let equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+        //                 let equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+        //                 let key = j + '_' + i;
+        //                 switch (equip.id) {
+        //                     case 1005:
+        //                         console.log("添加");
+        //                         equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+        //                         equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+        //                         equipmentTiem.view = equipmentView;
+        //                         equipmentTiem.x = j;
+        //                         equipmentTiem.y = i;
+        //                         key = j + '_' + i;
+        //                         this.equipmentConfig[key] = equipmentTiem;
+        //                         this.itemContainer.addChild(equipmentView);
+        //                         break;
+        //                     case 1004:
+        //                         equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, caihuaBookImg);
+        //                         equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+        //                         equipmentTiem.view = equipmentView;
+        //                         equipmentTiem.x = j;
+        //                         equipmentTiem.y = i;
+        //                         key = j + '_' + i;
+        //                         this.equipmentConfig[key] = equipmentTiem;
+        //                         this.itemContainer.addChild(equipmentView);
+        //                         break;
+        //                 }
+        // if (equip.id == 1005) {
+        //     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+        //     const equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+        //     equipmentTiem.view = equipmentView;
+        //     equipmentTiem.x = j;
+        //     equipmentTiem.y = i;
+        //     const key = j + '_' + i;
+        //     this.equipmentConfig[key] = equipmentTiem;
+        //     this.itemContainer.addChild(equipmentView);
+        //     break;
+        // }
+        // if (equip.id == 1004) {
+        //     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, caihuaBookImg);
+        //     const equipmentTiem = new Equipment(equip.id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+        //     equipmentTiem.view = equipmentView;
+        //     equipmentTiem.x = j;
+        //     equipmentTiem.y = i;
+        //     const key = j + '_' + i;
+        //     this.equipmentConfig[key] = equipmentTiem;
+        //     this.itemContainer.addChild(equipmentView);
+        //     break;
+        // }
+        //     }
+        // }
+        //             }
+        //         }
         var mapMonster = obj.monster;
         for (var i = 0; i < mapMonster.length; i++) {
             var row = mapMonster[i];

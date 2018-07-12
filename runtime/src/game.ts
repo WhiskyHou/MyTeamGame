@@ -233,6 +233,11 @@ const clickaudio = new AudioPlay(ClickAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
 
+//装备道具图片
+let caihuaBookImg = new Image()
+caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png"
+let xiXingBookImg = new Image();
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
 
 
 /**
@@ -287,7 +292,6 @@ let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
 let inputManager = new InputManager();
-let skillArray: Skill[] = []
 
 // 这回调看着也太丑了啊
 npcManager.init(() => {
@@ -326,31 +330,41 @@ batManager.addEventListener("enemyBattleStart", (enemy: Monster) => {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
+let skillArray: Skill[] = []//人物已有技能库
+let skillBase: Skill[] = []//全技能库
+
 let skillAttack = new Skill(0, '攻击', 0);//攻击预留
 skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
+skillBase.push(skillAttack);
 let skillEmpty = new Skill(1, '空', 0);//空
 skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
+skillBase.push(skillEmpty);
 let skillCaihua = new Skill(2, '菜花宝典', 30);
 skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
-skillArray.push(skillCaihua);
+// skillArray.push(skillCaihua);
+skillBase.push(skillCaihua);
 let skillSabi = new Skill(3, '撒币大法', 20);
 skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
-skillArray.push(skillSabi);
+// skillArray.push(skillSabi);
+skillBase.push(skillSabi);
 let skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
 skillArray.push(skillBusi);
+skillBase.push(skillBusi);
 let skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
 skillArray.push(skillGuolai);
+skillBase.push(skillGuolai);
 let skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
 skillArray.push(skillQishang);
+skillBase.push(skillQishang);
 let skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
-skillArray.push(skillXixing);
-
+// skillArray.push(skillXixing);
+skillBase.push(skillXixing);
 
 /**
  * 载入状态
