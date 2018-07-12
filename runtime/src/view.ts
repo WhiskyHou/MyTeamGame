@@ -77,7 +77,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.addChild(this.EscButton);
         this.addChild(this.missionButton);
 
-        
+
         this.bagButton.addEventListener('onClick', (eventData: any) => {
             baManager.openBag();
             clickaudio.play();
@@ -119,6 +119,12 @@ class UserInfoUI extends DisplayObjectContainer {
             //     equipments += item.name.toString();
             // }
             // this.userEquipment.text = '装备: ' + equipments;
+            this.deleteChild(this.HP);
+            this.deleteChild(this.MP);
+            this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+            this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+            this.addChild(this.HP);
+            this.addChild(this.MP);
         });
 
 
