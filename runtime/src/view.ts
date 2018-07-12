@@ -21,6 +21,7 @@ class UserInfoUI extends DisplayObjectContainer {
 
     skillUI: skillBoxUI;
     missionUI: MissionUI;
+    settingUI: SettingUI;
 
     inputText: TextField;
 
@@ -91,6 +92,12 @@ class UserInfoUI extends DisplayObjectContainer {
         this.missionButton.addEventListener('onClick', (eventData: any) => {
             this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(this.missionUI);
+            clickaudio.play();
+        });
+
+        this.EscButton.addEventListener('onClick', (eventData: any) => {
+            this.settingUI = new SettingUI(0, 0);
+            settingBoxContainer.addChild(this.settingUI);
             clickaudio.play();
         });
 
@@ -1153,4 +1160,100 @@ class skillBoxUI extends DisplayObjectContainer {
             this.mountedSkillGroup.addChild(this.mountedSkillText);
         }
     }
+<<<<<<< HEAD
+
+    // returnSkillNo(id: number) {
+    //     for (let i = 0; i < skillArray.length; i++) {
+    //         if (id == skillArray[i].id) {
+    //             return i;
+    //         }
+    //     }
+    //     return 1;
+    // }
 }
+
+
+/**
+ * 设置UI
+ */
+class SettingUI extends DisplayObjectContainer {
+
+    backGround: Bitmap;
+    on: Bitmap;
+    off: Bitmap;
+    backButton: Bitmap;
+    blackMask: Bitmap;
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+        this.backGround= new Bitmap(290,120,Resource.get('SettingUI1')as HTMLImageElement);
+        this.on = new Bitmap(440,195,Resource.get('SettingUI2')as HTMLImageElement);
+        this.off = new Bitmap(500,195,Resource.get('SettingUI3')as HTMLImageElement);
+        this.backButton = new Bitmap(400,320,Resource.get('SettingUI4')as HTMLImageElement);
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+
+        this.addChild(this.blackMask);
+        this.addChild(this.backGround);
+        this.addChild(this.on);
+        this.addChild(this.off);
+        this.addChild(this.backButton);
+
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            this.deleteAll();
+            clickaudio.play();
+        })
+    }
+}
+
+/**
+ * 对话窗口UI
+ */
+// class TalkWindow extends DisplayObjectContainer {
+//     view: Bitmap;
+//     text: TextField;
+
+//     count: number = 1;
+
+//     _config = [
+//         "欢迎来到新日暮里",
+//         "你的等级还很低",
+//         "攻击力也相当低",
+//         "所以我不能给你任何击杀任务",
+//         "你先找到屠龙刀再回来找我"
+//     ]
+
+//     constructor(x: number, y: number) {
+//         super(x, y);
+
+//         this.init();
+
+//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
+//             if (this.count <= this._config.length - 1) {
+//                 this.text.text = this._config[this.count];
+//                 this.count++;
+//             } else {
+//                 map.deleteChild(this);
+//             }
+//         })
+//     }
+
+//     init() {
+//         this.view = new Bitmap(0, 0, talk_window);
+//         this.text = new TextField('', 300, 200, 40);
+
+//         this.addChild(this.view);
+//         this.addChild(this.text);
+//     }
+
+//     set config(config: string[]) {
+//         this._config = config;
+//         this.text.text = this._config[0];
+//     }
+//     get config() {
+//         return this._config;
+//     }
+// }
+=======
+}
+>>>>>>> 21137e073d59df254a32c8781b96f40b4c1f9fe5

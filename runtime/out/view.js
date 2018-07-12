@@ -74,6 +74,11 @@ var UserInfoUI = /** @class */ (function (_super) {
             missionBoxContainer.addChild(_this.missionUI);
             clickaudio.play();
         });
+        _this.EscButton.addEventListener('onClick', function (eventData) {
+            _this.settingUI = new SettingUI(0, 0);
+            settingBoxContainer.addChild(_this.settingUI);
+            clickaudio.play();
+        });
         player.addEventListener('updateUserInfo', function (eventData) {
             // if (player.currentEXP >= player.needEXP) {
             //     player.level++;
@@ -550,7 +555,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -571,7 +576,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -593,7 +598,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -617,7 +622,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -946,3 +951,68 @@ var skillBoxUI = /** @class */ (function (_super) {
     };
     return skillBoxUI;
 }(DisplayObjectContainer));
+/**
+ * 设置UI
+ */
+var SettingUI = /** @class */ (function (_super) {
+    __extends(SettingUI, _super);
+    function SettingUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
+        _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
+        _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
+        _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.addChild(_this.blackMask);
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.on);
+        _this.addChild(_this.off);
+        _this.addChild(_this.backButton);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            _this.deleteAll();
+            clickaudio.play();
+        });
+        return _this;
+    }
+    return SettingUI;
+}(DisplayObjectContainer));
+/**
+ * 对话窗口UI
+ */
+// class TalkWindow extends DisplayObjectContainer {
+//     view: Bitmap;
+//     text: TextField;
+//     count: number = 1;
+//     _config = [
+//         "欢迎来到新日暮里",
+//         "你的等级还很低",
+//         "攻击力也相当低",
+//         "所以我不能给你任何击杀任务",
+//         "你先找到屠龙刀再回来找我"
+//     ]
+//     constructor(x: number, y: number) {
+//         super(x, y);
+//         this.init();
+//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
+//             if (this.count <= this._config.length - 1) {
+//                 this.text.text = this._config[this.count];
+//                 this.count++;
+//             } else {
+//                 map.deleteChild(this);
+//             }
+//         })
+//     }
+//     init() {
+//         this.view = new Bitmap(0, 0, talk_window);
+//         this.text = new TextField('', 300, 200, 40);
+//         this.addChild(this.view);
+//         this.addChild(this.text);
+//     }
+//     set config(config: string[]) {
+//         this._config = config;
+//         this.text.text = this._config[0];
+//     }
+//     get config() {
+//         return this._config;
+//     }
+// }

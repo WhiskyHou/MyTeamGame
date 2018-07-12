@@ -553,6 +553,36 @@ class Npc {
 
 
 
+/**
+ * 传送门
+ */
+class Portal extends EventDispatcher {
+
+    id: number
+
+    from: number
+
+    to: number
+
+    targetRow: number
+
+    targetCol: number
+
+    constructor(id: number, from: number, to: number, targetRow: number, targetCol: number) {
+        super()
+        this.id = id
+        this.from = from
+        this.to = to
+        this.targetRow = targetRow
+        this.targetCol = targetCol
+    }
+
+    toString() {
+        return `[Portal ~ id:${this.id}, from:${this.from}, to:${this.to}, targetX:${this.targetRow}, targetY:${this.targetCol}]`
+    }
+}
+
+
 
 /**
  * 怪物

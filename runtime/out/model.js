@@ -492,6 +492,25 @@ var Npc = /** @class */ (function () {
     return Npc;
 }());
 /**
+ * 传送门
+ */
+var Portal = /** @class */ (function (_super) {
+    __extends(Portal, _super);
+    function Portal(id, from, to, targetRow, targetCol) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.from = from;
+        _this.to = to;
+        _this.targetRow = targetRow;
+        _this.targetCol = targetCol;
+        return _this;
+    }
+    Portal.prototype.toString = function () {
+        return "[Portal ~ id:" + this.id + ", from:" + this.from + ", to:" + this.to + ", targetX:" + this.targetRow + ", targetY:" + this.targetCol + "]";
+    };
+    return Portal;
+}(EventDispatcher));
+/**
  * 怪物
  */
 var Monster = /** @class */ (function (_super) {

@@ -189,6 +189,14 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
 
+//设置
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/设置界面底.png', 'SettingUI1');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/开.png', 'SettingUI2');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png', 'SettingUI3');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
+
 //局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
@@ -274,24 +282,28 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
+let portalManager = new PortalManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
 let inputManager = new InputManager();
 let skillArray: Skill[] = []
 
-
+// 这回调看着也太丑了啊
 npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
             shpManager.init(() => {
+                missionManager.init();
+                portalManager.init(() => {
+                    mapManager.init(() => {
 
+                    });
+                });
             });
-            missionManager.init();
-            mapManager.init();
         });
-    })
+    });
 });
 
 batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
@@ -648,6 +660,7 @@ let bagUIContainer: DisplayObjectContainer;
 let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
+let settingBoxContainer: DisplayObjectContainer;
 
 // anim测试角色
 let animTemp: DisplayObjectContainer;
@@ -675,6 +688,7 @@ class PlayingState extends State {
     mapContainer: DisplayObjectContainer;
     userUIContainer: DisplayObjectContainer;
     missionUIContainer: DisplayObjectContainer;
+
 
     battleUI: battleUI;
     baggUI: bagUI;
@@ -706,6 +720,7 @@ class PlayingState extends State {
         this.shpUI = new shopUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
+        settingBoxContainer=new DisplayObjectContainer(0,0);
 
     }
 
@@ -724,6 +739,7 @@ class PlayingState extends State {
         staticStage.addChild(talkUIContainer);
         staticStage.addChild(skillBoxContainer);
         staticStage.addChild(missionBoxContainer);
+        staticStage.addChild(settingBoxContainer);
 
         this.mapContainer.addChild(map);
         //this.mapContainer.addChild(player.view);

@@ -6,7 +6,7 @@ class MapManager extends EventDispatcher {
         super()
     }
 
-    init() {
+    init(callback: Function) {
         const xhr = new XMLHttpRequest();
         xhr.open("get", "config/map.json")
         xhr.send();
@@ -14,6 +14,8 @@ class MapManager extends EventDispatcher {
             const obj = JSON.parse(xhr.response)
             // console.log(xhr.response)
             this.parseFromConfig(obj);
+
+            callback();
         }
     }
 

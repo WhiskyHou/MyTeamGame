@@ -179,6 +179,13 @@ Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店�
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮右.png', 'shopUIR');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/UI 翻页按钮左.png', 'shopUIL');
 Resource.load('./assets/美术素材/UI/10 商店界面/商店界面 PNG/商店界面 购买.png', 'shopUIbuy');
+//设置
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/设置界面底.png', 'SettingUI1');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/开.png', 'SettingUI2');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png', 'SettingUI3');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
 //局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
@@ -245,19 +252,24 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
+var portalManager = new PortalManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
 var inputManager = new InputManager();
 var skillArray = [];
+// 这回调看着也太丑了啊
 npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
             shpManager.init(function () {
+                missionManager.init();
+                portalManager.init(function () {
+                    mapManager.init(function () {
+                    });
+                });
             });
-            missionManager.init();
-            mapManager.init();
         });
     });
 });
@@ -542,6 +554,7 @@ var bagUIContainer;
 var skillBoxContainer;
 var missionBoxContainer;
 var shopUIContainer;
+var settingBoxContainer;
 // anim测试角色
 var animTemp;
 // anim测试角色
@@ -570,6 +583,7 @@ var PlayingState = /** @class */ (function (_super) {
         _this.shpUI = new shopUI(0, 0);
         skillBoxContainer = new DisplayObjectContainer(0, 0);
         missionBoxContainer = new DisplayObjectContainer(0, 0);
+        settingBoxContainer = new DisplayObjectContainer(0, 0);
         return _this;
     }
     Object.defineProperty(PlayingState, "instance", {
@@ -594,6 +608,7 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(talkUIContainer);
         staticStage.addChild(skillBoxContainer);
         staticStage.addChild(missionBoxContainer);
+        staticStage.addChild(settingBoxContainer);
         this.mapContainer.addChild(map);
         //this.mapContainer.addChild(player.view);
         this.mapContainer.addChild(animTemp);

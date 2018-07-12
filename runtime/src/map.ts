@@ -9,6 +9,7 @@ class GameMap extends DisplayObjectContainer {
     private equipmentConfig: { [index: string]: Equipment } = {}
     npcConfig: { [index: string]: Npc } = {}
     monsterConfig: { [index: string]: Monster } = {}
+    portalConfig: { [index: string]: Portal } = {}
 
     private tileContainer = new DisplayObjectContainer(0, 0);
     private itemContainer = new DisplayObjectContainer(0, 0);
@@ -168,7 +169,14 @@ class GameMap extends DisplayObjectContainer {
             for (let j = 0; j < row.length; j++) {
                 const item = row[j];
                 if (item != 0) {
-
+                    const id = item
+                    console.log(portalManager.portalList.length)
+                    for (let portal of portalManager.portalList) {
+                        if (portal.id == id) {
+                            const key = j + '_' + i
+                            this.portalConfig[key] = portal
+                        }
+                    }
                 }
             }
         }
@@ -196,6 +204,10 @@ class GameMap extends DisplayObjectContainer {
     getMonsterInfo(row: number, col: number) {
         const key = row + '_' + col;
         return this.monsterConfig[key];
+    }
+    getPortalInfo(row: number, col: number) {
+        const key = row + '_' + col;
+        return this.portalConfig[key];
     }
 
     deleteEquipment(equipment: Equipment) {
