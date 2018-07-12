@@ -199,39 +199,6 @@ var Camera = /** @class */ (function (_super) {
         return _this;
     }
     Camera.prototype.onStart = function () {
-        var _this = this;
-        this.gameObject.addEventListener("cameraMove", function (eventData) {
-            switch (eventData.dir) {
-                case "UP":
-                    _this.isUpMove = true;
-                    break;
-                case "DOWN":
-                    _this.isDownMove = true;
-                    break;
-                case "LEFT":
-                    _this.isLeftMove = true;
-                    break;
-                case "RIGHT":
-                    _this.isRightMove = true;
-                    break;
-            }
-        });
-        this.gameObject.addEventListener("cameraStop", function (eventData) {
-            switch (eventData.dir) {
-                case "UP":
-                    _this.isUpMove = false;
-                    break;
-                case "DOWN":
-                    _this.isDownMove = false;
-                    break;
-                case "LEFT":
-                    _this.isLeftMove = false;
-                    break;
-                case "RIGHT":
-                    _this.isRightMove = false;
-                    break;
-            }
-        });
     };
     Camera.prototype.onUpdate = function (delta) {
         // if (this.isUpMove) {
@@ -273,6 +240,7 @@ var DisplayObject = /** @class */ (function (_super) {
     __extends(DisplayObject, _super);
     function DisplayObject(x, y) {
         var _this = _super.call(this) || this;
+        _this.children = [];
         _this.x = x;
         _this.y = y;
         _this.scaleX = _this.scaleY = 1;
@@ -283,6 +251,15 @@ var DisplayObject = /** @class */ (function (_super) {
         _this.visible = true;
         return _this;
     }
+    DisplayObject.prototype.addChild = function (child) {
+        this.children.push(child);
+        child.parent = this;
+    };
+    DisplayObject.prototype.deleteChild = function (child) {
+        var index = this.children.indexOf(child);
+        if (index != -1)
+            this.children.splice(index, 1);
+    };
     DisplayObject.prototype.addComponent = function (instance) {
         instance.gameObject = this;
         ComponentPool.instance.addComponent(instance);
@@ -306,6 +283,16 @@ var DisplayObject = /** @class */ (function (_super) {
     };
     DisplayObject.prototype.hitTest = function (point) {
         return null;
+    };
+    // 接收一个全局的点坐标，返回这个点相对于此容器的点坐标
+    DisplayObject.prototype.getLocalPos = function (point) {
+        if (!this.parent) {
+            return point;
+        }
+        var fatherPos = this.parent.getLocalPos(point);
+        var invertLocalMatrix = math.invertMatrix(this.localMatrix);
+        var pointRelativeMe = math.pointAppendMatrix(fatherPos, invertLocalMatrix);
+        return pointRelativeMe;
     };
     return DisplayObject;
 }(EventDispatcher));

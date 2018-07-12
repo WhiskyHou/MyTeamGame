@@ -213,39 +213,7 @@ class Camera extends Behaviour {
     private isRightMove: boolean = false
 
     onStart(): void {
-        this.gameObject.addEventListener("cameraMove", (eventData: any) => {
-            switch (eventData.dir) {
-                case "UP":
-                    this.isUpMove = true
-                    break;
-                case "DOWN":
-                    this.isDownMove = true
-                    break;
-                case "LEFT":
-                    this.isLeftMove = true
-                    break;
-                case "RIGHT":
-                    this.isRightMove = true
-                    break;
-            }
-        });
 
-        this.gameObject.addEventListener("cameraStop", (eventData: any) => {
-            switch (eventData.dir) {
-                case "UP":
-                    this.isUpMove = false
-                    break;
-                case "DOWN":
-                    this.isDownMove = false
-                    break;
-                case "LEFT":
-                    this.isLeftMove = false
-                    break;
-                case "RIGHT":
-                    this.isRightMove = false
-                    break;
-            }
-        });
     }
 
     onUpdate(delta: number): void {
@@ -300,9 +268,11 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
     localMatrix: math.Matrix;
     globalMatrix: math.Matrix;
 
-    parent: DisplayObjectContainer | null;
+    parent: DisplayObject | null
 
     visible: boolean;
+
+    children: DisplayObject[] = []
 
     constructor(x: number, y: number) {
         super();
@@ -314,6 +284,17 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
         this.globalMatrix = new math.Matrix();
         this.parent = null;
         this.visible = true;
+    }
+
+    addChild(child: DisplayObject) {
+        this.children.push(child);
+        child.parent = this;
+    }
+
+    deleteChild(child: DisplayObject) {
+        const index = this.children.indexOf(child);
+        if (index != -1)
+            this.children.splice(index, 1);
     }
 
     addComponent(instance: Behaviour) {
@@ -349,6 +330,18 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
     }
 
     abstract render(context: CanvasRenderingContext2D): void;
+
+    // 接收一个全局的点坐标，返回这个点相对于此容器的点坐标
+    getLocalPos(point: math.Point): math.Point {
+        if (!this.parent) {
+            return point;
+        }
+        var fatherPos: math.Point = this.parent.getLocalPos(point);
+        var invertLocalMatrix = math.invertMatrix(this.localMatrix);
+        var pointRelativeMe = math.pointAppendMatrix(fatherPos, invertLocalMatrix);
+
+        return pointRelativeMe;
+    }
 }
 
 
