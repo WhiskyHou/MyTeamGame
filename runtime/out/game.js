@@ -605,7 +605,7 @@ var PlayingState = /** @class */ (function (_super) {
     __extends(PlayingState, _super);
     function PlayingState() {
         var _this = _super.call(this) || this;
-        map = mapManager.getMap(0);
+        map = mapManager.getMap(1);
         talkUIContainer = new DisplayObjectContainer(0, 0);
         _this.mapContainer = new DisplayObjectContainer(0, 0);
         _this.userUIContainer = new DisplayObjectContainer(0, 0);

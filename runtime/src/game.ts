@@ -477,8 +477,8 @@ class MenuState extends State {
         this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
 
 
-        workerContainer=new DisplayObjectContainer(0,0);
-        
+        workerContainer = new DisplayObjectContainer(0, 0);
+
         this.workerButton.addEventListener("onClick", () => {
             workerUI = new WorkerUI(0, 0);
             workerContainer.addChild(workerUI);
@@ -749,7 +749,7 @@ class PlayingState extends State {
     constructor() {
         super();
 
-        map = mapManager.getMap(0) as GameMap;
+        map = mapManager.getMap(1) as GameMap;
         talkUIContainer = new DisplayObjectContainer(0, 0);
 
         this.mapContainer = new DisplayObjectContainer(0, 0);
