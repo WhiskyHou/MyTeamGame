@@ -914,7 +914,7 @@ var UselessTalkWindow = /** @class */ (function (_super) {
         _this.count = 0;
         _this.isNpc = true;
         _this.view = new Bitmap(0, 0, talk_window);
-        _this.text = new TextField("", 190, 100, 24);
+        _this.text = new MultiTextField([], 190, 100, 24, 5);
         _this.blackMask = new Bitmap(-100, -150, battlePanelBlackMask);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.view);
@@ -922,9 +922,11 @@ var UselessTalkWindow = /** @class */ (function (_super) {
         _this.addEventListener("onClick", function (eventData) {
             switch (_this.count % 2) {
                 case 0:
+                    _this.text.x = 160;
                     _this.text.y = 220;
                     break;
                 case 1:
+                    _this.text.x = 195;
                     _this.text.y = 100;
                     break;
             }
@@ -945,7 +947,7 @@ var UselessTalkWindow = /** @class */ (function (_super) {
             this.dispatchEvent("uselessTalkWiondowClose", null);
         }
         else {
-            this.text.text = contents[this.count];
+            this.text.setStringByNumber(contents[this.count], 8);
         }
     };
     UselessTalkWindow.prototype.initNpcInfo = function () {
