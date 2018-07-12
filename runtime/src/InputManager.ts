@@ -86,6 +86,7 @@ class InputManager extends EventDispatcher{
         });
         this.addEventListener("I", (eventData: any) => {
             //背包快捷键
+            baManager.openBag()
         });
         this.addEventListener("O", (eventData: any) => {
             //设置快捷键

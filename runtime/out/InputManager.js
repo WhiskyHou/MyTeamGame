@@ -94,6 +94,7 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener("I", function (eventData) {
             //背包快捷键
+            baManager.openBag();
         });
         this.addEventListener("O", function (eventData) {
             //设置快捷键
