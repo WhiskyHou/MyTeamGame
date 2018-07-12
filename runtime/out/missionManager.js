@@ -50,19 +50,8 @@ var MissionManager = /** @class */ (function (_super) {
                 }
             };
             var rewardFunc = void 0;
-            if (item.reward == 'levelUp') {
-                rewardFunc = function () {
-                    player.levelUp();
-                };
-            }
-            else if (item.reward == 'levelDown') {
-                rewardFunc = function () {
-                    player.levelDown();
-                };
-            }
-            else {
-                rewardFunc = function () { };
-            }
+            var rewardNumber = this_1.parseRewardString(item.reward);
+            rewardFunc = this_1.parseReward(rewardNumber);
             var mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -72,6 +61,9 @@ var MissionManager = /** @class */ (function (_super) {
             mission.canAcceptContent = item.canAcceptConfig;
             mission.canSubmitContent = item.canSubmitConfig;
             mission.status = MissionStatus.UNACCEPT;
+            mission.addCoin = rewardNumber[0];
+            mission.addEXP = rewardNumber[1];
+            mission.equipment = shpManager.getEquipment(rewardNumber[2]);
             // console.log('任务名' + mission.name);
             this_1.missions.push(mission);
         };
@@ -88,6 +80,24 @@ var MissionManager = /** @class */ (function (_super) {
     MissionManager.prototype.submit = function (mission) {
         mission.isSubmit = true;
         this.update();
+    };
+    MissionManager.prototype.parseReward = function (rewards) {
+        var rewardFunc;
+        rewardFunc = function () {
+            player.coin += rewards[0];
+            player.currentEXP += rewards[1];
+            player.packageEquipment.push(shpManager.getEquipment(rewards[2]));
+        };
+        return rewardFunc();
+    };
+    MissionManager.prototype.parseRewardString = function (reward) {
+        var rewards = reward.split(",");
+        var rewardNumber = [];
+        for (var _i = 0, rewards_1 = rewards; _i < rewards_1.length; _i++) {
+            var item = rewards_1[_i];
+            rewardNumber.push(parseInt(item));
+        }
+        return rewardNumber;
     };
     return MissionManager;
 }(EventDispatcher));

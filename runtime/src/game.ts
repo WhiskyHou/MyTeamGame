@@ -8,6 +8,7 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 
 Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
+Resource.load('./assets/美术素材/动画/烟花爆炸2.png', "Anim");
 
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
@@ -197,6 +198,10 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回�
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
 
+//制作团队
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
+
 //局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
@@ -272,8 +277,8 @@ const NPC5 = 5;
 
 const MONSTER = 1;
 
-const PLAYER_INDEX_X = 0;
-const PLAYER_INDEX_Y = 0;
+const PLAYER_INDEX_X = 8;
+const PLAYER_INDEX_Y = 5;
 const PLAYER_WALK_SPEED = 200;
 
 const staticStage = stages[2];
@@ -429,6 +434,9 @@ class LoadingState extends State {
 }
 
 
+let workerContainer: DisplayObjectContainer
+let workerUI: WorkerUI;
+
 /**
  * 菜单状态
  */
@@ -452,6 +460,8 @@ class MenuState extends State {
 
     startaudio: AudioPlay;
     anim: Animator;///
+    anim1: Animator;///
+    anim2: Animator;///
 
 
     constructor() {
@@ -460,9 +470,21 @@ class MenuState extends State {
         this.startButton = new Bitmap(350, 370, titleStartImg);
         this.title = new TextField('', 100, 300, 20);
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
-        this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        this.workerButton = new Bitmap(600, 440, titleWorkerImg);
         this.startaudio = new AudioPlay(StartAudio);
-        this.anim = new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
+        this.anim = new Animator(120, 370, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.1);
+        this.anim1 = new Animator(200, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
+        this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
+
+
+        workerContainer=new DisplayObjectContainer(0,0);
+        
+        this.workerButton.addEventListener("onClick", () => {
+            workerUI = new WorkerUI(0, 0);
+            workerContainer.addChild(workerUI);
+            clickaudio.play();
+        });
+
 
     }
 
@@ -473,19 +495,30 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        //staticStage.addChild(this.anim1);
+        //staticStage.addChild(this.anim2);
+        staticStage.addChild(workerContainer);
 
         this.startButton.addEventListener("onClick", this.onClick)
         this.anim.play();
         this.anim.isLooping = true;
+        this.anim1.play();
+        this.anim1.isLooping = true;
+        this.anim2.play();
+        this.anim2.isLooping = true;
+        
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
+        this.anim1.update(DELTA_TIME);
+        this.anim2.update(DELTA_TIME);
     }
     onExit(): void {
         console.log('Menu State onExit');
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
     }
+
 
 
     onClick = (eventData: any) => {
@@ -880,5 +913,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());

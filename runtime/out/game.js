@@ -17,6 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 var van_pick_knife = document.getElementById('van_pick_knife');
 Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
+Resource.load('./assets/美术素材/动画/烟花爆炸2.png', "Anim");
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
@@ -186,6 +187,9 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png'
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
+//制作团队
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 //局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
@@ -245,8 +249,8 @@ var NPC3 = 3;
 var NPC4 = 4;
 var NPC5 = 5;
 var MONSTER = 1;
-var PLAYER_INDEX_X = 0;
-var PLAYER_INDEX_Y = 0;
+var PLAYER_INDEX_X = 8;
+var PLAYER_INDEX_Y = 5;
 var PLAYER_WALK_SPEED = 200;
 var staticStage = stages[2];
 var dynamicStage = stages[0];
@@ -383,6 +387,8 @@ var LoadingState = /** @class */ (function (_super) {
     };
     return LoadingState;
 }(State));
+var workerContainer;
+var workerUI;
 /**
  * 菜单状态
  */
@@ -404,9 +410,17 @@ var MenuState = /** @class */ (function (_super) {
         _this.startButton = new Bitmap(350, 370, titleStartImg);
         _this.title = new TextField('', 100, 300, 20);
         _this.loadButton = new Bitmap(350, 440, titleLoadImg);
-        _this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        _this.workerButton = new Bitmap(600, 440, titleWorkerImg);
         _this.startaudio = new AudioPlay(StartAudio);
-        _this.anim = new Animator(100, 100, Resource.get('TestAnim'), 128, 16, 0.2);
+        _this.anim = new Animator(120, 370, Resource.get('TestAnim'), 128, 16, 0.1);
+        _this.anim1 = new Animator(200, -50, Resource.get('Anim'), 256, 15, 0.1);
+        _this.anim2 = new Animator(400, -50, Resource.get('Anim'), 256, 15, 0.1);
+        workerContainer = new DisplayObjectContainer(0, 0);
+        _this.workerButton.addEventListener("onClick", function () {
+            workerUI = new WorkerUI(0, 0);
+            workerContainer.addChild(workerUI);
+            clickaudio.play();
+        });
         return _this;
     }
     Object.defineProperty(MenuState, "instance", {
@@ -426,12 +440,21 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        //staticStage.addChild(this.anim1);
+        //staticStage.addChild(this.anim2);
+        staticStage.addChild(workerContainer);
         this.startButton.addEventListener("onClick", this.onClick);
         this.anim.play();
         this.anim.isLooping = true;
+        this.anim1.play();
+        this.anim1.isLooping = true;
+        this.anim2.play();
+        this.anim2.isLooping = true;
     };
     MenuState.prototype.onUpdate = function () {
         this.anim.update(DELTA_TIME);
+        this.anim1.update(DELTA_TIME);
+        this.anim2.update(DELTA_TIME);
     };
     MenuState.prototype.onExit = function () {
         console.log('Menu State onExit');
@@ -737,5 +760,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());

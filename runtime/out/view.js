@@ -20,10 +20,10 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userLevel = new TextField('' + player.level, 52, 85, 20);
         _this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        _this.bagButton = new Bitmap(750, 465, bagButton);
-        _this.EscButton = new Bitmap(820, 465, EscButton);
-        _this.SkillButton = new Bitmap(680, 465, SkillButton);
-        _this.missionButton = new Bitmap(610, 465, MissionButton);
+        _this.bagButton = new Bitmap(750, 475, bagButton);
+        _this.EscButton = new Bitmap(820, 475, EscButton);
+        _this.SkillButton = new Bitmap(680, 475, SkillButton);
+        _this.missionButton = new Bitmap(610, 475, MissionButton);
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
         _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -1003,7 +1003,7 @@ var SettingUI = /** @class */ (function (_super) {
             Attack2Audio.src = "assets/音效/dnf/静音.mp3";
             BuyAudio.src = "assets/音效/dnf/静音.mp3";
             HPMPAudio.src = "assets/音效/dnf/静音.mp3";
-            MainAudio.src = "assets/音效/dnf/静音.mp33";
+            MainAudio.src = "assets/音效/dnf/静音.mp3";
             ClickAudio.src = "assets/音效/dnf/静音.mp3";
         });
         return _this;
@@ -1011,42 +1011,21 @@ var SettingUI = /** @class */ (function (_super) {
     return SettingUI;
 }(DisplayObjectContainer));
 /**
- * 对话窗口UI
+ * 制作团队UI
  */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
-//     count: number = 1;
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
-//     constructor(x: number, y: number) {
-//         super(x, y);
-//         this.init();
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
+var WorkerUI = /** @class */ (function (_super) {
+    __extends(WorkerUI, _super);
+    function WorkerUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1'));
+        _this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2'));
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.backButton);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            _this.deleteAll();
+            clickaudio.play();
+        });
+        return _this;
+    }
+    return WorkerUI;
+}(DisplayObjectContainer));

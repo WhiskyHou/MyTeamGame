@@ -21,7 +21,7 @@
 			],
 			"going": "pickEquipment",
 			"goingFunc": "屠龙刀",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "2",
@@ -47,7 +47,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "3",
@@ -71,7 +71,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "队长",
-			"reward": "levelDown"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "4",
@@ -92,7 +92,7 @@
 			],
 			"going": "pickEquipment",
 			"goingFunc": "扁鹊的药瓶",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "5",
@@ -112,7 +112,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "6",
@@ -130,7 +130,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "队长",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "7",
@@ -149,7 +149,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "扁鹊",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "8",
@@ -168,7 +168,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "嬴政",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "9",
@@ -188,7 +188,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "王昭君",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "10",
@@ -208,7 +208,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "11",
@@ -228,7 +228,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "高渐离",
-			"reward": "levelUp"
+			"reward": "20,20,3"
 		},
 		{
 			"id": "12",
