@@ -78,7 +78,9 @@ class MissionManager extends EventDispatcher {
         rewardFunc = () => {
             player.coin += rewards[0]
             player.currentEXP += rewards[1]
-            player.packageEquipment.push(shpManager.getEquipment(rewards[2]))
+            if(rewards[2]>0){
+                player.packageEquipment.push(shpManager.getEquipment(rewards[2]))
+            }   
         }   
         return rewardFunc()
     }
