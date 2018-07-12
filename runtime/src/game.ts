@@ -829,7 +829,7 @@ class PlayingState extends State {
         this.mapContainer.addChild(player.view);
 
         anim = player.view.addComponent(new PlayerAnimTest()) as PlayerAnimTest
-        anim.play();
+
         //this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);

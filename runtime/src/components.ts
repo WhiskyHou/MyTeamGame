@@ -7,7 +7,8 @@ class PlayerAnimTest extends Behaviour {
 
     onStart(): void {
         this.anim = new Animator(this.gameObject.x, this.gameObject.y, Resource.get('dust') as HTMLImageElement, 128, 4, 0.2);
-        this.gameObject.addChild(this.anim)
+        this.gameObject.addChild(this.anim);
+        (this.gameObject as Bitmap).img.src = "";
         this.anim.isLooping = true
         this.anim.visible = true
     }

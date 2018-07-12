@@ -74,6 +74,11 @@ var MissionManager = /** @class */ (function (_super) {
             mission.addEXP = rewardNumber[1];
             mission.equipment = shpManager.getEquipment(rewardNumber[2]);
             // console.log('任务名' + mission.name);
+            for (var i = 0; i < npcManager.npcList.length; i++) {
+                if (npcManager.npcList[i].name == item.goingFunc) {
+                    mission.talkTarget = npcManager.npcList[i];
+                }
+            }
             this_1.missions.push(mission);
         };
         var this_1 = this;

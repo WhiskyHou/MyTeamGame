@@ -690,7 +690,6 @@ var PlayingState = /** @class */ (function (_super) {
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
         anim = player.view.addComponent(new PlayerAnimTest());
-        anim.play();
         //this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);

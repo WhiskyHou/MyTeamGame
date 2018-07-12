@@ -394,8 +394,10 @@ var Mission = /** @class */ (function () {
         this.current = 0;
         this.total = 1;
         this.status = MissionStatus.UNACCEPT;
+        this.type = '';
         this.going = going;
         this.reward = reward;
+        this.type = type;
         player.addEventListener(type, this.going);
     }
     Mission.prototype.update = function () {
@@ -409,7 +411,6 @@ var Mission = /** @class */ (function () {
         }
         else if (this.isAccepted) {
             if (this.current >= this.total) {
-                console.log("任务可以提交啦！！！");
                 nextStatus = MissionStatus.CAN_SUBMIT;
             }
             else {
@@ -459,11 +460,11 @@ var Npc = /** @class */ (function () {
         this.canSubmitMissions = [];
         for (var _i = 0, _a = missionManager.missions; _i < _a.length; _i++) {
             var mission = _a[_i];
-            if (mission.status == MissionStatus.CAN_ACCEPT && mission.fromNpcId == this.id) {
-                this.canAcceptMissions.push(mission);
-            }
             if (mission.status == MissionStatus.CAN_SUBMIT && mission.toNpcId == this.id) {
                 this.canSubmitMissions.push(mission);
+            }
+            if (mission.status == MissionStatus.CAN_ACCEPT && mission.fromNpcId == this.id) {
+                this.canAcceptMissions.push(mission);
             }
         }
     };
