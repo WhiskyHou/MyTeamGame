@@ -378,8 +378,8 @@
 			"id": "18",
 			"name": "肉包子争夺战",
 			"needLevel": "1",
-			"fromNpcId": "14",
-			"toNpcId": "14",
+			"fromNpcId": "17",
+			"toNpcId": "17",
 			"canAcceptConfig": [
 				"汪！呜呜~",
 				"什么？我也听不懂啊",
@@ -438,8 +438,8 @@
 			"id": "21",
 			"name": "最后的准备",
 			"needLevel": "1",
-			"fromNpcId": "3",
-			"toNpcId": "1",
+			"fromNpcId": "23",
+			"toNpcId": "23",
 			"canAcceptConfig": [
 				"小伙子，我很看好你啊。",
 				"啊？什么？",
@@ -460,8 +460,8 @@
 			"id": "22",
 			"name": "梦想成真",
 			"needLevel": "1",
-			"fromNpcId": "3",
-			"toNpcId": "1",
+			"fromNpcId": "12",
+			"toNpcId": "0",
 			"canAcceptConfig": [
 				"你···你真的喜欢我么？",
 				"虽然我智商不行，情商不行，学习不行，体育不行，又没有钱，又没有房，还···",
