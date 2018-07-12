@@ -717,8 +717,13 @@ let settingBoxContainer: DisplayObjectContainer;
 // anim测试角色
 let animTemp: DisplayObjectContainer;
 // anim测试角色
-animTemp = new DisplayObjectContainer(0, 0);
+animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+
+//animTemp.x = PLAYER_INDEX_X*TILE_SIZE;
+//animTemp.y = PLAYER_INDEX_Y*TILE_SIZE;
+
+anim.play();
 
 /**
  * 游戏状态
@@ -795,7 +800,7 @@ class PlayingState extends State {
 
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
-        // this.mapContainer.addChild(animTemp);
+        //this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);

@@ -141,6 +141,8 @@ var User = /** @class */ (function (_super) {
     };
     User.prototype.moveSmooth = function () {
         // 角色每帧移动
+        // animTemp.x = player.view.x;///
+        // animTemp.y = player.view.y;///
         var targetX = player.x * TILE_SIZE;
         var targetY = player.y * TILE_SIZE;
         if (player.view.x == targetX && player.view.y == targetY) {
@@ -152,21 +154,17 @@ var User = /** @class */ (function (_super) {
             stepX = DELTA_TIME * PLAYER_WALK_SPEED;
             stepX = (targetX < player.view.x) ? -stepX : stepX;
             player.view.x += stepX;
-            animTemp.x = player.view.x; ///
         }
         else {
             player.view.x = targetX;
-            animTemp.x = player.view.x; ///
         }
         if (Math.abs(targetY - player.view.y) > 5) {
             stepY = DELTA_TIME * PLAYER_WALK_SPEED;
             stepY = (targetY < player.view.y) ? -stepY : stepY;
             player.view.y += stepY;
-            animTemp.y = player.view.y; ///
         }
         else {
             player.view.y = targetY;
-            animTemp.y = player.view.y; ///
         }
     };
     User.prototype.levelUp = function () {
