@@ -50,6 +50,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.addChild(_this.SkillButton);
         _this.addChild(_this.EscButton);
         _this.addChild(_this.missionButton);
+        //16558
         _this.bagButton.addEventListener('onClick', function (eventData) {
             baManager.openBag();
             clickaudio.play();
@@ -58,16 +59,80 @@ var UserInfoUI = /** @class */ (function (_super) {
             _this.skillUI = new skillBoxUI(0, 0);
             skillBoxContainer.addChild(_this.skillUI);
             clickaudio.play();
+            _this.skillUI.hasOn = true;
         });
         _this.missionButton.addEventListener('onClick', function (eventData) {
             _this.missionUI = new MissionUI(0, 0);
             missionBoxContainer.addChild(_this.missionUI);
             clickaudio.play();
+            missionHasOn = true;
         });
         _this.EscButton.addEventListener('onClick', function (eventData) {
             _this.settingUI = new SettingUI(0, 0);
             settingBoxContainer.addChild(_this.settingUI);
+            setHasOn = true;
             clickaudio.play();
+        });
+        var missionHasOn = false;
+        var setHasOn = false;
+        var skillHasOn = false;
+        //26558
+        inputManager.addEventListener('L', function () {
+            if (!_this.missionUI) {
+                _this.missionUI = new MissionUI(0, 0);
+                missionBoxContainer.addChild(_this.missionUI);
+                clickaudio.play();
+            }
+            else {
+                if (!_this.missionUI.hasOn) {
+                    _this.missionUI = new MissionUI(0, 0);
+                    missionBoxContainer.addChild(_this.missionUI);
+                    clickaudio.play();
+                    _this.missionUI.hasOn = true;
+                }
+                else {
+                    missionBoxContainer.deleteAll();
+                    _this.missionUI.hasOn = false;
+                }
+            }
+        });
+        inputManager.addEventListener('O', function () {
+            if (!_this.settingUI) {
+                _this.settingUI = new SettingUI(0, 0);
+                settingBoxContainer.addChild(_this.settingUI);
+                clickaudio.play();
+            }
+            else {
+                if (!_this.settingUI.hasOn) {
+                    _this.settingUI = new SettingUI(0, 0);
+                    settingBoxContainer.addChild(_this.settingUI);
+                    clickaudio.play();
+                    _this.settingUI.hasOn = true;
+                }
+                else {
+                    settingBoxContainer.deleteAll();
+                    _this.settingUI.hasOn = false;
+                }
+            }
+        });
+        inputManager.addEventListener('K', function () {
+            if (!_this.skillUI) {
+                _this.skillUI = new skillBoxUI(0, 0);
+                skillBoxContainer.addChild(_this.skillUI);
+                clickaudio.play();
+            }
+            else {
+                if (!_this.skillUI.hasOn) {
+                    _this.skillUI = new skillBoxUI(0, 0);
+                    skillBoxContainer.addChild(_this.skillUI);
+                    clickaudio.play();
+                    _this.skillUI.hasOn = true;
+                }
+                else {
+                    skillBoxContainer.deleteAll();
+                    _this.skillUI.hasOn = false;
+                }
+            }
         });
         player.addEventListener('updateUserInfo', function (eventData) {
             // if (player.currentEXP >= player.needEXP) {
@@ -86,6 +151,12 @@ var UserInfoUI = /** @class */ (function (_super) {
             //     equipments += item.name.toString();
             // }
             // this.userEquipment.text = '装备: ' + equipments;
+            _this.deleteChild(_this.HP);
+            _this.deleteChild(_this.MP);
+            _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+            _this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
+            _this.addChild(_this.HP);
+            _this.addChild(_this.MP);
         });
         return _this;
         // console.log(player);
@@ -137,6 +208,8 @@ var MissionUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.missionTextGroup = new DisplayObjectContainer(0, 0);
+        _this.hasOn = false;
+        _this.hasOn = true;
         _this.MissionBackGround = new Bitmap(225, 65, missionImg);
         _this.closeButton = new Bitmap(215, 55, missionCloseImg);
         _this.addChild(_this.blackMask);
@@ -148,6 +221,9 @@ var MissionUI = /** @class */ (function (_super) {
             clickaudio.play();
         });
         _this.updateMissionText();
+        inputManager.addEventListener("Esc", function (eventData) {
+            _this.deleteAll();
+        });
         return _this;
     }
     MissionUI.prototype.updateMissionText = function () {
@@ -370,6 +446,8 @@ var shopUI = /** @class */ (function (_super) {
         _this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
         _this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5);
         _this.ShopCoin = new TextField('100', 438, 453, 20);
+        var blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
+        _this.addChild(blackMask);
         _this.addChild(_this.infoPanel);
         _this.addChild(_this.shopDownButton);
         _this.addChild(_this.shopWQ);
@@ -477,6 +555,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.consumChoiceID = 0;
         _this.index = 0;
         // super(58, 64);
+        _this.hpmpaudio = new AudioPlay(HPMPAudio);
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
         _this.infoPanel = new Bitmap(42, 48, battlePanelInfo);
         _this.backGround = new Bitmap(42, 48, battlePanelBgImg);
@@ -550,7 +629,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -571,7 +650,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -593,7 +672,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -617,7 +696,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -635,6 +714,7 @@ var battleUI = /** @class */ (function (_super) {
             _this.itemContainer.addChild(_this.itemBackButton);
             _this.itemContainer.addChild(_this.itemTextGroup);
             _this.itemUseButton.addEventListener('onClick', function () {
+                _this.hpmpaudio.play();
                 _this.updateConsumCount();
                 if (_this.consumChoiceID != 0) {
                     for (var i = 0; i < player.packageEquipment.length; i++) {
@@ -661,7 +741,6 @@ var battleUI = /** @class */ (function (_super) {
                         }
                     }
                 }
-                clickaudio.play();
             });
             _this.itemBackButton.addEventListener('onClick', function () {
                 clickaudio.play();
@@ -767,6 +846,7 @@ var battleUI = /** @class */ (function (_super) {
         if (redCount > 0) {
             var redText = new TextField(red.name + " X " + redCount, 315, 165 + 32 * lineCount, 20);
             redText.addEventListener("onClick", function () {
+                clickaudio.play();
                 _this.consumChoiceID = red.id;
             });
             this.itemTextGroup.addChild(redText);
@@ -776,6 +856,7 @@ var battleUI = /** @class */ (function (_super) {
             var blueText = new TextField(blue.name + " X " + blueCount, 315, 165 + 32 * lineCount, 20);
             this.itemTextGroup.addChild(blueText);
             blueText.addEventListener("onClick", function () {
+                clickaudio.play();
                 _this.consumChoiceID = blue.id;
             });
             lineCount++;
@@ -846,6 +927,8 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.choosingMountedSkillArrayNo = 0;
         _this.nowChoice = 0; //1为技能栏中技能被选中，2为已装备技能被选中。
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.hasOn = false;
+        _this.hasOn = true;
         _this.backGround = new Bitmap(225, 25, skillBoxBGImg);
         _this.closeButton = new Bitmap(225, 25, skillBoxCloseImg);
         _this.skillTextGroup = new DisplayObjectContainer(375, 20);
@@ -865,6 +948,9 @@ var skillBoxUI = /** @class */ (function (_super) {
         _this.closeButton.addEventListener('onClick', function () {
             _this.deleteAll();
             clickaudio.play();
+        });
+        inputManager.addEventListener("Esc", function (eventData) {
+            _this.deleteAll();
         });
         _this.skillOnButton.addEventListener('onClick', function () {
             if (_this.nowChoice == 1) {
@@ -953,16 +1039,29 @@ var SettingUI = /** @class */ (function (_super) {
     __extends(SettingUI, _super);
     function SettingUI(x, y) {
         var _this = _super.call(this, x, y) || this;
+        _this.hasOn = false;
+        _this.hasOn = true;
         _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
         _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
         _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
         _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.recharge = new Bitmap(500, 446, bagOnUI);
         _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.on);
         _this.addChild(_this.off);
         _this.addChild(_this.backButton);
+        _this.addChild(_this.recharge);
+        inputManager.addEventListener("Esc", function (eventData) {
+            _this.deleteAll();
+        });
+        _this.recharge.addEventListener("rechargeInput", function (eventData) {
+            _this.deleteChild(_this.recharge);
+            _this.rechargeInput = new MultiTextField([], 500, 450, 20, 10).setStringByNumber("123456", 3);
+            _this.addChild(_this.rechargeInput);
+            clickaudio.play();
+        });
         _this.backButton.addEventListener("onClick", function (eventData) {
             _this.deleteAll();
             clickaudio.play();

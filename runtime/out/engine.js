@@ -598,6 +598,7 @@ var MultiTextField = /** @class */ (function (_super) {
         }
     };
     MultiTextField.prototype.setStringByNumber = function (con, num) {
+        this.text = [];
         for (var i = 0; i < con.length; i += num) {
             this.text.push(con.slice(i, i + num));
         }

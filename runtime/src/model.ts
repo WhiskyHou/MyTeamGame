@@ -175,6 +175,7 @@ class User extends EventDispatcher {
 
     update() {
         this.moveSmooth();
+        this.dispatchEvent('updateUserInfo', null);
     }
 
     toString() {

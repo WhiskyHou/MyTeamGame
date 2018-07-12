@@ -18,6 +18,7 @@ var InputManager = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.inputString = "";
         _this.inputOver = false;
+        _this.rechargeIsStart = false;
         _this.addEventListener("inputStart", function (eventData) {
             console.log(eventData);
             _this.parse(eventData);
@@ -48,19 +49,31 @@ var InputManager = /** @class */ (function (_super) {
     };
     InputManager.prototype.parse = function (code) {
         switch (code) {
-            case 8://BACK
+            case 76: //L
+                this.dispatchEvent('L', this.inputString);
+                break;
+            case 75: //K
+                this.dispatchEvent('K', this.inputString);
+                break;
+            case 73: //I
+                this.dispatchEvent('I', this.inputString);
+                break;
+            case 79: //O
+                this.dispatchEvent('O', this.inputString);
+                break;
+            case 8: //BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
-            case 13://Enter
+            case 13: //Enter
                 this.dispatchEvent('Enter', this.inputString);
                 break;
-            case 20://Caps Lock
+            case 20: //Caps Lock
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 9://Tab
+            case 9: //Tab
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 27://ESC
+            case 27: //ESC
                 this.dispatchEvent('Esc', this.inputString);
                 break;
         }
@@ -74,6 +87,31 @@ var InputManager = /** @class */ (function (_super) {
                 _this.dispatchEvent('inputChanged', _this.inputString);
             }
         });
+        this.addEventListener("rechargeInput", function (eventData) {
+            console.log(eventData);
+            if (!_this.rechargeIsStart) {
+                _this.rechargeIsStart = true;
+                _this.inputString = "";
+            }
+            else {
+                _this.inputString += _this.CodeTOWords(eventData);
+                console.log('你按下了', _this.inputString);
+                _this.dispatchEvent('inputChanged', _this.inputString);
+            }
+        });
+        this.addEventListener("L", function (eventData) {
+            //任务快捷键
+        });
+        this.addEventListener("K", function (eventData) {
+            //技能快捷键
+        });
+        this.addEventListener("I", function (eventData) {
+            //背包快捷键
+            baManager.openBag();
+        });
+        this.addEventListener("O", function (eventData) {
+            //设置快捷键
+        });
         this.addEventListener("Back", function (eventData) {
             if (!_this.inputOver) {
                 _this.inputString = _this.inputString.slice(0, _this.inputString.length - 1);
@@ -82,6 +120,7 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener("Enter", function (eventData) {
             _this.inputOver = true;
+            _this.rechargeIsStart = false;
             _this.dispatchEvent('inputOver', _this.inputString);
         });
         this.addEventListener("Caps Lock", function (eventData) {
