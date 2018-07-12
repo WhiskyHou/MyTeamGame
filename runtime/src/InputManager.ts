@@ -37,8 +37,25 @@ class InputManager extends EventDispatcher {
             return ""
         }
     }
+<<<<<<< HEAD
     parse(code: number) {
         switch (code) {
+=======
+    parse(code : number){
+        switch (code){
+            case 76://L
+            this.dispatchEvent('L', this.inputString);    
+            break;
+            case 75://K
+            this.dispatchEvent('K', this.inputString);    
+            break;
+            case 73://I
+            this.dispatchEvent('I', this.inputString);    
+            break;
+            case 79://O
+            this.dispatchEvent('O', this.inputString);    
+            break;
+>>>>>>> e8e5d03a0388022e17825117d1da62b7d187e146
             case 8://BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
@@ -56,13 +73,31 @@ class InputManager extends EventDispatcher {
                 break;
         }
     }
+<<<<<<< HEAD
     listen() {
+=======
+
+    listen(){
+>>>>>>> e8e5d03a0388022e17825117d1da62b7d187e146
         this.addEventListener("inputStart", (eventData: any) => {
             if (!this.inputOver) {
                 this.inputString += this.CodeTOWords(eventData)
                 console.log('你按下了', this.inputString)
                 this.dispatchEvent('inputChanged', this.inputString);
             }
+        });
+        this.addEventListener("L", (eventData: any) => {
+            //任务快捷键
+        });
+        this.addEventListener("K", (eventData: any) => {
+            //技能快捷键
+        });
+        this.addEventListener("I", (eventData: any) => {
+            //背包快捷键
+            baManager.openBag()
+        });
+        this.addEventListener("O", (eventData: any) => {
+            //设置快捷键
         });
         this.addEventListener("Back", (eventData: any) => {
             if (!this.inputOver) {
@@ -81,7 +116,11 @@ class InputManager extends EventDispatcher {
         this.addEventListener("Esc", (eventData: any) => {
             baManager.dispatchEvent('bagDown', player);
             shpManager.dispatchEvent('shopDown', player);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> e8e5d03a0388022e17825117d1da62b7d187e146
         });
     }
 }
