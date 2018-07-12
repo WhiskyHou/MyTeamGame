@@ -48,18 +48,6 @@ var InputManager = /** @class */ (function (_super) {
     };
     InputManager.prototype.parse = function (code) {
         switch (code) {
-            case 96: //F1
-                this.dispatchEvent('F1', this.inputString);
-                break;
-            case 97: //F2
-                this.dispatchEvent('F2', this.inputString);
-                break;
-            case 98: //F3
-                this.dispatchEvent('F3', this.inputString);
-                break;
-            case 99: //F4
-                this.dispatchEvent('F4', this.inputString);
-                break;
             case 8: //BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;

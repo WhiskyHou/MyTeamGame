@@ -8,6 +8,7 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 
 Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
+Resource.load('./assets/美术素材/动画/烟花爆炸2.png', "Anim");
 
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
@@ -458,6 +459,8 @@ class MenuState extends State {
 
     startaudio: AudioPlay;
     anim: Animator;///
+    anim1: Animator;///
+    anim2: Animator;///
 
 
     constructor() {
@@ -466,9 +469,12 @@ class MenuState extends State {
         this.startButton = new Bitmap(350, 370, titleStartImg);
         this.title = new TextField('', 100, 300, 20);
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
-        this.workerButton = new Bitmap(80, 440, titleWorkerImg);
+        this.workerButton = new Bitmap(600, 440, titleWorkerImg);
         this.startaudio = new AudioPlay(StartAudio);
-        this.anim = new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
+        this.anim = new Animator(120, 370, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.1);
+        this.anim1 = new Animator(200, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
+        this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
+
 
         workerContainer=new DisplayObjectContainer(0,0);
         
@@ -488,14 +494,23 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        //staticStage.addChild(this.anim1);
+        //staticStage.addChild(this.anim2);
         staticStage.addChild(workerContainer);
 
         this.startButton.addEventListener("onClick", this.onClick)
         this.anim.play();
         this.anim.isLooping = true;
+        this.anim1.play();
+        this.anim1.isLooping = true;
+        this.anim2.play();
+        this.anim2.isLooping = true;
+        
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
+        this.anim1.update(DELTA_TIME);
+        this.anim2.update(DELTA_TIME);
     }
     onExit(): void {
         console.log('Menu State onExit');
