@@ -7,6 +7,7 @@ var van_pick_knife = document.getElementById('van_pick_knife') as HTMLAudioEleme
 
 
 Resource.load('./assets/正面动画.png', "dust");
+Resource.load('./assets/Test动画.png', 'TestAnim');
 
 
 Resource.load('./assets/美术素材/框.png', 'bgPaper')
@@ -403,6 +404,7 @@ class LoadingState extends State {
     }
 }
 
+
 /**
  * 菜单状态
  */
@@ -425,6 +427,8 @@ class MenuState extends State {
     workerButton: Bitmap;
 
     startaudio: AudioPlay;
+    anim:Animator;///
+    
 
     constructor() {
         super();
@@ -434,6 +438,7 @@ class MenuState extends State {
         this.loadButton = new Bitmap(350, 440, titleLoadImg);
         this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         this.startaudio = new AudioPlay(StartAudio);
+        this.anim=new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
 
     }
 
@@ -443,12 +448,14 @@ class MenuState extends State {
         staticStage.addChild(this.title);
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
+        staticStage.addChild(this.anim);
 
         this.startButton.addEventListener("onClick", this.onClick)
-
-
+        this.anim.play();
+        this.anim.isLooping=true;
     }
     onUpdate(): void {
+        this.anim.update(DELTA_TIME);
     }
     onExit(): void {
         console.log('Menu State onExit');
@@ -574,6 +581,7 @@ class CreateState extends State {
             }
             this.playerAttackText.text = "" + player._originAttack;
         });
+
     }
 
     onEnter(): void {
@@ -644,9 +652,9 @@ let skillBoxContainer: DisplayObjectContainer;
 let missionBoxContainer: DisplayObjectContainer;
 let shopUIContainer: DisplayObjectContainer;
 
-// anim测试
+// anim测试角色
 let animTemp: DisplayObjectContainer;
-// anim测试
+// anim测试角色
 animTemp = new DisplayObjectContainer(0,0 );
 const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 //anim.play();
