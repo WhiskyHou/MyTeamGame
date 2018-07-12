@@ -197,6 +197,10 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回�
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
 
+//制作团队
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
+
 //局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
@@ -414,6 +418,9 @@ class LoadingState extends State {
 }
 
 
+let workerContainer: DisplayObjectContainer
+let workerUI: WorkerUI;
+
 /**
  * 菜单状态
  */
@@ -449,6 +456,15 @@ class MenuState extends State {
         this.startaudio = new AudioPlay(StartAudio);
         this.anim=new Animator(100, 100, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.2);
 
+        workerContainer=new DisplayObjectContainer(0,0);
+        
+        this.workerButton.addEventListener("onClick", () => {
+            workerUI = new WorkerUI(0, 0);
+            workerContainer.addChild(workerUI);
+            clickaudio.play();
+        });
+
+
     }
 
     onEnter(): void {
@@ -458,10 +474,13 @@ class MenuState extends State {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        staticStage.addChild(workerContainer);
 
         this.startButton.addEventListener("onClick", this.onClick)
         this.anim.play();
         this.anim.isLooping=true;
+
+    
     }
     onUpdate(): void {
         this.anim.update(DELTA_TIME);
@@ -471,6 +490,7 @@ class MenuState extends State {
         staticStage.deleteAllEventListener();
         staticStage.deleteAll();
     }
+
 
 
     onClick = (eventData: any) => {
@@ -918,5 +938,5 @@ window.onkeyup = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());

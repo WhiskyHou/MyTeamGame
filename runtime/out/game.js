@@ -186,6 +186,9 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png'
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
+//制作团队
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
+Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 //局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
@@ -368,6 +371,8 @@ var LoadingState = /** @class */ (function (_super) {
     };
     return LoadingState;
 }(State));
+var workerContainer;
+var workerUI;
 /**
  * 菜单状态
  */
@@ -392,6 +397,12 @@ var MenuState = /** @class */ (function (_super) {
         _this.workerButton = new Bitmap(80, 440, titleWorkerImg);
         _this.startaudio = new AudioPlay(StartAudio);
         _this.anim = new Animator(100, 100, Resource.get('TestAnim'), 128, 16, 0.2);
+        workerContainer = new DisplayObjectContainer(0, 0);
+        _this.workerButton.addEventListener("onClick", function () {
+            workerUI = new WorkerUI(0, 0);
+            workerContainer.addChild(workerUI);
+            clickaudio.play();
+        });
         return _this;
     }
     Object.defineProperty(MenuState, "instance", {
@@ -411,6 +422,7 @@ var MenuState = /** @class */ (function (_super) {
         staticStage.addChild(this.loadButton);
         staticStage.addChild(this.workerButton);
         staticStage.addChild(this.anim);
+        staticStage.addChild(workerContainer);
         this.startButton.addEventListener("onClick", this.onClick);
         this.anim.play();
         this.anim.isLooping = true;
@@ -762,5 +774,5 @@ window.onkeyup = function (event) {
     }
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());

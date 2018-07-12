@@ -20,10 +20,10 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userLevel = new TextField('' + player.level, 52, 85, 20);
         _this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         _this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        _this.bagButton = new Bitmap(750, 465, bagButton);
-        _this.EscButton = new Bitmap(820, 465, EscButton);
-        _this.SkillButton = new Bitmap(680, 465, SkillButton);
-        _this.missionButton = new Bitmap(610, 465, MissionButton);
+        _this.bagButton = new Bitmap(750, 475, bagButton);
+        _this.EscButton = new Bitmap(820, 475, EscButton);
+        _this.SkillButton = new Bitmap(680, 475, SkillButton);
+        _this.missionButton = new Bitmap(610, 475, MissionButton);
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
         _this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         _this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -1004,4 +1004,23 @@ var SettingUI = /** @class */ (function (_super) {
         return _this;
     }
     return SettingUI;
+}(DisplayObjectContainer));
+/**
+ * 制作团队UI
+ */
+var WorkerUI = /** @class */ (function (_super) {
+    __extends(WorkerUI, _super);
+    function WorkerUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1'));
+        _this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2'));
+        _this.addChild(_this.backGround);
+        _this.addChild(_this.backButton);
+        _this.backButton.addEventListener("onClick", function (eventData) {
+            _this.deleteAll();
+            clickaudio.play();
+        });
+        return _this;
+    }
+    return WorkerUI;
 }(DisplayObjectContainer));

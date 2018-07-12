@@ -33,10 +33,10 @@ class UserInfoUI extends DisplayObjectContainer {
         this.userLevel = new TextField('' + player.level, 52, 85, 20);
         this.userAttack = new TextField('Attck:' + player._attack, 240, 0, 20);
         this.userEquipment = new TextField('装备: ', 400, 0, 20);
-        this.bagButton = new Bitmap(750, 465, bagButton);
-        this.EscButton = new Bitmap(820, 465, EscButton);
-        this.SkillButton = new Bitmap(680, 465, SkillButton);
-        this.missionButton = new Bitmap(610, 465, MissionButton);
+        this.bagButton = new Bitmap(750, 475, bagButton);
+        this.EscButton = new Bitmap(820, 475, EscButton);
+        this.SkillButton = new Bitmap(680, 475, SkillButton);
+        this.missionButton = new Bitmap(610, 475, MissionButton);
         this.bloodUI = new Bitmap(0, 0, bloodUI);
         this.bloodUI2 = new Bitmap(95, 3, bloodUI2);
         this.userCoin = new TextField('' + player.coin, 245, 9, 20);
@@ -1236,55 +1236,30 @@ class SettingUI extends DisplayObjectContainer {
         })
     }
 }
-<<<<<<< HEAD
-=======
+
+
 
 /**
- * 对话窗口UI
+ * 制作团队UI
  */
-// class TalkWindow extends DisplayObjectContainer {
-//     view: Bitmap;
-//     text: TextField;
+class WorkerUI extends DisplayObjectContainer {
 
-//     count: number = 1;
+    backGround: Bitmap;
+    backButton: Bitmap;
 
-//     _config = [
-//         "欢迎来到新日暮里",
-//         "你的等级还很低",
-//         "攻击力也相当低",
-//         "所以我不能给你任何击杀任务",
-//         "你先找到屠龙刀再回来找我"
-//     ]
+    constructor(x: number, y: number) {
+        super(x, y);
 
-//     constructor(x: number, y: number) {
-//         super(x, y);
+        this.backGround = new Bitmap(0, 0, Resource.get('WorkerUI1') as HTMLImageElement);
+        this.backButton = new Bitmap(800, 490, Resource.get('WorkerUI2') as HTMLImageElement);
+       
+        this.addChild(this.backGround);
+        this.addChild(this.backButton);
 
-//         this.init();
-
-//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
-//             if (this.count <= this._config.length - 1) {
-//                 this.text.text = this._config[this.count];
-//                 this.count++;
-//             } else {
-//                 map.deleteChild(this);
-//             }
-//         })
-//     }
-
-//     init() {
-//         this.view = new Bitmap(0, 0, talk_window);
-//         this.text = new TextField('', 300, 200, 40);
-
-//         this.addChild(this.view);
-//         this.addChild(this.text);
-//     }
-
-//     set config(config: string[]) {
-//         this._config = config;
-//         this.text.text = this._config[0];
-//     }
-//     get config() {
-//         return this._config;
-//     }
-// }
->>>>>>> e0d19d840edeb3357dfe22b690333eee8c776920
+        this.backButton.addEventListener("onClick", (eventData: any) => {
+            this.deleteAll();
+            clickaudio.play();
+        })
+       
+    }
+}
