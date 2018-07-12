@@ -1186,10 +1186,10 @@ class SettingUI extends DisplayObjectContainer {
     constructor(x: number, y: number) {
         super(x, y);
 
-        this.backGround= new Bitmap(290,120,Resource.get('SettingUI1')as HTMLImageElement);
-        this.on = new Bitmap(440,195,Resource.get('SettingUI2')as HTMLImageElement);
-        this.off = new Bitmap(500,195,Resource.get('SettingUI3')as HTMLImageElement);
-        this.backButton = new Bitmap(400,320,Resource.get('SettingUI4')as HTMLImageElement);
+        this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1') as HTMLImageElement);
+        this.on = new Bitmap(440, 195, Resource.get('SettingUI2') as HTMLImageElement);
+        this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
+        this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
 
         this.addChild(this.blackMask);
@@ -1236,3 +1236,55 @@ class SettingUI extends DisplayObjectContainer {
         })
     }
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * 对话窗口UI
+ */
+// class TalkWindow extends DisplayObjectContainer {
+//     view: Bitmap;
+//     text: TextField;
+
+//     count: number = 1;
+
+//     _config = [
+//         "欢迎来到新日暮里",
+//         "你的等级还很低",
+//         "攻击力也相当低",
+//         "所以我不能给你任何击杀任务",
+//         "你先找到屠龙刀再回来找我"
+//     ]
+
+//     constructor(x: number, y: number) {
+//         super(x, y);
+
+//         this.init();
+
+//         missionManager.addEventListener("onkeydown_32", (eventData: any) => {
+//             if (this.count <= this._config.length - 1) {
+//                 this.text.text = this._config[this.count];
+//                 this.count++;
+//             } else {
+//                 map.deleteChild(this);
+//             }
+//         })
+//     }
+
+//     init() {
+//         this.view = new Bitmap(0, 0, talk_window);
+//         this.text = new TextField('', 300, 200, 40);
+
+//         this.addChild(this.view);
+//         this.addChild(this.text);
+//     }
+
+//     set config(config: string[]) {
+//         this._config = config;
+//         this.text.text = this._config[0];
+//     }
+//     get config() {
+//         return this._config;
+//     }
+// }
+>>>>>>> e0d19d840edeb3357dfe22b690333eee8c776920
