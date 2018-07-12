@@ -322,7 +322,7 @@ var Consumable = /** @class */ (function (_super) {
         }
         player._mp += Math.ceil((this.addMP / 100) * player.maxMp);
         if (player._mp > player.maxMp) {
-            player._hp = player.maxMp;
+            player._mp = player.maxMp;
         }
         player._charm += this.addCharm;
         callback();
