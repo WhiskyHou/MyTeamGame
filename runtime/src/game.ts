@@ -121,10 +121,14 @@ var SkillButton = new Image();
 SkillButton.src = './assets/1 60x80 技能ui.png';
 var MissionButton = new Image();
 MissionButton.src = './assets/1 60x80 任务ui.png';
+
 var bloodUI = new Image();
-bloodUI.src = './assets/ui血条1.png';
-var bloodUI2 = new Image();
-bloodUI2.src = './assets/ui血条2.png';
+bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
+var userCoinUI  = new Image();
+userCoinUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
+var userDiamondUI = new Image();
+userDiamondUI.src='./assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 钻石 改.png';
+
 
 var bagWindowsUI = new Image();
 bagWindowsUI.src = './assets/美术素材/UI/背包界面/UI 背包 PNG/ui背包界面背景2.png';
