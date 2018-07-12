@@ -248,7 +248,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "null",
-			"reward": "levelUp"
+			"reward": "3,5,0"
 		},
 		{
 			"id": "13",
@@ -267,7 +267,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "null",
-			"reward": "levelUp"
+			"reward": "5,5,0"
 		},
 		{
 			"id": "14",
@@ -285,7 +285,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "呆萌恶犬",
-			"reward": "levelUp"
+			"reward": "5,10,0"
 		},
 		{
 			"id": "15",
@@ -313,7 +313,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "邋遢鬼",
-			"reward": "levelUp"
+			"reward": "8,12,0"
 		},
 		{
 			"id": "16",
@@ -332,7 +332,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "null",
-			"reward": "levelUp"
+			"reward": "0,0,1001"
 		},
 		{
 			"id": "16",
@@ -353,7 +353,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "null",
-			"reward": "levelUp"
+			"reward": "5,8,0"
 		},
 		{
 			"id": "17",
@@ -372,7 +372,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "快乐肥宅",
-			"reward": "levelUp"
+			"reward": "10,25,0"
 		},
 		{
 			"id": "18",
@@ -394,7 +394,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "大吃货",
-			"reward": "levelUp"
+			"reward": "12,35,0"
 		},
 		{
 			"id": "19",
@@ -414,7 +414,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "不良少年",
-			"reward": "levelUp"
+			"reward": "15,50,0"
 		},
 		{
 			"id": "20",
@@ -432,7 +432,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "校园恶霸",
-			"reward": "levelUp"
+			"reward": "20,80,0"
 		},
 		{
 			"id": "21",
@@ -454,7 +454,7 @@
 			],
 			"going": "null",
 			"goingFunc": "智者",
-			"reward": "levelUp"
+			"reward": "0,0,1002"
 		},
 		{
 			"id": "22",
