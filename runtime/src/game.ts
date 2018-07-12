@@ -10,6 +10,9 @@ Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
 Resource.load('./assets/美术素材/动画/烟花爆炸2.png', "Anim");
 
+Resource.load('./assets/美术素材/框1.png', 'frame1')
+Resource.load('./assets/美术素材/框2.png', 'frame2')
+
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -332,6 +335,11 @@ npcManager.init(() => {
         });
     });
 });
+
+stages[3].addChild(new Bitmap(0, 0, Resource.get('frame1') as HTMLImageElement));
+stages[3].addChild(new Bitmap(0, 0, Resource.get('frame2') as HTMLImageElement));
+stages[3].addChild(new Bitmap(895, 0, Resource.get('frame1') as HTMLImageElement))
+stages[3].addChild(new Bitmap(0, 555, Resource.get('frame2') as HTMLImageElement))
 
 batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
     batEndUI.dropTextGroup.deleteAll();
