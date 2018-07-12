@@ -64,6 +64,23 @@ var WalkCommand = /** @class */ (function (_super) {
     return WalkCommand;
 }(Command));
 /**
+ * 传送命令
+ */
+var PortalCommand = /** @class */ (function (_super) {
+    __extends(PortalCommand, _super);
+    function PortalCommand(targetMap, targetRow, targetCol) {
+        var _this = _super.call(this) || this;
+        _this.targetMap = targetMap;
+        _this.targetRow = targetRow;
+        _this.targetCol = targetCol;
+        return _this;
+    }
+    PortalCommand.prototype.execute = function () {
+        console.log("\u4F20\u9001\u76EE\u6807" + this.targetMap);
+    };
+    return PortalCommand;
+}(Command));
+/**
  * 拾取命令
  */
 var PickCommand = /** @class */ (function (_super) {

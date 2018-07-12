@@ -273,24 +273,28 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 let monsManager = new monsterManager();
 let equipManager = new EquipmentManager();
+let portalManager = new PortalManager();
 let batManager = new battleManager();
 let baManager = new bagManager();
 let shpManager = new shopManager();
 let inputManager = new InputManager();
 let skillArray: Skill[] = []
 
-
+// 这回调看着也太丑了啊
 npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
             shpManager.init(() => {
+                missionManager.init();
+                portalManager.init(() => {
+                    mapManager.init(() => {
 
+                    });
+                });
             });
-            missionManager.init();
-            mapManager.init();
         });
-    })
+    });
 });
 
 batManager.addEventListener("enemyDrop", (dropBox: number[]) => {

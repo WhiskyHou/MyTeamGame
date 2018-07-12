@@ -32,8 +32,6 @@ class monsterManager {
             const level = parseInt(item.level);
             const dropType = parseInt(item.dropType);
 
-
-
             let monster = new Monster(id, name, hp, attack, exp, coin, level, dropType);
 
             const viewPath = item.view;

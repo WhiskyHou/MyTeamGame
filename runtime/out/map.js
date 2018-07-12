@@ -20,6 +20,7 @@ var GameMap = /** @class */ (function (_super) {
         _this.equipmentConfig = {};
         _this.npcConfig = {};
         _this.monsterConfig = {};
+        _this.portalConfig = {};
         _this.tileContainer = new DisplayObjectContainer(0, 0);
         _this.itemContainer = new DisplayObjectContainer(0, 0);
         _this.roleContainer = new DisplayObjectContainer(0, 0);
@@ -164,6 +165,15 @@ var GameMap = /** @class */ (function (_super) {
             for (var j = 0; j < row.length; j++) {
                 var item = row[j];
                 if (item != 0) {
+                    var id = item;
+                    console.log(portalManager.portalList.length);
+                    for (var _d = 0, _e = portalManager.portalList; _d < _e.length; _d++) {
+                        var portal = _e[_d];
+                        if (portal.id == id) {
+                            var key = j + '_' + i;
+                            this.portalConfig[key] = portal;
+                        }
+                    }
                 }
             }
         }
@@ -188,6 +198,10 @@ var GameMap = /** @class */ (function (_super) {
     GameMap.prototype.getMonsterInfo = function (row, col) {
         var key = row + '_' + col;
         return this.monsterConfig[key];
+    };
+    GameMap.prototype.getPortalInfo = function (row, col) {
+        var key = row + '_' + col;
+        return this.portalConfig[key];
     };
     GameMap.prototype.deleteEquipment = function (equipment) {
         var key = equipment.x + '_' + equipment.y;

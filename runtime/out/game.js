@@ -244,19 +244,24 @@ var missionManager = new MissionManager();
 var npcManager = new NpcManager();
 var monsManager = new monsterManager();
 var equipManager = new EquipmentManager();
+var portalManager = new PortalManager();
 var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
 var inputManager = new InputManager();
 var skillArray = [];
+// 这回调看着也太丑了啊
 npcManager.init(function () {
     monsManager.init(function () {
         equipManager.init(function () {
             equipSetInit(equipManager);
             shpManager.init(function () {
+                missionManager.init();
+                portalManager.init(function () {
+                    mapManager.init(function () {
+                    });
+                });
             });
-            missionManager.init();
-            mapManager.init();
         });
     });
 });
