@@ -198,12 +198,22 @@ class MissionUI extends DisplayObjectContainer {
 
     updateMissionText() {
         this.missionTextGroup.deleteAll();
-        let missionText = new TextField(missionManager.missions[0].name, 375, 100, 40);
-        for (let i = 0; i < missionManager.missions[0].canAcceptContent.length; i++) {
-            let missionAcceptText = new TextField(missionManager.missions[0].canAcceptContent[i], 390, 180 + 25 * i, 25);
-            this.missionTextGroup.addChild(missionAcceptText);
+
+        for (let i = 0; i < missionManager.missions.length; i++) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+                let missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+
+                for (let b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
+                    let missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    this.missionTextGroup.addChild(missionAcceptText);
+                }
+                this.missionTextGroup.addChild(missionText);
+                return;
+            }
         }
-        this.missionTextGroup.addChild(missionText);
+
+
+
     }
 }
 

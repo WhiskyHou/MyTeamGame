@@ -162,12 +162,17 @@ var MissionUI = /** @class */ (function (_super) {
     }
     MissionUI.prototype.updateMissionText = function () {
         this.missionTextGroup.deleteAll();
-        var missionText = new TextField(missionManager.missions[0].name, 375, 100, 40);
-        for (var i = 0; i < missionManager.missions[0].canAcceptContent.length; i++) {
-            var missionAcceptText = new TextField(missionManager.missions[0].canAcceptContent[i], 390, 180 + 25 * i, 25);
-            this.missionTextGroup.addChild(missionAcceptText);
+        for (var i = 0; i < missionManager.missions.length; i++) {
+            if (missionManager.missions[i].status == MissionStatus.DURRING) {
+                var missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+                for (var b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
+                    var missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    this.missionTextGroup.addChild(missionAcceptText);
+                }
+                this.missionTextGroup.addChild(missionText);
+                return;
+            }
         }
-        this.missionTextGroup.addChild(missionText);
     };
     return MissionUI;
 }(DisplayObjectContainer));

@@ -214,6 +214,11 @@ var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
+//装备道具图片
+var caihuaBookImg = new Image();
+caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
+var xiXingBookImg = new Image();
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
 /**
  * 常量
  *
@@ -257,7 +262,6 @@ var batManager = new battleManager();
 var baManager = new bagManager();
 var shpManager = new shopManager();
 var inputManager = new InputManager();
-var skillArray = [];
 // 这回调看着也太丑了啊
 npcManager.init(function () {
     monsManager.init(function () {
@@ -291,31 +295,41 @@ batManager.addEventListener("enemyBattleStart", function (enemy) {
 /**
  * 技能初始化(把这里当技能配置文件)
  */
+var skillArray = []; //人物已有技能库
+var skillBase = []; //全技能库
 var skillAttack = new Skill(0, '攻击', 0); //攻击预留
 skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillAttack);
+skillBase.push(skillAttack);
 var skillEmpty = new Skill(1, '空', 0); //空
 skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
 skillArray.push(skillEmpty);
+skillBase.push(skillEmpty);
 var skillCaihua = new Skill(2, '菜花宝典', 30);
 skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
-skillArray.push(skillCaihua);
+// skillArray.push(skillCaihua);
+skillBase.push(skillCaihua);
 var skillSabi = new Skill(3, '撒币大法', 20);
 skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
-skillArray.push(skillSabi);
+// skillArray.push(skillSabi);
+skillBase.push(skillSabi);
 var skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
 skillArray.push(skillBusi);
+skillBase.push(skillBusi);
 var skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
 skillArray.push(skillGuolai);
+skillBase.push(skillGuolai);
 var skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
 skillArray.push(skillQishang);
+skillBase.push(skillQishang);
 var skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
 ;
-skillArray.push(skillXixing);
+// skillArray.push(skillXixing);
+skillBase.push(skillXixing);
 /**
  * 载入状态
  */
