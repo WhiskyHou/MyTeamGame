@@ -134,9 +134,7 @@ class TalkCommand extends Command {
             mission = this.npc.canSubmitMissions[0];
         }
 
-        console.log(mission);
         // console.log('任务长度' + missionManager.missions.length);
-
 
         if (mission) {
 
@@ -147,14 +145,19 @@ class TalkCommand extends Command {
             talkWindow.addEventListener("talkWiondowClose", () => {
                 talkUIContainer.deleteChild(talkWindow);
                 if (mission) {
+                    console.log(mission.status);
+
                     if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log(`接受任务：${mission.toString()}`);
                         missionManager.accept(mission);
+                        if (this.npc.changeTypeID != 0) {
+                            this.npc.changeType();//测试换类型！！！ 
+                        }
+
                     } else if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log(`完成任务: ${mission.toString()}`);
                         missionManager.submit(mission);
                     }
-                    this.npc.changeType();//测试换类型！！！
                     callback();
                 }
             })

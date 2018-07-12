@@ -509,6 +509,8 @@ class Npc {
         missionManager.addEventListener('missionUpdate', (eventData: any) => {
             this.update();
         })
+
+
     }
 
     update() {
@@ -522,6 +524,7 @@ class Npc {
                 this.canSubmitMissions.push(mission);
             }
         }
+
     }
 
     toString() {
