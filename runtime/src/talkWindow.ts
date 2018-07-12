@@ -53,13 +53,11 @@ class TalkWindow extends DisplayObjectContainer {
 
     update() {
         let contents: string[] = [];
-        if (this.mission.status == MissionStatus.CAN_ACCEPT) {
+        if (this.mission.status == MissionStatus.CAN_SUBMIT) {
+            contents = this.mission.canSubmitContent;
+        } else if (this.mission.status == MissionStatus.CAN_ACCEPT) {
             contents = this.mission.canAcceptContent;
         }
-        else if (this.mission.status == MissionStatus.CAN_SUBMIT) {
-            contents = this.mission.canSubmitContent;
-        }
-
 
         if (this.count >= contents.length) {
             this.dispatchEvent("talkWiondowClose", null);

@@ -432,6 +432,8 @@ class Mission {
     current: number = 0
     total: number = 1
     status: MissionStatus = MissionStatus.UNACCEPT
+    type = '';
+    talkTarget: Npc;
 
     going: Function;
     reward: Function;
@@ -442,6 +444,7 @@ class Mission {
     constructor(type: string, going: Function, reward: Function) {
         this.going = going;
         this.reward = reward;
+        this.type = type;
         player.addEventListener(type, this.going)
     }
 
@@ -456,7 +459,6 @@ class Mission {
         }
         else if (this.isAccepted) {
             if (this.current >= this.total) {
-                console.log("任务可以提交啦！！！");
 
                 nextStatus = MissionStatus.CAN_SUBMIT;
             } else {
@@ -519,12 +521,13 @@ class Npc {
         this.canAcceptMissions = [];
         this.canSubmitMissions = [];
         for (let mission of missionManager.missions) {
-            if (mission.status == MissionStatus.CAN_ACCEPT && mission.fromNpcId == this.id) {
-                this.canAcceptMissions.push(mission);
-            }
             if (mission.status == MissionStatus.CAN_SUBMIT && mission.toNpcId == this.id) {
                 this.canSubmitMissions.push(mission);
             }
+            if (mission.status == MissionStatus.CAN_ACCEPT && mission.fromNpcId == this.id) {
+                this.canAcceptMissions.push(mission);
+            }
+
         }
 
     }

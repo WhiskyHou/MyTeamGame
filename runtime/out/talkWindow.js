@@ -44,11 +44,11 @@ var TalkWindow = /** @class */ (function (_super) {
     }
     TalkWindow.prototype.update = function () {
         var contents = [];
-        if (this.mission.status == MissionStatus.CAN_ACCEPT) {
-            contents = this.mission.canAcceptContent;
-        }
-        else if (this.mission.status == MissionStatus.CAN_SUBMIT) {
+        if (this.mission.status == MissionStatus.CAN_SUBMIT) {
             contents = this.mission.canSubmitContent;
+        }
+        else if (this.mission.status == MissionStatus.CAN_ACCEPT) {
+            contents = this.mission.canAcceptContent;
         }
         if (this.count >= contents.length) {
             this.dispatchEvent("talkWiondowClose", null);

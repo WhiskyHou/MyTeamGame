@@ -221,6 +221,8 @@ class PickCommand extends Command {
  */
 class TalkCommand extends Command {
     npc: Npc;
+    // missionID: number = 100;
+
 
     constructor(npc: Npc) {
         super();
@@ -234,14 +236,15 @@ class TalkCommand extends Command {
         player.talk(this.npc);
 
         let mission: Mission | null = null;
+        console.log("可交任务长度" + this.npc.canSubmitMissions.length);
+        if (this.npc.canSubmitMissions.length > 0) {
+
+
+            mission = this.npc.canSubmitMissions[0];
+        }
         if (this.npc.canAcceptMissions.length > 0) {
             mission = this.npc.canAcceptMissions[0];
         }
-        if (this.npc.canSubmitMissions.length > 0) {
-            mission = this.npc.canSubmitMissions[0];
-        }
-
-        // console.log('任务长度' + missionManager.missions.length);
 
         if (mission) {
 
@@ -253,17 +256,20 @@ class TalkCommand extends Command {
                 talkUIContainer.deleteChild(talkWindow);
                 if (mission) {
                     console.log(mission.status);
-
-                    if (mission.status == MissionStatus.CAN_ACCEPT) {
+                    if (mission.status == MissionStatus.CAN_SUBMIT) {
+                        console.log(`完成任务: ${mission.toString()}`);
+                        missionManager.submit(mission);
+                    }
+                    else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log(`接受任务：${mission.toString()}`);
                         missionManager.accept(mission);
+                        if (mission.type == 'talkWithNpc') {
+                            player.talk(mission.talkTarget);
+                        }
                         if (this.npc.changeTypeID != 0) {
                             this.npc.changeType();//测试换类型！！！ 
                         }
 
-                    } else if (mission.status == MissionStatus.CAN_SUBMIT) {
-                        console.log(`完成任务: ${mission.toString()}`);
-                        missionManager.submit(mission);
                     }
                     callback();
                 }
