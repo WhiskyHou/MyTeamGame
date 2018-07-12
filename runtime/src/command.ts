@@ -175,6 +175,24 @@ class TalkCommand extends Command {
 
 
 /**
+ * 对话命令
+ */
+class ShopCommand extends Command {
+    npc: Npc;
+
+    constructor() {
+        super();
+    }
+
+
+    execute(callback: Function): void {
+        shpManager.openShop()
+        callback();
+    }
+}
+
+
+/**
  * 打架命令
  */
 class FightCommand extends Command {

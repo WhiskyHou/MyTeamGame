@@ -165,6 +165,20 @@ var TalkCommand = /** @class */ (function (_super) {
     return TalkCommand;
 }(Command));
 /**
+ * 对话命令
+ */
+var ShopCommand = /** @class */ (function (_super) {
+    __extends(ShopCommand, _super);
+    function ShopCommand() {
+        return _super.call(this) || this;
+    }
+    ShopCommand.prototype.execute = function (callback) {
+        shpManager.openShop();
+        callback();
+    };
+    return ShopCommand;
+}(Command));
+/**
  * 打架命令
  */
 var FightCommand = /** @class */ (function (_super) {
