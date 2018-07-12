@@ -205,6 +205,7 @@ var FightCommand = /** @class */ (function (_super) {
     FightCommand.prototype.execute = function (callback) {
         var _this = this;
         console.log("\u5F00\u59CB\u6253\u67B6\uFF1A" + this.monster.toString());
+        player.fight(this.monster);
         if (this.hasUselessTalk) {
             var uselessTalkWindow = new UselessTalkWindow(100, 150);
             talkUIContainer.addChild(uselessTalkWindow);
