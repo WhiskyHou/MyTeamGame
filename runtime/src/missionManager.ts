@@ -46,7 +46,7 @@ class MissionManager extends EventDispatcher {
             }
             let rewardFunc: Function;
             let rewardNumber = this.parseRewardString(item.reward)
-            rewardFunc = this.parseReward(rewardNumber)
+            rewardFunc = this.parseReward(rewardNumber)                                                                                                             
             let mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
