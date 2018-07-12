@@ -10,6 +10,9 @@ Resource.load('./assets/正面动画.png', "dust");
 Resource.load('./assets/Test动画.png', 'TestAnim');
 Resource.load('./assets/美术素材/动画/烟花爆炸2.png', "Anim");
 
+Resource.load('./assets/美术素材/框1.png', 'frame1')
+Resource.load('./assets/美术素材/框2.png', 'frame2')
+
 var loadingImg = new Image();
 loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
 
@@ -206,6 +209,19 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入�
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 
+//场景切换
+Resource.load('./assets/场景切换/校园', 'mapchange1');
+Resource.load('./assets/场景切换/操场', 'mapchange2');
+Resource.load('./assets/场景切换/家', 'mapchange3');
+Resource.load('./assets/场景切换/教室', 'mapchange4');
+Resource.load('./assets/场景切换/街道', 'mapchange5');
+Resource.load('./assets/场景切换/密室', 'mapchange6');
+Resource.load('./assets/场景切换/副本', 'mapchange7');
+Resource.load('./assets/场景切换/副本1', 'mapchange8');
+Resource.load('./assets/场景切换/副本2', 'mapchange9');
+Resource.load('./assets/场景切换/副本3', 'mapchange10');
+Resource.load('./assets/场景切换/副本4', 'mapchange11');
+
 //局部音乐
 const StartAudio = new Audio()
 StartAudio.src = "assets/音效/常规/创建角色.mp3"
@@ -319,6 +335,11 @@ npcManager.init(() => {
         });
     });
 });
+
+stages[3].addChild(new Bitmap(0, 0, Resource.get('frame1') as HTMLImageElement));
+stages[3].addChild(new Bitmap(0, 0, Resource.get('frame2') as HTMLImageElement));
+stages[3].addChild(new Bitmap(895, 0, Resource.get('frame1') as HTMLImageElement))
+stages[3].addChild(new Bitmap(0, 555, Resource.get('frame2') as HTMLImageElement))
 
 batManager.addEventListener("enemyDrop", (dropBox: number[]) => {
     batEndUI.dropTextGroup.deleteAll();
@@ -696,7 +717,7 @@ class CreateState extends State {
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
         player.view = new Bitmap(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE, playerIdleImg);
 
-        player.coin = 1000000;//测试用
+        // player.coin = 2;//测试用
     }
 
     onStartClick = (eventData: any) => {
@@ -761,8 +782,6 @@ class PlayingState extends State {
 
     camera: EmptyObject
 
-
-
     constructor() {
         super();
 
@@ -810,7 +829,7 @@ class PlayingState extends State {
         this.mapContainer.addChild(player.view);
 
         anim = player.view.addComponent(new PlayerAnimTest()) as PlayerAnimTest
-        anim.play();
+
         //this.mapContainer.addChild(animTemp);
 
         this.userUIContainer.addChild(this.userInfoUI);

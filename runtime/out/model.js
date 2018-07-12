@@ -40,7 +40,7 @@ var User = /** @class */ (function (_super) {
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
         // 以下测试用
-        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0);
+        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 1000); //36558
         var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         var eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         var eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
@@ -394,8 +394,11 @@ var Mission = /** @class */ (function () {
         this.current = 0;
         this.total = 1;
         this.status = MissionStatus.UNACCEPT;
+        this.type = '';
+        this.foreMissionID = 0;
         this.going = going;
         this.reward = reward;
+        this.type = type;
         player.addEventListener(type, this.going);
     }
     Mission.prototype.update = function () {
@@ -409,7 +412,6 @@ var Mission = /** @class */ (function () {
         }
         else if (this.isAccepted) {
             if (this.current >= this.total) {
-                console.log("任务可以提交啦！！！");
                 nextStatus = MissionStatus.CAN_SUBMIT;
             }
             else {
@@ -418,7 +420,18 @@ var Mission = /** @class */ (function () {
         }
         else {
             if (player.level >= this.needLevel) {
-                nextStatus = MissionStatus.CAN_ACCEPT;
+                if (this.foreMissionID == 0) {
+                    nextStatus = MissionStatus.CAN_ACCEPT;
+                }
+                else {
+                    for (var i = 0; i < missionManager.missions.length; i++) {
+                        if (missionManager.missions[i].id == this.foreMissionID) {
+                            if (missionManager.missions[i].status == MissionStatus.FINISH) {
+                                nextStatus = MissionStatus.CAN_ACCEPT;
+                            }
+                        }
+                    }
+                }
             }
         }
         if (nextStatus != this.status) {
@@ -459,11 +472,11 @@ var Npc = /** @class */ (function () {
         this.canSubmitMissions = [];
         for (var _i = 0, _a = missionManager.missions; _i < _a.length; _i++) {
             var mission = _a[_i];
-            if (mission.status == MissionStatus.CAN_ACCEPT && mission.fromNpcId == this.id) {
-                this.canAcceptMissions.push(mission);
-            }
             if (mission.status == MissionStatus.CAN_SUBMIT && mission.toNpcId == this.id) {
                 this.canSubmitMissions.push(mission);
+            }
+            if (mission.status == MissionStatus.CAN_ACCEPT && mission.fromNpcId == this.id) {
+                this.canAcceptMissions.push(mission);
             }
         }
     };
@@ -670,23 +683,23 @@ var Monster = /** @class */ (function (_super) {
                 map.roleContainer.addChild(npcView);
             }
         }
-        for (var i = 0; i < monsManager.monsterList.length; i++) {
-            if (monsManager.monsterList[i].id == this.changeTypeID) {
-                var mons = monsManager.monsterList[i];
-                mons.x = tempX;
-                mons.y = tempY;
-                var monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
-                var monsterItem = monsManager.monsterList[i];
-                // monsterItem.name = '队长';
-                // monsterItem.view = monsterView;
-                // monsterItem.hp = 120;
-                monsterItem.x = tempX;
-                monsterItem.y = tempY;
-                var key = tempX + '_' + tempY;
-                map.monsterConfig[key] = monsterItem;
-                map.roleContainer.addChild(monsterView);
-            }
-        }
+        // for (let i = 0; i < monsManager.monsterList.length; i++) {
+        //     if (monsManager.monsterList[i].id == this.changeTypeID) {
+        //         let mons = monsManager.monsterList[i];
+        //         mons.x = tempX;
+        //         mons.y = tempY;
+        //         const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
+        //         const monsterItem = monsManager.monsterList[i];
+        //         // monsterItem.name = '队长';
+        //         // monsterItem.view = monsterView;
+        //         // monsterItem.hp = 120;
+        //         monsterItem.x = tempX;
+        //         monsterItem.y = tempY;
+        //         const key = tempX + '_' + tempY;
+        //         map.monsterConfig[key] = monsterItem;
+        //         map.roleContainer.addChild(monsterView);
+        //     }
+        // }
     };
     return Monster;
 }(EventDispatcher));

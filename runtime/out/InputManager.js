@@ -33,12 +33,12 @@ var InputManager = /** @class */ (function (_super) {
     InputManager.prototype.CodeTOWords = function (code) {
         //字母：65 = A , 90 = Z ;上边的数字： 48 = 1 , 57 = 0
         var Words1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-        var Words2 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+        var Words2 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         if (code > 64 && code < 91) {
             return Words1[code - 65];
         }
-        else if (code > 48 && code < 59) {
-            return Words2[code - 49];
+        else if (code > 47 && code < 58) {
+            return Words2[code - 48];
         }
         else if (code == 32) {
             return " ";
@@ -49,31 +49,31 @@ var InputManager = /** @class */ (function (_super) {
     };
     InputManager.prototype.parse = function (code) {
         switch (code) {
-            case 76://L
+            case 76: //L
                 this.dispatchEvent('L', this.inputString);
                 break;
-            case 75://K
+            case 75: //K
                 this.dispatchEvent('K', this.inputString);
                 break;
-            case 73://I
+            case 73: //I
                 this.dispatchEvent('I', this.inputString);
                 break;
-            case 79://O
+            case 79: //O
                 this.dispatchEvent('O', this.inputString);
                 break;
-            case 8://BACK
+            case 8: //BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
-            case 13://Enter
+            case 13: //Enter
                 this.dispatchEvent('Enter', this.inputString);
                 break;
-            case 20://Caps Lock
+            case 20: //Caps Lock
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 9://Tab
+            case 9: //Tab
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 27://ESC
+            case 27: //ESC
                 this.dispatchEvent('Esc', this.inputString);
                 break;
         }
@@ -82,6 +82,11 @@ var InputManager = /** @class */ (function (_super) {
         var _this = this;
         this.addEventListener("inputStart", function (eventData) {
             if (!_this.inputOver) {
+                _this.inputString += _this.CodeTOWords(eventData);
+                console.log('你按下了', _this.inputString);
+                _this.dispatchEvent('inputChanged', _this.inputString);
+            }
+            if (_this.rechargeIsStart) {
                 _this.inputString += _this.CodeTOWords(eventData);
                 console.log('你按下了', _this.inputString);
                 _this.dispatchEvent('inputChanged', _this.inputString);
@@ -95,7 +100,7 @@ var InputManager = /** @class */ (function (_super) {
             }
             else {
                 _this.inputString += _this.CodeTOWords(eventData);
-                console.log('你按下了', _this.inputString);
+                console.log('你按下了2', _this.inputString);
                 _this.dispatchEvent('inputChanged', _this.inputString);
             }
         });
@@ -117,10 +122,13 @@ var InputManager = /** @class */ (function (_super) {
                 _this.inputString = _this.inputString.slice(0, _this.inputString.length - 1);
                 _this.dispatchEvent('inputChanged', _this.inputString);
             }
+            if (_this.rechargeIsStart) {
+                _this.inputString = _this.inputString.slice(0, _this.inputString.length - 1);
+                _this.dispatchEvent('inputChanged', _this.inputString);
+            }
         });
         this.addEventListener("Enter", function (eventData) {
             _this.inputOver = true;
-            _this.rechargeIsStart = false;
             _this.dispatchEvent('inputOver', _this.inputString);
         });
         this.addEventListener("Caps Lock", function (eventData) {
@@ -128,6 +136,9 @@ var InputManager = /** @class */ (function (_super) {
         this.addEventListener("Esc", function (eventData) {
             baManager.dispatchEvent('bagDown', player);
             shpManager.dispatchEvent('shopDown', player);
+        });
+        this.addEventListener('inputOver', function (eventData) {
+            _this.inputString = "";
         });
     };
     return InputManager;

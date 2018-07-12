@@ -391,6 +391,10 @@ var Bitmap = /** @class */ (function (_super) {
     Bitmap.prototype.render = function (context) {
         // 绘制的时候 context 已经通过矩阵运算变换到绘制坐标系了，所以给的位置信息都是0
         context.drawImage(this.img, 0, 0);
+        for (var _i = 0, _a = this.children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.render(context);
+        }
     };
     Bitmap.prototype.hitTest = function (point) {
         var width = this.img.width;

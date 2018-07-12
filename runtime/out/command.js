@@ -24,7 +24,7 @@ var WalkCommand = /** @class */ (function (_super) {
     }
     WalkCommand.prototype.execute = function (callback) {
         console.log("\u5F00\u59CB\u8D70\u8DEF\uFF01\uFF01\uFF01\u4ECE(" + this.fromX + ", " + this.fromY + ")\u51FA\u53D1");
-        ///anim.play();////
+        anim.play(); ////
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         var findpath = new astar.AStar();
@@ -53,7 +53,7 @@ var WalkCommand = /** @class */ (function (_super) {
             }
             else {
                 console.log("\u5230\u8FBE\u5730\u70B9\uFF01\uFF01\uFF01(" + _this.toX + "," + _this.toY + ")");
-                ///anim.end();////
+                anim.end(); ////
                 player.moveStatus = true;
                 callback();
                 return;
@@ -71,13 +71,93 @@ var PortalCommand = /** @class */ (function (_super) {
     function PortalCommand(portal) {
         var _this = _super.call(this) || this;
         _this.portal = portal;
+        _this.mapnameBitmap = new Bitmap(0, 0, Resource.get('mapchange1'));
+        _this.mapname = new TextField('', 400, 250, 50);
         return _this;
     }
     PortalCommand.prototype.execute = function () {
+        var _this = this;
         console.log("\u4F20\u9001\u76EE\u6807" + this.portal.toString());
         dynamicStage.deleteChild(map);
         map = mapManager.getMap(this.portal.to);
         map.addChild(player.view);
+        if (this.portal.to == 1) {
+            this.mapname = new TextField('- 校园 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 2) {
+            this.mapname = new TextField('- 操场 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 3) {
+            this.mapname = new TextField('- 家 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 4) {
+            this.mapname = new TextField('- 教室 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 5) {
+            this.mapname = new TextField('- 街道 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 6) {
+            this.mapname = new TextField('- 密室 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 7) {
+            this.mapname = new TextField('- 副本 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 8) {
+            this.mapname = new TextField('- 副本1 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 9) {
+            this.mapname = new TextField('- 副本2 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 10) {
+            this.mapname = new TextField('- 副本3 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
+        if (this.portal.to == 11) {
+            this.mapname = new TextField('- 副本4 -', 300, 200, 100);
+            staticStage.addChild(this.mapname);
+            setTimeout(function () {
+                staticStage.deleteChild(_this.mapname);
+            }, 2000);
+        }
         player.x = this.portal.targetRow;
         player.y = this.portal.targetCol;
         player.view.x = player.x * TILE_SIZE;
@@ -110,23 +190,23 @@ var PickCommand = /** @class */ (function (_super) {
  */
 var TalkCommand = /** @class */ (function (_super) {
     __extends(TalkCommand, _super);
+    // missionID: number = 100;
     function TalkCommand(npc) {
         var _this = _super.call(this) || this;
         _this.npc = npc;
         return _this;
     }
     TalkCommand.prototype.execute = function (callback) {
-        var _this = this;
         console.log("\u5F00\u59CB\u548CNPC\uFF1A" + this.npc.toString() + "\u5BF9\u8BDD");
         player.talk(this.npc);
         var mission = null;
-        if (this.npc.canAcceptMissions.length > 0) {
-            mission = this.npc.canAcceptMissions[0];
-        }
+        console.log("可交任务长度" + this.npc.canSubmitMissions.length);
         if (this.npc.canSubmitMissions.length > 0) {
             mission = this.npc.canSubmitMissions[0];
         }
-        // console.log('任务长度' + missionManager.missions.length);
+        if (this.npc.canAcceptMissions.length > 0) {
+            mission = this.npc.canAcceptMissions[0];
+        }
         if (mission) {
             var talkWindow_1 = new TalkWindow(100, 150);
             talkUIContainer.addChild(talkWindow_1);
@@ -136,16 +216,23 @@ var TalkCommand = /** @class */ (function (_super) {
                 talkUIContainer.deleteChild(talkWindow_1);
                 if (mission) {
                     console.log(mission.status);
-                    if (mission.status == MissionStatus.CAN_ACCEPT) {
-                        console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
-                        missionManager.accept(mission);
-                        if (_this.npc.changeTypeID != 0) {
-                            _this.npc.changeType(); //测试换类型！！！ 
-                        }
-                    }
-                    else if (mission.status == MissionStatus.CAN_SUBMIT) {
+                    if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
                         missionManager.submit(mission);
+                    }
+                    else if (mission.status == MissionStatus.CAN_ACCEPT) {
+                        console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
+                        missionManager.accept(mission);
+                        if (mission.type == 'talkWithNpc') {
+                            player.talk(mission.talkTarget);
+                        }
+                        if (mission.fightTarget) {
+                            console.log(mission.fightTarget.name + "变怪！！！");
+                            mission.fightTarget.changeType();
+                        }
+                        // if (this.npc.changeTypeID != 0) {
+                        //     this.npc.changeType();//测试换类型！！！ 
+                        // }
                     }
                     callback();
                 }
