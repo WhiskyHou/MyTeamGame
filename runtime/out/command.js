@@ -75,7 +75,8 @@ var PortalCommand = /** @class */ (function (_super) {
     }
     PortalCommand.prototype.execute = function () {
         console.log("\u4F20\u9001\u76EE\u6807" + this.portal.toString());
-        map = mapManager.getMap(this.portal.to - 1);
+        dynamicStage.deleteChild(map);
+        map = mapManager.getMap(this.portal.to);
         map.addChild(player.view);
         player.x = this.portal.targetRow;
         player.y = this.portal.targetCol;
@@ -164,6 +165,20 @@ var TalkCommand = /** @class */ (function (_super) {
         }
     };
     return TalkCommand;
+}(Command));
+/**
+ * 对话命令
+ */
+var ShopCommand = /** @class */ (function (_super) {
+    __extends(ShopCommand, _super);
+    function ShopCommand() {
+        return _super.call(this) || this;
+    }
+    ShopCommand.prototype.execute = function (callback) {
+        shpManager.openShop();
+        callback();
+    };
+    return ShopCommand;
 }(Command));
 /**
  * 打架命令
