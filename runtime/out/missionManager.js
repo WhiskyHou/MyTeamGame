@@ -17,6 +17,7 @@ var MissionManager = /** @class */ (function (_super) {
     function MissionManager() {
         var _this = _super.call(this) || this;
         _this.missions = [];
+        _this.safeLock = false;
         return _this;
     }
     MissionManager.prototype.init = function () {
@@ -41,6 +42,7 @@ var MissionManager = /** @class */ (function (_super) {
         this.dispatchEvent('missionUpdate', {});
     };
     MissionManager.prototype.parseFromConfig = function (config) {
+        var _this = this;
         var _loop_1 = function (item) {
             var going = item.going;
             var goingFunc = function (eventData) {
@@ -49,20 +51,16 @@ var MissionManager = /** @class */ (function (_super) {
                     mission.current++;
                 }
             };
-            var rewardFunc = void 0;
-            if (item.reward == 'levelUp') {
-                rewardFunc = function () {
-                    player.levelUp();
-                };
-            }
-            else if (item.reward == 'levelDown') {
-                rewardFunc = function () {
-                    player.levelDown();
-                };
-            }
-            else {
-                rewardFunc = function () { };
-            }
+            var rewardNumber = this_1.parseRewardString(item.reward);
+            var rewardFunc = function () {
+                if (_this.safeLock) {
+                    player.coin += rewardNumber[0];
+                    player.currentEXP += rewardNumber[1];
+                    if (rewardNumber[2] > 0) {
+                        player.packageEquipment.push(shpManager.getEquipment(rewardNumber[2]));
+                    }
+                }
+            };
             var mission = new Mission(going, goingFunc, rewardFunc);
             mission.id = item.id;
             mission.name = item.name;
@@ -72,6 +70,9 @@ var MissionManager = /** @class */ (function (_super) {
             mission.canAcceptContent = item.canAcceptConfig;
             mission.canSubmitContent = item.canSubmitConfig;
             mission.status = MissionStatus.UNACCEPT;
+            mission.addCoin = rewardNumber[0];
+            mission.addEXP = rewardNumber[1];
+            mission.equipment = shpManager.getEquipment(rewardNumber[2]);
             // console.log('任务名' + mission.name);
             this_1.missions.push(mission);
         };
@@ -88,6 +89,15 @@ var MissionManager = /** @class */ (function (_super) {
     MissionManager.prototype.submit = function (mission) {
         mission.isSubmit = true;
         this.update();
+    };
+    MissionManager.prototype.parseRewardString = function (reward) {
+        var rewards = reward.split(",");
+        var rewardNumber = [];
+        for (var _i = 0, rewards_1 = rewards; _i < rewards_1.length; _i++) {
+            var item = rewards_1[_i];
+            rewardNumber.push(parseInt(item));
+        }
+        return rewardNumber;
     };
     return MissionManager;
 }(EventDispatcher));

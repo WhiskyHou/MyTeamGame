@@ -307,6 +307,7 @@ npcManager.init(() => {
     monsManager.init(() => {
         equipManager.init(() => {
             equipSetInit(equipManager);
+            dungeonEquipSetInitequip(equipManager);
             shpManager.init(() => {
                 missionManager.init();
                 portalManager.init(() => {

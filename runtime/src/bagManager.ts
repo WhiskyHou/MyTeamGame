@@ -49,7 +49,13 @@ class bagManager extends EventDispatcher {
                 // dwiqhfoqwhfioqw
                 let con = this.nowEquipment as Consumable
                 console.log(con.id);
+
                 if (con.id == 1003) {//撒币技能书
+                    for (let i = 0; i < skillArray.length; i++) {
+                        if (skillArray[i].id == 3) {
+                            return;
+                        }
+                    }
                     skillArray.push(skillSabi);
                     this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber)
                     this.changeNowEquipment(this.nowNumber)
@@ -58,6 +64,11 @@ class bagManager extends EventDispatcher {
 
                 }
                 if (con.id == 1004) {//菜花宝典技能书
+                    for (let i = 0; i < skillArray.length; i++) {
+                        if (skillArray[i].id == 2) {
+                            return;
+                        }
+                    }
                     skillArray.push(skillCaihua);
                     this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber)
                     this.changeNowEquipment(this.nowNumber)
@@ -66,6 +77,11 @@ class bagManager extends EventDispatcher {
 
                 }
                 if (con.id == 1005) {//吸星大法技能书
+                    for (let i = 0; i < skillArray.length; i++) {
+                        if (skillArray[i].id == 7) {
+                            return;
+                        }
+                    }
                     skillArray.push(skillXixing);
                     this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber)
                     this.changeNowEquipment(this.nowNumber)
