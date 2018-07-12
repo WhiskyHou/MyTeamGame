@@ -1074,7 +1074,7 @@ var SettingUI = /** @class */ (function (_super) {
                 var event_1 = eventData;
                 _this.code = parseInt(event_1.slice(0, 24));
                 console.log(_this.code);
-                _this.rechargeInput = new MultiTextField(["请输入充值码"], 400, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
+                _this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
                 _this.addChild(_this.rechargeInput);
                 clickaudio.play();
             }
