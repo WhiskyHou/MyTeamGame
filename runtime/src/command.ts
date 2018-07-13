@@ -364,6 +364,8 @@ class FightCommand extends Command {
         }
 
         const batUI = new battleUI(0, 0);
+        const gameWinUi = new GameWinUI(0, 0);
+        // asdqwfwqfqwfwq16558
 
         const batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
@@ -375,6 +377,9 @@ class FightCommand extends Command {
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + this.monster.nowMapID);
+            if (this.monster.id == 24) {//狗策划
+                batteUIContainer.addChild(gameWinUi);
+            }
 
             this.monster.changeType();//此处测试换类型
             map.deleteMonster(this.monster);
