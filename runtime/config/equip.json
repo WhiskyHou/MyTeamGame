@@ -72,7 +72,7 @@
 		},
 		{
 			"id": "7",
-			"name": "石头",
+			"name": "榔头",
 			"quality": "1",
 			"posID": "0",
 			"health": "0",
@@ -282,52 +282,52 @@
 		},
 		{
 			"id": "28",
-			"name": "【套】高级西服",
-			"quality": "5",
+			"name": "高级西服",
+			"quality": "6",
 			"posID": "1",
-			"health": "40",
+			"health": "100",
 			"attack": "0",
-			"criticalPer": "0",
+			"criticalPer": "8",
 			"charm": "100"
 		},
 		{
 			"id": "29",
-			"name": "【套】高级西裤",
-			"quality": "5",
+			"name": "高级西裤",
+			"quality": "6",
 			"posID": "3",
-			"health": "40",
+			"health": "100",
 			"attack": "0",
-			"criticalPer": "0",
+			"criticalPer": "8",
 			"charm": "100"
 		},
 		{
 			"id": "30",
-			"name": "【套】高级手表",
-			"quality": "5",
+			"name": "高级手表",
+			"quality": "6",
 			"posID": "2",
-			"health": "40",
+			"health": "100",
 			"attack": "0",
-			"criticalPer": "0",
+			"criticalPer": "8",
 			"charm": "100"
 		},
 		{
 			"id": "31",
-			"name": "【套】高级手机",
-			"quality": "5",
+			"name": "高级手机",
+			"quality": "6",
 			"posID": "4",
-			"health": "40",
+			"health": "100",
 			"attack": "0",
-			"criticalPer": "0",
+			"criticalPer": "8",
 			"charm": "100"
 		},
 		{
 			"id": "32",
-			"name": "【套】高级皮鞋",
-			"quality": "5",
+			"name": "高级皮鞋",
+			"quality": "6",
 			"posID": "5",
-			"health": "40",
+			"health": "100",
 			"attack": "0",
-			"criticalPer": "0",
+			"criticalPer": "8",
 			"charm": "100"
 		},
 		{
@@ -395,7 +395,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "100"
-        },
+		},
 		{
 			"id": "1003",
 			"name": "撒币大法技能书",
@@ -403,7 +403,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0"
-        },
+		},
 		{
 			"id": "1004",
 			"name": "菜花宝典技能书",
