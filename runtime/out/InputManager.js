@@ -116,11 +116,12 @@ var InputManager = /** @class */ (function (_super) {
             //背包快捷键
             if (_this.bagIsOpen) {
                 baManager.bagDown();
+                _this.bagIsOpen = false;
             }
             else {
                 baManager.openBag();
+                _this.bagIsOpen = true;
             }
-            _this.bagIsOpen = !_this.bagIsOpen;
         });
         this.addEventListener("O", function (eventData) {
             //设置快捷键

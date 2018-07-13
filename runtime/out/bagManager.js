@@ -26,6 +26,7 @@ var bagManager = /** @class */ (function (_super) {
         console.log('你打开背包');
         this.dispatchEvent('openBag', player);
         this.bagWeapon();
+        inputManager.bagIsOpen = true;
     };
     bagManager.prototype.bagOn = function () {
         var _this = this;
@@ -164,6 +165,7 @@ var bagManager = /** @class */ (function (_super) {
     bagManager.prototype.bagDown = function () {
         this.dispatchEvent('bagDown', player);
         console.log('你关闭了窗口');
+        inputManager.bagIsOpen = false;
     };
     bagManager.prototype.bagRight = function () {
         console.log('你点击了右键');
