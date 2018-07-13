@@ -1449,6 +1449,7 @@ class GameWinUI extends DisplayObjectContainer {
 
         this.replayButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneWin", null);
+            mainaudio.play();
         })
 
         this.endButton.addEventListener("onClick", (eventData: any) => {

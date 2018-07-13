@@ -1174,6 +1174,7 @@ var GameWinUI = /** @class */ (function (_super) {
         _this.addChild(_this.endButton);
         _this.replayButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
+            mainaudio.play();
         });
         _this.endButton.addEventListener("onClick", function (eventData) {
             history.go(0);

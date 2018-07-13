@@ -323,6 +323,10 @@ var FightCommand = /** @class */ (function (_super) {
             console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
             if (_this.monster.id == 24) { //狗策划
                 batteUIContainer.addChild(gameWinUi);
+                setTimeout(function () {
+                    mainaudio.end();
+                    FinishAudio.play();
+                }, 2200);
             }
             _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);
