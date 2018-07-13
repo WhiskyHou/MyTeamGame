@@ -89,6 +89,7 @@ var GameMap = /** @class */ (function (_super) {
                             npcView.y = TILE_SIZE * i;
                             npc.x = j;
                             npc.y = i;
+                            npc.nowMapID = this.id;
                             var key = j + '_' + i;
                             this.npcConfig[key] = npc;
                             this.roleContainer.addChild(npcView);
@@ -172,6 +173,7 @@ var GameMap = /** @class */ (function (_super) {
                             monsterView.y = TILE_SIZE * i;
                             monster.x = j;
                             monster.y = i;
+                            monster.nowMapID = this.id;
                             var key = j + '_' + i;
                             this.monsterConfig[key] = monster;
                             this.roleContainer.addChild(monsterView);

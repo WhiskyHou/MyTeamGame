@@ -374,6 +374,8 @@ class FightCommand extends Command {
         }
         batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
+            console.log("现在怪物所在地图ID" + this.monster.nowMapID);
+
             this.monster.changeType();//此处测试换类型
             map.deleteMonster(this.monster);
 

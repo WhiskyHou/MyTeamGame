@@ -876,7 +876,6 @@ class PlayingState extends State {
             shopUIContainer.addChild(this.shpUI);
         });
 
-
         this.changePlayerViewPosture();
     }
     onUpdate(): void {
