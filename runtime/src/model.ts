@@ -247,8 +247,8 @@ class User extends EventDispatcher {
             this._level += 1;
             this._currentEXP = this._currentEXP - this._needEXP;
             this._needEXP = Math.floor(this._needEXP * 1.2);
-            this._originHealth += 2;
-            this._originAttack += 6;
+            this._originHealth += 6;
+            this._originAttack += 2;
             this._originMp += 10;
             this._mp = this._originMp;
             this.maxMp = this._originMp;
