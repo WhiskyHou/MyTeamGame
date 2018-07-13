@@ -38,7 +38,8 @@ class EquipmentManager {
             const addHP = parseInt(item.addHP);
             const addMP = parseInt(item.addMP);
             const addCharm = parseInt(item.addCharm);
-            let consum = new Consumable(id, name, posID, addHP, addMP, addCharm);
+            const addEXP = parseInt(item.addEXP);
+            let consum = new Consumable(id, name, posID, addHP, addMP, addCharm,addEXP);
             this.equipList.push(consum);
         }
     }

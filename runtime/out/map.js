@@ -156,7 +156,7 @@ var GameMap = /** @class */ (function (_super) {
                     this.itemContainer.addChild(equipmentView);
                 }
                 else if (id == 2) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, saoBaImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
@@ -167,7 +167,7 @@ var GameMap = /** @class */ (function (_super) {
                     this.itemContainer.addChild(equipmentView);
                 }
                 else if (id == 7) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, langTouImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
@@ -178,7 +178,7 @@ var GameMap = /** @class */ (function (_super) {
                     this.itemContainer.addChild(equipmentView);
                 }
                 else if (id == 1000) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, healthPotImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;

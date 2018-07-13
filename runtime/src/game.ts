@@ -284,6 +284,13 @@ let caihuaBookImg = new Image()
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png"
 let xiXingBookImg = new Image();
 xiXingBookImg.src = './assets/美术素材/场景/细节/纸团02.png'
+let saoBaImg = new Image();
+saoBaImg.src = './assets/美术素材/道具/道具（扫把）.png'
+let langTouImg = new Image();
+langTouImg.src = './assets/美术素材/道具/道具（锤子）.png'
+let healthPotImg = new Image();
+healthPotImg.src = './assets/美术素材/道具/药瓶.png'
+
 
 //胜利UI图片
 let gameWinBgImg = new Image();
@@ -622,7 +629,7 @@ class CreateState extends State {
     tips2Text: TextField;
     createaudio: AudioPlay;
 
-    canAssignPoint = 5;
+    canAssignPoint = 10;
     hasName = false;
     createPlayerButtonScript: CreatePlayerButtonScript;
 
@@ -634,7 +641,7 @@ class CreateState extends State {
         this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
         this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
-        this.canAssignPointText = new TextField("" + this.canAssignPoint, 573, 255, 30);
+        this.canAssignPointText = new TextField("" + this.canAssignPoint, 562, 255, 30);
         this.tipsText = new TextField("", 620, 260, 20);
         this.tips2Text = new TextField("", 350, 220, 20);
         this.hpAddButton = new Bitmap(630, 350, createAddButtonImg);
@@ -661,7 +668,7 @@ class CreateState extends State {
             this.playerHpText.text = "" + player._originHealth;
         });
         this.hpMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._originHealth > 60) {
+            if (this.canAssignPoint < 10 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 this.canAssignPoint++;
                 this.createPlayerButtonScript.canAssignPoint++;
@@ -683,7 +690,7 @@ class CreateState extends State {
             this.playerAttackText.text = "" + player._originAttack;
         });
         this.attackMinusButton.addEventListener("onClick", () => {
-            if (this.canAssignPoint < 5 && player._originAttack > 10) {
+            if (this.canAssignPoint < 10 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 this.canAssignPoint++;
                 this.createPlayerButtonScript.canAssignPoint++;

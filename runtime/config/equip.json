@@ -282,7 +282,7 @@
 		},
 		{
 			"id": "28",
-			"name": "高级西服",
+			"name": "真·高级西服",
 			"quality": "6",
 			"posID": "1",
 			"health": "100",
@@ -292,7 +292,7 @@
 		},
 		{
 			"id": "29",
-			"name": "高级西裤",
+			"name": "真·高级西裤",
 			"quality": "6",
 			"posID": "3",
 			"health": "100",
@@ -302,7 +302,7 @@
 		},
 		{
 			"id": "30",
-			"name": "高级手表",
+			"name": "真·高级手表",
 			"quality": "6",
 			"posID": "2",
 			"health": "100",
@@ -312,7 +312,7 @@
 		},
 		{
 			"id": "31",
-			"name": "高级手机",
+			"name": "真·高级手机",
 			"quality": "6",
 			"posID": "4",
 			"health": "100",
@@ -322,7 +322,7 @@
 		},
 		{
 			"id": "32",
-			"name": "高级皮鞋",
+			"name": "真·高级皮鞋",
 			"quality": "6",
 			"posID": "5",
 			"health": "100",
@@ -388,7 +388,8 @@
 			"posID": "7",
 			"addHP": "20",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1001",
@@ -396,7 +397,8 @@
 			"posID": "7",
 			"addHP": "0",
 			"addMP": "20",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1002",
@@ -404,7 +406,8 @@
 			"posID": "7",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "100"
+			"addCharm": "100",
+			"addEXP": "10"
 		},
 		{
 			"id": "1003",
@@ -412,7 +415,8 @@
 			"posID": "8",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1004",
@@ -420,7 +424,8 @@
 			"posID": "8",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1005",
@@ -428,7 +433,8 @@
 			"posID": "8",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1006",
@@ -436,7 +442,8 @@
 			"posID": "8",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1007",
@@ -444,7 +451,8 @@
 			"posID": "8",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
 		},
 		{
 			"id": "1008",
@@ -452,7 +460,17 @@
 			"posID": "8",
 			"addHP": "0",
 			"addMP": "0",
-			"addCharm": "0"
+			"addCharm": "0",
+			"addEXP": "10"
+		},
+		{
+			"id": "1009",
+			"name": "+10经验书",
+			"posID": "7",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0",
+			"addEXP": "10"
 		}
 	]
 }
