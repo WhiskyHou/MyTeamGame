@@ -287,10 +287,10 @@ class MissionUI extends DisplayObjectContainer {
 
         for (let i = 0; i < missionManager.missions.length; i++) {
             if (missionManager.missions[i].status == MissionStatus.DURRING || missionManager.missions[i].status == MissionStatus.CAN_SUBMIT) {
-                let missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+                let missionText = new TextField(missionManager.missions[i].name, 360, 80, 40);
 
                 for (let b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
-                    let missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    let missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 340, 150 + 20 * b, 10);
                     this.missionTextGroup.addChild(missionAcceptText);
                 }
                 this.missionTextGroup.addChild(missionText);
@@ -569,7 +569,7 @@ class shopUI extends DisplayObjectContainer {
         this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
 
         this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
-        this.productMultiInfoText = new MultiTextField([], 200, 400, 20, 5).setStringByNumber(shpManager.getNowProductInfo(shpManager.nowNumber),12)
+        this.productMultiInfoText = new MultiTextField([], 200, 400, 20, 5).setStringByNumber(shpManager.getNowProductInfo(shpManager.nowNumber), 12)
         this.ShopCoin = new TextField(shpManager.getNowProductPrice().toString(), 438, 453, 20);
 
         let blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
