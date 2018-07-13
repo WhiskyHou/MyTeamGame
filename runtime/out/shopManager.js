@@ -30,15 +30,19 @@ var shopManager = /** @class */ (function (_super) {
     };
     shopManager.prototype.shopBuy = function () {
         if (this.nowNumber > -1 && this.nowNumber < 100) {
-            this.buyaudio.play();
             var product = this.storeProduct[this.nowGroup][5 * this.nowPage + this.nowNumber];
             var price = product.price;
             var equipment = product.equipment;
-            player.coin -= price;
-            player.packageEquipment.push(equipment);
-            console.log('你购买了商品');
-            // this.nowNumber = -1
-            this.shopUpdate();
+            if (player.coin >= price) {
+                player.coin -= price;
+                player.packageEquipment.push(equipment);
+                console.log('你购买了商品');
+                this.buyaudio.play();
+                this.shopUpdate();
+            }
+            else {
+                //买不了东西的音效
+            }
         }
     };
     shopManager.prototype.changeNowProduct = function (num) {
@@ -111,16 +115,16 @@ var shopManager = /** @class */ (function (_super) {
         this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) { //武器
+        if (pos == 0) {
             return 0;
         }
-        else if (pos > 0 && pos < 7) { //防具
+        else if (pos > 0 && pos < 7) {
             return 1;
         }
-        else if (pos == 7) { //消耗品
+        else if (pos == 7) {
             return 2;
         }
-        else if (pos == 8) { //其他
+        else if (pos == 8) {
             return 3;
         }
         else {

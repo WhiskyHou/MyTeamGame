@@ -81,6 +81,7 @@ var PortalCommand = /** @class */ (function (_super) {
         dynamicStage.deleteAll();
         map = mapManager.getMap(this.portal.to);
         map.addChild(player.view);
+        changemapaudio.play();
         if (this.portal.to == 1) {
             this.mapname = new TextField('- 校园 -', 280, 200, 100);
             staticStage.addChild(this.mapname);

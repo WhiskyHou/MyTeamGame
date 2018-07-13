@@ -82,7 +82,7 @@ class PortalCommand extends Command {
 
         map = mapManager.getMap(this.portal.to) as GameMap
         map.addChild(player.view)
-
+        changemapaudio.play();
 
         if (this.portal.to == 1) {
             this.mapname = new TextField('- 校园 -', 280, 200, 100)
