@@ -84,12 +84,12 @@ class GameMap extends DisplayObjectContainer {
                 const item = row[j]
                 if (item != 0) {
                     const id = item;
-                    console.log(npcManager.npcList.length);
+                    // console.log(npcManager.npcList.length);
                     for (let npc of npcManager.npcList) {
                         if (npc.id == id) {
                             const npcView = npc.view;
                             const npcHead = npc.head;
-                            console.log(npcView.img.src)
+                            // console.log(npcView.img.src)
                             npcView.x = TILE_SIZE * j;
                             npcView.y = TILE_SIZE * i;
                             npc.x = j
@@ -198,7 +198,7 @@ class GameMap extends DisplayObjectContainer {
                 const item = row[j]
                 if (item != 0) {
                     const id = item
-                    console.log(monsManager.monsterList.length);
+                    // console.log(monsManager.monsterList.length);
                     for (let monster of monsManager.monsterList) {
 
                         if (monster.id == id) {

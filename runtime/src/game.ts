@@ -219,17 +219,17 @@ Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'Work
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 
 //场景切换
-Resource.load('./assets/场景切换/校园', 'mapchange1');
-Resource.load('./assets/场景切换/操场', 'mapchange2');
-Resource.load('./assets/场景切换/家', 'mapchange3');
-Resource.load('./assets/场景切换/教室', 'mapchange4')
-Resource.load('./assets/场景切换/街道', 'mapchange5');
-Resource.load('./assets/场景切换/密室', 'mapchange6');
-Resource.load('./assets/场景切换/副本', 'mapchange7');
-Resource.load('./assets/场景切换/副本1', 'mapchange8');
-Resource.load('./assets/场景切换/副本2', 'mapchange9');
-Resource.load('./assets/场景切换/副本3', 'mapchange10');
-Resource.load('./assets/场景切换/副本4', 'mapchange11');
+Resource.load('./assets/场景切换/校园.png', 'mapchange1');
+Resource.load('./assets/场景切换/操场.png', 'mapchange2');
+Resource.load('./assets/场景切换/家.png', 'mapchange3');
+Resource.load('./assets/场景切换/教室.png', 'mapchange4')
+Resource.load('./assets/场景切换/街道.png', 'mapchange5');
+Resource.load('./assets/场景切换/密室.png', 'mapchange6');
+Resource.load('./assets/场景切换/副本.png', 'mapchange7');
+Resource.load('./assets/场景切换/副本1.png', 'mapchange8');
+Resource.load('./assets/场景切换/副本2.png', 'mapchange9');
+Resource.load('./assets/场景切换/副本3.png', 'mapchange10');
+Resource.load('./assets/场景切换/副本4.png', 'mapchange11');
 
 //局部音乐
 const StartAudio = new Audio()
