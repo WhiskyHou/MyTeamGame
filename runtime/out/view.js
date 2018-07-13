@@ -19,6 +19,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
         _this.bloodUI1 = new Bitmap(90, 32, bloodUI1);
+        _this.bloodUI2 = new Bitmap(90, 38, bloodUI2);
         _this.userCoinUI = new Bitmap(350, 20, userCoinUI);
         _this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
         _this.userName = new TextField(player.name, 130, 12, 20);
@@ -37,6 +38,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         //
         _this.addChild(_this.bloodUI);
         _this.addChild(_this.bloodUI1);
+        _this.addChild(_this.bloodUI2);
         _this.addChild(_this.userCoinUI);
         _this.addChild(_this.userDiamondUI);
         _this.addChild(_this.userName);
