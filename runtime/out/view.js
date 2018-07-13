@@ -234,9 +234,9 @@ var MissionUI = /** @class */ (function (_super) {
         this.missionTextGroup.deleteAll();
         for (var i = 0; i < missionManager.missions.length; i++) {
             if (missionManager.missions[i].status == MissionStatus.DURRING || missionManager.missions[i].status == MissionStatus.CAN_SUBMIT) {
-                var missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+                var missionText = new TextField(missionManager.missions[i].name, 360, 80, 40);
                 for (var b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
-                    var missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    var missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 340, 150 + 20 * b, 10);
                     this.missionTextGroup.addChild(missionAcceptText);
                 }
                 this.missionTextGroup.addChild(missionText);
