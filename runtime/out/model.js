@@ -630,7 +630,19 @@ var Monster = /** @class */ (function (_super) {
         }
     };
     Monster.prototype.equipDropLv4 = function () {
-        return lv4DgSet.buildEquip();
+        var ran = Math.random() * 100;
+        // let ran = 98;
+        console.log("4级副本目前掉落值为：（大于98掉落真）" + ran);
+        // lv4掉率70% lv5掉率28% lv6掉率2%
+        if (ran >= 98) {
+            return lv4DgSet.buildEquip();
+        }
+        else if (ran >= 70) {
+            return lv5Set.buildEquip();
+        }
+        else {
+            return lv4Set.buildEquip();
+        }
     };
     Monster.prototype.makeDrop = function () {
         var equipBox = [];
