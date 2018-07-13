@@ -1302,26 +1302,32 @@ class SettingUI extends DisplayObjectContainer {
     backGround: Bitmap;
     on: Bitmap;
     off: Bitmap;
+    save: Bitmap;
+    load: Bitmap;
     backButton: Bitmap;
     blackMask: Bitmap;
     recharge: Bitmap;
     rechargeInput: MultiTextField;
     hasOn = false;
     oneTime = true;
-    code = 0;
+    code = "";
     constructor(x: number, y: number) {
         super(x, y);
         this.hasOn = true;
         this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1') as HTMLImageElement);
         this.on = new Bitmap(440, 195, Resource.get('SettingUI2') as HTMLImageElement);
         this.off = new Bitmap(500, 195, Resource.get('SettingUI3') as HTMLImageElement);
-        this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4') as HTMLImageElement);
+        this.save = new Bitmap(333, 248, Resource.get('SettingUI9') as HTMLImageElement);
+        this.load = new Bitmap(470, 248, Resource.get('SettingUI8') as HTMLImageElement);
+        this.backButton = new Bitmap(400, 296, Resource.get('SettingUI4') as HTMLImageElement);
         this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-        this.recharge = new Bitmap(425, 250, bagOnUI)
+        this.recharge = new Bitmap(400, 345, Resource.get('SettingUI7') as HTMLImageElement)
         this.addChild(this.blackMask);
         this.addChild(this.backGround);
         this.addChild(this.on);
         this.addChild(this.off);
+        this.addChild(this.save);
+        this.addChild(this.load);
         this.addChild(this.backButton);
         if (!inputManager.rechargeIsStart) {
             this.addChild(this.recharge);
@@ -1343,7 +1349,7 @@ class SettingUI extends DisplayObjectContainer {
                 this.deleteChild(this.rechargeInput)
                 if (!inputManager.oneTime) {
                     let event: string = eventData;
-                    this.code = parseInt(event.slice(0, 24))
+                    this.code = event.slice(0, 24)
                     console.log(this.code)
                     this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
                     this.addChild(this.rechargeInput)
@@ -1355,7 +1361,7 @@ class SettingUI extends DisplayObjectContainer {
         this.backButton.addEventListener("onClick", (eventData: any) => {
             this.deleteAll();
             this.rechargeInput = new MultiTextField([], 400, 250, 20, 10)
-            if (this.code == 1 && this.oneTime) {
+            if (this.code == "QWERASDFZXCVVFRCDEXSWZAQ" && this.oneTime) {
                 player.coin += 10000
             }
             this.oneTime = false

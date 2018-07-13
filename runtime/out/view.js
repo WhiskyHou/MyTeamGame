@@ -642,7 +642,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -663,7 +663,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -685,7 +685,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -709,7 +709,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -1054,18 +1054,22 @@ var SettingUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.hasOn = false;
         _this.oneTime = true;
-        _this.code = 0;
+        _this.code = "";
         _this.hasOn = true;
         _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
         _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
         _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
-        _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
+        _this.save = new Bitmap(333, 248, Resource.get('SettingUI9'));
+        _this.load = new Bitmap(470, 248, Resource.get('SettingUI8'));
+        _this.backButton = new Bitmap(400, 296, Resource.get('SettingUI4'));
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-        _this.recharge = new Bitmap(425, 250, bagOnUI);
+        _this.recharge = new Bitmap(400, 345, Resource.get('SettingUI7'));
         _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.on);
         _this.addChild(_this.off);
+        _this.addChild(_this.save);
+        _this.addChild(_this.load);
         _this.addChild(_this.backButton);
         if (!inputManager.rechargeIsStart) {
             _this.addChild(_this.recharge);
@@ -1086,7 +1090,7 @@ var SettingUI = /** @class */ (function (_super) {
                 _this.deleteChild(_this.rechargeInput);
                 if (!inputManager.oneTime) {
                     var event_1 = eventData;
-                    _this.code = parseInt(event_1.slice(0, 24));
+                    _this.code = event_1.slice(0, 24);
                     console.log(_this.code);
                     _this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
                     _this.addChild(_this.rechargeInput);
@@ -1097,7 +1101,7 @@ var SettingUI = /** @class */ (function (_super) {
         _this.backButton.addEventListener("onClick", function (eventData) {
             _this.deleteAll();
             _this.rechargeInput = new MultiTextField([], 400, 250, 20, 10);
-            if (_this.code == 1 && _this.oneTime) {
+            if (_this.code == "QWERASDFZXCVVFRCDEXSWZAQ" && _this.oneTime) {
                 player.coin += 10000;
             }
             _this.oneTime = false;
