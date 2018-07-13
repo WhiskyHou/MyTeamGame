@@ -21,8 +21,8 @@ Resource.load('./assets/美术素材/动画/烟花爆炸2.png', "Anim");
 Resource.load('./assets/美术素材/框1.png', 'frame1');
 Resource.load('./assets/美术素材/框2.png', 'frame2');
 var loadingImg = new Image();
-loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
-Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
+loadingImg.src = './assets/载入界面.png';
+Resource.load('./assets/载入界面.png', 'loging');
 var loadingBmp = new Bitmap(0, 0, Resource.get('loging'));
 var titleBGImg = new Image();
 titleBGImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/开始游戏主界面 底.png';
@@ -553,7 +553,7 @@ var CreateState = /** @class */ (function (_super) {
         _this.backGround = new Bitmap(0, 0, createBGImg);
         _this.startButton = new Bitmap(350, 430, createStartButtonImg);
         _this.onCreatePlayer();
-        _this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
+        _this.playerNameText = new TextField(' ? ? ? ', 552, 166, 30).centered();
         _this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 562, 255, 30);
@@ -637,7 +637,7 @@ var CreateState = /** @class */ (function (_super) {
                 staticStage.deleteChild(_this.playerNameText);
                 player.name = eventData;
                 console.log("mingzi:", eventData);
-                _this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
+                _this.playerNameText = new TextField(player.name, 552, 166, 30).centered();
                 staticStage.addChild(_this.playerNameText);
             }
         });

@@ -14,9 +14,9 @@ Resource.load('./assets/美术素材/框1.png', 'frame1')
 Resource.load('./assets/美术素材/框2.png', 'frame2')
 
 var loadingImg = new Image();
-loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+loadingImg.src = './assets/载入界面.png';
 
-Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
+Resource.load('./assets/载入界面.png', 'loging');
 let loadingBmp = new Bitmap(0, 0, Resource.get('loging') as HTMLImageElement);
 
 var titleBGImg = new Image();
@@ -650,7 +650,7 @@ class CreateState extends State {
         this.backGround = new Bitmap(0, 0, createBGImg);
         this.startButton = new Bitmap(350, 430, createStartButtonImg);
         this.onCreatePlayer();
-        this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
+        this.playerNameText = new TextField(' ? ? ? ', 552, 166, 30).centered();
         this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         this.canAssignPointText = new TextField("" + this.canAssignPoint, 562, 255, 30);
@@ -734,7 +734,7 @@ class CreateState extends State {
                 staticStage.deleteChild(this.playerNameText);
                 player.name = eventData
                 console.log("mingzi:", eventData)
-                this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
+                this.playerNameText = new TextField(player.name, 552, 166, 30).centered();
                 staticStage.addChild(this.playerNameText);
             }
         });
