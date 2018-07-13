@@ -646,7 +646,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) { //七伤拳判断血量
+            if (player.skill[0].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -667,7 +667,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) { //七伤拳判断血量
+            if (player.skill[1].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -689,7 +689,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) { //七伤拳判断血量
+            if (player.skill[2].id == 6) {
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -713,7 +713,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
+            if (ran <= 50 + player._level - _this.enemy.level) {
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -745,12 +745,14 @@ var battleUI = /** @class */ (function (_super) {
                                 _this.playerHpText.text = "" + _this.player._hp + " / " + _this.player.maxHP;
                                 _this.textGroup.addChild(textField);
                                 _this.index++;
+                                _this.indexJudge();
                             }
                             if (con.id == 1001) {
                                 var textField = new TextField(_this.player.name + " 使用 " + player.packageEquipment[i].name + " 回复了 " + Math.floor(_this.player.maxMp * con.addMP / 100) + " 点MP！", 0, _this.index * 20, 15);
                                 _this.textGroup.addChild(textField);
                                 _this.playerMpText.text = "" + _this.player._mp + " / " + _this.player.maxMp;
                                 _this.index++;
+                                _this.indexJudge();
                             }
                             player.packageEquipment.splice(i, 1);
                             _this.updateConsumCount();

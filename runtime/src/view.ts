@@ -918,6 +918,7 @@ class battleUI extends DisplayObjectContainer {
                                 this.playerHpText.text = "" + this.player._hp + " / " + this.player.maxHP
                                 this.textGroup.addChild(textField);
                                 this.index++;
+                                this.indexJudge();
                             }
 
                             if (con.id == 1001) {
@@ -925,6 +926,7 @@ class battleUI extends DisplayObjectContainer {
                                 this.textGroup.addChild(textField);
                                 this.playerMpText.text = "" + this.player._mp + " / " + this.player.maxMp;
                                 this.index++;
+                                this.indexJudge();
                             }
                             player.packageEquipment.splice(i, 1);
                             this.updateConsumCount();
