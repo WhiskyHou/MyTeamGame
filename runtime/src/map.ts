@@ -84,12 +84,12 @@ class GameMap extends DisplayObjectContainer {
                 const item = row[j]
                 if (item != 0) {
                     const id = item;
-                    console.log(npcManager.npcList.length);
+                    // console.log(npcManager.npcList.length);
                     for (let npc of npcManager.npcList) {
                         if (npc.id == id) {
                             const npcView = npc.view;
                             const npcHead = npc.head;
-                            console.log(npcView.img.src)
+                            // console.log(npcView.img.src)
                             npcView.x = TILE_SIZE * j;
                             npcView.y = TILE_SIZE * i;
                             npc.x = j
@@ -178,8 +178,8 @@ class GameMap extends DisplayObjectContainer {
                     this.itemContainer.addChild(equipmentView);
                 } else if (id == 1000) {
                     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, healthPotImg);
-                    let equip = equipManager.getEquipByID(id) as Equipment;
-                    const equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    let equip = equipManager.getEquipByID(id) as Consumable;
+                    const equipmentTiem = new Consumable(id, equip.name,equip.posID, equip.addHP, equip.addMP, equip.addCharm,equip.addEXP);
                     equipmentTiem.view = equipmentView;
                     equipmentTiem.x = j;
                     equipmentTiem.y = i;
@@ -189,6 +189,7 @@ class GameMap extends DisplayObjectContainer {
                 }
             }
         }
+    
 
         this.mapMonster = obj.monster as number[][];
         for (let i = 0; i < this.mapMonster.length; i++) {
@@ -197,7 +198,7 @@ class GameMap extends DisplayObjectContainer {
                 const item = row[j]
                 if (item != 0) {
                     const id = item
-                    console.log(monsManager.monsterList.length);
+                    // console.log(monsManager.monsterList.length);
                     for (let monster of monsManager.monsterList) {
 
                         if (monster.id == id) {
