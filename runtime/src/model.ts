@@ -732,8 +732,8 @@ class Monster extends EventDispatcher {
         // let ran = 98;
         console.log("4级副本目前掉落值为：（大于98掉落真）" + ran);
 
-        // lv4掉率70% lv5掉率28% lv6掉率2%
-        if (ran >= 98) {
+        // lv4掉率70% lv5掉率20% lv6掉率10%
+        if (ran >= 90) {
             return lv4DgSet.buildEquip();
         } else if (ran >= 70) {
             return lv5Set.buildEquip();
