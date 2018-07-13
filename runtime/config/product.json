@@ -58,49 +58,49 @@
 			"productID": "9",
 			"equipmentID": "1009",
 			"price": "20",
-			"description": "这个还不行，下面有个大的，你只要充钱就无敌了。"
+			"description": "嗑药使人快乐"
 		},
 		{
 			"productID": "10",
 			"equipmentID": "53",
 			"price": "1000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "请往左走，和策划聊天，你会知道，我想说什么。"
 		},
 		{
 			"productID": "11",
 			"equipmentID": "54",
 			"price": "1000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "我们的引擎可以支持各种功能，看看上面武器列表的第一件就知道了。"
 		},
 		{
 			"productID": "12",
 			"equipmentID": "55",
 			"price": "1000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "组内大哥，专业（坑）策划。"
 		},
 		{
 			"productID": "13",
 			"equipmentID": "56",
 			"price": "1000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "每天生产一万张素材的美术，数位板已经被戳了一个洞。"
 		},
 		{
 			"productID": "14",
 			"equipmentID": "57",
 			"price": "1000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "前端说他已经受不了真牛逼这句话了。"
 		},
 		{
 			"productID": "15",
 			"equipmentID": "58",
 			"price": "2000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "我们从美工转职到前端的全能型选手，口头禅是：真牛逼！"
 		},
 		{
 			"productID": "16",
 			"equipmentID": "1010",
 			"price": "1000",
-			"description": "充钱请联系齐老板，谢谢。"
+			"description": "大口嗑药，加倍快乐。"
 		}
 	]
 }
