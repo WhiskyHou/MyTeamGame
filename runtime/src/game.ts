@@ -297,7 +297,7 @@ const NPC5 = 5;
 
 const MONSTER = 1;
 
-const PLAYER_INDEX_X = 5;
+const PLAYER_INDEX_X = 10;
 const PLAYER_INDEX_Y = 5;
 const PLAYER_WALK_SPEED = 400;
 

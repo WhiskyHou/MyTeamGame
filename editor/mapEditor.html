@@ -9,6 +9,54 @@
 </head>
 
 <body>
+    <div>
+        <span>X:</span>
+        <input type="number" id="inputX">
+    </div>
+
+    <div>
+        <span>Y:</span>
+        <input type="number" id="inputY">
+    </div>
+
+    <button id="makeButton">submit</button>
+
+    <div id="buttonGroup"></div>
+
+    <div id="editorGroup">
+        <span>id:</span>
+        <input type="number" id="mapId">
+        <br>
+        <span>mane:</span>
+        <input type="text" id="mapName">
+        <br>
+        <span>tilePath:</span>
+        <input type="text" id="mapTilePath">
+        <br>
+        <span>item:</span>
+        <input type="text" id="mapItemPath">
+        <br>
+        <span>equipId:</span>
+        <input type="number" id="mapEquip" value="0">
+        <br>
+        <span>walkable:</span>
+        <input type="number" id="mapWalkable" value="0">
+        <br>
+        <span>npcId:</span>
+        <input type="number" id="mapNpc" value="0">
+        <br>
+        <span>monsterId:</span>
+        <input type="number" id="mapMonster" value="0">
+        <br>
+        <span>portalId:</span>
+        <input type="number" id="mapPortal" value="0">
+        <br>
+
+        <button id="submitButton">确认</button>
+    </div>
+
+
+    <script>require('./out/mapEditor.js')</script>
 
 </body>
 
