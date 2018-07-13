@@ -312,7 +312,7 @@ const NPC5 = 5;
 
 const MONSTER = 1;
 
-const PLAYER_INDEX_X = 5;
+const PLAYER_INDEX_X = 10;
 const PLAYER_INDEX_Y = 5;
 const PLAYER_WALK_SPEED = 400;
 
@@ -395,18 +395,20 @@ let skillSabi = new Skill(3, '撒币大法', 20);
 skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
 // skillArray.push(skillSabi);
 skillBase.push(skillSabi);
+
 let skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
-skillArray.push(skillBusi);
+// skillArray.push(skillBusi);策划前
 skillBase.push(skillBusi);
 let skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
-skillArray.push(skillGuolai);
+// skillArray.push(skillGuolai);智者
 skillBase.push(skillGuolai);
 let skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
-skillArray.push(skillQishang);
+// skillArray.push(skillQishang);基友
 skillBase.push(skillQishang);
+
 let skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
 // skillArray.push(skillXixing);
