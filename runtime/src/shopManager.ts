@@ -20,17 +20,19 @@ class shopManager extends EventDispatcher {
     }
     shopBuy(){
         if(this.nowNumber>-1 && this.nowNumber < 100){
-
-            this.buyaudio.play();
-
             let product = this.storeProduct[this.nowGroup][5*this.nowPage+this.nowNumber]
             let price = product.price
             let equipment = product.equipment
-            player.coin -= price
-            player.packageEquipment.push(equipment)
-            console.log('你购买了商品');
-            // this.nowNumber = -1
-            this.shopUpdate()
+            if(player.coin >= price){
+                player.coin -= price
+                player.packageEquipment.push(equipment)
+                console.log('你购买了商品');
+                this.buyaudio.play();
+                this.shopUpdate()
+            }
+            else{
+                //买不了东西的音效
+            }
         }
         
     }
