@@ -823,7 +823,7 @@ class PlayingState extends State {
 
     camera: EmptyObject
 
-    mapname:TextField
+    mapname: TextField
 
     isRestroring = true;
 
@@ -932,7 +932,7 @@ class PlayingState extends State {
         this.changePlayerViewPosture();
 
         this.mapname = new TextField('- 教室 -', 280, 200, 100)
-        
+
         //
         staticStage.addChild(this.mapname)
         setTimeout(() => {
@@ -952,6 +952,10 @@ class PlayingState extends State {
                     this.restorCount = 0;
                     player._hp += Math.ceil(player.maxHP * 0.01);
                     this.userInfoUI.HP.text = "" + player._hp + " / " + player.maxHP;
+                    if (player._mp < player.maxMp) {
+                        player._mp += Math.ceil(player.maxMp * 0.01);
+                        this.userInfoUI.MP.text = "" + player._mp + " / " + player.maxMp;
+                    }
                 }
             }
         }

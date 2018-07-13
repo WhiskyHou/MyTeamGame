@@ -795,6 +795,10 @@ var PlayingState = /** @class */ (function (_super) {
                     this.restorCount = 0;
                     player._hp += Math.ceil(player.maxHP * 0.01);
                     this.userInfoUI.HP.text = "" + player._hp + " / " + player.maxHP;
+                    if (player._mp < player.maxMp) {
+                        player._mp += Math.ceil(player.maxMp * 0.01);
+                        this.userInfoUI.MP.text = "" + player._mp + " / " + player.maxMp;
+                    }
                 }
             }
         }
