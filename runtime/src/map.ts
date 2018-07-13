@@ -5,6 +5,7 @@ class GameMap extends DisplayObjectContainer {
     id: number
 
     grid: astar.Grid;
+    mapMonster: number[][] = [];
 
     config = []
 
@@ -159,9 +160,9 @@ class GameMap extends DisplayObjectContainer {
             }
         }
 
-        const mapMonster = obj.monster as number[][];
-        for (let i = 0; i < mapMonster.length; i++) {
-            const row = mapMonster[i];
+        this.mapMonster = obj.monster as number[][];
+        for (let i = 0; i < this.mapMonster.length; i++) {
+            const row = this.mapMonster[i];
             for (let j = 0; j < row.length; j++) {
                 const item = row[j]
                 if (item != 0) {
@@ -209,7 +210,32 @@ class GameMap extends DisplayObjectContainer {
 
 
     reset() {
+        for (let i = 0; i < this.mapMonster.length; i++) {
+            const row = this.mapMonster[i];
+            for (let j = 0; j < row.length; j++) {
+                const item = row[j]
+                if (item != 0) {
+                    const id = item
+                    console.log(monsManager.monsterList.length);
+                    for (let monster of monsManager.monsterList) {
 
+                        if (monster.id == id) {
+                            monster.resetHP();
+                            const monsterView = monster.view;
+                            // const npcHead = npc.head;
+                            monsterView.x = TILE_SIZE * j;
+                            monsterView.y = TILE_SIZE * i;
+                            monster.x = j
+                            monster.y = i
+                            monster.nowMapID = this.id;
+                            const key = j + '_' + i;
+                            this.monsterConfig[key] = monster;
+                            this.roleContainer.addChild(monsterView);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

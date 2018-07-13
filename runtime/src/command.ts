@@ -374,7 +374,7 @@ class FightCommand extends Command {
             mainaudio.end();
             this.battleaudio.play();
         }
-        batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
+        batManager.addEventListener(this.monster.id + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + this.monster.nowMapID);
             if (this.monster.id == 24) {//狗策划

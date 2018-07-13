@@ -532,6 +532,9 @@ var Portal = /** @class */ (function (_super) {
         return _this;
     }
     Portal.prototype.toString = function () {
+        if (this.to == 8) {
+            mapManager.maps[this.to - 1].reset();
+        }
         return "[Portal ~ id:" + this.id + ", from:" + this.from + ", to:" + this.to + ", targetX:" + this.targetRow + ", targetY:" + this.targetCol + "]";
     };
     return Portal;
@@ -556,9 +559,11 @@ var Monster = /** @class */ (function (_super) {
         _this.changeTypeID = 0; //要转变成的NPC的ID
         _this.nowMapID = 0; //当前所处地图ID
         _this.uselessTalks = [];
+        _this.originHP = 0;
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
+        _this.originHP = hp;
         _this.attack = attack;
         _this.exp = exp;
         _this.coin = coin;
@@ -699,23 +704,9 @@ var Monster = /** @class */ (function (_super) {
                 mapManager.maps[mapCount].roleContainer.addChild(npcView);
             }
         }
-        // for (let i = 0; i < monsManager.monsterList.length; i++) {
-        //     if (monsManager.monsterList[i].id == this.changeTypeID) {
-        //         let mons = monsManager.monsterList[i];
-        //         mons.x = tempX;
-        //         mons.y = tempY;
-        //         const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
-        //         const monsterItem = monsManager.monsterList[i];
-        //         // monsterItem.name = '队长';
-        //         // monsterItem.view = monsterView;
-        //         // monsterItem.hp = 120;
-        //         monsterItem.x = tempX;
-        //         monsterItem.y = tempY;
-        //         const key = tempX + '_' + tempY;
-        //         map.monsterConfig[key] = monsterItem;
-        //         map.roleContainer.addChild(monsterView);
-        //     }
-        // }
+    };
+    Monster.prototype.resetHP = function () {
+        this.hp = this.originHP;
     };
     return Monster;
 }(EventDispatcher));

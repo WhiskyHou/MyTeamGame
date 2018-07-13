@@ -316,7 +316,7 @@ var FightCommand = /** @class */ (function (_super) {
             mainaudio.end();
             this.battleaudio.play();
         }
-        batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
+        batManager.addEventListener(this.monster.id + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
             if (_this.monster.id == 24) {

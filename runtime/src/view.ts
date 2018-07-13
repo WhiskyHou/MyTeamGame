@@ -1332,15 +1332,15 @@ class SettingUI extends DisplayObjectContainer {
         inputManager.addEventListener("inputChanged", (eventData: any) => {
             if (inputManager.rechargeIsStart) {
                 this.deleteChild(this.rechargeInput)
-                if(!inputManager.oneTime){
-                     let event: string = eventData;
-                this.code = parseInt(event.slice(0, 24))
-                console.log(this.code)
-                this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
-                this.addChild(this.rechargeInput)
-                clickaudio.play();
+                if (!inputManager.oneTime) {
+                    let event: string = eventData;
+                    this.code = parseInt(event.slice(0, 24))
+                    console.log(this.code)
+                    this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
+                    this.addChild(this.rechargeInput)
+                    clickaudio.play();
                 }
-               
+
             }
         })
         this.backButton.addEventListener("onClick", (eventData: any) => {
