@@ -36,8 +36,8 @@ class PlayerAnimTest extends Behaviour {
  */
 class CreatePlayerButtonScript extends Behaviour {
 
-    canAssignPoint: number = 5
-
+    canAssignPoint: number = 10
+    hasName = false;
     bigTag = true;
 
     onStart(): void {
@@ -45,7 +45,7 @@ class CreatePlayerButtonScript extends Behaviour {
     }
 
     onUpdate(delta: number): void {
-        if (this.canAssignPoint == 0) {
+        if (this.canAssignPoint == 0 && this.hasName) {
             this.heartBeatEffect(delta);
         } else {
             const startButton = this.gameObject as Bitmap

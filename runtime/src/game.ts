@@ -210,6 +210,9 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png'
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/充值按钮.png', 'SettingUI7');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI8');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI9');
 
 //制作团队
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
@@ -219,7 +222,7 @@ Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png'
 Resource.load('./assets/场景切换/校园', 'mapchange1');
 Resource.load('./assets/场景切换/操场', 'mapchange2');
 Resource.load('./assets/场景切换/家', 'mapchange3');
-Resource.load('./assets/场景切换/教室', 'mapchange4');
+Resource.load('./assets/场景切换/教室', 'mapchange4')
 Resource.load('./assets/场景切换/街道', 'mapchange5');
 Resource.load('./assets/场景切换/密室', 'mapchange6');
 Resource.load('./assets/场景切换/副本', 'mapchange7');
@@ -283,7 +286,7 @@ missionaudio.playOnlyOnce = true;
 let caihuaBookImg = new Image()
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png"
 let xiXingBookImg = new Image();
-xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团02.png'
 let saoBaImg = new Image();
 saoBaImg.src = './assets/美术素材/道具/道具（扫把）.png'
 let langTouImg = new Image();
@@ -727,6 +730,7 @@ class CreateState extends State {
             }
         });
         inputManager.addEventListener("inputOver", () => {
+            this.createPlayerButtonScript.hasName = true;
             this.hasName = true
         });
         // stage.addEventListener("onClick", this.onClick);

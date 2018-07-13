@@ -1054,18 +1054,22 @@ var SettingUI = /** @class */ (function (_super) {
         var _this = _super.call(this, x, y) || this;
         _this.hasOn = false;
         _this.oneTime = true;
-        _this.code = 0;
+        _this.code = "";
         _this.hasOn = true;
         _this.backGround = new Bitmap(290, 120, Resource.get('SettingUI1'));
         _this.on = new Bitmap(440, 195, Resource.get('SettingUI2'));
         _this.off = new Bitmap(500, 195, Resource.get('SettingUI3'));
-        _this.backButton = new Bitmap(400, 320, Resource.get('SettingUI4'));
+        _this.save = new Bitmap(333, 248, Resource.get('SettingUI9'));
+        _this.load = new Bitmap(470, 248, Resource.get('SettingUI8'));
+        _this.backButton = new Bitmap(400, 296, Resource.get('SettingUI4'));
         _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
-        _this.recharge = new Bitmap(425, 250, bagOnUI);
+        _this.recharge = new Bitmap(400, 345, Resource.get('SettingUI7'));
         _this.addChild(_this.blackMask);
         _this.addChild(_this.backGround);
         _this.addChild(_this.on);
         _this.addChild(_this.off);
+        _this.addChild(_this.save);
+        _this.addChild(_this.load);
         _this.addChild(_this.backButton);
         if (!inputManager.rechargeIsStart) {
             _this.addChild(_this.recharge);
@@ -1086,7 +1090,7 @@ var SettingUI = /** @class */ (function (_super) {
                 _this.deleteChild(_this.rechargeInput);
                 if (!inputManager.oneTime) {
                     var event_1 = eventData;
-                    _this.code = parseInt(event_1.slice(0, 24));
+                    _this.code = event_1.slice(0, 24);
                     console.log(_this.code);
                     _this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
                     _this.addChild(_this.rechargeInput);
@@ -1097,7 +1101,7 @@ var SettingUI = /** @class */ (function (_super) {
         _this.backButton.addEventListener("onClick", function (eventData) {
             _this.deleteAll();
             _this.rechargeInput = new MultiTextField([], 400, 250, 20, 10);
-            if (_this.code == 1 && _this.oneTime) {
+            if (_this.code == "QWERASDFZXCVVFRCDEXSWZAQ" && _this.oneTime) {
                 player.coin += 10000;
             }
             _this.oneTime = false;

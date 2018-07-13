@@ -197,6 +197,9 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/关.png'
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/返回游戏.png', 'SettingUI4');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI5');
 Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI6');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/充值按钮.png', 'SettingUI7');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/载入游戏.png', 'SettingUI8');
+Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存游戏.png', 'SettingUI9');
 //制作团队
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
@@ -258,7 +261,7 @@ missionaudio.playOnlyOnce = true;
 var caihuaBookImg = new Image();
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
 var xiXingBookImg = new Image();
-xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团02.png';
 var saoBaImg = new Image();
 saoBaImg.src = './assets/美术素材/道具/道具（扫把）.png';
 var langTouImg = new Image();
@@ -630,6 +633,7 @@ var CreateState = /** @class */ (function (_super) {
             }
         });
         inputManager.addEventListener("inputOver", function () {
+            _this.createPlayerButtonScript.hasName = true;
             _this.hasName = true;
         });
         // stage.addEventListener("onClick", this.onClick);
