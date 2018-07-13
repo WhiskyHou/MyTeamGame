@@ -14,9 +14,9 @@ Resource.load('./assets/美术素材/框1.png', 'frame1')
 Resource.load('./assets/美术素材/框2.png', 'frame2')
 
 var loadingImg = new Image();
-loadingImg.src = './assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png';
+loadingImg.src = './assets/载入界面.png';
 
-Resource.load('./assets/美术素材/UI/开始游戏界面/开始游戏界面 PNG/载入界面.png', 'loging');
+Resource.load('./assets/载入界面.png', 'loging');
 let loadingBmp = new Bitmap(0, 0, Resource.get('loging') as HTMLImageElement);
 
 var titleBGImg = new Image();
