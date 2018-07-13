@@ -20,7 +20,6 @@ var PlayerAnimTest = /** @class */ (function (_super) {
     PlayerAnimTest.prototype.onStart = function () {
         this.anim = new Animator(this.gameObject.x, this.gameObject.y, Resource.get('dust'), 128, 4, 0.2);
         this.gameObject.addChild(this.anim);
-        this.gameObject.img.src = "";
         this.anim.isLooping = true;
         this.anim.visible = true;
     };

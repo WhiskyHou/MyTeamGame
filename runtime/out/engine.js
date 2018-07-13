@@ -373,6 +373,10 @@ var EmptyObject = /** @class */ (function (_super) {
         return _super.call(this, x, y) || this;
     }
     EmptyObject.prototype.render = function (context) {
+        for (var _i = 0, _a = this.children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.render(context);
+        }
     };
     return EmptyObject;
 }(DisplayObject));

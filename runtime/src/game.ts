@@ -765,7 +765,7 @@ class CreateState extends State {
         player.x = PLAYER_INDEX_X;
         player.y = PLAYER_INDEX_Y;
         // player.view = new Bitmap(PLAYER_INDEX_X, PLAYER_INDEX_Y, van1);//TODO 检测
-        player.view = new Bitmap(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE, playerIdleImg);
+        player.view = new EmptyObject(PLAYER_INDEX_X * TILE_SIZE, PLAYER_INDEX_Y * TILE_SIZE);
 
         // player.coin = 2;//测试用
     }
