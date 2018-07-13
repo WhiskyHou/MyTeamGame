@@ -286,7 +286,7 @@ missionaudio.playOnlyOnce = true;
 let caihuaBookImg = new Image()
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png"
 let xiXingBookImg = new Image();
-xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团02.png'
 let saoBaImg = new Image();
 saoBaImg.src = './assets/美术素材/道具/道具（扫把）.png'
 let langTouImg = new Image();
@@ -730,6 +730,7 @@ class CreateState extends State {
             }
         });
         inputManager.addEventListener("inputOver", () => {
+            this.createPlayerButtonScript.hasName = true;
             this.hasName = true
         });
         // stage.addEventListener("onClick", this.onClick);

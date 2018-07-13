@@ -261,7 +261,7 @@ missionaudio.playOnlyOnce = true;
 var caihuaBookImg = new Image();
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
 var xiXingBookImg = new Image();
-xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团02.png';
 var saoBaImg = new Image();
 saoBaImg.src = './assets/美术素材/道具/道具（扫把）.png';
 var langTouImg = new Image();
@@ -633,6 +633,7 @@ var CreateState = /** @class */ (function (_super) {
             }
         });
         inputManager.addEventListener("inputOver", function () {
+            _this.createPlayerButtonScript.hasName = true;
             _this.hasName = true;
         });
         // stage.addEventListener("onClick", this.onClick);
