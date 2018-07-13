@@ -204,17 +204,17 @@ Resource.load('./assets/美术素材/UI/8 设置界面/设置界面 PNG/保存�
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队.png', 'WorkerUI1');
 Resource.load('./assets/美术素材/UI/12 制作团队/制作团队 返回.png', 'WorkerUI2');
 //场景切换
-Resource.load('./assets/场景切换/校园', 'mapchange1');
-Resource.load('./assets/场景切换/操场', 'mapchange2');
-Resource.load('./assets/场景切换/家', 'mapchange3');
-Resource.load('./assets/场景切换/教室', 'mapchange4');
-Resource.load('./assets/场景切换/街道', 'mapchange5');
-Resource.load('./assets/场景切换/密室', 'mapchange6');
-Resource.load('./assets/场景切换/副本', 'mapchange7');
-Resource.load('./assets/场景切换/副本1', 'mapchange8');
-Resource.load('./assets/场景切换/副本2', 'mapchange9');
-Resource.load('./assets/场景切换/副本3', 'mapchange10');
-Resource.load('./assets/场景切换/副本4', 'mapchange11');
+Resource.load('./assets/场景切换/校园.png', 'mapchange1');
+Resource.load('./assets/场景切换/操场.png', 'mapchange2');
+Resource.load('./assets/场景切换/家.png', 'mapchange3');
+Resource.load('./assets/场景切换/教室.png', 'mapchange4');
+Resource.load('./assets/场景切换/街道.png', 'mapchange5');
+Resource.load('./assets/场景切换/密室.png', 'mapchange6');
+Resource.load('./assets/场景切换/副本.png', 'mapchange7');
+Resource.load('./assets/场景切换/副本1.png', 'mapchange8');
+Resource.load('./assets/场景切换/副本2.png', 'mapchange9');
+Resource.load('./assets/场景切换/副本3.png', 'mapchange10');
+Resource.load('./assets/场景切换/副本4.png', 'mapchange11');
 //局部音乐
 var StartAudio = new Audio();
 StartAudio.src = "assets/音效/常规/创建角色.mp3";
@@ -682,6 +682,8 @@ var PlayingState = /** @class */ (function (_super) {
     __extends(PlayingState, _super);
     function PlayingState() {
         var _this = _super.call(this) || this;
+        _this.isRestroring = true;
+        _this.restorCount = 0;
         map = mapManager.getMap(4);
         talkUIContainer = new DisplayObjectContainer(0, 0);
         _this.mapContainer = new DisplayObjectContainer(0, 0);
@@ -765,12 +767,31 @@ var PlayingState = /** @class */ (function (_super) {
             _this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(_this.shpUI);
         });
+        batManager.addEventListener("enemyBattleStart", function (enemy) {
+            _this.isRestroring = false;
+        });
+        batManager.addEventListener('backSceneLose', function (enemy) {
+            _this.isRestroring = true;
+        });
+        batManager.addEventListener('backSceneWin', function (enemy) {
+            _this.isRestroring = true;
+        });
         this.changePlayerViewPosture();
     };
     PlayingState.prototype.onUpdate = function () {
         // this.playerViewMove();
         player.update();
         missionManager.update();
+        if (this.isRestroring) {
+            if (player._hp < player.maxHP) {
+                this.restorCount++;
+                if (this.restorCount == 300) {
+                    this.restorCount = 0;
+                    player._hp += Math.ceil(player.maxHP * 0.01);
+                    this.userInfoUI.HP.text = "" + player._hp + " / " + player.maxHP;
+                }
+            }
+        }
     };
     PlayingState.prototype.onExit = function () {
         staticStage.deleteAll();
