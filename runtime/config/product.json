@@ -58,7 +58,49 @@
 			"productID": "9",
 			"equipmentID": "1009",
 			"price": "20",
-			"description": "你只要充钱就无敌了。"
+			"description": "这个还不行，下面有个大的，你只要充钱就无敌了。"
+		},
+		{
+			"productID": "10",
+			"equipmentID": "53",
+			"price": "1000",
+			"description": "充钱请联系齐老板，谢谢。"
+		},
+		{
+			"productID": "11",
+			"equipmentID": "54",
+			"price": "1000",
+			"description": "充钱请联系齐老板，谢谢。"
+		},
+		{
+			"productID": "12",
+			"equipmentID": "55",
+			"price": "1000",
+			"description": "充钱请联系齐老板，谢谢。"
+		},
+		{
+			"productID": "13",
+			"equipmentID": "56",
+			"price": "1000",
+			"description": "充钱请联系齐老板，谢谢。"
+		},
+		{
+			"productID": "14",
+			"equipmentID": "57",
+			"price": "1000",
+			"description": "充钱请联系齐老板，谢谢。"
+		},
+		{
+			"productID": "15",
+			"equipmentID": "58",
+			"price": "2000",
+			"description": "充钱请联系齐老板，谢谢。"
+		},
+		{
+			"productID": "16",
+			"equipmentID": "1010",
+			"price": "1000",
+			"description": "充钱请联系齐老板，谢谢。"
 		}
 	]
 }

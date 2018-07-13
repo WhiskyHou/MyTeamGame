@@ -63,7 +63,7 @@
 		{
 			"id": "6",
 			"name": "真·金砖",
-			"quality": "5",
+			"quality": "6",
 			"posID": "0",
 			"health": "0",
 			"attack": "50",
@@ -379,6 +379,227 @@
 			"attack": "0",
 			"criticalPer": "0",
 			"charm": "0"
+		},
+		{
+			"id": "37",
+			"name": "大橙武",
+			"quality": "5",
+			"posID": "0",
+			"health": "0",
+			"attack": "35",
+			"criticalPer": "20",
+			"charm": "80"
+		},
+		{
+			"id": "38",
+			"name": "【深渊恶魔】衣服",
+			"quality": "5",
+			"posID": "1",
+			"health": "60",
+			"attack": "3",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "39",
+			"name": "【深渊恶魔】裤子",
+			"quality": "5",
+			"posID": "3",
+			"health": "60",
+			"attack": "3",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "40",
+			"name": "【深渊恶魔】手表",
+			"quality": "5",
+			"posID": "2",
+			"health": "60",
+			"attack": "3",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "41",
+			"name": "【深渊恶魔】手机",
+			"quality": "5",
+			"posID": "4",
+			"health": "60",
+			"attack": "3",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "42",
+			"name": "【深渊恶魔】鞋子",
+			"quality": "5",
+			"posID": "5",
+			"health": "60",
+			"attack": "3",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "43",
+			"name": "【时光轨迹】衣服",
+			"quality": "5",
+			"posID": "1",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "44",
+			"name": "【时光轨迹】裤子",
+			"quality": "5",
+			"posID": "3",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "45",
+			"name": "【时光轨迹】手表",
+			"quality": "5",
+			"posID": "2",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "46",
+			"name": "【时光轨迹】手机",
+			"quality": "5",
+			"posID": "4",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "47",
+			"name": "【时光轨迹】鞋子",
+			"quality": "5",
+			"posID": "5",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "0",
+			"charm": "80"
+		},
+		{
+			"id": "48",
+			"name": "【光怪陆离】衣服",
+			"quality": "5",
+			"posID": "1",
+			"health": "70",
+			"attack": "0",
+			"criticalPer": "5",
+			"charm": "80"
+		},
+		{
+			"id": "49",
+			"name": "【光怪陆离】裤子",
+			"quality": "5",
+			"posID": "3",
+			"health": "70",
+			"attack": "0",
+			"criticalPer": "5",
+			"charm": "80"
+		},
+		{
+			"id": "50",
+			"name": "【光怪陆离】手表",
+			"quality": "5",
+			"posID": "2",
+			"health": "70",
+			"attack": "0",
+			"criticalPer": "5",
+			"charm": "80"
+		},
+		{
+			"id": "51",
+			"name": "【光怪陆离】手机",
+			"quality": "5",
+			"posID": "4",
+			"health": "70",
+			"attack": "0",
+			"criticalPer": "5",
+			"charm": "80"
+		},
+		{
+			"id": "52",
+			"name": "【光怪陆离】鞋子",
+			"quality": "5",
+			"posID": "5",
+			"health": "70",
+			"attack": "0",
+			"criticalPer": "5",
+			"charm": "80"
+		}
+		,
+		{
+			"id": "53",
+			"name": "策划狗的斗篷",
+			"quality": "6",
+			"posID": "1",
+			"health": "200",
+			"attack": "10",
+			"criticalPer": "10",
+			"charm": "200"
+		},
+		{
+			"id": "54",
+			"name": "引擎怪的围裙",
+			"quality": "6",
+			"posID": "3",
+			"health": "200",
+			"attack": "10",
+			"criticalPer": "10",
+			"charm": "100"
+		},
+		{
+			"id": "55",
+			"name": "大哥买的金表",
+			"quality": "6",
+			"posID": "2",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "10",
+			"charm": "300"
+		},
+		{
+			"id": "56",
+			"name": "美工的数位板",
+			"quality": "6",
+			"posID": "4",
+			"health": "100",
+			"attack": "20",
+			"criticalPer": "10",
+			"charm": "200"
+		},
+		{
+			"id": "57",
+			"name": "前端的飞毛腿",
+			"quality": "6",
+			"posID": "5",
+			"health": "300",
+			"attack": "0",
+			"criticalPer": "10",
+			"charm": "100"
+		},
+		{
+			"id": "58",
+			"name": "真牛逼！",
+			"quality": "6",
+			"posID": "0",
+			"health": "0",
+			"attack": "100",
+			"criticalPer": "50",
+			"charm": "100"
 		}
 	],
 	"consumable": [
@@ -471,6 +692,15 @@
 			"addMP": "0",
 			"addCharm": "0",
 			"addEXP": "10"
+		},
+		{
+			"id": "1010",
+			"name": "+500经验书",
+			"posID": "7",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0",
+			"addEXP": "500"
 		}
 	]
 }

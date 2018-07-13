@@ -523,6 +523,10 @@ var shopUI = /** @class */ (function (_super) {
             shpManager.changeNowProduct(3);
             clickaudio.play();
         });
+        _this.ShopText5.addEventListener("onClick", function (eventData) {
+            shpManager.changeNowProduct(4);
+            clickaudio.play();
+        });
         return _this;
     }
     shopUI.prototype.changeEquipmentInfo = function (equip) {
@@ -1121,6 +1125,10 @@ var SettingUI = /** @class */ (function (_super) {
             HPMPAudio.src = "assets/音效/dnf/药水.mp3";
             MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
             ClickAudio.src = "assets/音效/常规/单击.mp3";
+            FinishAudio.src = "assets/音效/常规/游戏胜利完成.mp3";
+            ChangeMapAudio.src = "assets/音效/dnf/瞬移（传送）.mp3";
+            LevelUpAudio.src = "assets/音效/常规/升级1.mp3";
+            MissionAudio.src = "assets/音效/常规/奖励.mp3";
             clickaudio.play();
             mainaudio.play();
         });
@@ -1137,6 +1145,10 @@ var SettingUI = /** @class */ (function (_super) {
             HPMPAudio.src = "assets/音效/dnf/静音.mp3";
             MainAudio.src = "assets/音效/dnf/静音.mp3";
             ClickAudio.src = "assets/音效/dnf/静音.mp3";
+            FinishAudio.src = "assets/音效/dnf/静音.mp3";
+            ChangeMapAudio.src = "assets/音效/dnf/静音.mp3";
+            LevelUpAudio.src = "assets/音效/dnf/静音.mp33";
+            MissionAudio.src = "assets/音效/dnf/静音.mp3";
         });
         return _this;
     }
