@@ -112,7 +112,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "诸葛亮",
-			"reward": "0,0,0"
+			"reward": "0,0,999"
 		},
 		{
 			"id": "6",

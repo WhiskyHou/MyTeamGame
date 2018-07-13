@@ -65,7 +65,9 @@ class MissionManager extends EventDispatcher {
             mission.status = MissionStatus.UNACCEPT;
             mission.addCoin = rewardNumber[0]
             mission.addEXP = rewardNumber[1]
-            mission.equipment = shpManager.getEquipment(rewardNumber[2])
+            if(rewardNumber[2]>0){
+                mission.equipment = shpManager.getEquipment(rewardNumber[2])
+            }
             // console.log('任务名' + mission.name);
             for (let i = 0; i < npcManager.npcList.length; i++) {
                 if (npcManager.npcList[i].name == item.goingFunc && item.going == "talkWithNpc") {
