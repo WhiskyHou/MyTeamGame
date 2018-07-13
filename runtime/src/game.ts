@@ -942,7 +942,6 @@ class PlayingState extends State {
                     this.restorCount = 0;
                     player._hp += Math.ceil(player.maxHP * 0.01);
                     this.userInfoUI.HP.text = "" + player._hp + " / " + player.maxHP;
-
                 }
             }
         }
