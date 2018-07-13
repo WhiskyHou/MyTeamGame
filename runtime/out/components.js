@@ -46,14 +46,15 @@ var CreatePlayerButtonScript = /** @class */ (function (_super) {
     __extends(CreatePlayerButtonScript, _super);
     function CreatePlayerButtonScript() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.canAssignPoint = 5;
+        _this.canAssignPoint = 10;
+        _this.hasName = false;
         _this.bigTag = true;
         return _this;
     }
     CreatePlayerButtonScript.prototype.onStart = function () {
     };
     CreatePlayerButtonScript.prototype.onUpdate = function (delta) {
-        if (this.canAssignPoint == 0) {
+        if (this.canAssignPoint == 0 && this.hasName) {
             this.heartBeatEffect(delta);
         }
         else {
