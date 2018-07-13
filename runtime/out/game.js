@@ -123,6 +123,10 @@ var MissionButton = new Image();
 MissionButton.src = './assets/1 60x80 任务ui.png';
 var bloodUI = new Image();
 bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
+var bloodUI1 = new Image();
+bloodUI1.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改1.png';
+var bloodUI2 = new Image();
+bloodUI2.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改2.png';
 var userCoinUI = new Image();
 userCoinUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
 var userDiamondUI = new Image();
@@ -225,15 +229,25 @@ var BuyAudio = new Audio();
 BuyAudio.src = "assets/音效/常规/金币.mp3";
 var HPMPAudio = new Audio();
 HPMPAudio.src = "assets/音效/dnf/药水.mp3";
+var FinishAudio = new Audio();
+FinishAudio.src = "assets/音效/常规/游戏胜利完成.mp3";
 //全局音乐控制
 var MainAudio = new Audio();
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3";
 var ClickAudio = new Audio();
 ClickAudio.src = "assets/音效/常规/单击.mp3";
+var ChangeMapAudio = new Audio();
+ChangeMapAudio.src = "assets/音效/dnf/瞬移（传送）.mp3";
+var LevelUpAudio = new Audio();
+LevelUpAudio.src = "assets/音效/常规/升级1.mp3";
 var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
+var changemapaudio = new AudioPlay(ChangeMapAudio);
+var levelupaudio = new AudioPlay(LevelUpAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
+levelupaudio.playOnlyOnce = true;
+changemapaudio.playOnlyOnce = true;
 //装备道具图片
 var caihuaBookImg = new Image();
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
@@ -265,9 +279,9 @@ var NPC3 = 3;
 var NPC4 = 4;
 var NPC5 = 5;
 var MONSTER = 1;
-var PLAYER_INDEX_X = 8;
+var PLAYER_INDEX_X = 10;
 var PLAYER_INDEX_Y = 5;
-var PLAYER_WALK_SPEED = 200;
+var PLAYER_WALK_SPEED = 400;
 var staticStage = stages[2];
 var dynamicStage = stages[0];
 var player = new User();
@@ -340,15 +354,15 @@ skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
 skillBase.push(skillSabi);
 var skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
-skillArray.push(skillBusi);
+// skillArray.push(skillBusi);策划前
 skillBase.push(skillBusi);
 var skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
-skillArray.push(skillGuolai);
+// skillArray.push(skillGuolai);智者
 skillBase.push(skillGuolai);
 var skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
-skillArray.push(skillQishang);
+// skillArray.push(skillQishang);基友
 skillBase.push(skillQishang);
 var skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
@@ -645,7 +659,7 @@ var PlayingState = /** @class */ (function (_super) {
     __extends(PlayingState, _super);
     function PlayingState() {
         var _this = _super.call(this) || this;
-        map = mapManager.getMap(1);
+        map = mapManager.getMap(4);
         talkUIContainer = new DisplayObjectContainer(0, 0);
         _this.mapContainer = new DisplayObjectContainer(0, 0);
         _this.userUIContainer = new DisplayObjectContainer(0, 0);

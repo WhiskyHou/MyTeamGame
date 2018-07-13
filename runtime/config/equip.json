@@ -419,6 +419,30 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0"
+		},
+		{
+			"id": "1006",
+			"name": "英雄不死技能书",
+			"posID": "8",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0"
+		},
+		{
+			"id": "1007",
+			"name": "你过来啊技能书",
+			"posID": "8",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0"
+		},
+		{
+			"id": "1008",
+			"name": "七伤拳技能书",
+			"posID": "8",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0"
 		}
 	]
 }

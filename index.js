@@ -22,7 +22,7 @@ function initEditor(gameUrl) {
     // fs.writeFileSync(configFilepath, JSON.stringify(data, null, '\t', 'utf-8'));
 
     window = new BrowserWindow({ width: 1920, height: 1000 });
-    const editorUrl = 'file://' + __dirname + '/editor/index.html?gameUrl=' + encodeURIComponent(gameUrl);
+    const editorUrl = 'file://' + __dirname + '/editor/mapEditor.html?gameUrl=' + encodeURIComponent(gameUrl);
     window.loadURL(editorUrl);
     window.openDevTools();
 }

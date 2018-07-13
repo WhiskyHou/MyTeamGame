@@ -18,6 +18,8 @@ var UserInfoUI = /** @class */ (function (_super) {
     function UserInfoUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
+        _this.bloodUI1 = new Bitmap(90, 32, bloodUI1);
+        _this.bloodUI2 = new Bitmap(90, 38, bloodUI2);
         _this.userCoinUI = new Bitmap(350, 20, userCoinUI);
         _this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
         _this.userName = new TextField(player.name, 130, 12, 20);
@@ -35,6 +37,8 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.missionButton = new Bitmap(610, 475, MissionButton);
         //
         _this.addChild(_this.bloodUI);
+        _this.addChild(_this.bloodUI1);
+        _this.addChild(_this.bloodUI2);
         _this.addChild(_this.userCoinUI);
         _this.addChild(_this.userDiamondUI);
         _this.addChild(_this.userName);
@@ -230,9 +234,9 @@ var MissionUI = /** @class */ (function (_super) {
         this.missionTextGroup.deleteAll();
         for (var i = 0; i < missionManager.missions.length; i++) {
             if (missionManager.missions[i].status == MissionStatus.DURRING || missionManager.missions[i].status == MissionStatus.CAN_SUBMIT) {
-                var missionText = new TextField(missionManager.missions[i].name, 375, 100, 40);
+                var missionText = new TextField(missionManager.missions[i].name, 360, 80, 40);
                 for (var b = 0; b < missionManager.missions[i].canAcceptContent.length; b++) {
-                    var missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 390, 180 + 25 * b, 20);
+                    var missionAcceptText = new TextField(missionManager.missions[i].canAcceptContent[b], 340, 150 + 20 * b, 10);
                     this.missionTextGroup.addChild(missionAcceptText);
                 }
                 this.missionTextGroup.addChild(missionText);
@@ -444,8 +448,8 @@ var shopUI = /** @class */ (function (_super) {
         _this.ShopText4 = new TextField(shpManager.getNowProduct(3), 352, 187, 20).centered();
         _this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
         _this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
-        _this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5);
-        _this.ShopCoin = new TextField('100', 438, 453, 20);
+        _this.productMultiInfoText = new MultiTextField([], 200, 400, 20, 5).setStringByNumber(shpManager.getNowProductInfo(shpManager.nowNumber), 12);
+        _this.ShopCoin = new TextField(shpManager.getNowProductPrice().toString(), 438, 453, 20);
         var blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
         _this.addChild(blackMask);
         _this.addChild(_this.infoPanel);
@@ -629,7 +633,7 @@ var battleUI = /** @class */ (function (_super) {
         _this.skillButton1.addEventListener("onClick", function (eventData) {
             console.log(_this.skillIDGroup[0]);
             clickaudio.play();
-            if (player.skill[0].id == 6) {
+            if (player.skill[0].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[0].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -650,7 +654,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton2.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[1].id == 6) {
+            if (player.skill[1].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[1].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -672,7 +676,7 @@ var battleUI = /** @class */ (function (_super) {
         });
         _this.skillButton3.addEventListener("onClick", function (eventData) {
             clickaudio.play();
-            if (player.skill[2].id == 6) {
+            if (player.skill[2].id == 6) { //七伤拳判断血量
                 if (player._hp < _this.player._attack * 0.3) {
                     var textField = new TextField("当前HP值不足以施放 " + player.skill[2].name, 0, _this.index * 20, 15);
                     _this.textGroup.addChild(textField);
@@ -696,7 +700,7 @@ var battleUI = /** @class */ (function (_super) {
             clickaudio.play();
             var ran = Math.random() * 100;
             console.log(ran);
-            if (ran <= 50 + player._level - _this.enemy.level) {
+            if (ran <= 50 + player._level - _this.enemy.level) { //逃跑几率为50% + 人物等级 - 怪物等级
                 batManager.dispatchEvent("backSceneLose", null);
             }
             else {
@@ -1071,12 +1075,14 @@ var SettingUI = /** @class */ (function (_super) {
         inputManager.addEventListener("inputChanged", function (eventData) {
             if (inputManager.rechargeIsStart) {
                 _this.deleteChild(_this.rechargeInput);
-                var event_1 = eventData;
-                _this.code = parseInt(event_1.slice(0, 24));
-                console.log(_this.code);
-                _this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
-                _this.addChild(_this.rechargeInput);
-                clickaudio.play();
+                if (!inputManager.oneTime) {
+                    var event_1 = eventData;
+                    _this.code = parseInt(event_1.slice(0, 24));
+                    console.log(_this.code);
+                    _this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
+                    _this.addChild(_this.rechargeInput);
+                    clickaudio.play();
+                }
             }
         });
         _this.backButton.addEventListener("onClick", function (eventData) {

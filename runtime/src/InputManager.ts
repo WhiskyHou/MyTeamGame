@@ -6,6 +6,7 @@ class InputManager extends EventDispatcher {
     inputString: string = ""
     inputOver: boolean = false
     rechargeIsStart : boolean = false;
+    oneTime : boolean = false;
     constructor() {
         super()
 
@@ -130,6 +131,9 @@ class InputManager extends EventDispatcher {
         });
         this.addEventListener('inputOver',(eventData: any) => {
             this.inputString = ""
+            if(this.rechargeIsStart){
+                this.oneTime = true
+            }
         })
     }
 }

@@ -2,8 +2,8 @@ class battleManager extends EventDispatcher {
 
     originHp: number;
 
-    attack1audio : AudioPlay;
-    attack2audio : AudioPlay;
+    attack1audio: AudioPlay;
+    attack2audio: AudioPlay;
 
     constructor() {
         super();
@@ -163,10 +163,11 @@ class battleManager extends EventDispatcher {
         let ran = Math.random() * 100;
         if (ran <= player._criticalPer) {
             this.attack2audio.play();/////////////
+            console.log("普通攻击出来的暴击！！");
             this.dispatchEvent('criticalHit', null);
             return this.damageFlow(player._attack * (1 + player.suitAttackPer)) * 2;
         }
-        else{
+        else {
             return this.playerNormalDamage();
         }
     }

@@ -30,15 +30,19 @@ var shopManager = /** @class */ (function (_super) {
     };
     shopManager.prototype.shopBuy = function () {
         if (this.nowNumber > -1 && this.nowNumber < 100) {
-            this.buyaudio.play();
             var product = this.storeProduct[this.nowGroup][5 * this.nowPage + this.nowNumber];
             var price = product.price;
             var equipment = product.equipment;
-            player.coin -= price;
-            player.packageEquipment.push(equipment);
-            console.log('你购买了商品');
-            // this.nowNumber = -1
-            this.shopUpdate();
+            if (player.coin >= price) {
+                player.coin -= price;
+                player.packageEquipment.push(equipment);
+                console.log('你购买了商品');
+                this.buyaudio.play();
+                this.shopUpdate();
+            }
+            else {
+                //买不了东西的音效
+            }
         }
     };
     shopManager.prototype.changeNowProduct = function (num) {
@@ -95,13 +99,9 @@ var shopManager = /** @class */ (function (_super) {
             var equipmentID = parseInt(item.equipmentID);
             // if(this.getEquipment(equipmentID).posID<10){ }
             var equipment = this.getEquipment(equipmentID);
-            var descriptionPath = item.description;
-            var descriptionImg = new Image();
-            descriptionImg.src = descriptionPath;
-            var description = new Bitmap(0, 0, descriptionImg);
+            var description = item.description;
             var product = new Product(productID, equipment, price, description);
             productList.push(product);
-            console.log(product.toString());
         }
         this.Equipment1TO2(productList);
     };
@@ -115,16 +115,16 @@ var shopManager = /** @class */ (function (_super) {
         this.shopUpdate();
     };
     shopManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {
@@ -139,15 +139,26 @@ var shopManager = /** @class */ (function (_super) {
             return '';
         }
     };
+    shopManager.prototype.getNowProductPrice = function () {
+        var price = 0;
+        if (shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + this.nowNumber]) {
+            price = shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + this.nowNumber].price;
+            return price;
+        }
+        else {
+            return 0;
+        }
+        this.dispatchEvent("shopCoin", price);
+    };
     shopManager.prototype.getNowProductInfo = function (num) {
         if (shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num]) {
-            var nowProductInfo = ["商品名称：" + shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num].equipment.name,
-                "商品价格：" + shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num].price.toString() + '金币'
-            ];
+            var product = void 0;
+            product = shpManager.storeProduct[shpManager.nowGroup][5 * shpManager.nowPage + num];
+            var nowProductInfo = product.description;
             return nowProductInfo;
         }
         else {
-            return [];
+            return "";
         }
     };
     shopManager.prototype.getEquipment = function (equipID) {

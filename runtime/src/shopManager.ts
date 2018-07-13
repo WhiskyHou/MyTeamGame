@@ -20,17 +20,19 @@ class shopManager extends EventDispatcher {
     }
     shopBuy(){
         if(this.nowNumber>-1 && this.nowNumber < 100){
-
-            this.buyaudio.play();
-
             let product = this.storeProduct[this.nowGroup][5*this.nowPage+this.nowNumber]
             let price = product.price
             let equipment = product.equipment
-            player.coin -= price
-            player.packageEquipment.push(equipment)
-            console.log('你购买了商品');
-            // this.nowNumber = -1
-            this.shopUpdate()
+            if(player.coin >= price){
+                player.coin -= price
+                player.packageEquipment.push(equipment)
+                console.log('你购买了商品');
+                this.buyaudio.play();
+                this.shopUpdate()
+            }
+            else{
+                //买不了东西的音效
+            }
         }
         
     }
@@ -86,13 +88,9 @@ class shopManager extends EventDispatcher {
             const equipmentID = parseInt(item.equipmentID);
             // if(this.getEquipment(equipmentID).posID<10){ }
             const equipment = this.getEquipment(equipmentID)
-            const descriptionPath = item.description;
-            let descriptionImg = new Image();
-            descriptionImg.src = descriptionPath;
-            const description = new Bitmap(0, 0, descriptionImg);
+            const description = item.description;
             let product = new Product(productID, equipment,price,description);
             productList.push(product);
-            console.log(product.toString())
         }
         this.Equipment1TO2(productList)
     }
@@ -124,15 +122,24 @@ class shopManager extends EventDispatcher {
             return ''
         }   
     }
-    getNowProductInfo(num : number) : Array<string>{
+    getNowProductPrice() : number{
+        let price = 0
+        if(shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+this.nowNumber]){
+            price = shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+this.nowNumber].price
+            return price
+        }else{
+            return 0
+        }   
+        this.dispatchEvent("shopCoin",price)
+    }
+    getNowProductInfo(num : number) : string{
         if(shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num]){
-            let nowProductInfo : string [] =
-            ["商品名称："+shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num].equipment.name,
-             "商品价格："+shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num].price.toString()+'金币'
-            ]
+            let product : Product;
+            product = shpManager.storeProduct[shpManager.nowGroup][5*shpManager.nowPage+num]
+            let nowProductInfo : string = product.description
             return nowProductInfo
         }else{
-            return []
+            return ""
         }   
     }
     getEquipment(equipID : number) : Equipment {
