@@ -82,81 +82,81 @@ var PortalCommand = /** @class */ (function (_super) {
         map = mapManager.getMap(this.portal.to);
         map.addChild(player.view);
         if (this.portal.to == 1) {
-            this.mapname = new TextField('- 校园 -', 300, 200, 100);
+            this.mapname = new TextField('- 校园 -', 280, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 2) {
-            this.mapname = new TextField('- 操场 -', 300, 200, 100);
+            this.mapname = new TextField('- 操场 -', 280, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 3) {
             this.mapname = new TextField('- 家 -', 300, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 4) {
-            this.mapname = new TextField('- 教室 -', 300, 200, 100);
+            this.mapname = new TextField('- 教室 -', 280, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 5) {
-            this.mapname = new TextField('- 街道 -', 300, 200, 100);
+            this.mapname = new TextField('- 街道 -', 280, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 6) {
-            this.mapname = new TextField('- 密室 -', 300, 200, 100);
+            this.mapname = new TextField('- 密室 -', 280, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 7) {
-            this.mapname = new TextField('- 副本 -', 300, 200, 100);
+            this.mapname = new TextField('- 副本 -', 280, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 8) {
-            this.mapname = new TextField('- 副本1 -', 300, 200, 100);
+            this.mapname = new TextField('- 副本1 -', 270, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 9) {
-            this.mapname = new TextField('- 副本2 -', 300, 200, 100);
+            this.mapname = new TextField('- 副本2 -', 270, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 10) {
-            this.mapname = new TextField('- 副本3 -', 300, 200, 100);
+            this.mapname = new TextField('- 副本3 -', 270, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         if (this.portal.to == 11) {
-            this.mapname = new TextField('- 副本4 -', 300, 200, 100);
+            this.mapname = new TextField('- 副本4 -', 270, 200, 100);
             staticStage.addChild(this.mapname);
             setTimeout(function () {
                 staticStage.deleteChild(_this.mapname);
-            }, 2000);
+            }, 1000);
         }
         player.x = this.portal.targetRow;
         player.y = this.portal.targetCol;
@@ -315,6 +315,7 @@ var FightCommand = /** @class */ (function (_super) {
         }
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
+            console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
             _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);
             _this.battleaudio.end();

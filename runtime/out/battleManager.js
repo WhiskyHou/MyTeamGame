@@ -154,6 +154,7 @@ var battleManager = /** @class */ (function (_super) {
         var ran = Math.random() * 100;
         if (ran <= player._criticalPer) {
             this.attack2audio.play(); /////////////
+            console.log("普通攻击出来的暴击！！");
             this.dispatchEvent('criticalHit', null);
             return this.damageFlow(player._attack * (1 + player.suitAttackPer)) * 2;
         }

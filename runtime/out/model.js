@@ -40,7 +40,7 @@ var User = /** @class */ (function (_super) {
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
         // 以下测试用
-        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 1000); //36558
+        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 0); //36558
         var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         var eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         var eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
@@ -461,6 +461,7 @@ var Npc = /** @class */ (function () {
         this.canAcceptMissions = [];
         this.canSubmitMissions = [];
         this.uselessTalks = [];
+        this.nowMapID = 0;
         this.id = id;
         this.name = name;
         missionManager.addEventListener('missionUpdate', function (eventData) {
@@ -487,22 +488,27 @@ var Npc = /** @class */ (function () {
         // map.deleteMonster(this)
         var tempX = this.x;
         var tempY = this.y;
-        map.deleteNpc(this);
+        var mapCount = 0;
+        for (var i = 0; i < mapManager.maps.length; i++) {
+            if (this.nowMapID == mapManager.maps[i].id) {
+                mapCount = i;
+            }
+        }
+        mapManager.maps[mapCount].deleteNpc(this);
         for (var i = 0; i < monsManager.monsterList.length; i++) {
             if (monsManager.monsterList[i].id == this.changeTypeID) {
                 var mons = monsManager.monsterList[i];
                 mons.x = tempX;
                 mons.y = tempY;
+                mons.nowMapID = this.nowMapID;
                 var monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
                 var monsterItem = monsManager.monsterList[i];
-                // monsterItem.name = '队长';
-                // monsterItem.view = monsterView;
-                // monsterItem.hp = 120;
                 monsterItem.x = tempX;
                 monsterItem.y = tempY;
                 var key = tempX + '_' + tempY;
-                map.monsterConfig[key] = monsterItem;
-                map.roleContainer.addChild(monsterView);
+                mapManager.maps[mapCount].monsterConfig[key] = monsterItem;
+                mapManager.maps[mapCount].roleContainer.addChild(monsterView);
+                // const map2 = mapManager.getMap(2)
             }
         }
     };
@@ -545,6 +551,7 @@ var Monster = /** @class */ (function (_super) {
         _this.level = 0;
         _this.dropType = 0; //0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
         _this.changeTypeID = 0; //要转变成的NPC的ID
+        _this.nowMapID = 0; //当前所处地图ID
         _this.uselessTalks = [];
         _this.id = id;
         _this.name = name;
@@ -665,22 +672,28 @@ var Monster = /** @class */ (function (_super) {
         // map.deleteMonster(this)
         var tempX = this.x;
         var tempY = this.y;
-        map.deleteMonster(this);
+        var mapCount = 0;
+        for (var i = 0; i < mapManager.maps.length; i++) {
+            if (this.nowMapID == mapManager.maps[i].id) {
+                mapCount = i;
+            }
+        }
+        console.log("当前地图ID：" + this.nowMapID);
+        console.log("当前地图数组位置：" + mapCount);
+        mapManager.maps[mapCount].deleteMonster(this);
         for (var i = 0; i < npcManager.npcList.length; i++) {
             if (npcManager.npcList[i].id == this.changeTypeID) {
                 var npc = npcManager.npcList[i];
+                npc.nowMapID = this.nowMapID;
                 npc.x = tempX;
                 npc.y = tempY;
                 var npcView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, npcManager.npcList[i].view.img);
                 var npcItem = npcManager.npcList[i];
-                // monsterItem.name = '队长';
-                // monsterItem.view = monsterView;
-                // monsterItem.hp = 120;
                 npcItem.x = tempX;
                 npcItem.y = tempY;
                 var key = tempX + '_' + tempY;
-                map.npcConfig[key] = npcItem;
-                map.roleContainer.addChild(npcView);
+                mapManager.maps[mapCount].npcConfig[key] = npcItem;
+                mapManager.maps[mapCount].roleContainer.addChild(npcView);
             }
         }
         // for (let i = 0; i < monsManager.monsterList.length; i++) {

@@ -127,6 +127,10 @@ MissionButton.src = './assets/1 60x80 任务ui.png';
 
 var bloodUI = new Image();
 bloodUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改.png';
+var bloodUI1 = new Image();
+bloodUI1.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改1.png';
+var bloodUI2 = new Image();
+bloodUI2.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/ui血条 改2.png';
 var userCoinUI = new Image();
 userCoinUI.src = './assets/美术素材/UI/2 主界面/UI 主界面 PNG/UI 主界面 金币 改.png';
 var userDiamondUI = new Image();
@@ -871,7 +875,6 @@ class PlayingState extends State {
             this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(this.shpUI);
         });
-
 
         this.changePlayerViewPosture();
     }

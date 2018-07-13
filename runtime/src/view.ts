@@ -14,6 +14,8 @@ class UserInfoUI extends DisplayObjectContainer {
     MP: TextField;
 
     bloodUI: Bitmap;
+    bloodUI1: Bitmap;
+    bloodUI2: Bitmap;
     userCoinUI: Bitmap;
     userDiamondUI: Bitmap;
 
@@ -37,6 +39,8 @@ class UserInfoUI extends DisplayObjectContainer {
 
 
         this.bloodUI = new Bitmap(0, 0, bloodUI);
+        this.bloodUI1 = new Bitmap(90, 32, bloodUI1);
+        this.bloodUI2 = new Bitmap(90, 38, bloodUI2);
         this.userCoinUI = new Bitmap(350, 20, userCoinUI);
         this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
 
@@ -61,6 +65,8 @@ class UserInfoUI extends DisplayObjectContainer {
 
 
         this.addChild(this.bloodUI);
+        this.addChild(this.bloodUI1);
+        this.addChild(this.bloodUI2);
         this.addChild(this.userCoinUI);
         this.addChild(this.userDiamondUI);
 

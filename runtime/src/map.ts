@@ -93,6 +93,7 @@ class GameMap extends DisplayObjectContainer {
                             npcView.y = TILE_SIZE * i;
                             npc.x = j
                             npc.y = i
+                            npc.nowMapID = this.id;
                             const key = j + '_' + i;
                             this.npcConfig[key] = npc;
                             this.roleContainer.addChild(npcView);
@@ -175,6 +176,7 @@ class GameMap extends DisplayObjectContainer {
                             monsterView.y = TILE_SIZE * i;
                             monster.x = j
                             monster.y = i
+                            monster.nowMapID = this.id;
                             const key = j + '_' + i;
                             this.monsterConfig[key] = monster;
                             this.roleContainer.addChild(monsterView);
