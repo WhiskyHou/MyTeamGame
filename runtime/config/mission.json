@@ -250,7 +250,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "小美",
-			"reward": "3,5,0"
+			"reward": "3,5,1000"
 		},
 		{
 			"id": "13",
@@ -270,7 +270,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "李老师",
-			"reward": "5,5,0",
+			"reward": "5,5,1000",
 			"foreMissionID": "12"
 		},
 		{
@@ -291,7 +291,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "呆萌恶犬",
-			"reward": "5,10,0",
+			"reward": "5,10,1000",
 			"foreMissionID": "13"
 		},
 		{
@@ -322,7 +322,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "邋遢鬼",
-			"reward": "8,12,0",
+			"reward": "8,12,1000",
 			"foreMissionID": "14"
 		},
 		{
@@ -374,7 +374,7 @@
 			],
 			"going": "talkWithNpc",
 			"goingFunc": "小美",
-			"reward": "5,8,0",
+			"reward": "5,8,1001",
 			"foreMissionID": "16"
 		},
 		{
@@ -399,7 +399,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "快乐肥宅",
-			"reward": "10,25,0",
+			"reward": "10,25,1001",
 			"foreMissionID": "17"
 		},
 		{
@@ -426,7 +426,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "大吃货",
-			"reward": "12,35,0",
+			"reward": "12,35,1001",
 			"foreMissionID": "18"
 		},
 		{
@@ -452,7 +452,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "不良少年",
-			"reward": "15,50,0",
+			"reward": "15,50,1001",
 			"foreMissionID": "19"
 		},
 		{
@@ -477,7 +477,7 @@
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "校园恶霸",
-			"reward": "20,80,0",
+			"reward": "20,80,1001",
 			"foreMissionID": "20"
 		},
 		{
@@ -536,19 +536,19 @@
 			"name": "梦想成真",
 			"needLevel": "1",
 			"fromNpcId": "13",
-			"toNpcId": "1",
+			"toNpcId": "13",
 			"canAcceptConfig": [
 				"加油吧，在校门口左边打策划！"
 			],
 			"canSubmitConfig": [
-				"策划没写话"
+				"在一起啦！",
+				"现在你可以开始刷副本收集装备了！",
+				"地狱模式下有我的心魔，我要打飞他！"
 			],
 			"going": "fightWithMonster",
 			"goingFunc": "帅策划",
 			"reward": "0,0,0",
 			"foreMissionID": "23"
-
-			
 		}
 	]
 }

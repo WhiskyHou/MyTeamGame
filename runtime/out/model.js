@@ -533,7 +533,7 @@ var Portal = /** @class */ (function (_super) {
         return _this;
     }
     Portal.prototype.toString = function () {
-        if (this.to == 8) {
+        if (this.to == 8 || this.to == 9 || this.to == 10 || this.to == 11) {
             mapManager.maps[this.to - 1].reset();
         }
         return "[Portal ~ id:" + this.id + ", from:" + this.from + ", to:" + this.to + ", targetX:" + this.targetRow + ", targetY:" + this.targetCol + "]";
