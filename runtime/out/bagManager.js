@@ -95,6 +95,42 @@ var bagManager = /** @class */ (function (_super) {
                     this.exportCheckedEquipment(false);
                     this.nowNumber = -1;
                 }
+                if (con.id == 1006) { //英雄不死技能书
+                    for (var i = 0; i < skillArray.length; i++) {
+                        if (skillArray[i].id == 4) {
+                            return;
+                        }
+                    }
+                    skillArray.push(skillBusi);
+                    this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
+                    this.changeNowEquipment(this.nowNumber);
+                    this.exportCheckedEquipment(false);
+                    this.nowNumber = -1;
+                }
+                if (con.id == 1007) { //你过来啊技能书
+                    for (var i = 0; i < skillArray.length; i++) {
+                        if (skillArray[i].id == 5) {
+                            return;
+                        }
+                    }
+                    skillArray.push(skillGuolai);
+                    this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
+                    this.changeNowEquipment(this.nowNumber);
+                    this.exportCheckedEquipment(false);
+                    this.nowNumber = -1;
+                }
+                if (con.id == 1008) { //七伤拳技能书
+                    for (var i = 0; i < skillArray.length; i++) {
+                        if (skillArray[i].id == 6) {
+                            return;
+                        }
+                    }
+                    skillArray.push(skillQishang);
+                    this.deletePackageEquipment(this.nowGroup, this.nowPage, this.nowNumber);
+                    this.changeNowEquipment(this.nowNumber);
+                    this.exportCheckedEquipment(false);
+                    this.nowNumber = -1;
+                }
                 // con.use(() => {
                 //     console.log(con.id);
                 //     if (con.id == 1003) {//撒币技能书
