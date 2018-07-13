@@ -219,10 +219,12 @@ var TalkCommand = /** @class */ (function (_super) {
                     console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
+                        missionaudio.play(); ///
                         missionManager.submit(mission);
                     }
                     else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
+                        missionaudio.play(); ///
                         missionManager.accept(mission);
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);
@@ -307,6 +309,8 @@ var FightCommand = /** @class */ (function (_super) {
             });
         }
         var batUI = new battleUI(0, 0);
+        var gameWinUi = new GameWinUI(0, 0);
+        // asdqwfwqfqwfwq16558
         var batEndLoseUI = new battleEndLoseUI(0, 0);
         batManager.dispatchEvent('enemyBattleStart', this.monster);
         if (!this.hasUselessTalk) {
@@ -317,6 +321,9 @@ var FightCommand = /** @class */ (function (_super) {
         batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
+            if (_this.monster.id == 24) { //狗策划
+                batteUIContainer.addChild(gameWinUi);
+            }
             _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);
             _this.battleaudio.end();
