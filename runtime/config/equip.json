@@ -540,6 +540,67 @@
 			"criticalPer": "5",
 			"charm": "80"
 		}
+		,
+		{
+			"id": "53",
+			"name": "策划狗的斗篷",
+			"quality": "6",
+			"posID": "1",
+			"health": "200",
+			"attack": "10",
+			"criticalPer": "10",
+			"charm": "200"
+		},
+		{
+			"id": "54",
+			"name": "引擎怪的围裙",
+			"quality": "6",
+			"posID": "3",
+			"health": "200",
+			"attack": "10",
+			"criticalPer": "10",
+			"charm": "100"
+		},
+		{
+			"id": "55",
+			"name": "大哥买的金表",
+			"quality": "6",
+			"posID": "2",
+			"health": "100",
+			"attack": "0",
+			"criticalPer": "10",
+			"charm": "300"
+		},
+		{
+			"id": "56",
+			"name": "美工的数位板",
+			"quality": "6",
+			"posID": "4",
+			"health": "100",
+			"attack": "20",
+			"criticalPer": "10",
+			"charm": "200"
+		},
+		{
+			"id": "57",
+			"name": "前端的飞毛腿",
+			"quality": "6",
+			"posID": "5",
+			"health": "300",
+			"attack": "0",
+			"criticalPer": "10",
+			"charm": "100"
+		},
+		{
+			"id": "58",
+			"name": "骁的你妈贵姓",
+			"quality": "6",
+			"posID": "0",
+			"health": "0",
+			"attack": "100",
+			"criticalPer": "50",
+			"charm": "100"
+		}
 	],
 	"consumable": [
 		{
@@ -631,6 +692,15 @@
 			"addMP": "0",
 			"addCharm": "0",
 			"addEXP": "10"
+		},
+		{
+			"id": "1010",
+			"name": "+500经验书",
+			"posID": "7",
+			"addHP": "0",
+			"addMP": "0",
+			"addCharm": "0",
+			"addEXP": "500"
 		}
 	]
 }

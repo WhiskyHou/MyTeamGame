@@ -651,6 +651,10 @@ class shopUI extends DisplayObjectContainer {
             shpManager.changeNowProduct(3)
             clickaudio.play();
         })
+        this.ShopText5.addEventListener("onClick", (eventData: any) => {
+            shpManager.changeNowProduct(4)
+            clickaudio.play();
+        })
     }
     changeEquipmentInfo(equip: Equipment) {
         // this.deleteChild(this.productMultiInfoText)
