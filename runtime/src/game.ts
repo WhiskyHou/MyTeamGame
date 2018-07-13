@@ -1024,4 +1024,4 @@ window.onkeydown = (event: any) => {
 
 // 初始状态设置
 // fsm.replaceState(CreateState.instance);
-fsm.replaceState(MenuState.instance);
+fsm.replaceState(LoadingState.instance);
