@@ -16,6 +16,7 @@ var GameMap = /** @class */ (function (_super) {
     __extends(GameMap, _super);
     function GameMap(obj) {
         var _this = _super.call(this, 0, 0) || this;
+        _this.mapMonster = [];
         _this.config = [];
         _this.equipmentConfig = {};
         _this.npcConfig = {};
@@ -155,7 +156,7 @@ var GameMap = /** @class */ (function (_super) {
                     this.itemContainer.addChild(equipmentView);
                 }
                 else if (id == 2) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, saoBaImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
@@ -166,7 +167,7 @@ var GameMap = /** @class */ (function (_super) {
                     this.itemContainer.addChild(equipmentView);
                 }
                 else if (id == 7) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, langTouImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
@@ -177,7 +178,7 @@ var GameMap = /** @class */ (function (_super) {
                     this.itemContainer.addChild(equipmentView);
                 }
                 else if (id == 1000) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, healthPotImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
@@ -189,9 +190,9 @@ var GameMap = /** @class */ (function (_super) {
                 }
             }
         }
-        var mapMonster = obj.monster;
-        for (var i = 0; i < mapMonster.length; i++) {
-            var row = mapMonster[i];
+        this.mapMonster = obj.monster;
+        for (var i = 0; i < this.mapMonster.length; i++) {
+            var row = this.mapMonster[i];
             for (var j = 0; j < row.length; j++) {
                 var item = row[j];
                 if (item != 0) {
@@ -235,6 +236,32 @@ var GameMap = /** @class */ (function (_super) {
         }
     }; // init() end
     GameMap.prototype.reset = function () {
+        for (var i = 0; i < this.mapMonster.length; i++) {
+            var row = this.mapMonster[i];
+            for (var j = 0; j < row.length; j++) {
+                var item = row[j];
+                if (item != 0) {
+                    var id = item;
+                    console.log(monsManager.monsterList.length);
+                    for (var _i = 0, _a = monsManager.monsterList; _i < _a.length; _i++) {
+                        var monster = _a[_i];
+                        if (monster.id == id) {
+                            monster.resetHP();
+                            var monsterView = monster.view;
+                            // const npcHead = npc.head;
+                            monsterView.x = TILE_SIZE * j;
+                            monsterView.y = TILE_SIZE * i;
+                            monster.x = j;
+                            monster.y = i;
+                            monster.nowMapID = this.id;
+                            var key = j + '_' + i;
+                            this.monsterConfig[key] = monster;
+                            this.roleContainer.addChild(monsterView);
+                        }
+                    }
+                }
+            }
+        }
     };
     // getNodeInfo(row: number, col: number) {
     //     for (let item of this.config.map.) {

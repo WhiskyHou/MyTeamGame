@@ -24,7 +24,6 @@ var WalkCommand = /** @class */ (function (_super) {
     }
     WalkCommand.prototype.execute = function (callback) {
         console.log("\u5F00\u59CB\u8D70\u8DEF\uFF01\uFF01\uFF01\u4ECE(" + this.fromX + ", " + this.fromY + ")\u51FA\u53D1");
-        anim.play(); ////
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         var findpath = new astar.AStar();
@@ -34,6 +33,7 @@ var WalkCommand = /** @class */ (function (_super) {
         console.log(findpath._path);
         var path;
         if (result) {
+            anim.play();
             path = findpath._path;
             path.shift();
             this.walk(path, callback);
@@ -53,7 +53,7 @@ var WalkCommand = /** @class */ (function (_super) {
             }
             else {
                 console.log("\u5230\u8FBE\u5730\u70B9\uFF01\uFF01\uFF01(" + _this.toX + "," + _this.toY + ")");
-                anim.end(); ////
+                anim.end();
                 player.moveStatus = true;
                 callback();
                 return;
@@ -318,7 +318,7 @@ var FightCommand = /** @class */ (function (_super) {
             mainaudio.end();
             this.battleaudio.play();
         }
-        batManager.addEventListener(this.monster.name + 'enemyDie', function (enemy) {
+        batManager.addEventListener(this.monster.id + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
             if (_this.monster.id == 24) { //狗策划

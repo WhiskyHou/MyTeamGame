@@ -50,19 +50,29 @@ if (makeButton) {
                 }
             };
             for (var i = 0; i < parseInt(inputY.value); i++) {
-                var arrayStr = [];
-                var arrayNum = [];
+                var arrayStr1 = [];
+                var arrayStr2 = [];
+                var arrayNum1 = [];
+                var arrayNum2 = [];
+                var arrayNum3 = [];
+                var arrayNum4 = [];
+                var arrayNum5 = [];
                 for (var j = 0; j < parseInt(inputX.value); j++) {
-                    arrayStr.push("");
-                    arrayNum.push(0);
+                    arrayStr1.push("");
+                    arrayStr2.push("");
+                    arrayNum1.push(0);
+                    arrayNum2.push(0);
+                    arrayNum3.push(0);
+                    arrayNum4.push(0);
+                    arrayNum5.push(0);
                 }
-                data.map.tile.push(arrayStr);
-                data.map.item.push(arrayStr);
-                data.map.equipment.push(arrayNum);
-                data.map.walkable.push(arrayNum);
-                data.map.npc.push(arrayNum);
-                data.map.monster.push(arrayNum);
-                data.map.portal.push(arrayNum);
+                data.map.tile.push(arrayStr1);
+                data.map.item.push(arrayStr2);
+                data.map.equipment.push(arrayNum1);
+                data.map.walkable.push(arrayNum2);
+                data.map.npc.push(arrayNum3);
+                data.map.monster.push(arrayNum4);
+                data.map.portal.push(arrayNum5);
             }
         }
     };
@@ -70,7 +80,7 @@ if (makeButton) {
 if (submitButton) {
     submitButton.onclick = function () {
         if (data) {
-            data.map.id = mapid.value;
+            data.map.id = parseInt(mapid.value);
             data.map.name = mapName.value;
             data.map.tile[currentY][currentX] = mapPath.value;
             data.map.item[currentY][currentX] = mapItem.value;
@@ -79,6 +89,8 @@ if (submitButton) {
             data.map.npc[currentY][currentX] = parseInt(mapNpc.value);
             data.map.monster[currentY][currentX] = parseInt(mapMonster.value);
             data.map.portal[currentY][currentX] = parseInt(mapPortal.value);
+            console.log(currentX, currentY);
+            console.log(data.map);
             saveToFile();
         }
     };

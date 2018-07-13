@@ -297,10 +297,10 @@ class MissionUI extends DisplayObjectContainer {
                     this.missionTextGroup.addChild(missionAcceptText);
                 }
                 this.missionTextGroup.addChild(missionText);
-                let skill = new TextField("", 425, 412, 20); 
+                let skill = new TextField("", 425, 412, 20);
                 let EXP = new TextField(missionManager.missions[i].addEXP.toString(), 425, 385, 20);
                 let coin = new TextField(missionManager.missions[i].addCoin.toString(), 566, 384, 20);
-                if(missionManager.missions[i].equipment){
+                if (missionManager.missions[i].equipment) {
                     skill = new TextField(missionManager.missions[i].equipment.name, 425, 412, 20);
                 }
                 this.missionTextGroup.addChild(EXP);
@@ -684,8 +684,8 @@ class battleUI extends DisplayObjectContainer {
     enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
 
     //战斗角色表现
-    playerImg = new Bitmap(120, 120, player.view.img);
-    enemyImg = new Bitmap(355, 120, player.view.img);
+    playerImg = new Bitmap(120, 120, playerIdleImg1);
+    enemyImg = new Bitmap(355, 120, playerIdleImg1);
 
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
@@ -1341,15 +1341,15 @@ class SettingUI extends DisplayObjectContainer {
         inputManager.addEventListener("inputChanged", (eventData: any) => {
             if (inputManager.rechargeIsStart) {
                 this.deleteChild(this.rechargeInput)
-                if(!inputManager.oneTime){
-                     let event: string = eventData;
-                this.code = parseInt(event.slice(0, 24))
-                console.log(this.code)
-                this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
-                this.addChild(this.rechargeInput)
-                clickaudio.play();
+                if (!inputManager.oneTime) {
+                    let event: string = eventData;
+                    this.code = parseInt(event.slice(0, 24))
+                    console.log(this.code)
+                    this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
+                    this.addChild(this.rechargeInput)
+                    clickaudio.play();
                 }
-               
+
             }
         })
         this.backButton.addEventListener("onClick", (eventData: any) => {

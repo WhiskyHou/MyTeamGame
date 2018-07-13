@@ -39,8 +39,9 @@ var User = /** @class */ (function (_super) {
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
+        _this.expFull = false;
         // 以下测试用
-        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 0); //36558
+        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0); //36558
         var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         var eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         var eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
@@ -231,6 +232,14 @@ var User = /** @class */ (function (_super) {
     User.prototype.calProperty = function () {
         if (this._currentEXP >= this._needEXP) {
             this._level += 1;
+            while (this.expFull) {
+                if (this._currentEXP >= this._needEXP) {
+                    this._level += 1;
+                }
+                else {
+                    this.expFull = false;
+                }
+            }
             this._currentEXP = this._currentEXP - this._needEXP;
             this._needEXP = Math.floor(this._needEXP * 1.2);
             this._originHealth += 6;
@@ -527,6 +536,9 @@ var Portal = /** @class */ (function (_super) {
         return _this;
     }
     Portal.prototype.toString = function () {
+        if (this.to == 8 || this.to == 9 || this.to == 10 || this.to == 11) {
+            mapManager.maps[this.to - 1].reset();
+        }
         return "[Portal ~ id:" + this.id + ", from:" + this.from + ", to:" + this.to + ", targetX:" + this.targetRow + ", targetY:" + this.targetCol + "]";
     };
     return Portal;
@@ -551,9 +563,11 @@ var Monster = /** @class */ (function (_super) {
         _this.changeTypeID = 0; //要转变成的NPC的ID
         _this.nowMapID = 0; //当前所处地图ID
         _this.uselessTalks = [];
+        _this.originHP = 0;
         _this.id = id;
         _this.name = name;
         _this.hp = hp;
+        _this.originHP = hp;
         _this.attack = attack;
         _this.exp = exp;
         _this.coin = coin;
@@ -694,23 +708,9 @@ var Monster = /** @class */ (function (_super) {
                 mapManager.maps[mapCount].roleContainer.addChild(npcView);
             }
         }
-        // for (let i = 0; i < monsManager.monsterList.length; i++) {
-        //     if (monsManager.monsterList[i].id == this.changeTypeID) {
-        //         let mons = monsManager.monsterList[i];
-        //         mons.x = tempX;
-        //         mons.y = tempY;
-        //         const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
-        //         const monsterItem = monsManager.monsterList[i];
-        //         // monsterItem.name = '队长';
-        //         // monsterItem.view = monsterView;
-        //         // monsterItem.hp = 120;
-        //         monsterItem.x = tempX;
-        //         monsterItem.y = tempY;
-        //         const key = tempX + '_' + tempY;
-        //         map.monsterConfig[key] = monsterItem;
-        //         map.roleContainer.addChild(monsterView);
-        //     }
-        // }
+    };
+    Monster.prototype.resetHP = function () {
+        this.hp = this.originHP;
     };
     return Monster;
 }(EventDispatcher));

@@ -113,6 +113,8 @@ var battleItemImg = new Image();
 battleItemImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG/战斗界面 物品.png';
 var playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
+var playerIdleImg1 = new Image();
+playerIdleImg1.src = './assets/美术素材/角色/主角/128x128 主角.png';
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
 var EscButton = new Image();
@@ -257,6 +259,12 @@ var caihuaBookImg = new Image();
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
 var xiXingBookImg = new Image();
 xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
+var saoBaImg = new Image();
+saoBaImg.src = './assets/美术素材/道具/道具（扫把）.png';
+var langTouImg = new Image();
+langTouImg.src = './assets/美术素材/道具/道具（锤子）.png';
+var healthPotImg = new Image();
+healthPotImg.src = './assets/美术素材/道具/药瓶.png';
 //胜利UI图片
 var gameWinBgImg = new Image();
 gameWinBgImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功界面改1 beijin.png';
@@ -515,7 +523,7 @@ var CreateState = /** @class */ (function (_super) {
     __extends(CreateState, _super);
     function CreateState() {
         var _this = _super.call(this) || this;
-        _this.canAssignPoint = 5;
+        _this.canAssignPoint = 10;
         _this.hasName = false;
         _this.onStartClick = function (eventData) {
             if (_this.canAssignPoint == 0 && _this.hasName) {
@@ -536,7 +544,7 @@ var CreateState = /** @class */ (function (_super) {
         _this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
         _this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
-        _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 573, 255, 30);
+        _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 562, 255, 30);
         _this.tipsText = new TextField("", 620, 260, 20);
         _this.tips2Text = new TextField("", 350, 220, 20);
         _this.hpAddButton = new Bitmap(630, 350, createAddButtonImg);
@@ -557,7 +565,7 @@ var CreateState = /** @class */ (function (_super) {
             _this.playerHpText.text = "" + player._originHealth;
         });
         _this.hpMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._originHealth > 60) {
+            if (_this.canAssignPoint < 10 && player._originHealth > 60) {
                 player._originHealth -= 5;
                 _this.canAssignPoint++;
                 _this.createPlayerButtonScript.canAssignPoint++;
@@ -577,7 +585,7 @@ var CreateState = /** @class */ (function (_super) {
             _this.playerAttackText.text = "" + player._originAttack;
         });
         _this.attackMinusButton.addEventListener("onClick", function () {
-            if (_this.canAssignPoint < 5 && player._originAttack > 10) {
+            if (_this.canAssignPoint < 10 && player._originAttack > 10) {
                 player._originAttack -= 1;
                 _this.canAssignPoint++;
                 _this.createPlayerButtonScript.canAssignPoint++;
