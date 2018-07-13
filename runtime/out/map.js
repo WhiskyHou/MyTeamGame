@@ -180,7 +180,7 @@ var GameMap = /** @class */ (function (_super) {
                 else if (id == 1000) {
                     var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, healthPotImg);
                     var equip = equipManager.getEquipByID(id);
-                    var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    var equipmentTiem = new Consumable(id, equip.name, equip.posID, equip.addHP, equip.addMP, equip.addCharm, equip.addEXP);
                     equipmentTiem.view = equipmentView;
                     equipmentTiem.x = j;
                     equipmentTiem.y = i;
