@@ -28,7 +28,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.userDiamond = new TextField('' + player.diamond, 545, 20, 25);
         _this.currentEXP = new TextField('' + player.currentEXP, 150, 90, 20);
         _this.needEXP = new TextField('/    ' + player.needEXP, 190, 90, 20);
-        _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+        _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 150, 42, 20);
         _this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
         //
         _this.bagButton = new Bitmap(750, 475, bagButton);
@@ -157,7 +157,7 @@ var UserInfoUI = /** @class */ (function (_super) {
             // this.userEquipment.text = '装备: ' + equipments;
             _this.deleteChild(_this.HP);
             _this.deleteChild(_this.MP);
-            _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+            _this.HP = new TextField("" + player._hp + " / " + player.maxHP, 150, 42, 20);
             _this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
             _this.addChild(_this.HP);
             _this.addChild(_this.MP);
