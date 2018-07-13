@@ -682,6 +682,8 @@ var PlayingState = /** @class */ (function (_super) {
     __extends(PlayingState, _super);
     function PlayingState() {
         var _this = _super.call(this) || this;
+        _this.isRestroring = true;
+        _this.restorCount = 0;
         map = mapManager.getMap(4);
         talkUIContainer = new DisplayObjectContainer(0, 0);
         _this.mapContainer = new DisplayObjectContainer(0, 0);
@@ -765,12 +767,31 @@ var PlayingState = /** @class */ (function (_super) {
             _this.shpUI = new shopUI(0, 0);
             shopUIContainer.addChild(_this.shpUI);
         });
+        batManager.addEventListener("enemyBattleStart", function (enemy) {
+            _this.isRestroring = false;
+        });
+        batManager.addEventListener('backSceneLose', function (enemy) {
+            _this.isRestroring = true;
+        });
+        batManager.addEventListener('backSceneWin', function (enemy) {
+            _this.isRestroring = true;
+        });
         this.changePlayerViewPosture();
     };
     PlayingState.prototype.onUpdate = function () {
         // this.playerViewMove();
         player.update();
         missionManager.update();
+        if (this.isRestroring) {
+            if (player._hp < player.maxHP) {
+                this.restorCount++;
+                if (this.restorCount == 300) {
+                    this.restorCount = 0;
+                    player._hp += Math.ceil(player.maxHP * 0.01);
+                    this.userInfoUI.HP.text = "" + player._hp + " / " + player.maxHP;
+                }
+            }
+        }
     };
     PlayingState.prototype.onExit = function () {
         staticStage.deleteAll();

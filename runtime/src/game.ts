@@ -823,6 +823,8 @@ class PlayingState extends State {
 
     camera: EmptyObject
 
+    isRestroring = true;
+
     constructor() {
         super();
 
@@ -913,12 +915,37 @@ class PlayingState extends State {
             shopUIContainer.addChild(this.shpUI);
         });
 
+        batManager.addEventListener("enemyBattleStart", (enemy: Monster) => {
+            this.isRestroring = false;
+        })
+
+        batManager.addEventListener('backSceneLose', (enemy: Monster) => {
+            this.isRestroring = true;
+        })
+
+        batManager.addEventListener('backSceneWin', (enemy: Monster) => {
+            this.isRestroring = true;
+        })
+
         this.changePlayerViewPosture();
     }
+
+    restorCount = 0;
     onUpdate(): void {
         // this.playerViewMove();
         player.update();
         missionManager.update();
+        if (this.isRestroring) {
+            if (player._hp < player.maxHP) {
+                this.restorCount++;
+                if (this.restorCount == 300) {
+                    this.restorCount = 0;
+                    player._hp += Math.ceil(player.maxHP * 0.01);
+                    this.userInfoUI.HP.text = "" + player._hp + " / " + player.maxHP;
+
+                }
+            }
+        }
     }
     onExit(): void {
         staticStage.deleteAll();
