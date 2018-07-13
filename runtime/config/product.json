@@ -33,14 +33,14 @@
 		{
 			"productID": "5",
 			"equipmentID": "1000",
-			"price": "10",
-			"description": "喝下一口，提神醒脑。使用后，恢复最大生命值30%的血量。"
+			"price": "30",
+			"description": "喝下一口，提神醒脑。使用后，恢复最大生命值20%的血量。"
 		},
 		{
 			"productID": "6",
 			"equipmentID": "1001",
-			"price": "8",
-			"description": "喝了它，魔力充满全身。使用后，恢复最大生命值30%的蓝量。"
+			"price": "20",
+			"description": "喝了它，魔力充满全身。使用后，恢复最大生命值20%的蓝量。"
 		},
 		{
 			"productID": "7",
@@ -51,7 +51,7 @@
 		{
 			"productID": "8",
 			"equipmentID": "1003",
-			"price": "100",
+			"price": "200",
 			"description": "有钱能使鬼推磨。用钱也可以砸死别人，威力巨大。"
 		},
 		{
@@ -61,5 +61,4 @@
 			"description": "你只要充钱就无敌了。"
 		}
 	]
-
 }
