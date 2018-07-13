@@ -427,6 +427,9 @@ class EmptyObject extends DisplayObject {
     }
 
     render(context: CanvasRenderingContext2D): void {
+        for (let child of this.children) {
+            child.render(context)
+        }
     }
 }
 

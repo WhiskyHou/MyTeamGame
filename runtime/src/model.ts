@@ -10,7 +10,7 @@ const USER_ATTACK_PRE = 100;
 class User extends EventDispatcher {
     x: number;
     y: number;
-    view: Bitmap;
+    view: EmptyObject;
     head: Bitmap;
     moveStatus: boolean = true;
 
