@@ -159,7 +159,9 @@ var Behaviour = /** @class */ (function () {
  */
 var ComponentPool = /** @class */ (function () {
     function ComponentPool() {
-        this.components = [];
+        // public components: Behaviour[] = []
+        this.idCode = [];
+        this.count = 0;
     }
     Object.defineProperty(ComponentPool, "instance", {
         get: function () {
@@ -172,13 +174,23 @@ var ComponentPool = /** @class */ (function () {
         configurable: true
     });
     ComponentPool.prototype.addComponent = function (value) {
-        this.components.push(value);
+        this.count++;
+        this.idCode[this.count] = value;
+        // this.components.push(value)
         value.onStart();
+        return this.count;
+    };
+    ComponentPool.removeComponent = function (key) {
+        delete ComponentPool.instance.idCode[key];
     };
     ComponentPool.prototype.update = function () {
-        for (var _i = 0, _a = this.components; _i < _a.length; _i++) {
-            var component = _a[_i];
-            component.onUpdate(DELTA_TIME);
+        // for (let component of this.) {
+        //     component.onUpdate(DELTA_TIME)
+        // }
+        for (var i = 0; i <= this.count; i++) {
+            if (this.idCode[i]) {
+                this.idCode[i].onUpdate(DELTA_TIME);
+            }
         }
     };
     return ComponentPool;
@@ -241,6 +253,7 @@ var DisplayObject = /** @class */ (function (_super) {
     function DisplayObject(x, y) {
         var _this = _super.call(this) || this;
         _this.children = [];
+        _this.componentsId = [];
         _this.x = x;
         _this.y = y;
         _this.scaleX = _this.scaleY = 1;
@@ -262,10 +275,15 @@ var DisplayObject = /** @class */ (function (_super) {
     };
     DisplayObject.prototype.addComponent = function (instance) {
         instance.gameObject = this;
-        ComponentPool.instance.addComponent(instance);
+        var key = ComponentPool.instance.addComponent(instance);
+        this.componentsId.push(key);
         return instance;
     };
     DisplayObject.prototype.removeComponent = function () {
+        for (var _i = 0, _a = this.componentsId; _i < _a.length; _i++) {
+            var key = _a[_i];
+            ComponentPool.removeComponent(key);
+        }
     };
     DisplayObject.prototype.draw = function (context) {
         if (!this.visible)

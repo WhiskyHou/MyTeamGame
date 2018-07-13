@@ -91,7 +91,7 @@ class EventDispatcher {
 
     addEventListener(type: string, callback: Function) {
         this.listeners.push({ type, callback });
-        
+
     }
 
     deleteEventListener(type: string, callback: Function) {
@@ -102,7 +102,7 @@ class EventDispatcher {
                 break;
             }
         }
-        
+
     }
 
     deleteAllEventListener() {
@@ -184,16 +184,33 @@ class ComponentPool {
         return this._instance;
     }
 
-    private components: Behaviour[] = []
+    // public components: Behaviour[] = []
+
+    private idCode: { [index: number]: Behaviour } = []
+
+    private count = 0;
 
     addComponent(value: Behaviour) {
-        this.components.push(value)
+        this.count++;
+        this.idCode[this.count] = value
+        // this.components.push(value)
         value.onStart();
+
+        return this.count;
+    }
+
+    static removeComponent(key: number) {
+        delete ComponentPool.instance.idCode[key]
     }
 
     update() {
-        for (let component of this.components) {
-            component.onUpdate(DELTA_TIME)
+        // for (let component of this.) {
+        //     component.onUpdate(DELTA_TIME)
+        // }
+        for (let i = 0; i <= this.count; i++) {
+            if (this.idCode[i]) {
+                this.idCode[i].onUpdate(DELTA_TIME);
+            }
         }
     }
 }
@@ -276,6 +293,8 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
 
     children: DisplayObject[] = []
 
+    componentsId: number[] = []
+
     constructor(x: number, y: number) {
         super();
         this.x = x;
@@ -301,12 +320,15 @@ abstract class DisplayObject extends EventDispatcher implements ComponentSystem 
 
     addComponent(instance: Behaviour) {
         instance.gameObject = this;
-        ComponentPool.instance.addComponent(instance)
+        const key = ComponentPool.instance.addComponent(instance)
+        this.componentsId.push(key)
         return instance;
     }
 
     removeComponent() {
-
+        for (let key of this.componentsId) {
+            ComponentPool.removeComponent(key)
+        }
     }
 
     draw(context: CanvasRenderingContext2D) {
