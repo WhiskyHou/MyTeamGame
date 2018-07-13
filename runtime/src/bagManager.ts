@@ -16,8 +16,9 @@ class bagManager extends EventDispatcher {
     }
     openBag() {
         console.log('你打开背包');
-        this.dispatchEvent('openBag', player);
-        this.bagWeapon()
+            this.dispatchEvent('openBag', player);
+            this.bagWeapon()
+            inputManager.bagIsOpen = true
     }
     bagOn() {
         console.log('你穿上了装备');
@@ -165,8 +166,9 @@ class bagManager extends EventDispatcher {
         }
     }
     bagDown() {
-        this.dispatchEvent('bagDown', player);
-        console.log('你关闭了窗口');
+            this.dispatchEvent('bagDown', player);
+            console.log('你关闭了窗口');
+            inputManager.bagIsOpen = false
     }
     bagRight() {
         console.log('你点击了右键');

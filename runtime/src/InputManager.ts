@@ -105,10 +105,12 @@ class InputManager extends EventDispatcher {
             //背包快捷键
             if(this.bagIsOpen){
                 baManager.bagDown()
+                this.bagIsOpen = false
             }else{
                 baManager.openBag()
+                this.bagIsOpen = true
             }
-            this.bagIsOpen = !this.bagIsOpen
+           
         });
         this.addEventListener("O", (eventData: any) => {
             //设置快捷键
