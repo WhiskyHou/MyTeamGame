@@ -544,7 +544,7 @@ var CreateState = /** @class */ (function (_super) {
         _this.backGround = new Bitmap(0, 0, createBGImg);
         _this.startButton = new Bitmap(350, 430, createStartButtonImg);
         _this.onCreatePlayer();
-        _this.playerNameText = new TextField(' ? ? ? ', 552, 155, 30).centered();
+        _this.playerNameText = new TextField(' ? ? ? ', 552, 166, 30).centered();
         _this.playerHpText = new TextField("" + player._hp, 545, 350, 30);
         _this.playerAttackText = new TextField("" + player._attack, 545, 305, 30);
         _this.canAssignPointText = new TextField("" + _this.canAssignPoint, 562, 255, 30);
@@ -628,7 +628,7 @@ var CreateState = /** @class */ (function (_super) {
                 staticStage.deleteChild(_this.playerNameText);
                 player.name = eventData;
                 console.log("mingzi:", eventData);
-                _this.playerNameText = new TextField(player.name, 552, 155, 30).centered();
+                _this.playerNameText = new TextField(player.name, 552, 166, 30).centered();
                 staticStage.addChild(_this.playerNameText);
             }
         });

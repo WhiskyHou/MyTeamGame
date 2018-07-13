@@ -51,7 +51,7 @@ class UserInfoUI extends DisplayObjectContainer {
         this.currentEXP = new TextField('' + player.currentEXP, 150, 90, 20);
         this.needEXP = new TextField('/    ' + player.needEXP, 190, 90, 20);
 
-        this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+        this.HP = new TextField("" + player._hp + " / " + player.maxHP, 150, 42, 20);
         this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
 
         //
@@ -196,7 +196,7 @@ class UserInfoUI extends DisplayObjectContainer {
             // this.userEquipment.text = '装备: ' + equipments;
             this.deleteChild(this.HP);
             this.deleteChild(this.MP);
-            this.HP = new TextField("" + player._hp + " / " + player.maxHP, 160, 42, 20);
+            this.HP = new TextField("" + player._hp + " / " + player.maxHP, 150, 42, 20);
             this.MP = new TextField("" + player._mp + " / " + player.maxMp, 150, 67, 20);
             this.addChild(this.HP);
             this.addChild(this.MP);
