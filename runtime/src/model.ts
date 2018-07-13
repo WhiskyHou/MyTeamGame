@@ -40,7 +40,7 @@ class User extends EventDispatcher {
     constructor() {
         super();
         // 以下测试用
-        let eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 1000);//36558
+        let eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 0);//36558
         let eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         let eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         let eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
@@ -518,6 +518,7 @@ class Npc {
     canSubmitMissions: Mission[] = []
 
     uselessTalks: string[] = [];
+    nowMapID = 0;
 
     constructor(id: number, name: string) {
         this.id = id;
@@ -553,23 +554,34 @@ class Npc {
         // map.deleteMonster(this)
         let tempX = this.x;
         let tempY = this.y;
-        map.deleteNpc(this);
+        let mapCount = 0;
+
+        for (let i = 0; i < mapManager.maps.length; i++) {
+            if (this.nowMapID == mapManager.maps[i].id) {
+                mapCount = i;
+            }
+        }
+
+        mapManager.maps[mapCount].deleteNpc(this);
+
         for (let i = 0; i < monsManager.monsterList.length; i++) {
             if (monsManager.monsterList[i].id == this.changeTypeID) {
                 let mons = monsManager.monsterList[i];
                 mons.x = tempX;
                 mons.y = tempY;
+                mons.nowMapID = this.nowMapID;
 
                 const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
                 const monsterItem = monsManager.monsterList[i];
-                // monsterItem.name = '队长';
-                // monsterItem.view = monsterView;
-                // monsterItem.hp = 120;
+
                 monsterItem.x = tempX;
                 monsterItem.y = tempY;
                 const key = tempX + '_' + tempY;
-                map.monsterConfig[key] = monsterItem;
-                map.roleContainer.addChild(monsterView);
+                mapManager.maps[mapCount].monsterConfig[key] = monsterItem;
+                mapManager.maps[mapCount].roleContainer.addChild(monsterView);
+
+
+                // const map2 = mapManager.getMap(2)
             }
         }
     }
@@ -628,6 +640,8 @@ class Monster extends EventDispatcher {
     level: number = 0;
     dropType = 0;//0默认掉落集，1初始主线小怪,2初级副本,3主线小怪2,4肥宅,5低级副本,6主线小怪3,7中级副本,8主线小怪4，9主线小怪5,10高级副本
     changeTypeID = 0;//要转变成的NPC的ID
+
+    nowMapID = 0;//当前所处地图ID
 
     uselessTalks: string[] = [];
 
@@ -755,25 +769,36 @@ class Monster extends EventDispatcher {
         // map.deleteMonster(this)
         let tempX = this.x;
         let tempY = this.y;
-        map.deleteMonster(this);
+
+        let mapCount = 0;
+
+        for (let i = 0; i < mapManager.maps.length; i++) {
+            if (this.nowMapID == mapManager.maps[i].id) {
+                mapCount = i;
+            }
+        }
+
+        console.log("当前地图ID：" + this.nowMapID);
+        console.log("当前地图数组位置：" + mapCount);
+
+        mapManager.maps[mapCount].deleteMonster(this);
 
         for (let i = 0; i < npcManager.npcList.length; i++) {
             if (npcManager.npcList[i].id == this.changeTypeID) {
                 let npc = npcManager.npcList[i];
 
+                npc.nowMapID = this.nowMapID;
                 npc.x = tempX;
                 npc.y = tempY;
 
                 const npcView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, npcManager.npcList[i].view.img);
                 const npcItem = npcManager.npcList[i];
-                // monsterItem.name = '队长';
-                // monsterItem.view = monsterView;
-                // monsterItem.hp = 120;
+
                 npcItem.x = tempX;
                 npcItem.y = tempY;
                 const key = tempX + '_' + tempY;
-                map.npcConfig[key] = npcItem;
-                map.roleContainer.addChild(npcView);
+                mapManager.maps[mapCount].npcConfig[key] = npcItem;
+                mapManager.maps[mapCount].roleContainer.addChild(npcView);
 
             }
         }
