@@ -47,7 +47,7 @@ class EquipmentManager {
     getEquipByID(id: number): Equipment | null {
         for (let i = 0; i < equipManager.equipList.length; i++) {
             if (equipManager.equipList[i].id == id) {
-                console.log(equipManager.equipList[i].name);
+                // console.log(equipManager.equipList[i].name);
                 return equipManager.equipList[i];
             }
         }

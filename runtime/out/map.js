@@ -79,13 +79,13 @@ var GameMap = /** @class */ (function (_super) {
                 var item = row[j];
                 if (item != 0) {
                     var id = item;
-                    console.log(npcManager.npcList.length);
+                    // console.log(npcManager.npcList.length);
                     for (var _i = 0, _a = npcManager.npcList; _i < _a.length; _i++) {
                         var npc = _a[_i];
                         if (npc.id == id) {
                             var npcView = npc.view;
                             var npcHead = npc.head;
-                            console.log(npcView.img.src);
+                            // console.log(npcView.img.src)
                             npcView.x = TILE_SIZE * j;
                             npcView.y = TILE_SIZE * i;
                             npc.x = j;
@@ -197,7 +197,7 @@ var GameMap = /** @class */ (function (_super) {
                 var item = row[j];
                 if (item != 0) {
                     var id = item;
-                    console.log(monsManager.monsterList.length);
+                    // console.log(monsManager.monsterList.length);
                     for (var _b = 0, _c = monsManager.monsterList; _b < _c.length; _b++) {
                         var monster = _c[_b];
                         if (monster.id == id) {
