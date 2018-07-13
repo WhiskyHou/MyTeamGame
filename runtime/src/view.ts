@@ -1422,3 +1422,38 @@ class WorkerUI extends DisplayObjectContainer {
 
     }
 }
+
+/**
+ * 游戏胜利UI
+ */
+class GameWinUI extends DisplayObjectContainer {
+
+    gameWinBg: Bitmap;
+    replayButton: Bitmap;
+    endButton: Bitmap;
+    blackMask: Bitmap
+
+    constructor(x: number, y: number) {
+        super(x, y);
+
+
+        this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        this.gameWinBg = new Bitmap(100, 100, gameWinBgImg);
+        this.replayButton = new Bitmap(200, 340, replayButtonImg);
+        this.endButton = new Bitmap(380, 340, endButtonImg);
+
+        this.addChild(this.blackMask);
+        this.addChild(this.gameWinBg);
+        this.addChild(this.replayButton);
+        this.addChild(this.endButton);
+
+        this.replayButton.addEventListener("onClick", (eventData: any) => {
+            batManager.dispatchEvent("backSceneWin", null);
+        })
+
+        this.endButton.addEventListener("onClick", (eventData: any) => {
+            history.go(0);
+        })
+
+    }
+}

@@ -1157,3 +1157,28 @@ var WorkerUI = /** @class */ (function (_super) {
     }
     return WorkerUI;
 }(DisplayObjectContainer));
+/**
+ * 游戏胜利UI
+ */
+var GameWinUI = /** @class */ (function (_super) {
+    __extends(GameWinUI, _super);
+    function GameWinUI(x, y) {
+        var _this = _super.call(this, x, y) || this;
+        _this.blackMask = new Bitmap(0, 0, battlePanelBlackMask);
+        _this.gameWinBg = new Bitmap(100, 100, gameWinBgImg);
+        _this.replayButton = new Bitmap(200, 340, replayButtonImg);
+        _this.endButton = new Bitmap(380, 340, endButtonImg);
+        _this.addChild(_this.blackMask);
+        _this.addChild(_this.gameWinBg);
+        _this.addChild(_this.replayButton);
+        _this.addChild(_this.endButton);
+        _this.replayButton.addEventListener("onClick", function (eventData) {
+            batManager.dispatchEvent("backSceneWin", null);
+        });
+        _this.endButton.addEventListener("onClick", function (eventData) {
+            history.go(0);
+        });
+        return _this;
+    }
+    return GameWinUI;
+}(DisplayObjectContainer));

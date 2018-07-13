@@ -240,19 +240,30 @@ var ChangeMapAudio = new Audio();
 ChangeMapAudio.src = "assets/音效/dnf/瞬移（传送）.mp3";
 var LevelUpAudio = new Audio();
 LevelUpAudio.src = "assets/音效/常规/升级1.mp3";
+var MissionAudio = new Audio();
+MissionAudio.src = "assets/音效/常规/奖励.mp3";
 var mainaudio = new AudioPlay(MainAudio);
 var clickaudio = new AudioPlay(ClickAudio);
 var changemapaudio = new AudioPlay(ChangeMapAudio);
 var levelupaudio = new AudioPlay(LevelUpAudio);
+var missionaudio = new AudioPlay(MissionAudio);
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
 levelupaudio.playOnlyOnce = true;
 changemapaudio.playOnlyOnce = true;
+missionaudio.playOnlyOnce = true;
 //装备道具图片
 var caihuaBookImg = new Image();
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
 var xiXingBookImg = new Image();
 xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
+//胜利UI图片
+var gameWinBgImg = new Image();
+gameWinBgImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功界面改1 beijin.png';
+var replayButtonImg = new Image();
+replayButtonImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功03.png';
+var endButtonImg = new Image();
+endButtonImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功04.png';
 /**
  * 常量
  *
