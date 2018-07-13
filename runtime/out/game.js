@@ -777,6 +777,12 @@ var PlayingState = /** @class */ (function (_super) {
             _this.isRestroring = true;
         });
         this.changePlayerViewPosture();
+        this.mapname = new TextField('- 教室 -', 280, 200, 100);
+        //
+        staticStage.addChild(this.mapname);
+        setTimeout(function () {
+            staticStage.deleteChild(_this.mapname);
+        }, 1000);
     };
     PlayingState.prototype.onUpdate = function () {
         // this.playerViewMove();
@@ -832,5 +838,5 @@ window.onkeydown = function (event) {
     inputManager.dispatchEvent("inputStart", keyCode);
 };
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());
