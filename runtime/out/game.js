@@ -344,15 +344,15 @@ skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
 skillBase.push(skillSabi);
 var skillBusi = new Skill(4, '英雄不死', 40);
 skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
-skillArray.push(skillBusi);
+// skillArray.push(skillBusi);策划前
 skillBase.push(skillBusi);
 var skillGuolai = new Skill(5, '你过来啊', 65);
 skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
-skillArray.push(skillGuolai);
+// skillArray.push(skillGuolai);智者
 skillBase.push(skillGuolai);
 var skillQishang = new Skill(6, '七伤拳', 50);
 skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
-skillArray.push(skillQishang);
+// skillArray.push(skillQishang);基友
 skillBase.push(skillQishang);
 var skillXixing = new Skill(7, '吸星大法', 45);
 skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
