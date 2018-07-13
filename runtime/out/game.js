@@ -630,6 +630,7 @@ var CreateState = /** @class */ (function (_super) {
             }
         });
         inputManager.addEventListener("inputOver", function () {
+            _this.createPlayerButtonScript.hasName = true;
             _this.hasName = true;
         });
         // stage.addEventListener("onClick", this.onClick);

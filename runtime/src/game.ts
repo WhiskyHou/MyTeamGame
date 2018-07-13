@@ -727,6 +727,7 @@ class CreateState extends State {
             }
         });
         inputManager.addEventListener("inputOver", () => {
+            this.createPlayerButtonScript.hasName = true;
             this.hasName = true
         });
         // stage.addEventListener("onClick", this.onClick);
