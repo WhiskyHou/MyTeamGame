@@ -1082,6 +1082,7 @@ class UselessTalkWindow extends DisplayObjectContainer {
         this.addChild(this.text);
 
         this.addEventListener("onClick", (eventData: any) => {
+            clickaudio.play();
             switch (this.count % 2) {
                 case 0:
                     this.text.x = 160;
