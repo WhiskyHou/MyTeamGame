@@ -240,6 +240,15 @@ var MissionUI = /** @class */ (function (_super) {
                     this.missionTextGroup.addChild(missionAcceptText);
                 }
                 this.missionTextGroup.addChild(missionText);
+                var skill = new TextField("", 425, 412, 20);
+                var EXP = new TextField(missionManager.missions[i].addEXP.toString(), 425, 385, 20);
+                var coin = new TextField(missionManager.missions[i].addCoin.toString(), 566, 384, 20);
+                if (missionManager.missions[i].equipment) {
+                    skill = new TextField(missionManager.missions[i].equipment.name, 425, 412, 20);
+                }
+                this.missionTextGroup.addChild(EXP);
+                this.missionTextGroup.addChild(coin);
+                this.missionTextGroup.addChild(skill);
                 return;
             }
         }
@@ -1165,6 +1174,7 @@ var GameWinUI = /** @class */ (function (_super) {
         _this.addChild(_this.endButton);
         _this.replayButton.addEventListener("onClick", function (eventData) {
             batManager.dispatchEvent("backSceneWin", null);
+            mainaudio.play();
         });
         _this.endButton.addEventListener("onClick", function (eventData) {
             history.go(0);

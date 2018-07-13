@@ -530,7 +530,6 @@ class MenuState extends State {
         this.anim1 = new Animator(200, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
         this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
 
-
         workerContainer = new DisplayObjectContainer(0, 0);
 
         this.workerButton.addEventListener("onClick", () => {

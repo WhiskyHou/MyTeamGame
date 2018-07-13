@@ -154,6 +154,39 @@ var GameMap = /** @class */ (function (_super) {
                     this.equipmentConfig[key] = equipmentTiem;
                     this.itemContainer.addChild(equipmentView);
                 }
+                else if (id == 2) {
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equip = equipManager.getEquipByID(id);
+                    var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }
+                else if (id == 7) {
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equip = equipManager.getEquipByID(id);
+                    var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }
+                else if (id == 1000) {
+                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    var equip = equipManager.getEquipByID(id);
+                    var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    var key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }
             }
         }
         var mapMonster = obj.monster;

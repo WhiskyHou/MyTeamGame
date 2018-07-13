@@ -380,7 +380,12 @@ class FightCommand extends Command {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + this.monster.nowMapID);
             if (this.monster.id == 24) {//狗策划
+                
                 batteUIContainer.addChild(gameWinUi);
+                setTimeout(() => {
+                    mainaudio.end();
+                    FinishAudio.play();
+                }, 2200);
             }
 
             this.monster.changeType();//此处测试换类型
