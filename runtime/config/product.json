@@ -4,55 +4,55 @@
 			"productID": "0",
 			"equipmentID": "33",
 			"price": "15",
-			"description": "assets/gaojianli.png"
+			"description": "说是淘来的，但其实就是从垃圾堆捡的。"
 		},
 		{
 			"productID": "1",
 			"equipmentID": "34",
 			"price": "8",
-			"description": "assets/gaojianli.png"
+			"description": "女装大佬即将登场。"
 		},
 		{
 			"productID": "2",
 			"equipmentID": "35",
 			"price": "8",
-			"description": "assets/gaojianli.png"
+			"description": "拿纸片画出来的手表，时间永远都是12点。"
 		},
 		{
 			"productID": "3",
 			"equipmentID": "36",
 			"price": "15",
-			"description": "assets/gaojianli.png"
+			"description": "小学期过后，主程戴上了假发，看到它的人都会受到伤害。"
 		},
 		{
 			"productID": "4",
 			"equipmentID": "20",
 			"price": "15",
-			"description": "assets/gaojianli.png"
+			"description": "诺基亚"
 		},
 		{
 			"productID": "5",
 			"equipmentID": "1000",
 			"price": "10",
-			"description": "assets/gaojianli.png"
+			"description": "喝下一口，提神醒脑。使用后，恢复最大生命值30%的血量。"
 		},
 		{
 			"productID": "6",
 			"equipmentID": "1001",
 			"price": "8",
-			"description": "assets/gaojianli.png"
+			"description": "喝了它，魔力充满全身。使用后，恢复最大生命值30%的蓝量。"
 		},
 		{
 			"productID": "7",
 			"equipmentID": "1002",
 			"price": "20  ",
-			"description": "assets/gaojianli.png"
+			"description": "使用它，魅力暴增。"
 		},
 		{
 			"productID": "8",
 			"equipmentID": "1003",
 			"price": "100",
-			"description": "assets/gaojianli.png"
+			"description": "撒币"
 		}
 	]
 

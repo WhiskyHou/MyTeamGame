@@ -14,6 +14,7 @@ class UserInfoUI extends DisplayObjectContainer {
     MP: TextField;
 
     bloodUI: Bitmap;
+    bloodUI1: Bitmap;
     userCoinUI: Bitmap;
     userDiamondUI: Bitmap;
 
@@ -37,6 +38,7 @@ class UserInfoUI extends DisplayObjectContainer {
 
 
         this.bloodUI = new Bitmap(0, 0, bloodUI);
+        this.bloodUI1 = new Bitmap(90, 32, bloodUI1);
         this.userCoinUI = new Bitmap(350, 20, userCoinUI);
         this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
 
@@ -61,6 +63,7 @@ class UserInfoUI extends DisplayObjectContainer {
 
 
         this.addChild(this.bloodUI);
+        this.addChild(this.bloodUI1);
         this.addChild(this.userCoinUI);
         this.addChild(this.userDiamondUI);
 
@@ -566,8 +569,8 @@ class shopUI extends DisplayObjectContainer {
         this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
 
         this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
-        this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5)
-        this.ShopCoin = new TextField('100', 438, 453, 20);
+        this.productMultiInfoText = new MultiTextField([], 200, 400, 20, 5).setStringByNumber(shpManager.getNowProductInfo(shpManager.nowNumber),12)
+        this.ShopCoin = new TextField(shpManager.getNowProductPrice().toString(), 438, 453, 20);
 
         let blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
 

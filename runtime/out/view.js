@@ -18,6 +18,7 @@ var UserInfoUI = /** @class */ (function (_super) {
     function UserInfoUI(x, y) {
         var _this = _super.call(this, x, y) || this;
         _this.bloodUI = new Bitmap(0, 0, bloodUI);
+        _this.bloodUI1 = new Bitmap(90, 32, bloodUI1);
         _this.userCoinUI = new Bitmap(350, 20, userCoinUI);
         _this.userDiamondUI = new Bitmap(500, 20, userDiamondUI);
         _this.userName = new TextField(player.name, 130, 12, 20);
@@ -35,6 +36,7 @@ var UserInfoUI = /** @class */ (function (_super) {
         _this.missionButton = new Bitmap(610, 475, MissionButton);
         //
         _this.addChild(_this.bloodUI);
+        _this.addChild(_this.bloodUI1);
         _this.addChild(_this.userCoinUI);
         _this.addChild(_this.userDiamondUI);
         _this.addChild(_this.userName);
@@ -444,8 +446,8 @@ var shopUI = /** @class */ (function (_super) {
         _this.ShopText4 = new TextField(shpManager.getNowProduct(3), 352, 187, 20).centered();
         _this.ShopText5 = new TextField(shpManager.getNowProduct(4), 352, 220, 20).centered();
         _this.ShopPage = new TextField((shpManager.nowPage + 1).toString(), 380, 250, 30);
-        _this.productMultiInfoText = new MultiTextField(shpManager.getNowProductInfo(shpManager.nowNumber), 200, 430, 15, 5);
-        _this.ShopCoin = new TextField('100', 438, 453, 20);
+        _this.productMultiInfoText = new MultiTextField([], 200, 400, 20, 5).setStringByNumber(shpManager.getNowProductInfo(shpManager.nowNumber), 12);
+        _this.ShopCoin = new TextField(shpManager.getNowProductPrice().toString(), 438, 453, 20);
         var blackMask = new Bitmap(-178, -14, battlePanelBlackMask);
         _this.addChild(blackMask);
         _this.addChild(_this.infoPanel);

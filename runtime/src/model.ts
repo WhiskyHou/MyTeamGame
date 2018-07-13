@@ -373,9 +373,9 @@ class Product {
     public productID: number;
     public equipment: Equipment;
     public price: number;
-    public description: Bitmap;
+    public description: string;
 
-    constructor(productID: number, equipment: Equipment, price: number, description: Bitmap) {
+    constructor(productID: number, equipment: Equipment, price: number, description: string) {
         this.productID = productID;
         this.equipment = equipment;
         this.price = price;
