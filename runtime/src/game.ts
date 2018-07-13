@@ -115,6 +115,8 @@ battleItemImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG
 
 let playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
+let playerIdleImg1 = new Image();
+playerIdleImg1.src = './assets/美术素材/角色/主角/128x128 主角.png';
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
@@ -269,7 +271,7 @@ const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
 const changemapaudio = new AudioPlay(ChangeMapAudio);
 const levelupaudio = new AudioPlay(LevelUpAudio);
-const missionaudio=new AudioPlay(MissionAudio);
+const missionaudio = new AudioPlay(MissionAudio);
 
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;

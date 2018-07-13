@@ -38,7 +38,7 @@ class battleManager extends EventDispatcher {
             enemy.hp -= damage;
             this.dispatchEvent('playerDealDamage', damage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -52,7 +52,7 @@ class battleManager extends EventDispatcher {
             enemy.hp -= skillDamage;
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
 
@@ -62,7 +62,7 @@ class battleManager extends EventDispatcher {
         if (skillType == 3) {//撒币大法
             let ran = Math.random() * 100;
             let skillDamage = Math.floor(this.damageFlow(player._coin * 0.3));
-            player._coin -= 0.1 * player._coin;
+            player._coin -= Math.floor(0.1 * player._coin);
             if (ran <= player._criticalPer) {
                 this.dispatchEvent('criticalHit', null);
                 enemy.hp -= skillDamage * 2;
@@ -72,7 +72,7 @@ class battleManager extends EventDispatcher {
 
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
 
@@ -89,7 +89,7 @@ class battleManager extends EventDispatcher {
             // enemy.hp -= skillDamage;
             this.dispatchEvent('enemyDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
 
@@ -101,7 +101,7 @@ class battleManager extends EventDispatcher {
             enemy.hp -= skillDamage;
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
 
@@ -121,7 +121,7 @@ class battleManager extends EventDispatcher {
 
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
 
@@ -133,14 +133,14 @@ class battleManager extends EventDispatcher {
             player._hp -= restore;
             if (player._hp > player.maxHP) {
                 player._hp = player.maxHP;
-                // batManager.dispatchEvent('playerHpUpdate', null);
+                batManager.dispatchEvent('playerHpUpdate', null);
             }
             let skillDamage = Math.floor(damage * 1.2);//吸星大法技能伤害系数为1.2，为恢复技能
             enemy.hp -= skillDamage;
             this.dispatchEvent('enemyDealDamage', skillDamage);
             this.dispatchEvent('enemyDealDamage', restore);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
 
                 this.dispatchEvent('thisEnemyDie', enemy);//敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());

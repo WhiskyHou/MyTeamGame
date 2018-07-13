@@ -40,7 +40,7 @@ class User extends EventDispatcher {
     constructor() {
         super();
         // 以下测试用
-        let eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 0);//36558
+        let eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0);//36558
         let eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         let eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         let eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
@@ -67,7 +67,7 @@ class User extends EventDispatcher {
         return this._level;
     }
     set level(level: number) {
-        if(level<20){
+        if (level < 20) {
             this._level = level;
             this.dispatchEvent('updateUserInfo', null);
         }
@@ -234,9 +234,19 @@ class User extends EventDispatcher {
 
     }
 
+    expFull = false;
     calProperty() {
         if (this._currentEXP >= this._needEXP) {
             this._level += 1;
+
+            while (this.expFull) {
+                if (this._currentEXP >= this._needEXP) {
+                    this._level += 1;
+                } else {
+                    this.expFull = false;
+                }
+            }
+
             this._currentEXP = this._currentEXP - this._needEXP;
             this._needEXP = Math.floor(this._needEXP * 1.2);
             this._originHealth += 6;
@@ -611,6 +621,9 @@ class Portal extends EventDispatcher {
     }
 
     toString() {
+        if (this.to == 8) {
+            mapManager.maps[this.to - 1].reset();
+        }
         return `[Portal ~ id:${this.id}, from:${this.from}, to:${this.to}, targetX:${this.targetRow}, targetY:${this.targetCol}]`
     }
 }
@@ -641,12 +654,15 @@ class Monster extends EventDispatcher {
 
     uselessTalks: string[] = [];
 
+    originHP = 0;
+
     constructor(id: number, name: string, hp: number, attack: number, exp: number, coin: number, level: number, dropType: number) {
         super();
 
         this.id = id;
         this.name = name;
         this.hp = hp;
+        this.originHP = hp;
         this.attack = attack;
         this.exp = exp;
         this.coin = coin;
@@ -798,25 +814,10 @@ class Monster extends EventDispatcher {
 
             }
         }
+    }
 
-        // for (let i = 0; i < monsManager.monsterList.length; i++) {
-        //     if (monsManager.monsterList[i].id == this.changeTypeID) {
-        //         let mons = monsManager.monsterList[i];
-        //         mons.x = tempX;
-        //         mons.y = tempY;
-
-        //         const monsterView = new Bitmap(TILE_SIZE * tempX, TILE_SIZE * tempY, monsManager.monsterList[i].view.img);
-        //         const monsterItem = monsManager.monsterList[i];
-        //         // monsterItem.name = '队长';
-        //         // monsterItem.view = monsterView;
-        //         // monsterItem.hp = 120;
-        //         monsterItem.x = tempX;
-        //         monsterItem.y = tempY;
-        //         const key = tempX + '_' + tempY;
-        //         map.monsterConfig[key] = monsterItem;
-        //         map.roleContainer.addChild(monsterView);
-        //     }
-        // }
+    resetHP() {
+        this.hp = this.originHP;
     }
 }
 

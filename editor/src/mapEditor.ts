@@ -49,29 +49,39 @@ if (makeButton) {
                     name: "null",
                     row: parseInt(inputX.value),
                     col: parseInt(inputY.value),
-                    tile: [],
-                    item: [],
-                    equipment: [],
-                    walkable: [],
-                    npc: [],
-                    monster: [],
-                    portal: []
+                    tile: [] as string[],
+                    item: [] as string[],
+                    equipment: [] as number[],
+                    walkable: [] as number[],
+                    npc: [] as number[],
+                    monster: [] as number[],
+                    portal: [] as number[]
                 }
             }
             for (let i = 0; i < parseInt(inputY.value); i++) {
-                const arrayStr: string[] = []
-                const arrayNum: number[] = []
+                const arrayStr1: string[] = []
+                const arrayStr2: string[] = []
+                const arrayNum1: number[] = []
+                const arrayNum2: number[] = []
+                const arrayNum3: number[] = []
+                const arrayNum4: number[] = []
+                const arrayNum5: number[] = []
                 for (let j = 0; j < parseInt(inputX.value); j++) {
-                    arrayStr.push("")
-                    arrayNum.push(0)
+                    arrayStr1.push("")
+                    arrayStr2.push("")
+                    arrayNum1.push(0)
+                    arrayNum2.push(0)
+                    arrayNum3.push(0)
+                    arrayNum4.push(0)
+                    arrayNum5.push(0)
                 }
-                data.map.tile.push(arrayStr);
-                data.map.item.push(arrayStr);
-                data.map.equipment.push(arrayNum)
-                data.map.walkable.push(arrayNum)
-                data.map.npc.push(arrayNum)
-                data.map.monster.push(arrayNum)
-                data.map.portal.push(arrayNum)
+                data.map.tile.push(arrayStr1);
+                data.map.item.push(arrayStr2);
+                data.map.equipment.push(arrayNum1)
+                data.map.walkable.push(arrayNum2)
+                data.map.npc.push(arrayNum3)
+                data.map.monster.push(arrayNum4)
+                data.map.portal.push(arrayNum5)
             }
         }
     }
@@ -79,7 +89,7 @@ if (makeButton) {
 if (submitButton) {
     submitButton.onclick = () => {
         if (data) {
-            data.map.id = mapid.value;
+            data.map.id = parseInt(mapid.value);
             data.map.name = mapName.value;
             data.map.tile[currentY][currentX] = mapPath.value
             data.map.item[currentY][currentX] = mapItem.value
@@ -88,6 +98,9 @@ if (submitButton) {
             data.map.npc[currentY][currentX] = parseInt(mapNpc.value)
             data.map.monster[currentY][currentX] = parseInt(mapMonster.value)
             data.map.portal[currentY][currentX] = parseInt(mapPortal.value)
+
+            console.log(currentX, currentY)
+            console.log(data.map)
 
             saveToFile()
         }
