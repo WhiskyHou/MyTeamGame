@@ -39,7 +39,7 @@ var battleManager = /** @class */ (function (_super) {
             enemy.hp -= damage;
             this.dispatchEvent('playerDealDamage', damage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -53,7 +53,7 @@ var battleManager = /** @class */ (function (_super) {
             enemy.hp -= skillDamage;
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -72,7 +72,7 @@ var battleManager = /** @class */ (function (_super) {
             }
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -88,7 +88,7 @@ var battleManager = /** @class */ (function (_super) {
             // enemy.hp -= skillDamage;
             this.dispatchEvent('enemyDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -99,7 +99,7 @@ var battleManager = /** @class */ (function (_super) {
             enemy.hp -= skillDamage;
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -116,7 +116,7 @@ var battleManager = /** @class */ (function (_super) {
             }
             this.dispatchEvent('playerDealDamage', skillDamage);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);
@@ -134,7 +134,7 @@ var battleManager = /** @class */ (function (_super) {
             this.dispatchEvent('enemyDealDamage', skillDamage);
             this.dispatchEvent('enemyDealDamage', restore);
             if (enemy.hp <= 0 && enemy != null) {
-                this.dispatchEvent(enemy.name + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
+                this.dispatchEvent(enemy.id + 'enemyDie', enemy); //通过敌人精确判断收到事件的对象是否死亡
                 this.dispatchEvent('thisEnemyDie', enemy); //敌人死亡播报
                 this.dispatchEvent('enemyDrop', enemy.makeDrop());
                 this.expGetter(enemy);

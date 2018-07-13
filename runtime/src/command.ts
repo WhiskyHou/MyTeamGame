@@ -19,8 +19,6 @@ class WalkCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始走路！！！从(${this.fromX}, ${this.fromY})出发`);
 
-        anim.play();////
-
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         const findpath = new astar.AStar();
@@ -31,6 +29,7 @@ class WalkCommand extends Command {
 
         let path;
         if (result) {
+            anim.play();
             path = findpath._path;
             path.shift();
             this.walk(path, callback);
@@ -49,7 +48,7 @@ class WalkCommand extends Command {
             }
             else {
                 console.log(`到达地点！！！(${this.toX},${this.toY})`);
-                anim.end();////
+                anim.end();
                 player.moveStatus = true;
                 callback();
                 return;
@@ -258,10 +257,12 @@ class TalkCommand extends Command {
                     console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log(`完成任务: ${mission.toString()}`);
+                        missionaudio.play();///
                         missionManager.submit(mission);
                     }
                     else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log(`接受任务：${mission.toString()}`);
+                        missionaudio.play();///
                         missionManager.accept(mission);
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);
@@ -374,11 +375,16 @@ class FightCommand extends Command {
             mainaudio.end();
             this.battleaudio.play();
         }
-        batManager.addEventListener(this.monster.name + 'enemyDie', (enemy: Monster) => {
+        batManager.addEventListener(this.monster.id + 'enemyDie', (enemy: Monster) => {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + this.monster.nowMapID);
             if (this.monster.id == 24) {//狗策划
+
                 batteUIContainer.addChild(gameWinUi);
+                setTimeout(() => {
+                    mainaudio.end();
+                    FinishAudio.play();
+                }, 2200);
             }
 
             this.monster.changeType();//此处测试换类型
