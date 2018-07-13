@@ -338,12 +338,14 @@ class Consumable extends Equipment {
     public addHP: number = 0;
     public addMP: number = 0;
     public addCharm: number = 0;
+    public addEXP: number = 0;
 
-    constructor(id: number, name: string, posID: number, addHP: number, addMP: number, addCharm: number) {
+    constructor(id: number, name: string, posID: number, addHP: number, addMP: number, addCharm: number, addEXP: number) {
         super(id, name, 0, posID, 0, 0, 0);
         this.addHP = addHP;
         this.addMP = addMP;
         this.addCharm = addCharm;
+        this.addEXP = addEXP;
     }
 
     use(callback: Function) {
@@ -353,10 +355,11 @@ class Consumable extends Equipment {
         player._mp += Math.ceil((this.addMP / 100) * player.maxMp)
         if (player._mp > player.maxMp) { player._mp = player.maxMp }
         player._charm += this.addCharm
+        player.currentEXP += this.addEXP
         callback()
     }
     toString() {
-        return `[Equipment ~ name:${this.name}, add:${this.addCharm + this.addHP + this.addMP}]`;
+        return `[Equipment ~ name:${this.name}, add:${this.addCharm + this.addHP + this.addMP+this.addEXP}]`;
     }
 }
 /**

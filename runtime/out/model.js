@@ -301,16 +301,18 @@ var Equipment = /** @class */ (function () {
  */
 var Consumable = /** @class */ (function (_super) {
     __extends(Consumable, _super);
-    function Consumable(id, name, posID, addHP, addMP, addCharm) {
+    function Consumable(id, name, posID, addHP, addMP, addCharm, addEXP) {
         var _this = _super.call(this, id, name, 0, posID, 0, 0, 0) || this;
         _this.x = 0;
         _this.y = 0;
         _this.addHP = 0;
         _this.addMP = 0;
         _this.addCharm = 0;
+        _this.addEXP = 0;
         _this.addHP = addHP;
         _this.addMP = addMP;
         _this.addCharm = addCharm;
+        _this.addEXP = addEXP;
         return _this;
     }
     Consumable.prototype.use = function (callback) {
@@ -323,10 +325,11 @@ var Consumable = /** @class */ (function (_super) {
             player._mp = player.maxMp;
         }
         player._charm += this.addCharm;
+        player.currentEXP += this.addEXP;
         callback();
     };
     Consumable.prototype.toString = function () {
-        return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP) + "]";
+        return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP + this.addEXP) + "]";
     };
     return Consumable;
 }(Equipment));
