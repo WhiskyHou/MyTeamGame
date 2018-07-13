@@ -455,6 +455,7 @@ class LoadingState extends State {
     loadPercent: TextField;
     count = 0;
     waitTime = 0;
+    waitwait = 0;
 
     //loadingaudio = new AudioPlay(MainAudio);
 
@@ -474,17 +475,25 @@ class LoadingState extends State {
     onUpdate(): void {
 
         if (this.count < 100 && this.waitTime == 0) {
-            this.count++;
+            this.waitwait++;
+            if (this.waitwait >= 2) {
+                this.count++;
+                this.waitwait = 0;
+            }
             this.loadPercent.text = this.count + " %";
         }
         if (this.count >= 100) {
             this.waitTime++;
         }
         if (this.waitTime > 120 && this.count < 200) {
-            this.count++;
+            this.waitwait++;
+            if (this.waitwait >= 2) {
+                this.count++;
+                this.waitwait = 0;
+            }
             this.loadPercent.text = this.count + " %";
         }
-        if (this.waitTime >= 280) {
+        if (this.waitTime >= 480) {
             fsm.replaceState(MenuState.instance);
         }
     }

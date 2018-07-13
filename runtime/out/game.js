@@ -401,6 +401,7 @@ var LoadingState = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.count = 0;
         _this.waitTime = 0;
+        _this.waitwait = 0;
         _this.loadBG = new Bitmap(0, 0, Resource.get('loging'));
         _this.loadPercent = new TextField(_this.count + " %", 420, 463, 30);
         return _this;
@@ -422,17 +423,25 @@ var LoadingState = /** @class */ (function (_super) {
     };
     LoadingState.prototype.onUpdate = function () {
         if (this.count < 100 && this.waitTime == 0) {
-            this.count++;
+            this.waitwait++;
+            if (this.waitwait >= 2) {
+                this.count++;
+                this.waitwait = 0;
+            }
             this.loadPercent.text = this.count + " %";
         }
         if (this.count >= 100) {
             this.waitTime++;
         }
         if (this.waitTime > 120 && this.count < 200) {
-            this.count++;
+            this.waitwait++;
+            if (this.waitwait >= 2) {
+                this.count++;
+                this.waitwait = 0;
+            }
             this.loadPercent.text = this.count + " %";
         }
-        if (this.waitTime >= 280) {
+        if (this.waitTime >= 480) {
             fsm.replaceState(MenuState.instance);
         }
     };
