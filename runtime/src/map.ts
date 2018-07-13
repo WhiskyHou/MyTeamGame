@@ -178,8 +178,8 @@ class GameMap extends DisplayObjectContainer {
                     this.itemContainer.addChild(equipmentView);
                 } else if (id == 1000) {
                     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, healthPotImg);
-                    let equip = equipManager.getEquipByID(id) as Equipment;
-                    const equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    let equip = equipManager.getEquipByID(id) as Consumable;
+                    const equipmentTiem = new Consumable(id, equip.name,equip.posID, equip.addHP, equip.addMP, equip.addCharm,equip.addEXP);
                     equipmentTiem.view = equipmentView;
                     equipmentTiem.x = j;
                     equipmentTiem.y = i;
@@ -189,6 +189,7 @@ class GameMap extends DisplayObjectContainer {
                 }
             }
         }
+    
 
         this.mapMonster = obj.monster as number[][];
         for (let i = 0; i < this.mapMonster.length; i++) {
