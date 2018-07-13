@@ -389,7 +389,7 @@
 			"addHP": "20",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1001",
@@ -398,7 +398,7 @@
 			"addHP": "0",
 			"addMP": "20",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1002",
@@ -407,7 +407,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "100",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1003",
@@ -416,7 +416,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1004",
@@ -425,7 +425,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1005",
@@ -434,7 +434,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1006",
@@ -443,7 +443,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1007",
@@ -452,7 +452,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1008",
@@ -461,7 +461,7 @@
 			"addHP": "0",
 			"addMP": "0",
 			"addCharm": "0",
-			"addEXP": "10"
+			"addEXP": "0"
 		},
 		{
 			"id": "1009",

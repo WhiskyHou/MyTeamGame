@@ -268,12 +268,13 @@ class bagManager extends EventDispatcher {
         this.nowNumber = num;
         if (this.nowGroupEquipment[5 * this.nowPage + this.nowNumber]) {
             this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5 + this.nowNumber]
-        }
+        } 
     }
     changeNowMounthedEquipment(num: number) {
         if (player.mounthedEquipment[num]) {
             this.nowMounthedEquipment = player.mounthedEquipment[num]
         }
+        this.nowNumber = -1
     }
     bagUpdate() {
         this.dispatchEvent('updateBag', player)

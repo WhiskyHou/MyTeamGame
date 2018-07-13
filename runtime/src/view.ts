@@ -427,7 +427,7 @@ class bagUI extends DisplayObjectContainer {
         this.addChild(this.mpText);
         this.bagOnButton.addEventListener("onClick", (eventData: any) => {
             baManager.bagOn();
-            baManager.getNowEquipment(0)
+            // baManager.getNowEquipment(0)
             clickaudio.play();
         })
         this.bagOffButton.addEventListener("onClick", (eventData: any) => {
@@ -1351,7 +1351,7 @@ class SettingUI extends DisplayObjectContainer {
                     let event: string = eventData;
                     this.code = event.slice(0, 24)
                     console.log(this.code)
-                    this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event.slice(0, 24), 8)
+                    this.rechargeInput = new MultiTextField(["请输入充值码"], 408, 244, 20, 30).setStringByNumber(event.slice(0, 24), 8)
                     this.addChild(this.rechargeInput)
                     clickaudio.play();
                 }

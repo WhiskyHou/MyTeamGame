@@ -331,7 +331,7 @@ var bagUI = /** @class */ (function (_super) {
         _this.addChild(_this.mpText);
         _this.bagOnButton.addEventListener("onClick", function (eventData) {
             baManager.bagOn();
-            baManager.getNowEquipment(0);
+            // baManager.getNowEquipment(0)
             clickaudio.play();
         });
         _this.bagOffButton.addEventListener("onClick", function (eventData) {
@@ -1092,7 +1092,7 @@ var SettingUI = /** @class */ (function (_super) {
                     var event_1 = eventData;
                     _this.code = event_1.slice(0, 24);
                     console.log(_this.code);
-                    _this.rechargeInput = new MultiTextField(["请输入充值码"], 415, 250, 20, 10).setStringByNumber(event_1.slice(0, 24), 8);
+                    _this.rechargeInput = new MultiTextField(["请输入充值码"], 408, 244, 20, 30).setStringByNumber(event_1.slice(0, 24), 8);
                     _this.addChild(_this.rechargeInput);
                     clickaudio.play();
                 }
