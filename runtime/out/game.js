@@ -267,9 +267,9 @@ var NPC3 = 3;
 var NPC4 = 4;
 var NPC5 = 5;
 var MONSTER = 1;
-var PLAYER_INDEX_X = 8;
+var PLAYER_INDEX_X = 5;
 var PLAYER_INDEX_Y = 5;
-var PLAYER_WALK_SPEED = 200;
+var PLAYER_WALK_SPEED = 400;
 var staticStage = stages[2];
 var dynamicStage = stages[0];
 var player = new User();
@@ -647,7 +647,7 @@ var PlayingState = /** @class */ (function (_super) {
     __extends(PlayingState, _super);
     function PlayingState() {
         var _this = _super.call(this) || this;
-        map = mapManager.getMap(1);
+        map = mapManager.getMap(4);
         talkUIContainer = new DisplayObjectContainer(0, 0);
         _this.mapContainer = new DisplayObjectContainer(0, 0);
         _this.userUIContainer = new DisplayObjectContainer(0, 0);

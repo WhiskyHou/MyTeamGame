@@ -299,9 +299,9 @@ const NPC5 = 5;
 
 const MONSTER = 1;
 
-const PLAYER_INDEX_X = 8;
+const PLAYER_INDEX_X = 5;
 const PLAYER_INDEX_Y = 5;
-const PLAYER_WALK_SPEED = 200;
+const PLAYER_WALK_SPEED = 400;
 
 const staticStage = stages[2];
 const dynamicStage = stages[0];
@@ -787,7 +787,7 @@ class PlayingState extends State {
     constructor() {
         super();
 
-        map = mapManager.getMap(1) as GameMap;
+        map = mapManager.getMap(4) as GameMap;
         talkUIContainer = new DisplayObjectContainer(0, 0);
 
         this.mapContainer = new DisplayObjectContainer(0, 0);
