@@ -823,6 +823,8 @@ class PlayingState extends State {
 
     camera: EmptyObject
 
+    mapname:TextField
+
     isRestroring = true;
 
     constructor() {
@@ -928,6 +930,14 @@ class PlayingState extends State {
         })
 
         this.changePlayerViewPosture();
+
+        this.mapname = new TextField('- 教室 -', 280, 200, 100)
+        
+        //
+        staticStage.addChild(this.mapname)
+        setTimeout(() => {
+            staticStage.deleteChild(this.mapname);
+        }, 1000);
     }
 
     restorCount = 0;
@@ -996,5 +1006,5 @@ window.onkeydown = (event: any) => {
 
 
 // 初始状态设置
-fsm.replaceState(CreateState.instance);
-// fsm.replaceState(new LoadingState());
+//fsm.replaceState(CreateState.instance);
+fsm.replaceState(new LoadingState());
