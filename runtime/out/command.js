@@ -24,7 +24,6 @@ var WalkCommand = /** @class */ (function (_super) {
     }
     WalkCommand.prototype.execute = function (callback) {
         console.log("\u5F00\u59CB\u8D70\u8DEF\uFF01\uFF01\uFF01\u4ECE(" + this.fromX + ", " + this.fromY + ")\u51FA\u53D1");
-        anim.play(); ////
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         var findpath = new astar.AStar();
@@ -34,6 +33,7 @@ var WalkCommand = /** @class */ (function (_super) {
         console.log(findpath._path);
         var path;
         if (result) {
+            anim.play();
             path = findpath._path;
             path.shift();
             this.walk(path, callback);
@@ -53,7 +53,7 @@ var WalkCommand = /** @class */ (function (_super) {
             }
             else {
                 console.log("\u5230\u8FBE\u5730\u70B9\uFF01\uFF01\uFF01(" + _this.toX + "," + _this.toY + ")");
-                anim.end(); ////
+                anim.end();
                 player.moveStatus = true;
                 callback();
                 return;
@@ -219,10 +219,12 @@ var TalkCommand = /** @class */ (function (_super) {
                     console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
+                        missionaudio.play(); ///
                         missionManager.submit(mission);
                     }
                     else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
+                        missionaudio.play(); ///
                         missionManager.accept(mission);
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);
@@ -321,6 +323,10 @@ var FightCommand = /** @class */ (function (_super) {
             console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
             if (_this.monster.id == 24) {
                 batteUIContainer.addChild(gameWinUi);
+                setTimeout(function () {
+                    mainaudio.end();
+                    FinishAudio.play();
+                }, 2200);
             }
             _this.monster.changeType(); //此处测试换类型
             map.deleteMonster(_this.monster);

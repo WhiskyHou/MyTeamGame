@@ -297,6 +297,15 @@ class MissionUI extends DisplayObjectContainer {
                     this.missionTextGroup.addChild(missionAcceptText);
                 }
                 this.missionTextGroup.addChild(missionText);
+                let skill = new TextField("", 425, 412, 20);
+                let EXP = new TextField(missionManager.missions[i].addEXP.toString(), 425, 385, 20);
+                let coin = new TextField(missionManager.missions[i].addCoin.toString(), 566, 384, 20);
+                if (missionManager.missions[i].equipment) {
+                    skill = new TextField(missionManager.missions[i].equipment.name, 425, 412, 20);
+                }
+                this.missionTextGroup.addChild(EXP);
+                this.missionTextGroup.addChild(coin);
+                this.missionTextGroup.addChild(skill);
                 return;
             }
         }
@@ -675,8 +684,8 @@ class battleUI extends DisplayObjectContainer {
     enemyNameText = new TextField('this.enemy.name', 380, 80, 30);
 
     //战斗角色表现
-    playerImg = new Bitmap(120, 120, player.view.img);
-    enemyImg = new Bitmap(355, 120, player.view.img);
+    playerImg = new Bitmap(120, 120, playerIdleImg1);
+    enemyImg = new Bitmap(355, 120, playerIdleImg1);
 
     //战斗人物属性
     playerAtkText = new TextField("" + player._attack, 150, 375, 30);
@@ -1440,6 +1449,7 @@ class GameWinUI extends DisplayObjectContainer {
 
         this.replayButton.addEventListener("onClick", (eventData: any) => {
             batManager.dispatchEvent("backSceneWin", null);
+            mainaudio.play();
         })
 
         this.endButton.addEventListener("onClick", (eventData: any) => {

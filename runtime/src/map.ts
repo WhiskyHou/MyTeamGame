@@ -156,6 +156,36 @@ class GameMap extends DisplayObjectContainer {
                     const key = j + '_' + i;
                     this.equipmentConfig[key] = equipmentTiem;
                     this.itemContainer.addChild(equipmentView);
+                } else if (id == 2) {
+                    const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    let equip = equipManager.getEquipByID(id) as Equipment;
+                    const equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    const key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }else if (id == 7) {
+                    const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    let equip = equipManager.getEquipByID(id) as Equipment;
+                    const equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    const key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
+                }else if (id == 1000) {
+                    const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, xiXingBookImg);
+                    let equip = equipManager.getEquipByID(id) as Equipment;
+                    const equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
+                    equipmentTiem.view = equipmentView;
+                    equipmentTiem.x = j;
+                    equipmentTiem.y = i;
+                    const key = j + '_' + i;
+                    this.equipmentConfig[key] = equipmentTiem;
+                    this.itemContainer.addChild(equipmentView);
                 }
             }
         }

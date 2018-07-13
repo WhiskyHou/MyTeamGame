@@ -115,6 +115,8 @@ battleItemImg.src = './assets/美术素材/UI/4 战斗界面/UI 战斗界面 PNG
 
 let playerIdleImg = new Image();
 playerIdleImg.src = './assets/美术素材/角色/主角/128x128 主角.png';
+let playerIdleImg1 = new Image();
+playerIdleImg1.src = './assets/美术素材/角色/主角/128x128 主角.png';
 
 var bagButton = new Image();
 bagButton.src = './assets/1 60x80 物品ui.png';
@@ -262,16 +264,20 @@ const ChangeMapAudio = new Audio()
 ChangeMapAudio.src = "assets/音效/dnf/瞬移（传送）.mp3"
 const LevelUpAudio = new Audio()
 LevelUpAudio.src = "assets/音效/常规/升级1.mp3"
+const MissionAudio = new Audio()
+MissionAudio.src = "assets/音效/常规/奖励.mp3"
 
 const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
 const changemapaudio = new AudioPlay(ChangeMapAudio);
 const levelupaudio = new AudioPlay(LevelUpAudio);
+const missionaudio = new AudioPlay(MissionAudio);
 
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
 levelupaudio.playOnlyOnce = true;
 changemapaudio.playOnlyOnce = true;
+missionaudio.playOnlyOnce = true;
 
 //装备道具图片
 let caihuaBookImg = new Image()
@@ -525,7 +531,6 @@ class MenuState extends State {
         this.anim = new Animator(120, 370, Resource.get('TestAnim') as HTMLImageElement, 128, 16, 0.1);
         this.anim1 = new Animator(200, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
         this.anim2 = new Animator(400, -50, Resource.get('Anim') as HTMLImageElement, 256, 15, 0.1);
-
 
         workerContainer = new DisplayObjectContainer(0, 0);
 

@@ -53,16 +53,6 @@ var User = /** @class */ (function (_super) {
         _this.mounthedEquipment.push(eq4);
         _this.mounthedEquipment.push(eq5);
         _this.changeEquipments();
-        // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq0)
-        // this.packageEquipment.push(eq1)
-        // this.packageEquipment.push(eq1)
-        // this.packageEquipment.push(eq2)
-        // this.packageEquipment.push(eq3)
-        // this.packageEquipment.push(eq4)
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
         _this.skill.push(skillEmpty);
@@ -75,8 +65,10 @@ var User = /** @class */ (function (_super) {
             return this._level;
         },
         set: function (level) {
-            this._level = level;
-            this.dispatchEvent('updateUserInfo', null);
+            if (level < 20) {
+                this._level = level;
+                this.dispatchEvent('updateUserInfo', null);
+            }
         },
         enumerable: true,
         configurable: true
