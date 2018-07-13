@@ -19,8 +19,6 @@ class WalkCommand extends Command {
     execute(callback: Function): void {
         console.log(`开始走路！！！从(${this.fromX}, ${this.fromY})出发`);
 
-        anim.play();////
-
         map.grid.setStartNode(this.fromX, this.fromY);
         map.grid.setEndNode(this.toX, this.toY);
         const findpath = new astar.AStar();
@@ -31,6 +29,7 @@ class WalkCommand extends Command {
 
         let path;
         if (result) {
+            anim.play();
             path = findpath._path;
             path.shift();
             this.walk(path, callback);
@@ -49,7 +48,7 @@ class WalkCommand extends Command {
             }
             else {
                 console.log(`到达地点！！！(${this.toX},${this.toY})`);
-                anim.end();////
+                anim.end();
                 player.moveStatus = true;
                 callback();
                 return;
@@ -380,7 +379,7 @@ class FightCommand extends Command {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + this.monster.nowMapID);
             if (this.monster.id == 24) {//狗策划
-                
+
                 batteUIContainer.addChild(gameWinUi);
                 setTimeout(() => {
                     mainaudio.end();
