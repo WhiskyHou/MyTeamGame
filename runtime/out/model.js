@@ -944,6 +944,7 @@ var UselessTalkWindow = /** @class */ (function (_super) {
         _this.addChild(_this.view);
         _this.addChild(_this.text);
         _this.addEventListener("onClick", function (eventData) {
+            clickaudio.play();
             switch (_this.count % 2) {
                 case 0:
                     _this.text.x = 160;
