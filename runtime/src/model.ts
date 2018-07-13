@@ -234,9 +234,19 @@ class User extends EventDispatcher {
 
     }
 
+    expFull = false;
     calProperty() {
         if (this._currentEXP >= this._needEXP) {
             this._level += 1;
+
+            while (this.expFull) {
+                if (this._currentEXP >= this._needEXP) {
+                    this._level += 1;
+                } else {
+                    this.expFull = false;
+                }
+            }
+
             this._currentEXP = this._currentEXP - this._needEXP;
             this._needEXP = Math.floor(this._needEXP * 1.2);
             this._originHealth += 6;
@@ -338,12 +348,14 @@ class Consumable extends Equipment {
     public addHP: number = 0;
     public addMP: number = 0;
     public addCharm: number = 0;
+    public addEXP: number = 0;
 
-    constructor(id: number, name: string, posID: number, addHP: number, addMP: number, addCharm: number) {
+    constructor(id: number, name: string, posID: number, addHP: number, addMP: number, addCharm: number, addEXP: number) {
         super(id, name, 0, posID, 0, 0, 0);
         this.addHP = addHP;
         this.addMP = addMP;
         this.addCharm = addCharm;
+        this.addEXP = addEXP;
     }
 
     use(callback: Function) {
@@ -353,10 +365,11 @@ class Consumable extends Equipment {
         player._mp += Math.ceil((this.addMP / 100) * player.maxMp)
         if (player._mp > player.maxMp) { player._mp = player.maxMp }
         player._charm += this.addCharm
+        player.currentEXP += this.addEXP
         callback()
     }
     toString() {
-        return `[Equipment ~ name:${this.name}, add:${this.addCharm + this.addHP + this.addMP}]`;
+        return `[Equipment ~ name:${this.name}, add:${this.addCharm + this.addHP + this.addMP+this.addEXP}]`;
     }
 }
 /**
@@ -611,7 +624,7 @@ class Portal extends EventDispatcher {
     }
 
     toString() {
-        if (this.to == 8) {
+        if (this.to == 8 || this.to == 9 || this.to == 10 || this.to == 11) {
             mapManager.maps[this.to - 1].reset();
         }
         return `[Portal ~ id:${this.id}, from:${this.from}, to:${this.to}, targetX:${this.targetRow}, targetY:${this.targetCol}]`

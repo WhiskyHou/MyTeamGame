@@ -39,6 +39,7 @@ var User = /** @class */ (function (_super) {
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
+        _this.expFull = false;
         // 以下测试用
         var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0); //36558
         var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
@@ -231,6 +232,14 @@ var User = /** @class */ (function (_super) {
     User.prototype.calProperty = function () {
         if (this._currentEXP >= this._needEXP) {
             this._level += 1;
+            while (this.expFull) {
+                if (this._currentEXP >= this._needEXP) {
+                    this._level += 1;
+                }
+                else {
+                    this.expFull = false;
+                }
+            }
             this._currentEXP = this._currentEXP - this._needEXP;
             this._needEXP = Math.floor(this._needEXP * 1.2);
             this._originHealth += 6;
@@ -301,16 +310,18 @@ var Equipment = /** @class */ (function () {
  */
 var Consumable = /** @class */ (function (_super) {
     __extends(Consumable, _super);
-    function Consumable(id, name, posID, addHP, addMP, addCharm) {
+    function Consumable(id, name, posID, addHP, addMP, addCharm, addEXP) {
         var _this = _super.call(this, id, name, 0, posID, 0, 0, 0) || this;
         _this.x = 0;
         _this.y = 0;
         _this.addHP = 0;
         _this.addMP = 0;
         _this.addCharm = 0;
+        _this.addEXP = 0;
         _this.addHP = addHP;
         _this.addMP = addMP;
         _this.addCharm = addCharm;
+        _this.addEXP = addEXP;
         return _this;
     }
     Consumable.prototype.use = function (callback) {
@@ -323,10 +334,11 @@ var Consumable = /** @class */ (function (_super) {
             player._mp = player.maxMp;
         }
         player._charm += this.addCharm;
+        player.currentEXP += this.addEXP;
         callback();
     };
     Consumable.prototype.toString = function () {
-        return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP) + "]";
+        return "[Equipment ~ name:" + this.name + ", add:" + (this.addCharm + this.addHP + this.addMP + this.addEXP) + "]";
     };
     return Consumable;
 }(Equipment));
@@ -524,7 +536,7 @@ var Portal = /** @class */ (function (_super) {
         return _this;
     }
     Portal.prototype.toString = function () {
-        if (this.to == 8) {
+        if (this.to == 8 || this.to == 9 || this.to == 10 || this.to == 11) {
             mapManager.maps[this.to - 1].reset();
         }
         return "[Portal ~ id:" + this.id + ", from:" + this.from + ", to:" + this.to + ", targetX:" + this.targetRow + ", targetY:" + this.targetCol + "]";

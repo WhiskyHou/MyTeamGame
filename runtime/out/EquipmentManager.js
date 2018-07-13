@@ -38,7 +38,8 @@ var EquipmentManager = /** @class */ (function () {
             var addHP = parseInt(item.addHP);
             var addMP = parseInt(item.addMP);
             var addCharm = parseInt(item.addCharm);
-            var consum = new Consumable(id, name_2, posID, addHP, addMP, addCharm);
+            var addEXP = parseInt(item.addEXP);
+            var consum = new Consumable(id, name_2, posID, addHP, addMP, addCharm, addEXP);
             this.equipList.push(consum);
         }
     };

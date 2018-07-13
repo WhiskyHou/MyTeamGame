@@ -53,6 +53,12 @@
 			"equipmentID": "1003",
 			"price": "100",
 			"description": "有钱能使鬼推磨。用钱也可以砸死别人，威力巨大。"
+		},
+		{
+			"productID": "9",
+			"equipmentID": "1009",
+			"price": "20",
+			"description": "你只要充钱就无敌了。"
 		}
 	]
 

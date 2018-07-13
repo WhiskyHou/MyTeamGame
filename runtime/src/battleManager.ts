@@ -62,7 +62,7 @@ class battleManager extends EventDispatcher {
         if (skillType == 3) {//撒币大法
             let ran = Math.random() * 100;
             let skillDamage = Math.floor(this.damageFlow(player._coin * 0.3));
-            player._coin -= 0.1 * player._coin;
+            player._coin -= Math.floor(0.1 * player._coin);
             if (ran <= player._criticalPer) {
                 this.dispatchEvent('criticalHit', null);
                 enemy.hp -= skillDamage * 2;
@@ -133,7 +133,7 @@ class battleManager extends EventDispatcher {
             player._hp -= restore;
             if (player._hp > player.maxHP) {
                 player._hp = player.maxHP;
-                // batManager.dispatchEvent('playerHpUpdate', null);
+                batManager.dispatchEvent('playerHpUpdate', null);
             }
             let skillDamage = Math.floor(damage * 1.2);//吸星大法技能伤害系数为1.2，为恢复技能
             enemy.hp -= skillDamage;
