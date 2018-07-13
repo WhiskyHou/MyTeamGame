@@ -20,6 +20,7 @@ var InputManager = /** @class */ (function (_super) {
         _this.inputOver = false;
         _this.rechargeIsStart = false;
         _this.oneTime = false;
+        _this.bagIsOpen = false;
         _this.addEventListener("inputStart", function (eventData) {
             console.log(eventData);
             _this.parse(eventData);
@@ -113,7 +114,13 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener("I", function (eventData) {
             //背包快捷键
-            baManager.openBag();
+            if (_this.bagIsOpen) {
+                baManager.bagDown();
+            }
+            else {
+                baManager.openBag();
+            }
+            _this.bagIsOpen = !_this.bagIsOpen;
         });
         this.addEventListener("O", function (eventData) {
             //设置快捷键

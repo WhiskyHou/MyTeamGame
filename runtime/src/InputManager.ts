@@ -7,6 +7,7 @@ class InputManager extends EventDispatcher {
     inputOver: boolean = false
     rechargeIsStart : boolean = false;
     oneTime : boolean = false;
+    bagIsOpen : boolean = false;
     constructor() {
         super()
 
@@ -102,7 +103,12 @@ class InputManager extends EventDispatcher {
         });
         this.addEventListener("I", (eventData: any) => {
             //背包快捷键
-            baManager.openBag()
+            if(this.bagIsOpen){
+                baManager.bagDown()
+            }else{
+                baManager.openBag()
+            }
+            this.bagIsOpen = !this.bagIsOpen
         });
         this.addEventListener("O", (eventData: any) => {
             //设置快捷键
