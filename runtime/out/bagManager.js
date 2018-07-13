@@ -33,7 +33,7 @@ var bagManager = /** @class */ (function (_super) {
         if (this.nowNumber > -1) {
             var pos = this.nowEquipment.posID;
             if (pos < 7) {
-                if (player.mounthedEquipment[pos].id != 0) {
+                if (player.mounthedEquipment[pos].id != 0) { //如果当前位置有装备，就先把他卸下来
                     this.nowMounthedEquipment = player.mounthedEquipment[pos];
                     this.bagOff();
                 }
@@ -59,7 +59,7 @@ var bagManager = /** @class */ (function (_super) {
                 // dwiqhfoqwhfioqw
                 var con = this.nowEquipment;
                 console.log(con.id);
-                if (con.id == 1003) {
+                if (con.id == 1003) { //撒币技能书
                     for (var i = 0; i < skillArray.length; i++) {
                         if (skillArray[i].id == 3) {
                             return;
@@ -71,7 +71,7 @@ var bagManager = /** @class */ (function (_super) {
                     this.exportCheckedEquipment(false);
                     this.nowNumber = -1;
                 }
-                if (con.id == 1004) {
+                if (con.id == 1004) { //菜花宝典技能书
                     for (var i = 0; i < skillArray.length; i++) {
                         if (skillArray[i].id == 2) {
                             return;
@@ -83,7 +83,7 @@ var bagManager = /** @class */ (function (_super) {
                     this.exportCheckedEquipment(false);
                     this.nowNumber = -1;
                 }
-                if (con.id == 1005) {
+                if (con.id == 1005) { //吸星大法技能书
                     for (var i = 0; i < skillArray.length; i++) {
                         if (skillArray[i].id == 7) {
                             return;
@@ -191,16 +191,16 @@ var bagManager = /** @class */ (function (_super) {
         this.nowEquipment = this.nowGroupEquipment[this.nowPage * 5 + this.nowNumber];
     };
     bagManager.prototype.posTOgroup = function (pos) {
-        if (pos == 0) {
+        if (pos == 0) { //武器
             return 0;
         }
-        else if (pos > 0 && pos < 7) {
+        else if (pos > 0 && pos < 7) { //防具
             return 1;
         }
-        else if (pos == 7) {
+        else if (pos == 7) { //消耗品
             return 2;
         }
-        else if (pos == 8) {
+        else if (pos == 8) { //其他
             return 3;
         }
         else {
