@@ -132,6 +132,7 @@ class InputManager extends EventDispatcher {
         });
         this.addEventListener("Esc", (eventData: any) => {
             baManager.dispatchEvent('bagDown', player);
+            this.bagIsOpen = false;
             shpManager.dispatchEvent('shopDown', player);
 
         });

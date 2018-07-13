@@ -189,6 +189,7 @@ class GameMap extends DisplayObjectContainer {
                 }
             }
         }
+    
 
         this.mapMonster = obj.monster as number[][];
         for (let i = 0; i < this.mapMonster.length; i++) {
