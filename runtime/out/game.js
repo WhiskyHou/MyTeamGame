@@ -258,7 +258,7 @@ missionaudio.playOnlyOnce = true;
 var caihuaBookImg = new Image();
 caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png";
 var xiXingBookImg = new Image();
-xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png';
+xiXingBookImg.src = './assets/美术素材/场景/细节/纸团02.png';
 //胜利UI图片
 var gameWinBgImg = new Image();
 gameWinBgImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功界面改1 beijin.png';
