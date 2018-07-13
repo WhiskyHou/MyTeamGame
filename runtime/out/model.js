@@ -39,6 +39,7 @@ var User = /** @class */ (function (_super) {
         _this.suitAttackPer = 0;
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
+        _this.expFull = false;
         // 以下测试用
         var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0); //36558
         var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
@@ -231,6 +232,14 @@ var User = /** @class */ (function (_super) {
     User.prototype.calProperty = function () {
         if (this._currentEXP >= this._needEXP) {
             this._level += 1;
+            while (this.expFull) {
+                if (this._currentEXP >= this._needEXP) {
+                    this._level += 1;
+                }
+                else {
+                    this.expFull = false;
+                }
+            }
             this._currentEXP = this._currentEXP - this._needEXP;
             this._needEXP = Math.floor(this._needEXP * 1.2);
             this._originHealth += 6;
