@@ -250,17 +250,28 @@ BuyAudio.src = "assets/音效/常规/金币.mp3"
 const HPMPAudio = new Audio()
 HPMPAudio.src = "assets/音效/dnf/药水.mp3"
 
+const FinishAudio = new Audio()
+FinishAudio.src = "assets/音效/常规/游戏胜利完成.mp3"
+
 //全局音乐控制
 const MainAudio = new Audio()
 MainAudio.src = "assets/音效/常规/欢快bgm.mp3"
 const ClickAudio = new Audio()
 ClickAudio.src = "assets/音效/常规/单击.mp3"
+const ChangeMapAudio = new Audio()
+ChangeMapAudio.src = "assets/音效/dnf/瞬移（传送）.mp3"
+const LevelUpAudio = new Audio()
+LevelUpAudio.src = "assets/音效/常规/升级1.mp3"
 
 const mainaudio = new AudioPlay(MainAudio);
 const clickaudio = new AudioPlay(ClickAudio);
+const changemapaudio = new AudioPlay(ChangeMapAudio);
+const levelupaudio = new AudioPlay(LevelUpAudio);
 
 mainaudio.playOnlyOnce = false;
 clickaudio.playOnlyOnce = true;
+levelupaudio.playOnlyOnce = true;
+changemapaudio.playOnlyOnce = true;
 
 //装备道具图片
 let caihuaBookImg = new Image()

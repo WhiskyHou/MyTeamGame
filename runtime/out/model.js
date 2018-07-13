@@ -250,6 +250,9 @@ var User = /** @class */ (function (_super) {
             this._hp = this.maxHP;
             this.changeEquipments();
             console.log('现在等级：' + this._level + ' 当前经验：' + this._currentEXP + " 需要经验：" + this._needEXP);
+            setTimeout(function () {
+                levelupaudio.play();
+            }, 500);
         }
     };
     // private _httpaaa: number
