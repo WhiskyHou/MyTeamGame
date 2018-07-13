@@ -283,6 +283,14 @@ caihuaBookImg.src = "./assets/美术素材/道具/道具（书本）.png"
 let xiXingBookImg = new Image();
 xiXingBookImg.src = './assets/美术素材/场景/细节/纸团03.png'
 
+//胜利UI图片
+let gameWinBgImg = new Image();
+gameWinBgImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功界面改1 beijin.png';
+let replayButtonImg = new Image();
+replayButtonImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功03.png';
+let endButtonImg = new Image();
+endButtonImg.src = './assets/美术素材/UI/9 游戏结束界面/游戏结束 PNG/成功04.png';
+
 
 /**
  * 常量
