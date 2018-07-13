@@ -306,6 +306,44 @@ var PLAYER_INDEX_Y = 5;
 var PLAYER_WALK_SPEED = 400;
 var staticStage = stages[2];
 var dynamicStage = stages[0];
+/**
+ * 技能初始化(把这里当技能配置文件)
+ */
+var skillArray = []; //人物已有技能库
+var skillBase = []; //全技能库
+var skillAttack = new Skill(0, '攻击', 0); //攻击预留
+skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
+skillArray.push(skillAttack);
+skillBase.push(skillAttack);
+var skillEmpty = new Skill(1, '空', 0); //空
+skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
+skillArray.push(skillEmpty);
+skillBase.push(skillEmpty);
+var skillCaihua = new Skill(2, '菜花宝典', 30);
+skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
+// skillArray.push(skillCaihua);
+skillBase.push(skillCaihua);
+var skillSabi = new Skill(3, '撒币大法', 20);
+skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
+// skillArray.push(skillSabi);
+skillBase.push(skillSabi);
+var skillBusi = new Skill(4, '英雄不死', 40);
+skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
+// skillArray.push(skillBusi);策划前
+skillBase.push(skillBusi);
+var skillGuolai = new Skill(5, '你过来啊', 65);
+skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
+// skillArray.push(skillGuolai);智者
+skillBase.push(skillGuolai);
+var skillQishang = new Skill(6, '七伤拳', 50);
+skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
+// skillArray.push(skillQishang);基友
+skillBase.push(skillQishang);
+var skillXixing = new Skill(7, '吸星大法', 45);
+skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
+;
+// skillArray.push(skillXixing);
+skillBase.push(skillXixing);
 var player = new User();
 var map;
 var mapManager = new MapManager();
@@ -354,44 +392,6 @@ batManager.addEventListener("enemyBattleStart", function (enemy) {
     batEndUI.coinText.text = '' + enemy.coin;
 });
 /**
- * 技能初始化(把这里当技能配置文件)
- */
-var skillArray = []; //人物已有技能库
-var skillBase = []; //全技能库
-var skillAttack = new Skill(0, '攻击', 0); //攻击预留
-skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
-skillArray.push(skillAttack);
-skillBase.push(skillAttack);
-var skillEmpty = new Skill(1, '空', 0); //空
-skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
-skillArray.push(skillEmpty);
-skillBase.push(skillEmpty);
-var skillCaihua = new Skill(2, '菜花宝典', 30);
-skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
-// skillArray.push(skillCaihua);
-skillBase.push(skillCaihua);
-var skillSabi = new Skill(3, '撒币大法', 20);
-skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
-// skillArray.push(skillSabi);
-skillBase.push(skillSabi);
-var skillBusi = new Skill(4, '英雄不死', 40);
-skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
-// skillArray.push(skillBusi);策划前
-skillBase.push(skillBusi);
-var skillGuolai = new Skill(5, '你过来啊', 65);
-skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
-// skillArray.push(skillGuolai);智者
-skillBase.push(skillGuolai);
-var skillQishang = new Skill(6, '七伤拳', 50);
-skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
-// skillArray.push(skillQishang);基友
-skillBase.push(skillQishang);
-var skillXixing = new Skill(7, '吸星大法', 45);
-skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);
-;
-// skillArray.push(skillXixing);
-skillBase.push(skillXixing);
-/**
  * 载入状态
  */
 var LoadingState = /** @class */ (function (_super) {
@@ -419,6 +419,7 @@ var LoadingState = /** @class */ (function (_super) {
     LoadingState.prototype.onEnter = function () {
         staticStage.addChild(this.loadBG);
         staticStage.addChild(this.loadPercent);
+        // this.loadPercent.addComponent(new Loading());
         mainaudio.play();
     };
     LoadingState.prototype.onUpdate = function () {
@@ -447,7 +448,7 @@ var LoadingState = /** @class */ (function (_super) {
     };
     LoadingState.prototype.onExit = function () {
         console.log('Loading State onExit');
-        staticStage.deleteAllEventListener();
+        // staticStage.deleteAllEventListener();
         staticStage.deleteAll();
     };
     return LoadingState;
@@ -467,7 +468,7 @@ var MenuState = /** @class */ (function (_super) {
             // this.onExit();
             _this.startaudio.playOnlyOnce = true;
             _this.startaudio.play();
-            missionManager.init();
+            // missionManager.init();
             // npcManager.init();
             fsm.replaceState(CreateState.instance);
         };
@@ -523,7 +524,7 @@ var MenuState = /** @class */ (function (_super) {
     };
     MenuState.prototype.onExit = function () {
         console.log('Menu State onExit');
-        staticStage.deleteAllEventListener();
+        // staticStage.deleteAllEventListener();
         staticStage.deleteAll();
     };
     return MenuState;
@@ -656,7 +657,12 @@ var CreateState = /** @class */ (function (_super) {
         // this.onCreatePlayer();
     };
     CreateState.prototype.onCreatePlayer = function () {
-        player = new User(); //初始hp 60，攻击10，初始化于类中。
+        // player = new User();//初始hp 60，攻击10，初始化于类中。
+        // 哪个傻逼写的！！！！！！
+        // 我*你大爷！！！！！！！
+        // 傻逼傻逼大傻逼！！！！！！
+        // 狗逼程序员，辣鸡！！！！！！
+        // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
         player.level = 1;
         player.needEXP = 20;
         player.currentEXP = 0;
@@ -737,7 +743,7 @@ var PlayingState = /** @class */ (function (_super) {
         staticStage.addChild(settingBoxContainer);
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
-        anim = player.view.addComponent(new PlayerAnimTest());
+        anim = player.view.addComponent(new PlayerAnim());
         //this.mapContainer.addChild(animTemp);
         this.userUIContainer.addChild(this.userInfoUI);
         this.missionUIContainer.addChild(this.missionInfoUI);
@@ -851,5 +857,5 @@ window.onkeydown = function (event) {
     inputManager.dispatchEvent("inputStart", keyCode);
 };
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+// fsm.replaceState(CreateState.instance);
+fsm.replaceState(MenuState.instance);

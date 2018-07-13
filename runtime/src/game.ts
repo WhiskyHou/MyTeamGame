@@ -343,6 +343,46 @@ const PLAYER_WALK_SPEED = 400;
 const staticStage = stages[2];
 const dynamicStage = stages[0];
 
+/**
+ * 技能初始化(把这里当技能配置文件)
+ */
+let skillArray: Skill[] = []//人物已有技能库
+let skillBase: Skill[] = []//全技能库
+
+let skillAttack = new Skill(0, '攻击', 0);//攻击预留
+skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
+skillArray.push(skillAttack);
+skillBase.push(skillAttack);
+let skillEmpty = new Skill(1, '空', 0);//空
+skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
+skillArray.push(skillEmpty);
+skillBase.push(skillEmpty);
+let skillCaihua = new Skill(2, '菜花宝典', 30);
+skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
+// skillArray.push(skillCaihua);
+skillBase.push(skillCaihua);
+let skillSabi = new Skill(3, '撒币大法', 20);
+skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
+// skillArray.push(skillSabi);
+skillBase.push(skillSabi);
+
+let skillBusi = new Skill(4, '英雄不死', 40);
+skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
+// skillArray.push(skillBusi);策划前
+skillBase.push(skillBusi);
+let skillGuolai = new Skill(5, '你过来啊', 65);
+skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
+// skillArray.push(skillGuolai);智者
+skillBase.push(skillGuolai);
+let skillQishang = new Skill(6, '七伤拳', 50);
+skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
+// skillArray.push(skillQishang);基友
+skillBase.push(skillQishang);
+
+let skillXixing = new Skill(7, '吸星大法', 45);
+skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
+// skillArray.push(skillXixing);
+skillBase.push(skillXixing);
 
 var player: User = new User();
 var map: GameMap;
@@ -397,46 +437,7 @@ batManager.addEventListener("enemyBattleStart", (enemy: Monster) => {
     batEndUI.coinText.text = '' + enemy.coin;
 })
 
-/**
- * 技能初始化(把这里当技能配置文件)
- */
-let skillArray: Skill[] = []//人物已有技能库
-let skillBase: Skill[] = []//全技能库
 
-let skillAttack = new Skill(0, '攻击', 0);//攻击预留
-skillAttack.description = new Bitmap(0, 0, skillEmptyDesImg);
-skillArray.push(skillAttack);
-skillBase.push(skillAttack);
-let skillEmpty = new Skill(1, '空', 0);//空
-skillEmpty.description = new Bitmap(0, 0, skillEmptyDesImg);
-skillArray.push(skillEmpty);
-skillBase.push(skillEmpty);
-let skillCaihua = new Skill(2, '菜花宝典', 30);
-skillCaihua.description = new Bitmap(0, 0, skillCaihuaDesImg);
-// skillArray.push(skillCaihua);
-skillBase.push(skillCaihua);
-let skillSabi = new Skill(3, '撒币大法', 20);
-skillSabi.description = new Bitmap(0, 0, skillSabiDesImg);
-// skillArray.push(skillSabi);
-skillBase.push(skillSabi);
-
-let skillBusi = new Skill(4, '英雄不死', 40);
-skillBusi.description = new Bitmap(0, 0, skillBusiDesImg);
-// skillArray.push(skillBusi);策划前
-skillBase.push(skillBusi);
-let skillGuolai = new Skill(5, '你过来啊', 65);
-skillGuolai.description = new Bitmap(0, 0, skillGuolaiDesImg);
-// skillArray.push(skillGuolai);智者
-skillBase.push(skillGuolai);
-let skillQishang = new Skill(6, '七伤拳', 50);
-skillQishang.description = new Bitmap(0, 0, skillQishangDesImg);
-// skillArray.push(skillQishang);基友
-skillBase.push(skillQishang);
-
-let skillXixing = new Skill(7, '吸星大法', 45);
-skillXixing.description = new Bitmap(0, 0, skillXixingDesImg);;
-// skillArray.push(skillXixing);
-skillBase.push(skillXixing);
 
 /**
  * 载入状态
@@ -469,6 +470,8 @@ class LoadingState extends State {
         staticStage.addChild(this.loadBG);
         staticStage.addChild(this.loadPercent);
 
+        // this.loadPercent.addComponent(new Loading());
+
         mainaudio.play()
 
     }
@@ -499,12 +502,8 @@ class LoadingState extends State {
     }
     onExit(): void {
         console.log('Loading State onExit');
-        staticStage.deleteAllEventListener();
+        // staticStage.deleteAllEventListener();
         staticStage.deleteAll();
-
-
-
-
     }
 }
 
@@ -589,7 +588,7 @@ class MenuState extends State {
     }
     onExit(): void {
         console.log('Menu State onExit');
-        staticStage.deleteAllEventListener();
+        // staticStage.deleteAllEventListener();
         staticStage.deleteAll();
     }
 
@@ -604,7 +603,7 @@ class MenuState extends State {
         this.startaudio.playOnlyOnce = true;
         this.startaudio.play();
 
-        missionManager.init();
+        // missionManager.init();
 
         // npcManager.init();
         fsm.replaceState(CreateState.instance);
@@ -756,7 +755,12 @@ class CreateState extends State {
     }
 
     onCreatePlayer() {
-        player = new User();//初始hp 60，攻击10，初始化于类中。
+        // player = new User();//初始hp 60，攻击10，初始化于类中。
+        // 哪个傻逼写的！！！！！！
+        // 我*你大爷！！！！！！！
+        // 傻逼傻逼大傻逼！！！！！！
+        // 狗逼程序员，辣鸡！！！！！！
+        // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
         player.level = 1;
         player.needEXP = 20;
         player.currentEXP = 0;
@@ -802,7 +806,7 @@ let settingBoxContainer: DisplayObjectContainer;
 // animTemp = new DisplayObjectContainer(PLAYER_INDEX_X,PLAYER_INDEX_Y);
 // const anim = animTemp.addComponent(new PlayerAnimTest()) as PlayerAnimTest
 
-let anim: PlayerAnimTest
+let anim: PlayerAnim
 
 /**
  * 游戏状态
@@ -882,7 +886,7 @@ class PlayingState extends State {
         this.mapContainer.addChild(map);
         this.mapContainer.addChild(player.view);
 
-        anim = player.view.addComponent(new PlayerAnimTest()) as PlayerAnimTest
+        anim = player.view.addComponent(new PlayerAnim()) as PlayerAnim
 
         //this.mapContainer.addChild(animTemp);
 
@@ -1019,5 +1023,5 @@ window.onkeydown = (event: any) => {
 
 
 // 初始状态设置
-//fsm.replaceState(CreateState.instance);
-fsm.replaceState(new LoadingState());
+// fsm.replaceState(CreateState.instance);
+fsm.replaceState(MenuState.instance);

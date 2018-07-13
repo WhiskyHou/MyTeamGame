@@ -1,7 +1,55 @@
 /**
- * 
+ * 加载进度条
  */
-class PlayerAnimTest extends Behaviour {
+class Loading extends Behaviour {
+
+    count: number = 0
+
+    waitTime: number = 0
+
+    waitwait: number = 0
+
+    loadPercent: TextField
+
+    onStart(): void {
+        this.loadPercent = this.gameObject as TextField
+    }
+
+    onUpdate(delta: number): void {
+        if (this.count < 100 && this.waitTime == 0) {
+            this.waitwait++;
+            if (this.waitwait >= 2) {
+                this.count++;
+                this.waitwait = 0;
+            }
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.count >= 100) {
+            this.waitTime++;
+        }
+        if (this.waitTime > 120 && this.count < 200) {
+            this.waitwait++;
+            if (this.waitwait >= 2) {
+                this.count++;
+                this.waitwait = 0;
+            }
+            this.loadPercent.text = this.count + " %";
+        }
+        if (this.waitTime >= 480) {
+            fsm.replaceState(MenuState.instance);
+        }
+    }
+
+    onDestory(): void {
+
+    }
+}
+
+
+/**
+ * 主角动画
+ */
+class PlayerAnim extends Behaviour {
 
     anim: Animator
 

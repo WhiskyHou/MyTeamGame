@@ -91,6 +91,7 @@ class EventDispatcher {
 
     addEventListener(type: string, callback: Function) {
         this.listeners.push({ type, callback });
+        
     }
 
     deleteEventListener(type: string, callback: Function) {
@@ -101,6 +102,7 @@ class EventDispatcher {
                 break;
             }
         }
+        
     }
 
     deleteAllEventListener() {
