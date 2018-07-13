@@ -276,6 +276,7 @@ var bagManager = /** @class */ (function (_super) {
         if (player.mounthedEquipment[num]) {
             this.nowMounthedEquipment = player.mounthedEquipment[num];
         }
+        this.nowNumber = -1;
     };
     bagManager.prototype.bagUpdate = function () {
         this.dispatchEvent('updateBag', player);
