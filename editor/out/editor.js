@@ -127,7 +127,7 @@ var PropertyEditor = /** @class */ (function () {
                 propertyItem.update(_this.currentEditObject);
             }
         };
-        var _loop_1 = function (propertyMetadata) {
+        var _loop_2 = function (propertyMetadata) {
             // const propertyItem = new PropertyItem(propertyMetadata, this.currentEditObject);
             var propertyItem = propertyItem_1.createPropertyItem(propertyMetadata, this_1.currentEditObject);
             propertyItem.setOnSubmitFunction(function (from, to) {
@@ -149,7 +149,7 @@ var PropertyEditor = /** @class */ (function () {
         // 初始化各个属性编辑单项
         for (var _b = 0, _c = this.dataMetadata.propertyMetadatas; _b < _c.length; _b++) {
             var propertyMetadata = _c[_b];
-            _loop_1(propertyMetadata);
+            _loop_2(propertyMetadata);
         }
         // 添加按钮事件
         this.appendButton.onclick = function () {
@@ -233,10 +233,10 @@ var PropertyEditor = /** @class */ (function () {
         set: function (save) {
             this.hasSaved = save;
             if (this.hasSaved) {
-                menu.changeTitle('黑鹫引擎 Pro');
+                menu.changeTitle('黑鹰引擎 Pro');
             }
             else {
-                menu.changeTitle('黑鹫引擎 Pro - 尚未保存');
+                menu.changeTitle('黑鹰引擎 Pro - 尚未保存');
             }
         },
         enumerable: true,
@@ -364,7 +364,7 @@ if (webView) {
 // 初始化inspector
 var buttonGroup = document.getElementById('buttonGroup');
 if (buttonGroup) {
-    var _loop_2 = function (metadata) {
+    var _loop_1 = function (metadata) {
         var button_1 = document.createElement('button');
         button_1.innerText = metadata.title;
         buttonGroup.appendChild(button_1);
@@ -374,7 +374,7 @@ if (buttonGroup) {
     };
     for (var _i = 0, metadatas_1 = metadatas; _i < metadatas_1.length; _i++) {
         var metadata = metadatas_1[_i];
-        _loop_2(metadata);
+        _loop_1(metadata);
     }
 }
 var propertyEditor;
