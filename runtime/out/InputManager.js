@@ -50,31 +50,31 @@ var InputManager = /** @class */ (function (_super) {
     };
     InputManager.prototype.parse = function (code) {
         switch (code) {
-            case 76://L
+            case 76: //L
                 this.dispatchEvent('L', this.inputString);
                 break;
-            case 75://K
+            case 75: //K
                 this.dispatchEvent('K', this.inputString);
                 break;
-            case 73://I
+            case 73: //I
                 this.dispatchEvent('I', this.inputString);
                 break;
-            case 79://O
+            case 79: //O
                 this.dispatchEvent('O', this.inputString);
                 break;
-            case 8://BACK
+            case 8: //BACK
                 this.dispatchEvent('Back', this.inputString);
                 break;
-            case 13://Enter
+            case 13: //Enter
                 this.dispatchEvent('Enter', this.inputString);
                 break;
-            case 20://Caps Lock
+            case 20: //Caps Lock
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 9://Tab
+            case 9: //Tab
                 this.dispatchEvent('Caps Lock', this.inputString);
                 break;
-            case 27://ESC
+            case 27: //ESC
                 this.dispatchEvent('Esc', this.inputString);
                 break;
         }

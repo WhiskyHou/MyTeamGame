@@ -258,10 +258,12 @@ class TalkCommand extends Command {
                     console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log(`完成任务: ${mission.toString()}`);
+                        missionaudio.play();///
                         missionManager.submit(mission);
                     }
                     else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log(`接受任务：${mission.toString()}`);
+                        missionaudio.play();///
                         missionManager.accept(mission);
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);

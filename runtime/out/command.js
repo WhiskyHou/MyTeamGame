@@ -219,10 +219,12 @@ var TalkCommand = /** @class */ (function (_super) {
                     console.log(mission.status);
                     if (mission.status == MissionStatus.CAN_SUBMIT) {
                         console.log("\u5B8C\u6210\u4EFB\u52A1: " + mission.toString());
+                        missionaudio.play(); ///
                         missionManager.submit(mission);
                     }
                     else if (mission.status == MissionStatus.CAN_ACCEPT) {
                         console.log("\u63A5\u53D7\u4EFB\u52A1\uFF1A" + mission.toString());
+                        missionaudio.play(); ///
                         missionManager.accept(mission);
                         if (mission.type == 'talkWithNpc') {
                             player.talk(mission.talkTarget);
