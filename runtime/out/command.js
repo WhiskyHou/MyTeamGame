@@ -321,7 +321,7 @@ var FightCommand = /** @class */ (function (_super) {
         batManager.addEventListener(this.monster.id + 'enemyDie', function (enemy) {
             batteUIContainer.addChild(batEndUI);
             console.log("现在怪物所在地图ID" + _this.monster.nowMapID);
-            if (_this.monster.id == 24) { //狗策划
+            if (_this.monster.id == 24) {
                 batteUIContainer.addChild(gameWinUi);
                 setTimeout(function () {
                     mainaudio.end();

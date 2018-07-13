@@ -104,38 +104,36 @@ var GameMap = /** @class */ (function (_super) {
             var row = mapEquip[i];
             for (var j = 0; j < row.length; j++) {
                 var id = row[j];
-                if (id == KILL_DARGON_KNIFE) {
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
-                    var equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
-                    equipmentTiem.view = equipmentView;
-                    equipmentTiem.name = '屠龙刀';
-                    equipmentTiem.attack = 35;
-                    equipmentTiem.x = j;
-                    equipmentTiem.y = i;
-                    var key = j + '_' + i;
-                    this.equipmentConfig[key] = equipmentTiem;
-                    this.itemContainer.addChild(equipmentView);
-                }
-                else if (id == HP_BOTTLE) {
-                    // TODO
-                    var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
-                    var equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
-                    equipmentTiem.view = equipmentView;
-                    equipmentTiem.name = '扁鹊的药瓶';
-                    equipmentTiem.attack = 0;
-                    equipmentTiem.x = j;
-                    equipmentTiem.y = i;
-                    var key = j + '_' + i;
-                    this.equipmentConfig[key] = equipmentTiem;
-                    this.itemContainer.addChild(equipmentView);
-                }
-                else if (id == 1004) {
+                // if (id == KILL_DARGON_KNIFE) {
+                //     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, knife);
+                //     const equipmentTiem = new Equipment(1, '2', 3, 0, 5, 6, 7);
+                //     equipmentTiem.view = equipmentView;
+                //     equipmentTiem.name = '屠龙刀'
+                //     equipmentTiem.attack = 35;
+                //     equipmentTiem.x = j;
+                //     equipmentTiem.y = i;
+                //     const key = j + '_' + i;
+                //     this.equipmentConfig[key] = equipmentTiem;
+                //     this.itemContainer.addChild(equipmentView);
+                //     // } else if (id == HP_BOTTLE) {
+                //     //     // TODO
+                //     const equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, hp_bottle);
+                //     const equipmentTiem = new Equipment(1, '2', 3, 7, 5, 6, 7);
+                //     equipmentTiem.view = equipmentView;
+                //     equipmentTiem.name = '扁鹊的药瓶'
+                //     equipmentTiem.attack = 0;
+                //     equipmentTiem.x = j;
+                //     equipmentTiem.y = i;
+                //     const key = j + '_' + i;
+                //     this.equipmentConfig[key] = equipmentTiem;
+                //     this.itemContainer.addChild(equipmentView);
+                // }
+                // else 
+                if (id == 1004) {
                     var equipmentView = new Bitmap(TILE_SIZE * j, TILE_SIZE * i, caihuaBookImg);
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
-                    // equipmentTiem.name = '扁鹊的药瓶'
-                    // equipmentTiem.attack = 0;
                     equipmentTiem.x = j;
                     equipmentTiem.y = i;
                     var key = j + '_' + i;
@@ -147,8 +145,6 @@ var GameMap = /** @class */ (function (_super) {
                     var equip = equipManager.getEquipByID(id);
                     var equipmentTiem = new Equipment(id, equip.name, equip.quality, equip.posID, equip.health, equip.attack, equip.criticalPer);
                     equipmentTiem.view = equipmentView;
-                    // equipmentTiem.name = '扁鹊的药瓶'
-                    // equipmentTiem.attack = 0;
                     equipmentTiem.x = j;
                     equipmentTiem.y = i;
                     var key = j + '_' + i;
