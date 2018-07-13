@@ -40,7 +40,7 @@ var User = /** @class */ (function (_super) {
         _this._suitCriticalPer = 0;
         _this._needEXP = 20;
         // 以下测试用
-        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 0); //36558
+        var eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0); //36558
         var eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         var eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         var eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);

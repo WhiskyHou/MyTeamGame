@@ -40,7 +40,7 @@ class User extends EventDispatcher {
     constructor() {
         super();
         // 以下测试用
-        let eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 1000, 1000, 0);//36558
+        let eq0 = new Equipment(1, '一无是处的烂武器', 0, 0, 0, 0, 0);//36558
         let eq1 = new Equipment(2, '一无是处的烂衣服', 0, 1, 0, 0, 0);
         let eq2 = new Equipment(3, '一无是处的烂手表', 0, 2, 0, 0, 0);
         let eq3 = new Equipment(4, '一无是处的烂裤子', 0, 3, 0, 0, 0);
@@ -67,7 +67,7 @@ class User extends EventDispatcher {
         return this._level;
     }
     set level(level: number) {
-        if(level<20){
+        if (level < 20) {
             this._level = level;
             this.dispatchEvent('updateUserInfo', null);
         }
