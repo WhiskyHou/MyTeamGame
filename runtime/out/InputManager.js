@@ -19,6 +19,7 @@ var InputManager = /** @class */ (function (_super) {
         _this.inputString = "";
         _this.inputOver = false;
         _this.rechargeIsStart = false;
+        _this.oneTime = false;
         _this.addEventListener("inputStart", function (eventData) {
             console.log(eventData);
             _this.parse(eventData);
@@ -139,6 +140,9 @@ var InputManager = /** @class */ (function (_super) {
         });
         this.addEventListener('inputOver', function (eventData) {
             _this.inputString = "";
+            if (_this.rechargeIsStart) {
+                _this.oneTime = true;
+            }
         });
     };
     return InputManager;
