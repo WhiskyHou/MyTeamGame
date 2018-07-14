@@ -22,7 +22,7 @@ function initEditor(gameUrl) {
     // fs.writeFileSync(configFilepath, JSON.stringify(data, null, '\t', 'utf-8'));
 
     window = new BrowserWindow({ width: 1920, height: 1000 });
-    const editorUrl = 'file://' + __dirname + '/editor/mapEditor.html?gameUrl=' + encodeURIComponent(gameUrl);
+    const editorUrl = 'file://' + __dirname + '/editor/index.html?gameUrl=' + encodeURIComponent(gameUrl);
     window.loadURL(editorUrl);
     window.openDevTools();
 }
@@ -33,11 +33,24 @@ function initLauncher() {
 
     window = new BrowserWindow({ width: 800, height: 500 });
     window.loadURL('file://' + __dirname + '/launcher/index.html');
+    window.openDevTools()
 
     ipcMain.on('open', function (event, arg) {
         console.log(arg);
         initEditor(arg);
     })
+
+    ipcMain.on('openMap', function () {
+        console.log("ipcMain")
+        initMapEditor();
+    })
+}
+
+function initMapEditor() {
+    console.log(66677)
+    window = new BrowserWindow({ width: 1920, height: 1000 });
+    const editorUrl = 'file://' + __dirname + '/editor/mapEditor.html'
+    window.loadURL(editorUrl);
 }
 
 

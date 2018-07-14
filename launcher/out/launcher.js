@@ -5,7 +5,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
     result["default"] = mod;
     return result;
-}
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 var electron = require('electron');
@@ -89,6 +89,7 @@ if (openButton) {
     };
 }
 // 构建新建项目
+// TODO：新建项目初始化文件结构
 var createButton = document.getElementById('createProj');
 var projName = document.getElementById('projName');
 var projPath = document.getElementById('projPath');
@@ -109,5 +110,14 @@ if (createButton && projName && projPath) {
             fs.writeFileSync(configFilepath, JSON.stringify(data, null, '\t'));
             ipcRenderer.send('open', url);
         }
+    };
+}
+var mapButton = document.getElementById("mapEditorButton");
+console.log(mapButton);
+if (mapButton) {
+    console.log(111);
+    mapButton.onclick = function () {
+        console.log("click");
+        ipcRenderer.send('openMap');
     };
 }

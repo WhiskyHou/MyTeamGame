@@ -125,3 +125,14 @@ if (createButton && projName && projPath) {
         }
     }
 }
+
+
+const mapButton = document.getElementById("mapEditorButton")
+console.log(mapButton)
+if (mapButton) {
+    console.log(111)
+    mapButton.onclick = () => {
+        console.log("click")
+        ipcRenderer.send('openMap');
+    }
+}
