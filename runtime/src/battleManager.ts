@@ -137,7 +137,7 @@ class battleManager extends EventDispatcher {
             }
             let skillDamage = Math.floor(damage * 1.2);//吸星大法技能伤害系数为1.2，为恢复技能
             enemy.hp -= skillDamage;
-            this.dispatchEvent('enemyDealDamage', skillDamage);
+            this.dispatchEvent('playerDealDamage', skillDamage);
             this.dispatchEvent('enemyDealDamage', restore);
             if (enemy.hp <= 0 && enemy != null) {
                 this.dispatchEvent(enemy.id + 'enemyDie', enemy);//通过敌人精确判断收到事件的对象是否死亡
